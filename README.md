@@ -1,2 +1,2 @@
-# Eco
-A simulation game of nations.
+# eco
+It kinda sucks
