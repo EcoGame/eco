@@ -15,6 +15,9 @@ import org.lwjgl.opengl.DisplayMode;
 public class Main {
     
 	public static Random random = new Random();
+    public static final int fov = 90;
+	public static final int height = 620;
+	public static final int width = 854;
 	public static int year = 1;
 	public static int wheatPrice = 20;
     public static int oldtWheat = 0;
