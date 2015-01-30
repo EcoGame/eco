@@ -5,7 +5,7 @@ echo Compiling...
 javac -cp .:../lib/* src/**/*.java
 clear
 echo Compiled...
-cd ~/Desktop/eco/src
+cd ~/Documents/eco/src
 sleep 1
 echo Running…
 clear
