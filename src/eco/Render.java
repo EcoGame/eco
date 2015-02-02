@@ -95,7 +95,7 @@ public class Render {
 	
 	public static void initDisplay(){
 		try {
-			Display.setDisplayMode(new DisplayMode(Constants.width, Constants.height));
+			Display.setDisplayMode(new DisplayMode(Main.width, Main.height));
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
@@ -159,8 +159,8 @@ public class Render {
 	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		GLU.gluPerspective(Constants.fov / 2f, 
-						   Constants.width / Constants.height,
+		GLU.gluPerspective(Main.fov / 2f, 
+						   Main.width / Main.height,
 						   0.1f, 1000f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
