@@ -140,7 +140,6 @@ public class World {
 				validLocs.remove(loc);
 				increase--;
 			}
-			System.out.println(increase);
 			population = pop;
 			return increase;
 		}
@@ -189,7 +188,6 @@ public class World {
 				validLocs.remove(loc);
 				increase--;
 			}
-			System.out.println(increase);
 			farmers = farms;
 			return increase;
 		}
@@ -238,7 +236,6 @@ public class World {
 				validLocs.remove(loc);
 				increase--;
 			}
-			System.out.println(increase);
 			warriors = warrs;
 			return increase;
 		}
