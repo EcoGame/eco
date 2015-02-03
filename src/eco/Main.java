@@ -8,9 +8,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-//import phillip.renderengine.Render;
 //http://www222.pair.com/sjohn/blueroom/demog.htm
-// To run in Terminal: javac eco/Main.java && javac eco/Money.java && javac eco/Warrior.java && javac eco/Farmer.java && javac eco/Wheat.java
 
 public class Main {
     
@@ -23,9 +21,7 @@ public class Main {
     public static int oldtWheat = 0;
     public static int aggDemand;
     public static int oldaggDemand;
-	public static int acres = 1000;
-	public static int unemployedFarmers = 0;
-    public static int employedFarmers = 0;
+	public static int tAcres = 1000;
     public static float fBirthRate = 0.03f;
     public static float fDeathRate = 0.02f;
     public static float wBirthRate = 0.008f;
@@ -42,13 +38,16 @@ public class Main {
     public static void tick(){
         
     	for(int i = 1; i < 2000; i++){
+            
             year = i; //One tick is 1 year
         	int wPop = Warrior.wPop();
         	int fPop = Farmer.fPop();
             int tPop = wPop + fPop;
-            
+            int farmPacks = Wheat.farmPacks(tAcres);
+            int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, fPop);
+            int employedFarmers = Wheat.employedFarmers(fPop, unemployedFarmers);
             Warrior.wHunger(wPop);
-        	Wheat.tWheat(Farmer.fPop, acres, unemployedFarmers, employedFarmers);
+        	Wheat.tWheat(fPop, tAcres, employedFarmers);
             aggDemand = ((Farmer.fHunger * Farmer.fPop) + (Warrior.wHunger * Warrior.wPop));
         	wheatPrice = Market.wheatPrice(wheatPrice);
             int tMoney = Money.tMoney(Wheat.tWheat, Warrior.wHunger, Farmer.fHunger, wheatPrice);
@@ -58,10 +57,9 @@ public class Main {
             System.out.println("Price of wheat: " + wheatPrice);
         	System.out.println("Total number of Warriors: " + wPop);
             System.out.println("Total number of Farmers: " + fPop);
-            System.out.println("        Employed Farmers: " + employedFarmers);
             System.out.println("        Unemployed Farmers: " + unemployedFarmers);
+            System.out.println("        Employed Farmers: " + employedFarmers);
             System.out.println("Total Population: " + tPop);
-            //System.out.println("Agg Demand: " + aggDemand);
             System.out.println("Money in the Treasury: " + tMoney);
         	System.out.println("\n");
             oldaggDemand = aggDemand;
@@ -69,7 +67,7 @@ public class Main {
             
             //Render.drawString("yourmessage", 10, 10);
             tPop = Eco.tryToUpdatePop();
-            acres= Eco.tick(year);
+            tAcres= Eco.tick(year);
             
         }
     	Eco.simDone();
