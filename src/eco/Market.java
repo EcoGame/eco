@@ -11,7 +11,7 @@ public class Market {
             newPrice = pastPrice - Main.randInt(1,5);
             if(newPrice < 1){
                 newPrice = 1;
-                Render.drawString("Price is one!", 30, 10);
+                Render.drawString("Price is one!", 10, 100);
             }
         }
         return newPrice;
