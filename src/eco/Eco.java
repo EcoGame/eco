@@ -24,7 +24,7 @@ public class Eco {
           
         Render.draw();
         Render.drawString(String.valueOf(year), 10, 10);
-        Render.drawString(String.valueOf(Main.wheatPrice), 20, 10);
+        Render.drawString(String.valueOf(Main.wheatPrice), 10, 50);
         Display.update();
         Display.sync(60);
           
