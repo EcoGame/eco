@@ -38,6 +38,7 @@ public class Eco {
 	}
 	
 	public static void simDone(){
+		
 		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()){
 		
 			Render.draw();
