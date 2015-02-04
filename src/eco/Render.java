@@ -99,7 +99,7 @@ public class Render {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		Display.setTitle("Rendering Engine");
+		Display.setTitle("Eco");
 		try {
 			Display.create();
 		} catch (LWJGLException e) {
