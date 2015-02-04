@@ -11,12 +11,13 @@ public class Eco {
 	public static void init(){
         Render.initDisplay();
         Render.init();
-		World.updatePop(Farmer.fPop() + Warrior.wPop());
+	World.updatePop(Farmer.fPop() + Warrior.wPop());
         World.updateFarms(Farmer.fPop());
         World.updateWarriors(Warrior.wPop());
 	}
 	
 	public static int tick(int year){
+	
         Main.ioUpdate();
          
         Farmer.fPop -= World.updateFarms(Farmer.fPop);
@@ -27,8 +28,7 @@ public class Eco {
         Render.drawString(String.valueOf(Main.wheatPrice), 10, 50);
         Display.update();
         Display.sync(60);
-          
-  		
+        
         return World.calcAcres();
 		
 	}
@@ -38,8 +38,7 @@ public class Eco {
 	}
 	
 	public static void simDone(){
-		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) 
-				   && !Display.isCloseRequested()){
+		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()){
 		
 			Render.draw();
 			Main.ioUpdate();
