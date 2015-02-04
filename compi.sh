@@ -1,3 +1,4 @@
+reset
 echo Returning from the ashes to live another day…
 cd ~/Desktop/eco
 echo Compiling...
