@@ -49,6 +49,13 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import org.java.utils.BufferUtils;
+
 public class Render {
 	
 	public static float rot;
@@ -60,52 +67,24 @@ public class Render {
 	static TextureAtlas atlas;
 	static TrueTypeFont font;
 	
-	public static Treble<Float, Float, Float> grassColor = new Treble<Float, Float, Float>
-															(145f / 255f, 
-															236f / 255f,
-															16f / 255f);
-	
-	public static Treble<Float, Float, Float> waterColor = new Treble<Float, Float, Float>
-															(16f / 255f, 
-															175f / 255f,
-															236f / 255f);
-	
-	public static Treble<Float, Float, Float> sandColor = new Treble<Float, Float, Float>
-															(234f / 255f, 
-															222f / 255f,
-															173f / 255f);
-	
-	public static Treble<Float, Float, Float> stoneColor = new Treble<Float, Float, Float>
-															(141f / 255f, 
-															141f / 255f,
-															141f / 255f);
-	
-	public static Treble<Float, Float, Float> snowColor = new Treble<Float, Float, Float>
-	(242f / 255f, 
-	242f / 255f,
-	242f / 255f);
-	
-	public static Treble<Float, Float, Float> houseColor = new Treble<Float, Float, Float>
-	(193f / 255f, 
-	157f / 255f,
-	087f / 255f);
-	
 	public static final float tilesize = 0.2f;
-	
+
+	public static Camera camera = new Camera(-World.mapsize / 4f * tilesize, -2f, -World.mapsize / 4f * tilesize);
 	
 	public static void initDisplay(){
 		try {
-			Display.setDisplayMode(new DisplayMode(Main.width, Main.height));
+			Display.setDisplayMode(new DisplayMode(Constants.width, Constants.height));
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		Display.setTitle("Eco");
+		Display.setTitle("Rendering Engine");
 		try {
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 		Display.setVSyncEnabled(true);
+
 	}
 	
 	public static void init(){
@@ -159,8 +138,8 @@ public class Render {
 	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		GLU.gluPerspective(Main.fov / 2f, 
-						   Main.width / Main.height,
+		GLU.gluPerspective(Constants.fov / 2f, 
+						   Constants.width / Constants.height,
 						   0.1f, 1000f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -185,8 +164,15 @@ public class Render {
 	public static void draw(){
 		glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glRotatef(30f, 1.0f, 0.0f, 0.0f);
-		glTranslatef(x, y, z);
+		//glRotatef(30f, 1.0f, 0.0f, 0.0f);
+		//glTranslatef(x, y, z);
+		camera.look();
+
+		System.out.println("Pitch "+camera.pitch);
+		System.out.println("yaw "+camera.yaw);
+		System.out.println("x "+camera.position.x);
+		System.out.println("y "+camera.position.y);
+		System.out.println("z "+camera.position.z);
 		
 		atlas.texture.bind();
 		
@@ -200,10 +186,10 @@ public class Render {
 		for (int x = 0; x < mapsize; x++){
 			for (int y = 0; y < mapsize; y++){
 				if (World.structures[x][y] == 1){
-					drawStructure(-x * tilesize, -y * tilesize, 4);
+					drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 4);
 				}
 				if (World.structures[x][y] == 2){
-					drawStructure(-x * tilesize, -y * tilesize, 5);
+					drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 5);
 				}
 				if (World.map[x][y] == 0){
 					drawTile(-x * tilesize, -y * tilesize, 0);
