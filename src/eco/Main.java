@@ -99,7 +99,7 @@ public class Main {
     
     public static void ioUpdate(){
         
-		if (Keyboard.isKeyDown(Keyboard.KEY_R)){
+if (Keyboard.isKeyDown(Keyboard.KEY_R)){
 			Render.rot -= 0.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)){
@@ -107,21 +107,27 @@ public class Main {
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)){
 			Render.z += 0.1f;
+			Render.camera.moveForward(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
 			Render.x -= 0.1f;
+			Render.camera.moveRight(0.1f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)){
 			Render.z -= 0.1f;
+			Render.camera.moveBack(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)){
 			Render.x += 0.1f;
+			Render.camera.moveLeft(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_Z)){
-			Render.y += 0.1f;
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+			//Render.y += 0.01f;
+			Render.camera.moveDown(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_Q)){
-			Render.y -= 0.1f;
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
+			//Render.y -= 0.01f;
+			Render.camera.moveUp(0.1f);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)){
 			World.messages.add(new Message("dank messages", 10, 10, 300));
