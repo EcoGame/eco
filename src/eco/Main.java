@@ -73,7 +73,8 @@ public class Main {
     	Eco.simDone();
     }
 	
-    public static void init(){ //Initializes the simulation
+    public static void init() {
+        
     	Money.tMoney = 500;
 		Wheat.tWheat = 10;
         Warrior.wPop();
@@ -85,13 +86,13 @@ public class Main {
 	
 	}
     
-	public static int randInt(int max){ //Returns a random number below max.
+	public static int randInt(int max) { //Returns a random number below max.
 	
         return random.nextInt(max);
 		
 	}
     
-    public static int randInt(int min, int max){ //Returns a random number between min and max.
+    public static int randInt(int min, int max) { //Returns a random number between min and max.
         
         return min + random.nextInt((max + 1)- min);
 		
@@ -99,38 +100,38 @@ public class Main {
     
     public static void ioUpdate(){
         
-if (Keyboard.isKeyDown(Keyboard.KEY_R)){
+        if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
 			Render.rot -= 0.5f;
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
 			Render.rot += 0.5f;
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			Render.z += 0.1f;
 			Render.camera.moveForward(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			Render.x -= 0.1f;
 			Render.camera.moveRight(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_S)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			Render.z -= 0.1f;
 			Render.camera.moveBack(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			Render.x += 0.1f;
 			Render.camera.moveLeft(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
 			//Render.y += 0.01f;
 			Render.camera.moveDown(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
 			//Render.y -= 0.01f;
 			Render.camera.moveUp(0.1f);
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_O)){
-			World.messages.add(new Message("dank messages", 10, 10, 300));
+		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
+			World.messages.add(new Message("messages", 10, 10, 300));
 		}
 		
 	}
