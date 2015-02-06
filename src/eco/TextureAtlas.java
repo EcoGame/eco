@@ -9,11 +9,11 @@ public class TextureAtlas {
 	public int textureRes = 8;
 	public int size = 4;
 	
-	public TextureAtlas(Texture texture){
+	public TextureAtlas(Texture texture) {
 		this.texture = texture;
 	}
 	
-	public float getXCoord(int pos, boolean increase){
+	public float getXCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
 		if (increase){
 			pixelPos += textureRes;
@@ -21,7 +21,7 @@ public class TextureAtlas {
 		return (float) pixelPos / (float) (textureRes * size);
 	}
 	
-	public float getYCoord(int pos, boolean increase){
+	public float getYCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
 		if (increase){
 			pixelPos += textureRes;
@@ -29,7 +29,7 @@ public class TextureAtlas {
 		return (float) pixelPos / (float) (textureRes * size);
 	}
 	
-	public float getCoord(int pos, boolean increase){
+	public float getCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
 		if (increase){
 			pixelPos += textureRes;
@@ -37,7 +37,7 @@ public class TextureAtlas {
 		return (float) pixelPos / (float) (textureRes * size);
 	}
 	
-	public Texture getTexture(){
+	public Texture getTexture() {
 		return texture;
 	}
 
