@@ -16,16 +16,16 @@ public class Main {
     public static final int fov = 90;
 	public static final int height = 620;
 	public static final int width = 854;
-	public static int year = 1;
-	public static int wheatPrice = 20;
-    public static int oldtWheat = 0;
-    public static int aggDemand;
-    public static int oldaggDemand;
-	public static int tAcres = 1000;
-    public static float fBirthRate = 0.03f;
-    public static float fDeathRate = 0.02f;
-    public static float wBirthRate = 0.008f;
-    public static float wDeathRate = 0.002f;
+	public static volatile int year = 1;
+	public static volatile int wheatPrice = 20;
+    public static volatile int oldtWheat = 0;
+    public static volatile int aggDemand;
+    public static volatile int oldaggDemand;
+	public volatile static int tAcres = 1000;
+    public static volatile float fBirthRate = 0.03f;
+    public static volatile float fDeathRate = 0.02f;
+    public static volatile float wBirthRate = 0.008f;
+    public static volatile float wDeathRate = 0.002f;
     
 	public static void main(String[] args) {
         
