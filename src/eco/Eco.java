@@ -8,15 +8,15 @@ import eco.Warrior;
 
 public class Eco {
 	
-	public static void init(){
+	public static void init() {
         Render.initDisplay();
         Render.init();
-	World.updatePop(Farmer.fPop() + Warrior.wPop());
+        World.updatePop(Farmer.fPop() + Warrior.wPop());
         World.updateFarms(Farmer.fPop());
         World.updateWarriors(Warrior.wPop());
 	}
 	
-	public static int tick(int year){
+	public static int tick(int year) {
 	
         Main.ioUpdate();
          
@@ -33,14 +33,13 @@ public class Eco {
 		
 	}
 	
-	public static int tryToUpdatePop(){
+	public static int tryToUpdatePop() {
     	return World.updatePop(Farmer.fPop + Warrior.wPop);
 	}
 	
-	public static void simDone(){
+	public static void simDone() {
 		
-		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()){
-		
+		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()) {
 			Render.draw();
 			Main.ioUpdate();
 			Display.update();
