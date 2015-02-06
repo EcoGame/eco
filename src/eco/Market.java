@@ -1,13 +1,15 @@
 package eco; 
 
 public class Market {
-    public static int wheatPrice(int pastPrice){
+    
+    public static int wheatPrice(int pastPrice) {
+        
         int newPrice = 1;
         int chance = (Main.randInt(0,100));
-        if(chance > 50){
+        if(chance > 50) {
             newPrice = pastPrice + Main.randInt(1,5);
         }
-        else{
+        else {
             newPrice = pastPrice - Main.randInt(1,5);
             if(newPrice < 1){
                 newPrice = 1;
@@ -15,7 +17,9 @@ public class Market {
             }
         }
         return newPrice;
-        
+    }
+}
+
     /*
     // Old Market
 	public static double wheatPrice(int oldtWheat, int tWheat, int oldaggDemand, int aggDemand,double pastPrice){
@@ -43,7 +47,3 @@ public class Market {
         return newPrice;
     }
     */
-        
-    }
-
-}
