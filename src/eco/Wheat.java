@@ -1,6 +1,6 @@
 package eco;
 
-public class Wheat{
+public class Wheat {
 
     public static int tWheat;
     public static int wheatPrice;
