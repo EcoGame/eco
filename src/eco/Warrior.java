@@ -8,7 +8,7 @@ public class Warrior {
     public static int wHunger;
     public static float rate = wPop;
     
-    public static int wHunger(int wPop){
+    public static int wHunger(int wPop) {
         
         //wHunger = (Main.randInt(10,12));
         wHunger = 11;
@@ -18,7 +18,7 @@ public class Warrior {
     
     public static int wPop() {
         
-        if(Wheat.tWheat < (wHunger * wPop)){
+        if(Wheat.tWheat < (wHunger * wPop)) {
             
             wPop = Wheat.tWheat/wHunger;
             Wheat.tWheat = Wheat.tWheat - (wHunger * wPop);
