@@ -75,14 +75,16 @@ public class Main {
 	
     public static void init() {
         
+        Eco.init();
     	Money.tMoney = 500;
 		Wheat.tWheat = 10;
         Warrior.wPop();
         Warrior.wHunger(Warrior.wPop);
         Farmer.fPop();
         Farmer.fHunger(Farmer.fPop);
+        Util.readSave();
         
-        Eco.init();
+        
 	
 	}
     
