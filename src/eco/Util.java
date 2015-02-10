@@ -21,8 +21,11 @@ public class Util {
 		tWheat	
 	
 	*/
-
-	 public static void readSave(){
+    public static void createSave(){
+        
+    }
+    
+    public static void readSave(){
          String path = "../save.txt";
          Scanner s = null;
          try {
@@ -68,14 +71,14 @@ public class Util {
          return;
      }
     
-	public static void readError(){
+    public static void readError(){
 		World.messages.add(new Message("------------------------------------------", 100, 100, 300));
 	 	World.messages.add(new Message("Failed to load save!", 100, 130, 300));
 	 	World.messages.add(new Message("The file either disappeared or is corrupt!", 100, 160, 300));
 	 	World.messages.add(new Message("------------------------------------------", 100, 190, 300));
 	}
     
-	public static void readSuccess(){
+    public static void readSuccess(){
 		World.messages.add(new Message("----------------------------------", 100, 100, 300));
 	 	World.messages.add(new Message("Loaded game state from save file!", 100, 130, 300));
 	 	World.messages.add(new Message("----------------------------------", 100, 160, 300));
