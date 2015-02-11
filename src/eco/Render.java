@@ -164,12 +164,6 @@ public class Render {
 		//glRotatef(30f, 1.0f, 0.0f, 0.0f);
 		//glTranslatef(x, y, z);
 		camera.look();
-
-		System.out.println("Pitch "+camera.pitch);
-		System.out.println("yaw "+camera.yaw);
-		System.out.println("x "+camera.position.x);
-		System.out.println("y "+camera.position.y);
-		System.out.println("z "+camera.position.z);
 		
 		atlas.texture.bind();
 		
