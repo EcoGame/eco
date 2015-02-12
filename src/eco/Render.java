@@ -68,7 +68,13 @@ public class Render {
 	
 	public static final float tilesize = 0.2f;
 
+	public static volatile boolean mesh = false;
+
 	public static Camera camera = new Camera(-World.mapsize / 4f * tilesize, -2f, -World.mapsize / 4f * tilesize);
+
+	public static volatile int vertex_handle;
+	public static volatile int texture_handle;
+	public static volatile int buffersize;
 	
 	public static void initDisplay(){
 		try {
@@ -76,7 +82,7 @@ public class Render {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		Display.setTitle("Eco");
+		Display.setTitle("Rendering Engine");
 		try {
 			Display.create();
 		} catch (LWJGLException e) {
@@ -86,13 +92,13 @@ public class Render {
 
 	}
 	
-	public static void init() {
+	public static void init(){
 	
 		//mapseed = System.currentTimeMillis();
 		
 		World.generate();
 		
-		while (!World.isValid()) {
+		while (!World.isValid()){
 			World.generate();
 		}
 		
@@ -127,14 +133,14 @@ public class Render {
 	         
 	        Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 	        awtFont = awtFont.deriveFont(24f); // set font size
-	        font = new TrueTypeFont(awtFont, false);
+	        font = new TrueTypeFont(awtFont, true);
 	             
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }   
 	}
 	
-	public static void initFrustrum() {
+	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		GLU.gluPerspective(Main.fov / 2f, Main.width / Main.height, 0.1f, 1000f);
@@ -146,7 +152,7 @@ public class Render {
 		glEnable(GL_BLEND);
 	}
 	
-	public static void initOrtho() {
+	public static void initOrtho(){
 		glClearDepth(1);
 		glViewport(0,0,Display.getWidth(), Display.getHeight());
 		glMatrixMode(GL_MODELVIEW);
@@ -158,7 +164,7 @@ public class Render {
 		//GL11.glClearColor(0.5f, 0.5f, 0.5f, 1);
 	}
 	
-	public static void draw() {
+	public static void draw(){
 		glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		//glRotatef(30f, 1.0f, 0.0f, 0.0f);
@@ -174,9 +180,10 @@ public class Render {
 		glRotatef(rot, 0.0f, 1.0f, 0.0f);
 		glTranslatef(offset, 0f, offset);
 
-		for (int x = 0; x < mapsize; x++) {
-			for (int y = 0; y < mapsize; y++) {
-				if (World.structures[x][y] == 1) {
+
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (World.structures[x][y] == 1){
 					drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 4);
 				}
 				if (World.structures[x][y] == 2){
@@ -194,21 +201,22 @@ public class Render {
 			}
 		}
 		
-		for (Message message : World.messages) {
-			if (message.time > 0) {
+		for (Message message : World.messages){
+			if (message.time > 0){
 				message.time--;
 				drawString(message.message, message.x, message.y);
 			}
 		}
 		
-		for (int i = 0; i < World.messages.size(); i++) {
+		for (int i = 0; i < World.messages.size(); i++){
 			if (World.messages.get(i).time <= 0){
 				World.messages.remove(i);
 			}
 		}
 	}
 	
-	public static void drawTile(float x, float z, Treble<Float, Float, Float> color) {
+	public static void drawTile(float x, float z, Treble<Float, Float, Float> color){
+		
 		
 		glColor3f(color.x, color.y, color.z);
 		glBegin(GL_QUADS);
@@ -220,7 +228,7 @@ public class Render {
 		glColor3f(1f, 1f, 1f);
 	}
 	
-	public static void drawTile(float x, float z, int texpos) {
+	public static void drawTile(float x, float z, int texpos){
 		
 		int tex = texpos % 4;
 		int tey = texpos / 4;
@@ -239,7 +247,7 @@ public class Render {
 		glColor3f(1.0f, 1.0f, 1.0f);
 	}
 	
-	public static void drawStructure(float x, float z, int texpos) {
+	public static void drawStructure(float x, float z, int texpos){
 		glPushMatrix();
 		
 		float offset = (tilesize / 2);
@@ -265,10 +273,12 @@ public class Render {
 		glPopMatrix();
 	}
 	
-	public static void drawString(String message, float x, float y) {
+	public static void drawString(String message, float x, float y){
 		initOrtho();
 		font.drawString(x, y, message);
 		initFrustrum();
 	}
+	
+
 
 }
