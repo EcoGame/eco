@@ -11,17 +11,17 @@ public class Eco {
 	public static void init() {
         Render.initDisplay();
         Render.init();
-        World.updatePop(Farmer.fPop() + Warrior.wPop());
-        World.updateFarms(Farmer.fPop());
-        World.updateWarriors(Warrior.wPop());
+		World.updatePop(popManger.tPop);
+        World.updateFarms(popManger.fPopulation);
+        World.updateWarriors(popManger.wPopulation);
 	}
 	
 	public static int tick(int year) {
 	
         Main.ioUpdate();
          
-        Farmer.fPop -= World.updateFarms(Farmer.fPop);
-        Warrior.wPop -= World.updateWarriors(Warrior.wPop);
+        popManger.fPopulation -= World.updateFarms(popManger.fPopulation);
+        popManger.wPopulation -= World.updateWarriors(popManger.wPopulation);
           
         Render.draw();
         Render.drawString(String.valueOf(year), 10, 10);
@@ -34,7 +34,7 @@ public class Eco {
 	}
 	
 	public static int tryToUpdatePop() {
-    	return World.updatePop(Farmer.fPop + Warrior.wPop);
+			return World.updatePop(popManger.fPopulation + popManger.wPopulation);
 	}
 	
 	public static void simDone() {
