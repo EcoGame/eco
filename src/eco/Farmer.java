@@ -4,29 +4,26 @@ public class Farmer {
     
     public static int fPop = 5;
     public static int fHunger;
-    public static float rate = fPop;
     
-    public static int fHunger(int fPop) {
+    
+    public static int fHunger(int p){
+        int x = 0;
+        x = p*11;
+        return x;
+    }
+    
+    public static int fPop(float y) { //Returns the number of farmers in
+        int k= 0;
+        float x= 0;
+        x = y;
         
-        //fHunger = (Main.randInt(8,10));
-        fHunger = 9;
-        return fHunger;
+        x = ((x) * (1 + Main.wBirthRate - Main.wDeathRate));
+        System.out.println("Farmer pops " + x);
+        
+        k = (int)(Math.ceil(x));
+        
+        return k;
         
     }
     
-    public static int fPop() {
-        
-        if(Wheat.tWheat < (fHunger * fPop)){
-            fPop = Wheat.tWheat/fHunger;
-            Wheat.tWheat = Wheat.tWheat - (fHunger * fPop);
-            if(Wheat.tWheat < 0) {
-                Wheat.tWheat = 0;
-            }
-        }
-        rate = (rate * (1 + Main.fBirthRate - Main.fDeathRate));
-		fPop = (int)(rate);
-	    return fPop;
-        
-    }
-
 }

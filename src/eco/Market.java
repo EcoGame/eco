@@ -48,7 +48,7 @@ public class Market {
         //World.messages.add(new Message("" + year, (x - shift), (y - shift - 40), 1));
         
 
-        pop[74] = Warrior.wPop + Farmer.fPop;
+        pop[74] = popManger.wPopulation + popManger.fPopulation;
         for(int i=0; i<pop.length; i++){
             	World.messages.add(new Message("\u25A0 .", (x - 80 - shift) + i, (y - shift) - (pop[i]), 1));
          }

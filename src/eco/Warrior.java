@@ -4,34 +4,32 @@ import java.util.Random;
 
 public class Warrior {
     
-    public static int wPop = 5;
+    //  public static int wPop = 5;
     public static int wHunger;
-    public static float rate = wPop;
+    // public static float rate = wPop;
     
-    public static int wHunger(int wPop) {
+    
+    public static int wPop(float y) {
+        float x;
+        int k;
+        x = y;
         
-        //wHunger = (Main.randInt(10,12));
-        wHunger = 11;
-        return wHunger;
+        x = ((x) * (1 + Main.wBirthRate - Main.wDeathRate));
+        System.out.println("Warrior pops " + x);
+        
+        k = (int)(Math.ceil(x));
+        
+        return k;
+        
         
     }
     
-    public static int wPop() {
+    public static int wHunger(int p){
         
-        if(Wheat.tWheat < (wHunger * wPop)) {
-            
-            wPop = Wheat.tWheat/wHunger;
-            Wheat.tWheat = Wheat.tWheat - (wHunger * wPop);
-            if(Wheat.tWheat < 0)
-                Wheat.tWheat = 0;
-            
-        }
-        
-        rate = (rate * (1 + Main.wBirthRate - Main.wDeathRate));
-		wPop = (int)(rate);
-	    return wPop;
-        
+        int x = 0;
+        x = p*11;
+        return x;
         
     }
-	
+    
 }
