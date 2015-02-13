@@ -5,113 +5,115 @@ public class popMethods {
 		//public static int[] unfilledpops = new int[1000];
 
 		public static void scanPops(){
-					// System.out.println("efa");
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
-
-						if((Main.popArray[x].people < 100)&& (Main.popArray[x].isUsed == true )){
-								y= 100- Main.popArray[x].people;
-								Main.unfilledpops[x] = y;
-							//	System.out.println(Main.popArray[x].isFarmer);
-													//	System.out.println(y);
-														//System.out.println("Wdfe");
-						}
-										x++;
-				}
+            // System.out.println("efa");
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x){
+                if((Main.popArray[x].people < 100)&& (Main.popArray[x].isUsed == true )){
+                    
+                    y= 100- Main.popArray[x].people;
+                    Main.unfilledpops[x] = y;
+                    //	System.out.println(Main.popArray[x].isFarmer);
+                    //	System.out.println(y);
+                    //System.out.println("Wdfe");
+                    
+                }
+                x++;
+            }
 		}
 
 		public static void unusedAcresFarmersAssignment(){
-				int x = 0;
-				int y = 0;
-				//int[][] unemployedfarmersArray = new int[1000][200];// put this is in main
-					//	System.out.println(x);
-				while((Main.popArray.length > x) && (Main.unusedacres > 5)){
-						if((Main.popArray[x].acres < 500) && (Main.popArray[x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[x].isUsed == true ){
-									if(Main.unusedacres < 500){
-										y = Main.unusedacres;
-										Main.unusedacres = 0;
-									} else{
-										y = 500;
-										Main.unusedacres = Main.unusedacres - 500;
-									}
-										Main.popArray[x].acres = Main.popArray[x].acres + y;
-										y = 0;
-													//System.out.println("fsdf");
-						}
-										x++;
-									//	System.out.println(x);
-
-				}
-					// System.out.println("efsf");
+            
+            int x = 0;
+            int y = 0;
+            //int[][] unemployedfarmersArray = new int[1000][200];// put this is in main
+            //	System.out.println(x);
+            while((Main.popArray.length > x) && (Main.unusedacres > 5)){
+                if((Main.popArray[x].acres < 500) && (Main.popArray[x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[x].isUsed == true ){
+                    if(Main.unusedacres < 500){
+                        y = Main.unusedacres;
+                        Main.unusedacres = 0;
+                    }
+                    else {
+                        y = 500;
+                        Main.unusedacres = Main.unusedacres - 500;
+                    }
+                    Main.popArray[x].acres = Main.popArray[x].acres + y;
+                    y = 0;
+                    //System.out.println("fsdf");
+                }
+                x++;
+                //	System.out.println(x);
+            }
+            // System.out.println("efsf");
 		}
 
 		public static void popAssigner(){
 
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
-						if((Main.popArray[x].people < 100)&&(Main.unusedpops > 0) && (Main.popArray[x].isUsed == true)) {
-														//System.out.println("Kek");
-								y = Main.unfilledpops[x];
-														if(Main.unusedpops < y){
-													//			System.out.println("Tres");
-																Main.popArray[x].people = Main.popArray[x].people + Main.unusedpops;
-																Main.unusedpops = 0;
-
-														}else{
-								Main.unusedpops = Main.unusedpops - y;
-										Main.popArray[x].people = Main.popArray[x].people + y;}
-										Main.unfilledpops[x] = 0;
-										y = 0;
-						}
-										x++;
-				}
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x){
+                if((Main.popArray[x].people < 100)&&(Main.unusedpops > 0) && (Main.popArray[x].isUsed == true)) {
+                    //System.out.println("Kek");
+                    y = Main.unfilledpops[x];
+                    if(Main.unusedpops < y){
+                        //			System.out.println("Tres");
+                        Main.popArray[x].people = Main.popArray[x].people + Main.unusedpops;
+                        Main.unusedpops = 0;
+                    }
+                    else {
+                        
+                        Main.unusedpops = Main.unusedpops - y;
+                        Main.popArray[x].people = Main.popArray[x].people + y;}
+                        Main.unfilledpops[x] = 0;
+                        y = 0;
+                }
+                x++;
+            }
 		}
 
 		public static int farmertotal(){
 
 				int x = 0;
 				int y = 0;
-				while(Main.popArray.length > x){
-			if(Main.popArray[x].isFarmer == true){
-				y = y +Main.popArray[x].people;
+				while(Main.popArray.length > x) {
+                    if(Main.popArray[x].isFarmer == true) {
+                        y = y +Main.popArray[x].people;
 						//		System.out.println("kejk" +y);
-			}
-										x++;
-		}
-		return y;
-
-		}
-
-		public static int warriortotal(){
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
-			if(Main.popArray[x].isWarrior == true){
-				y = y + Main.popArray[x].people;
-			}
-										x++;
-		}
-		return y;
+                    }
+                    x++;
+                }
+            return y;
 		}
 
-		public static int unemployedFarmerspops(){
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
-
-						y = y +Main.popArray[x].unemployedfarmers;
-										x++;
+		public static int warriortotal() {
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x) {
+                if(Main.popArray[x].isWarrior == true) {
+                    y = y + Main.popArray[x].people;
+                }
+                x++;
+            }
+            return y;
 		}
 
-		return y;
+		public static int unemployedFarmerspops() {
+            
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x) {
+                y = y +Main.popArray[x].unemployedfarmers;
+                x++;
+            }
+            return y;
 		}
 
-		public static int employedFarmerspops(){
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
+		public static int employedFarmerspops() {
+				
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x){
 
 						y = y +Main.popArray[x].employedfarmers;
 										x++;
@@ -119,59 +121,59 @@ public class popMethods {
 		return y;
 		}
 
-		public static int usedacres(){
-
-				int x = 0;
-				int y = 0;
-				while(Main.popArray.length > x){
-						y = y +Main.popArray[x].acres;
-										x++;
-
-		}
-		return y;
+		public static int usedacres() {
+            int x = 0;
+            int y = 0;
+            while(Main.popArray.length > x){
+                y = y +Main.popArray[x].acres;
+                x++;
+            }
+            return y;
 		}
 
-		public static void consumecyclewarrior(){
-				//food
-				int x = 0;
-				int y = 0;
-				int p = 0;
-				while(Main.popArray.length > x){
-						if(Main.popArray[x].isWarrior == true){
-								y =	Warrior.wHunger(Main.popArray[x].people);
-								Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*100);
-								Main.uneatenwheat = Main.uneatenwheat - y;
-						}
-						x++;
-				}
+		public static void consumecyclewarrior() {
+            //food
+            int x = 0;
+            int y = 0;
+            int p = 0;
+            while(Main.popArray.length > x) {
+                if(Main.popArray[x].isWarrior == true){
+                    y =	Warrior.wHunger(Main.popArray[x].people);
+                    Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*100);
+                    Main.uneatenwheat = Main.uneatenwheat - y;
+                }
+                x++;
+            }
 		}
 
-		public static void farmerconsumecycle(){
-				int x = 0;
-				int y =0;
-				int k = 0;
-				int r = 0;
-				int w = 0;
-				int h = 0;
+		public static void farmerconsumecycle() {
+            
+            int x = 0;
+            int y =0;
+            int k = 0;
+            int r = 0;
+            int w = 0;
+            int h = 0;
 			//	System.out.println("here1");
-				while(Main.popArray.length > x){
-						if(Main.popArray[x].isFarmer == true){
-								y = Wheat.farmPacks(Main.popArray[x].acres);
-								k =	Wheat.unemployedFarmers(y, Main.popArray[x].people);
-								r = Wheat.employedFarmers(Main.popArray[x].people,k);
-								w = Wheat.tWheat(r);
-								h = Farmer.fHunger(Main.popArray[x].people);
-				Main.uneatenwheat = Main.uneatenwheat + (w-h);
-				Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*w);
-			//	System.out.println(Main.popArray[x].groupmoney+ "kel");
-						}
-						x++;
-				}
+            while(Main.popArray.length > x){
+                if(Main.popArray[x].isFarmer == true){
+                    y = Wheat.farmPacks(Main.popArray[x].acres);
+                    k =	Wheat.unemployedFarmers(y, Main.popArray[x].people);
+                    r = Wheat.employedFarmers(Main.popArray[x].people,k);
+                    w = Wheat.tWheat(r);
+                    h = Farmer.fHunger(Main.popArray[x].people);
+                    Main.uneatenwheat = Main.uneatenwheat + (w-h);
+                    Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*w);
+                    //	System.out.println(Main.popArray[x].groupmoney+ "kel");
+                }
+                x++;
+            }
 		}
 
 
 
 		public static void popBuilder(int prefrence){
+            
 				boolean iscomplete = false;
 				int x = 0;
 				int y = 0;
