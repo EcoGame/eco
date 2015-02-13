@@ -11,7 +11,7 @@ import org.lwjgl.opengl.DisplayMode;
 //http://www222.pair.com/sjohn/blueroom/demog.htm
 
 public class Main {
-    
+
     public static Random random = new Random();
     public static final int fov = 90;
 	public static final int height = 620;
@@ -33,17 +33,17 @@ public class Main {
     public static int uneatenwheat = 0;
     public static int unusedarray = 2;
     public static int unusedacres = 0;
-    
+
 	public static void main(String[] args) {
-        
+
 		System.out.println("Welcome to EcoLand!");
         init();
         tick();
-        
+
 	}
-    
+
     public static void tick(){
-        
+
         //  System.out.println("TOCK");
         int x = 0;
         for(int i = 1; i < 2000; i++){
@@ -59,8 +59,8 @@ public class Main {
              Wheat.tWheat(fPop, tAcres, employedFarmers);
              aggDemand = ((Farmer.fHunger * Farmer.fPop) + (Warrior.wHunger * Warrior.wPop));*/
             wheatPrice = Market.wheatPrice(wheatPrice);
-            
-            
+
+
             int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
             System.out.println("Year: " + year);
             System.out.println("Wheat Produced this year: " + uneatenwheat);
@@ -76,38 +76,38 @@ public class Main {
             System.out.println("\n");
             oldaggDemand = aggDemand;
             oldtWheat = Wheat.tWheat;
-            
+
             //Render.drawString("yourmessage", 10, 10);
             popManger.tPop = Eco.tryToUpdatePop();
-            //		tAcres= Eco.tick(year);
-            
+            	tAcres= Eco.tick(year);
+
         }
         Eco.simDone();
     }
 
-	
+
     public static void init() {
-        
+
         Eco.init();
         Util.readSave();
         popManger.initpops();
-	
+
 	}
-    
+
 	public static int randInt(int max) { //Returns a random number below max.
-	
+
         return random.nextInt(max);
-		
+
 	}
-    
+
     public static int randInt(int min, int max) { //Returns a random number between min and max.
-        
+
         return min + random.nextInt((max + 1)- min);
-		
+
 	}
-    
+
     public static void ioUpdate(){
-        
+
         if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
 			Render.rot -= 0.5f;
 		}
@@ -141,7 +141,7 @@ public class Main {
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			World.messages.add(new Message("messages", 10, 10, 300));
 		}
-		
+
 	}
 
 }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Util {
 
 	/*
-	Lines of the save file:	
+	Lines of the save file:
 		wPop
 		fPop
 		tAcres
@@ -18,13 +18,13 @@ public class Util {
 		unemployedFarmers
 		tMoney
 		wheatPrice
-		tWheat	
-	
+		tWheat
+
 	*/
     public static void createSave(){
-        
+
     }
-    
+
     public static void readSave(){
          String path = "../saves/save.txt";
          Scanner s = null;
@@ -49,39 +49,39 @@ public class Util {
             for (String str : list){
             str = str.replace(System.getProperty("line.separator"), "");
             }
-             Warrior.wPop = Integer.valueOf(list.get(0));
+             popManger.wPopulation = Integer.valueOf(list.get(0));
              //System.out.println(Warrior.wPop);
-             Farmer.fPop = Integer.valueOf(list.get(1));
+             popManger.fPopulation = Integer.valueOf(list.get(1));
              //System.out.println(Farmer.fPop);
              Main.tAcres = Integer.valueOf(list.get(2));
              //System.out.println(Main.tAcres);
-             Wheat.employedFarmers = Integer.valueOf(list.get(3));
+          //   Wheat.employedFarmers = Integer.valueOf(list.get(3));
              //System.out.println(Wheat.employedFarmers);
-             Wheat.unemployedFarmers = Integer.valueOf(list.get(4));
+            // Wheat.unemployedFarmers = Integer.valueOf(list.get(4));
              //System.out.println(Wheat.unemployedFarmers);
              Money.tMoney = Integer.valueOf(list.get(5));
              //System.out.println(Money.tMoney);
              Main.wheatPrice = Integer.valueOf(list.get(6));
              //System.out.println(Main.wheatPrice);
-             Wheat.tWheat = Integer.valueOf(list.get(7));
+             Main.uneatenwheat = Integer.valueOf(list.get(7));
              readSuccess();
          } catch(Exception e){
              readError();
          }
          return;
      }
-    
+
     public static void readError(){
 		World.messages.add(new Message("------------------------------------------", 100, 100, 300));
 	 	World.messages.add(new Message("Failed to load save!", 100, 130, 300));
 	 	World.messages.add(new Message("The file either disappeared or is corrupt!", 100, 160, 300));
 	 	World.messages.add(new Message("------------------------------------------", 100, 190, 300));
 	}
-    
+
     public static void readSuccess(){
 		World.messages.add(new Message("----------------------------------", 100, 100, 300));
 	 	World.messages.add(new Message("Loaded game state from save file!", 100, 130, 300));
 	 	World.messages.add(new Message("----------------------------------", 100, 160, 300));
 	}
-	 
+
 }
