@@ -19,8 +19,6 @@ public class Main {
 	public static volatile int year = 1;
 	public static volatile int wheatPrice = 20;
     public static volatile int oldtWheat = 0;
-    public static volatile int aggDemand;
-    public static volatile int oldaggDemand;
 	public volatile static int tAcres = 1000;
     public static volatile float fBirthRate = 0.03f;
     public static volatile float fDeathRate = 0.02f;
@@ -33,6 +31,7 @@ public class Main {
     public static int uneatenwheat = 0;
     public static int unusedarray = 2;
     public static int unusedacres = 0;
+    public static int aggDemand;
 
 	public static void main(String[] args) {
 
@@ -45,22 +44,17 @@ public class Main {
     public static void tick(){
 
         //  System.out.println("TOCK");
-        int x = 0;
-        for(int i = 1; i < 2000; i++){
-            //x = unusedacres;
+        for(int i = 1; i < 2000; i++) {
             year = i; //One tick is 1 year
-            //unusedacres= tAcres - x;
             popManger.popController();
-            // System.out.println("tres");
-            /*int farmPacks = Wheat.farmPacks(tAcres);
-             int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, fPop);
-             int employedFarmers = Wheat.employedFarmers(fPop, unemployedFarmers);
-             Warrior.wHunger(wPop);
-             Wheat.tWheat(fPop, tAcres, employedFarmers);
-             aggDemand = ((Farmer.fHunger * Farmer.fPop) + (Warrior.wHunger * Warrior.wPop));*/
+            int farmPacks = Wheat.farmPacks(tAcres);
+            int tPop = popManger.fPopulation + popManger.wPopulation;
+            int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, popManger.fPopulation);
+            int employedFarmers = Wheat.employedFarmers(popManger.fPopulation, unemployedFarmers);
+            Warrior.wHunger(popManger.wPopulation);
+            Wheat.tWheat(employedFarmers);
+            aggDemand = ((Farmer.fHunger * popManger.fPopulation) + (Warrior.wHunger * popManger.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
-
-
             int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
             System.out.println("Year: " + year);
             System.out.println("Wheat Produced this year: " + uneatenwheat);
@@ -69,17 +63,16 @@ public class Main {
             System.out.println("Total number of Farmers: " + popManger.fPopulation);
             System.out.println("Avaible Acres" + unusedacres);
             System.out.println(Main.unusedpops);
-            /* System.out.println("        Unemployed Farmers: " + unemployedFarmers);
-             System.out.println("        Employed Farmers: " + employedFarmers);
-             System.out.println("Total Population: " + tPop);
-             System.out.println("Money in the Treasury: " + tMoney);*/
+            System.out.println("        Unemployed Farmers: " + unemployedFarmers);
+            System.out.println("        Employed Farmers: " + employedFarmers);
+            System.out.println("Total Population: " + tPop);
+            System.out.println("Money in the Treasury: " + tMoney);
             System.out.println("\n");
-            oldaggDemand = aggDemand;
             oldtWheat = Wheat.tWheat;
 
             //Render.drawString("yourmessage", 10, 10);
             popManger.tPop = Eco.tryToUpdatePop();
-            	tAcres= Eco.tick(year);
+            tAcres= Eco.tick(year);
 
         }
         Eco.simDone();
