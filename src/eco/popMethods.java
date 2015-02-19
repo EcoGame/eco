@@ -154,6 +154,7 @@ public class popMethods {
             int r = 0;
             int w = 0;
             int h = 0;
+            int m =0;
 			//	System.out.println("here1");
             while(Main.popArray.length > x){
                 if(Main.popArray[x].isFarmer == true){
@@ -162,6 +163,12 @@ public class popMethods {
                     r = Wheat.employedFarmers(Main.popArray[x].people,k);
                     w = Wheat.tWheat(r);
                     h = Farmer.fHunger(Main.popArray[x].people);
+                    m = checkStarvation(h, w);
+                    if( m > 0){
+                    	w = 0;
+                    	h = 0;
+                    	Main.popArray[x].people = Main.popArray[x].people - m;
+                    }
                     Main.uneatenwheat = Main.uneatenwheat + (w-h);
                     Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*w);
                     //	System.out.println(Main.popArray[x].groupmoney+ "kel");
