@@ -14,12 +14,12 @@ public class Main {
 
     public static Random random = new Random();
     public static final int fov = 90;
-	public static final int height = 620;
-	public static final int width = 854;
-	public static volatile int year = 1;
-	public static volatile int wheatPrice = 20;
+    public static final int height = 620;
+    public static final int width = 854;
+    public static volatile int year = 1;
+    public static volatile int wheatPrice = 20;
     public static volatile int oldtWheat = 0;
-	public volatile static int tAcres = 1000;
+    public volatile static int tAcres = 1000;
     public static volatile float fBirthRate = 0.03f;
     public static volatile float fDeathRate = 0.02f;
     public static volatile float wBirthRate = 0.008f;
@@ -32,6 +32,7 @@ public class Main {
     public static int unusedarray = 2;
     public static int unusedacres = 0;
     public static int aggDemand;
+    public static boolean debug;
 
 	public static void main(String[] args) {
 
