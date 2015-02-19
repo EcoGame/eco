@@ -36,7 +36,7 @@ public class popManger {
         
         popMethods.scanPops();
 		
-		System.out.println(popMethods.usedacres());
+	//	System.out.println(popMethods.usedacres());
         Main.unusedacres = Main.tAcres - popMethods.usedacres();
 	
         popMethods.unusedAcresFarmersAssignment();
@@ -50,7 +50,7 @@ public class popManger {
         oldtPop = wPopulation + fPopulation;
         newtPop = q +r;
         Main.unusedpops = newtPop- oldtPop;
-        System.out.println(Main.unusedpops);
+        //System.out.println(Main.unusedpops);
         popMethods.popAssigner();
 
         popMethods.popBuilder(1);
