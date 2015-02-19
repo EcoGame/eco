@@ -1,7 +1,7 @@
-## eco
+# eco
 A basic simulation of an island nation
 
-# Controls
+## Controls
 
 WASD - Move the camera within the XZ plane
 
