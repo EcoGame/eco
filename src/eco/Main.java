@@ -56,18 +56,20 @@ public class Main {
             aggDemand = ((Farmer.fHunger * popManger.fPopulation) + (Warrior.wHunger * popManger.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
             int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
-            System.out.println("Year: " + year);
-            System.out.println("Wheat Produced this year: " + uneatenwheat);
-            System.out.println("Price of wheat: " + wheatPrice);
-            System.out.println("Total number of Warriors: " + popManger.wPopulation);
-            System.out.println("Total number of Farmers: " + popManger.fPopulation);
-            System.out.println("Avaible Acres" + unusedacres);
-            System.out.println(Main.unusedpops);
-            System.out.println("        Unemployed Farmers: " + unemployedFarmers);
-            System.out.println("        Employed Farmers: " + employedFarmers);
-            System.out.println("Total Population: " + tPop);
-            System.out.println("Money in the Treasury: " + tMoney);
-            System.out.println("\n");
+            if(debug){
+            	System.out.println("Year: " + year);
+            	System.out.println("Wheat Produced this year: " + uneatenwheat);
+            	System.out.println("Price of wheat: " + wheatPrice);
+            	System.out.println("Total number of Warriors: " + popManger.wPopulation);
+            	System.out.println("Total number of Farmers: " + popManger.fPopulation);
+            	System.out.println("Avaible Acres" + unusedacres);
+            	System.out.println(Main.unusedpops);
+            	System.out.println("        Unemployed Farmers: " + unemployedFarmers);
+            	System.out.println("        Employed Farmers: " + employedFarmers);
+            	System.out.println("Total Population: " + tPop);
+            	System.out.println("Money in the Treasury: " + tMoney);
+            	System.out.println("\n");
+            }
             oldtWheat = Wheat.tWheat;
 
             //Render.drawString("yourmessage", 10, 10);
@@ -133,6 +135,9 @@ public class Main {
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			World.messages.add(new Message("messages", 10, 10, 300));
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_G)) {
+			debug ^= true;
 		}
 
 	}
