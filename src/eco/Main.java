@@ -1,8 +1,6 @@
 package eco;
 
 import java.util.Random;
-
-import eco.Eco;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -44,7 +42,6 @@ public class Main {
 
     public static void tick(){
 
-        //  System.out.println("TOCK");
         for(int i = 1; i < 2000; i++) {
             year = i; //One tick is 1 year
             popManger.popController();
@@ -58,18 +55,18 @@ public class Main {
             wheatPrice = Market.wheatPrice(wheatPrice);
             int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
             if(debug){
-            	System.out.println("Year: " + year);
-            	System.out.println("Wheat Produced this year: " + uneatenwheat);
-            	System.out.println("Price of wheat: " + wheatPrice);
-            	System.out.println("Total number of Warriors: " + popManger.wPopulation);
-            	System.out.println("Total number of Farmers: " + popManger.fPopulation);
-            	System.out.println("Avaible Acres" + unusedacres);
-            	System.out.println(Main.unusedpops);
+            	System.out.println("This Year: " + year);
+            	System.out.println("\n    Wheat Produced this year: " + uneatenwheat);
+                System.out.println("    Available Acres: " + unusedacres);
+            	System.out.println("    Price of wheat: " + wheatPrice);
+                System.out.println("    Money in the Treasury: " + tMoney);
+                System.out.println("\n    Total number of Farmers: " + popManger.fPopulation);
             	System.out.println("        Unemployed Farmers: " + unemployedFarmers);
             	System.out.println("        Employed Farmers: " + employedFarmers);
-            	System.out.println("Total Population: " + tPop);
-            	System.out.println("Money in the Treasury: " + tMoney);
-            	System.out.println("\n");
+            	System.out.println("\n    Total Population: " + tPop);
+                System.out.println("    Total number of Warriors: " + popManger.wPopulation);
+                System.out.println("    Unassigned people: " + Main.unusedpops);
+            	System.out.println("\n\n");
             }
             oldtWheat = Wheat.tWheat;
 
@@ -139,7 +136,6 @@ public class Main {
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_G)) {
 			debug ^= true;
-			System.out.println("DEBUG MODE IS TOGGLED!")
 		}
 
 	}
