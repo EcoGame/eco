@@ -134,7 +134,7 @@ public class Main {
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			World.messages.add(new Message("messages", 10, 10, 300));
 		}
-				while (Keyboard.next()){
+	while (Keyboard.next()){
          if (Keyboard.getEventKeyState()){
             	switch (Keyboard.getEventKey()){
             		case Keyboard.KEY_G:
@@ -144,6 +144,17 @@ public class Main {
             	}
             }
         }
+       while(Mouse.next()) {
+	if (Mouse.getEventButton() > -1) {
+	 	if (Mouse.getEventButtonState()) {
+	 	// Mouse Down
+			UIManager.click(Mouse.getX(), Display.getHeight() - Mouse.getY());
+		}
+		else{
+		 // Mouse Up			
+		}
+	    }
+	}
 
 	}
 
