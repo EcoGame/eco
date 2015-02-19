@@ -97,11 +97,15 @@ public class Render {
 		//mapseed = System.currentTimeMillis();
 		
 		World.generate();
+
+		System.out.println("gen one done");	
 		
 		while (!World.isValid()){
 			World.generate();
 		}
 		
+		System.out.println("gen done");	
+
 		try {
 			atlas = new TextureAtlas(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("../assets/textureatlas.png"),  GL_NEAREST));
 		} catch (IOException e) {
@@ -200,6 +204,9 @@ public class Render {
 				}
 			}
 		}
+		initOrtho();
+		glPushMatrix();		
+		UIManager.render();
 		
 		for (Message message : World.messages){
 			if (message.time > 0){
@@ -213,6 +220,7 @@ public class Render {
 				World.messages.remove(i);
 			}
 		}
+		glPopMatrix();
 	}
 	
 	public static void drawTile(float x, float z, Treble<Float, Float, Float> color){
