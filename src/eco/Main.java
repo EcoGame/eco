@@ -59,7 +59,7 @@ public class Main {
             	System.out.println("\n    Wheat Produced this year: " + uneatenwheat);
                 System.out.println("    Available Acres: " + unusedacres);
             	System.out.println("    Price of wheat: " + wheatPrice);
-                System.out.println("    Money in the Treasury: " + tMoney);
+            	System.out.println("    Money that is sorta kinda in the Treasury: " + tMoney);
                 System.out.println("\n    Total number of Farmers: " + popManger.fPopulation);
             	System.out.println("        Unemployed Farmers: " + unemployedFarmers);
             	System.out.println("        Employed Farmers: " + employedFarmers);
