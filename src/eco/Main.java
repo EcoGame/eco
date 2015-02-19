@@ -139,6 +139,7 @@ public class Main {
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_G)) {
 			debug ^= true;
+			System.out.println("DEBUG MODE IS TOGGLED!")
 		}
 
 	}
