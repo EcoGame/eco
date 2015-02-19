@@ -15,7 +15,7 @@ public class Warrior {
         x = y;
         
         x = ((x) * (1 + Main.wBirthRate - Main.wDeathRate));
-        System.out.println("Warrior pops " + x);
+       // System.out.println("Warrior pops " + x);
         
         k = (int)(Math.ceil(x));
         
