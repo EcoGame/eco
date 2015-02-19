@@ -18,7 +18,7 @@ public class Farmer {
         x = y;
         
         x = ((x) * (1 + Main.wBirthRate - Main.wDeathRate));
-        System.out.println("Farmer pops " + x);
+       // System.out.println("Farmer pops " + x);
         
         k = (int)(Math.ceil(x));
         
