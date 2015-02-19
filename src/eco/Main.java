@@ -5,6 +5,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.input.Mouse;
 
 //http://www222.pair.com/sjohn/blueroom/demog.htm
 
