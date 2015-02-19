@@ -134,9 +134,16 @@ public class Main {
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			World.messages.add(new Message("messages", 10, 10, 300));
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_G)) {
-			debug ^= true;
-		}
+				while (Keyboard.next()){
+         if (Keyboard.getEventKeyState()){
+            	switch (Keyboard.getEventKey()){
+            		case Keyboard.KEY_G:
+            			debug ^= true;
+            			System.out.println("DEBUG MODE IS TOGGLED!");
+                		break;
+            	}
+            }
+        }
 
 	}
 
