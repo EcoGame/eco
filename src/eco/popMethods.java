@@ -163,7 +163,7 @@ public class popMethods {
                     r = Wheat.employedFarmers(Main.popArray[x].people,k);
                     w = Wheat.tWheat(r);
                     h = Farmer.fHunger(Main.popArray[x].people);
-                    m = checkStarvation(h, w);
+                    m = Farmer.checkStarvation(h, w);
                     if( m > 0){
                     	w = 0;
                     	h = 0;
