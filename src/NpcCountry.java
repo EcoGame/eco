@@ -1,6 +1,6 @@
 package eco;
 
-public class npcCountry {
+public class NpcCountry {
     
 	private int acresNPC = 0;
 	private int fPopNPC = 0;
