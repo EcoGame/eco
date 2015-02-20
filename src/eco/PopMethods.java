@@ -1,6 +1,6 @@
 package eco;
 
-public class popMethods {
+public class PopMethods {
 
 		//public static int[] unfilledpops = new int[1000];
 
