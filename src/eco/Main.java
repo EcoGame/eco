@@ -32,6 +32,10 @@ public class Main {
     public static int unusedacres = 0;
     public static int aggDemand;
     public static boolean debug;
+    public static boolean fullDebug = false;
+    
+    public static boolean attemptSaveLoad = false;
+    public static final boolean isInEclipse = false;
 
 	public static void main(String[] args) {
 	System.out.println("Welcome to EcoLand!");
