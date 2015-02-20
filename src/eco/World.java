@@ -5,12 +5,14 @@ import java.util.Random;
 
 public class World {
 
-	public static int mapscale = 5;
+	public static int mapscale = 6;
 	public static int mapsize = (int) Math.pow(2, mapscale);
-	public static int[][] map = new int[mapsize][mapsize];
-	public static int[][] structures = new int[mapsize][mapsize];
+	public static short[][] map = new short[mapsize][mapsize];
+	public static short[][] structures = new short[mapsize][mapsize];
 
-	public static long mapseed = "seeds r cool".hashCode();
+	public static long mapseed = "seeds arentr kool".hashCode();
+	
+	public static double perlinbias;
 
 	public static ArrayList<Message> messages = new ArrayList<Message>();
 
@@ -19,21 +21,31 @@ public class World {
 	public static int warriors = 0;
 
 	public static void generate(){
+		
+		perlinbias = (double) ((float) mapsize / (float) mapseed);
 
-		map = new int[mapsize][mapsize];
-		structures = new int[mapsize][mapsize];
+		map = new short[mapsize][mapsize];
+		structures = new short[mapsize][mapsize];
 
-		Perlin.setSeed(mapseed);
-		float[][] noise = Perlin.newWorld(mapscale);
-		map = new int[mapsize][mapsize];
+		map = new short[mapsize][mapsize];
 
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
-				if (noise[x][y] <= 128){
+				float value = (float) Perlin.noise((x + perlinbias) / (float) mapsize * 2, (y + perlinbias) / (float) mapsize * 2, 8);
+				float dist = (float) getDistanceFromCenter(x, y);
+				float bias = 256f * (1f - (dist / (mapsize / 2f)));
+				value -= bias;
+				if ( value <= 64f){
 					map[x][y] = 0;
 				}
 				else {
 					map[x][y] = 1;
+				}
+				if (x <= 4 || x >= mapsize - 4){
+					map[x][y] = 0;
+				}
+				if (y <= 4 || y >= mapsize - 4){
+					map[x][y] = 0;
 				}
 			}
 		}
@@ -259,6 +271,25 @@ public class World {
 			}
 		}
 		return count * acresPerSquare;
+	}
+	
+	public static double getDistanceFromCenter(int x, int y){
+		if (x < mapsize / 2){
+			if (y < mapsize / 2){
+				return Math.sqrt(Math.pow((0 - x), 2) + Math.pow((0 - y), 2));
+			}
+			else{
+				return Math.sqrt(Math.pow(( 0 - x), 2) + Math.pow((mapsize - y), 2));
+			}
+		}
+		else{
+			if (y < mapsize / 2){
+				return Math.sqrt(Math.pow((mapsize - x), 2) + Math.pow((0 - y), 2));
+			}
+			else{
+				return Math.sqrt(Math.pow((mapsize - x), 2) + Math.pow((mapsize - y), 2));
+			}
+		}
 	}
 
 }
