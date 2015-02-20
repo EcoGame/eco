@@ -44,16 +44,12 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
 import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
-
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 
 public class Render {
 	
@@ -70,11 +66,15 @@ public class Render {
 
 	public static volatile boolean mesh = false;
 
-	public static Camera camera = new Camera(-World.mapsize / 4f * tilesize, -2f, -World.mapsize / 4f * tilesize);
+	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize, -8f, World.mapsize / 2f * tilesize);
 
 	public static volatile int vertex_handle;
 	public static volatile int texture_handle;
 	public static volatile int buffersize;
+	
+	public static final float rotSpeed = 0.05f;
+	
+	public static boolean multithreading = false;
 	
 	public static void initDisplay(){
 		try {
@@ -94,20 +94,25 @@ public class Render {
 	
 	public static void init(){
 	
-		//mapseed = System.currentTimeMillis();
+		Log.setVerbose(false);
 		
 		World.generate();
-
-		System.out.println("gen one done");	
 		
-		while (!World.isValid()){
-			World.generate();
-		}
-		
-		System.out.println("gen done");	
+		//while (!World.isValid()){
+			//World.generate();
+		//}
 
 		try {
-			atlas = new TextureAtlas(TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("../assets/textureatlas.png"),  GL_NEAREST));
+			if (Main.isInEclipse){
+				atlas = new TextureAtlas(TextureLoader.getTexture("PNG", 
+						ResourceLoader.getResourceAsStream("assets/textureatlas.png"),  
+						GL_NEAREST));			
+				}
+			else{
+				atlas = new TextureAtlas(TextureLoader.getTexture("PNG", 
+						ResourceLoader.getResourceAsStream("../assets/textureatlas.png"),  
+						GL_NEAREST));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -133,15 +138,25 @@ public class Render {
 		GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
 		     
 	    try {
-	        InputStream inputStream = ResourceLoader.getResourceAsStream("../assets/font.ttf");
+	    	InputStream inputStream;
+	    	if (Main.isInEclipse){
+	        	inputStream = ResourceLoader.getResourceAsStream("assets/font.ttf");
+	        }
+	        else{
+	        	inputStream = ResourceLoader.getResourceAsStream("../assets/font.ttf");
+	        }
 	         
 	        Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-	        awtFont = awtFont.deriveFont(24f); // set font size
+	        awtFont = awtFont.deriveFont(16f); // set font size
 	        font = new TrueTypeFont(awtFont, true);
 	             
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }   
+	    
+		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
+		GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 	}
 	
 	public static void initFrustrum(){
@@ -179,28 +194,48 @@ public class Render {
 		
 		int mapsize = World.mapsize;
 		
+		rot += 0.05f;
+		
 		float offset = mapsize / 12f;
 		glTranslatef(-offset, 0f, -offset);
 		glRotatef(rot, 0.0f, 1.0f, 0.0f);
 		glTranslatef(offset, 0f, offset);
+		
+		
+		if (multithreading){
+			if (vertex_handle == 0 ||  texture_handle == 0){
+				return;
+			}
+			else{
+				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertex_handle);
+				GL11.glVertexPointer(3, GL11.GL_FLOAT, 0, 0L);
+				
+				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, texture_handle);
+				GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0L);
+	
+				GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3); 
+			}
+		}
 
 
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (World.structures[x][y] == 1){
-					drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 4);
-				}
-				if (World.structures[x][y] == 2){
-					drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 5);
-				}
-				if (World.map[x][y] == 0){
-					drawTile(-x * tilesize, -y * tilesize, 0);
-				}
-				if (World.map[x][y] == 1){
-					drawTile(-x * tilesize, -y * tilesize, 1);
-				}
-				if (World.map[x][y] == 2){
-					drawTile(-x * tilesize, -y * tilesize, 3);
+		if (!multithreading){
+			for (int x = 0; x < mapsize; x++){
+				for (int y = 0; y < mapsize; y++){
+					if (World.structures[x][y] == 1){
+						drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 4);
+					}
+					if (World.structures[x][y] == 2){
+						drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 5);
+					}
+					if (World.map[x][y] == 0){
+						drawTile(-x * tilesize, -y * tilesize, 0);
+					}
+					if (World.map[x][y] == 1){
+						drawTile(-x * tilesize, -y * tilesize, 1);
+					}
+					if (World.map[x][y] == 2){
+						drawTile(-x * tilesize, -y * tilesize, 3);
+					}
 				}
 			}
 		}
