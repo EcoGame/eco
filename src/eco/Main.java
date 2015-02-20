@@ -34,128 +34,47 @@ public class Main {
     public static boolean debug;
 
 	public static void main(String[] args) {
-
-		System.out.println("Welcome to EcoLand!");
+	System.out.println("Welcome to EcoLand!");
         init();
         tick();
-
+        System.exit(0);
 	}
 
     public static void tick(){
 
         for(int i = 1; i < 2000; i++) {
             year = i; //One tick is 1 year
-            popManger.popController();
-          //  int farmPacks = Wheat.farmPacks(tAcres);
-          //  int tPop = popManger.fPopulation + popManger.wPopulation;
-            //int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, popManger.fPopulation);
-          //  int employedFarmers = Wheat.employedFarmers(popManger.fPopulation, unemployedFarmers);
-          //  Warrior.wHunger(popManger.wPopulation);
-          //  Wheat.tWheat(employedFarmers);
-            aggDemand = ((Farmer.fHunger * popManger.fPopulation) + (Warrior.wHunger * popManger.wPopulation));
+            PopManager.popController();
+            int farmPacks = Wheat.farmPacks(tAcres);
+            
+            int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
+            int employedFarmers = Wheat.employedFarmers(PopManager.fPopulation, unemployedFarmers);
+            Warrior.wHunger(PopManager.wPopulation);
+            Wheat.tWheat(employedFarmers);
+            aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
-            int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
-          //  if(debug){
-            	System.out.println("This Year: " + year);
-            	System.out.println("\n    Wheat Produced this year: " + uneatenwheat);
-                System.out.println("    Available Acres: " + unusedacres);
-            	System.out.println("    Price of wheat: " + wheatPrice);
-            	System.out.println("    Money that is sorta kinda in the Treasury: " + tMoney);
-                System.out.println("\n    Total number of Farmers: " + popManger.fPopulation);
-            //	System.out.println("        Unemployed Farmers: " + popManager.unemployedFarmers);
-            //	System.out.println("        Employed Farmers: " + popManager.employedFarmers);
-            	System.out.println("\n    Total Population: " + popManger.tPop);
-                System.out.println("    Total number of Warriors: " + popManger.wPopulation);
-                System.out.println("    Unassigned people: " + Main.unusedpops);
-            	System.out.println("\n\n");
-          //  }
+            Money.tMoney(uneatenwheat, wheatPrice);
+            if(debug){
+            	OutputManager.printDebugInformation();
+            }
+            UIManager.update();
             oldtWheat = Wheat.tWheat;
-
-            //Render.drawString("yourmessage", 10, 10);
-            popManger.tPop = Eco.tryToUpdatePop();
-            tAcres= Eco.tick(year);
+            InputManager.update();
+            PopManager.tPop = RenderLink.tryToUpdatePop();
+            tAcres= RenderLink.tick(year);
 
         }
-        Eco.simDone();
+        RenderLink.simDone();
     }
 
 
     public static void init() {
 
-        Eco.init();
-        Util.readSave();
-        popManger.initpops();
-
-	}
-
-	public static int randInt(int max) { //Returns a random number below max.
-
-        return random.nextInt(max);
-
-	}
-
-    public static int randInt(int min, int max) { //Returns a random number between min and max.
-
-        return min + random.nextInt((max + 1)- min);
-
-	}
-
-    public static void ioUpdate(){
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
-			Render.rot -= 0.5f;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			Render.rot += 0.5f;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			Render.z += 0.1f;
-			Render.camera.moveForward(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			Render.x -= 0.1f;
-			Render.camera.moveRight(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			Render.z -= 0.1f;
-			Render.camera.moveBack(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			Render.x += 0.1f;
-			Render.camera.moveLeft(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-			//Render.y += 0.01f;
-			Render.camera.moveDown(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			//Render.y -= 0.01f;
-			Render.camera.moveUp(0.1f);
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
-			World.messages.add(new Message("messages", 10, 10, 300));
-		}
-	while (Keyboard.next()){
-         if (Keyboard.getEventKeyState()){
-            	switch (Keyboard.getEventKey()){
-            		case Keyboard.KEY_G:
-            			debug ^= true;
-            			System.out.println("DEBUG MODE IS TOGGLED!");
-                		break;
-            	}
-            }
+        RenderLink.init();
+        if (attemptSaveLoad){
+        	Util.readSave();
         }
-       while(Mouse.next()) {
-	if (Mouse.getEventButton() > -1) {
-	 	if (Mouse.getEventButtonState()) {
-	 	// Mouse Down
-			UIManager.click(Mouse.getX(), Display.getHeight() - Mouse.getY());
-		}
-		else{
-		 // Mouse Up
-		}
-	    }
-	}
+        PopManager.initpops();
 
 	}
 
