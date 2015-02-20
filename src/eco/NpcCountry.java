@@ -8,7 +8,7 @@ public class NpcCountry {
 	private String name = "";
 	private int tMoneyNPC =0;
     
-	public npcCountry() {
+	public NpcCountry() {
         
 		name = "Canada";
 		acresNPC = 6000;
