@@ -1,6 +1,6 @@
 package eco;
 
-public class popManger {
+public class popManager {
 
 	public static int wPopulation = 0;
 	public static int fPopulation = 0;
@@ -59,7 +59,6 @@ public class popManger {
         tPop = wPopulation + fPopulation;
 
         popMethods.farmerconsumecycle();
-        System.out.println(fPopulation);
         popMethods.consumecyclewarrior();
 
 	}
