@@ -34,15 +34,15 @@ public class PopManager {
         int newtPop = 0;
         int oldtPop;
 
-        popMethods.scanPops();
+        PopMethods.scanPops();
 
 	//	System.out.println(popMethods.usedacres());
-        Main.unusedacres = Main.tAcres - popMethods.usedacres();
+        Main.unusedacres = Main.tAcres - PopMethods.usedacres();
 
-        popMethods.unusedAcresFarmersAssignment();
+        PopMethods.unusedAcresFarmersAssignment();
 
-        wPopulation = popMethods.warriortotal();
-        fPopulation = popMethods.farmertotal();
+        wPopulation = PopMethods.warriortotal();
+        fPopulation = PopMethods.farmertotal();
 
         q = Warrior.wPop(wPopulation);
         r = Farmer.fPop(fPopulation);
@@ -51,15 +51,15 @@ public class PopManager {
         newtPop = q +r;
         Main.unusedpops = newtPop- oldtPop;
         //System.out.println(Main.unusedpops);
-        popMethods.popAssigner();
+        PopMethods.popAssigner();
 
-        popMethods.popBuilder(1);
+        PopMethods.popBuilder(1);
         wPopulation = q;
         fPopulation = r;
         tPop = wPopulation + fPopulation;
 
-        popMethods.farmerconsumecycle();
-        popMethods.consumecyclewarrior();
+        PopMethods.farmerconsumecycle();
+        PopMethods.consumecyclewarrior();
 
 	}
 }
