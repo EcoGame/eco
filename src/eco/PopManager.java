@@ -1,6 +1,6 @@
 package eco;
 
-public class popManager {
+public class PopManager {
 
 	public static int wPopulation = 0;
 	public static int fPopulation = 0;
