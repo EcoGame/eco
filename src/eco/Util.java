@@ -83,5 +83,16 @@ public class Util {
 	 	World.messages.add(new Message("Loaded game state from save file!", 100, 130, 300));
 	 	World.messages.add(new Message("----------------------------------", 100, 160, 300));
 	}
+	 public static int randInt(int max) { //Returns a random number below max.
+
+        return Main.random.nextInt(max);
+
+	}
+
+    public static int randInt(int min, int max) { //Returns a random number between min and max.
+
+        return min + Main.random.nextInt((max + 1)- min);
+
+	}
 
 }
