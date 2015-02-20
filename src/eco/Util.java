@@ -49,9 +49,9 @@ public class Util {
             for (String str : list){
             str = str.replace(System.getProperty("line.separator"), "");
             }
-             popManger.wPopulation = Integer.valueOf(list.get(0));
+             PopManger.wPopulation = Integer.valueOf(list.get(0));
              //System.out.println(Warrior.wPop);
-             popManger.fPopulation = Integer.valueOf(list.get(1));
+             PopManger.fPopulation = Integer.valueOf(list.get(1));
              //System.out.println(Farmer.fPop);
              Main.tAcres = Integer.valueOf(list.get(2));
              //System.out.println(Main.tAcres);
