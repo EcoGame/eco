@@ -41,14 +41,14 @@ public class Button{
 	public void render(){
 		TextureAtlas atlas = Render.atlas;		
 		GL11.glBegin(GL11.GL_QUADS);
-		GL11.glVertex2f(x, y);
-		GL11.glTexCoord2f(atlas.getCoord(tex, true), atlas.getCoord(tey, true));
-		GL11.glVertex2f(x + size, y);
-		GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
-		GL11.glVertex2f(x + size, y + size);
 		GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
-		GL11.glVertex2f(x, y + size);
+		GL11.glVertex2f(x, y);
 		GL11.glTexCoord2f(atlas.getCoord(tex, true), atlas.getCoord(tey, false));
+		GL11.glVertex2f(x + size, y);
+		GL11.glTexCoord2f(atlas.getCoord(tex, true), atlas.getCoord(tey, true));
+		GL11.glVertex2f(x + size, y + size);
+		GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
+		GL11.glVertex2f(x, y + size);
 		GL11.glEnd();
 		
 	}
