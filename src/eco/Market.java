@@ -6,12 +6,12 @@ public class Market {
 	static int[] year = new int[75];
     public static int wheatPrice(int pastPrice){
         int newPrice = 1;
-        int chance = (Main.randInt(0,100));
+        int chance = (Util.randInt(0,100));
         if(chance > 50){
-            newPrice = pastPrice + Main.randInt(1,5);
+            newPrice = pastPrice + Util.randInt(1,5);
         }
         else{
-            newPrice = pastPrice - Main.randInt(1,5);
+            newPrice = pastPrice - Util.randInt(1,5);
             if(newPrice < 1){
                 newPrice = 1;
                 //World.messages.add(new Message("Price is one!", 100, 100, 300));
