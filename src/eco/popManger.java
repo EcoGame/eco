@@ -1,7 +1,7 @@
 package eco;
 
 public class popManger {
-    
+
 	public static int wPopulation = 0;
 	public static int fPopulation = 0;
 	public static int tPop = 0;
@@ -10,7 +10,7 @@ public class popManger {
         for(int i =0; i < Main.popArray.length; i++){
             Main.popArray[i] = new Pops();
         }
-        
+
 		Main.popArray[0].people = 5;
 		Main.popArray[1].people = 5;
 		Main.popArray[0].isFarmer = true;
@@ -18,11 +18,11 @@ public class popManger {
 		Main.popArray[1].isWarrior = true;
 		Main.popArray[0].isUsed = true;
 		Main.popArray[1].isUsed = true;
-        
+
 	}
 
 	public static void popController() {
-        
+
 		int x = 0;
 		int y= 0;
         int r = 0;
@@ -33,12 +33,12 @@ public class popManger {
         int e = 0;
         int newtPop = 0;
         int oldtPop;
-        
+
         popMethods.scanPops();
-		
+
 	//	System.out.println(popMethods.usedacres());
         Main.unusedacres = Main.tAcres - popMethods.usedacres();
-	
+
         popMethods.unusedAcresFarmersAssignment();
 
         wPopulation = popMethods.warriortotal();
@@ -59,6 +59,7 @@ public class popManger {
         tPop = wPopulation + fPopulation;
 
         popMethods.farmerconsumecycle();
+        System.out.println(fPopulation);
         popMethods.consumecyclewarrior();
 
 	}

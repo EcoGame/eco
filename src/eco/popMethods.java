@@ -10,20 +10,20 @@ public class popMethods {
             int y = 0;
             while(Main.popArray.length > x){
                 if((Main.popArray[x].people < 100)&& (Main.popArray[x].isUsed == true )){
-                    
+
                     y= 100- Main.popArray[x].people;
                     Main.unfilledpops[x] = y;
                     //	System.out.println(Main.popArray[x].isFarmer);
                     //	System.out.println(y);
                     //System.out.println("Wdfe");
-                    
+
                 }
                 x++;
             }
 		}
 
 		public static void unusedAcresFarmersAssignment(){
-            
+
             int x = 0;
             int y = 0;
             //int[][] unemployedfarmersArray = new int[1000][200];// put this is in main
@@ -62,7 +62,7 @@ public class popMethods {
                         Main.unusedpops = 0;
                     }
                     else {
-                        
+
                         Main.unusedpops = Main.unusedpops - y;
                         Main.popArray[x].people = Main.popArray[x].people + y;}
                         Main.unfilledpops[x] = 0;
@@ -99,7 +99,7 @@ public class popMethods {
 		}
 
 		public static int unemployedFarmerspops() {
-            
+
             int x = 0;
             int y = 0;
             while(Main.popArray.length > x) {
@@ -110,7 +110,7 @@ public class popMethods {
 		}
 
 		public static int employedFarmerspops() {
-				
+
             int x = 0;
             int y = 0;
             while(Main.popArray.length > x){
@@ -136,9 +136,26 @@ public class popMethods {
             int x = 0;
             int y = 0;
             int p = 0;
+						int r = 0;
+						int h = 0;
+						int u = 0;
             while(Main.popArray.length > x) {
                 if(Main.popArray[x].isWarrior == true){
                     y =	Warrior.wHunger(Main.popArray[x].people);
+										if((Main.wheatPrice*y)> Main.popArray[x].groupmoney){
+											r = Main.popArray[x].groupmoney/Main.wheatPrice;
+											h = y- r;
+											u = Warrior.checkStarvation(y, h);
+											if( u > 0){
+												r = 0;
+												h = 0;
+
+												Main.popArray[x].people = Main.popArray[x].people - u;
+												if(Main.popArray[x].people < 0){
+													Main.popArray[x].people = 0;
+												}
+											}
+										}
                     Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*100);
                     Main.uneatenwheat = Main.uneatenwheat - y;
                 }
@@ -147,7 +164,7 @@ public class popMethods {
 		}
 
 		public static void farmerconsumecycle() {
-            
+
             int x = 0;
             int y =0;
             int k = 0;
@@ -157,18 +174,27 @@ public class popMethods {
             int m =0;
 			//	System.out.println("here1");
             while(Main.popArray.length > x){
+
+
                 if(Main.popArray[x].isFarmer == true){
                     y = Wheat.farmPacks(Main.popArray[x].acres);
                     k =	Wheat.unemployedFarmers(y, Main.popArray[x].people);
                     r = Wheat.employedFarmers(Main.popArray[x].people,k);
                     w = Wheat.tWheat(r);
+									//	System.out.println("eaf" +w);
                     h = Farmer.fHunger(Main.popArray[x].people);
+									//	System.out.println("gah" + h);
                     m = Farmer.checkStarvation(h, w);
                     if( m > 0){
                     	w = 0;
                     	h = 0;
+
                     	Main.popArray[x].people = Main.popArray[x].people - m;
+											if(Main.popArray[x].people < 0){
+												Main.popArray[x].people = 0;
+											}
                     }
+								//		System.out.println("fstgfd" + Main.popArray[x].people);
                     Main.uneatenwheat = Main.uneatenwheat + (w-h);
                     Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*w);
                     //	System.out.println(Main.popArray[x].groupmoney+ "kel");
@@ -180,7 +206,7 @@ public class popMethods {
 
 
 		public static void popBuilder(int prefrence){
-            
+
 				boolean iscomplete = false;
 				int x = 0;
 				int y = 0;

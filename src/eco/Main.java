@@ -18,7 +18,7 @@ public class Main {
     public static volatile int year = 1;
     public static volatile int wheatPrice = 20;
     public static volatile int oldtWheat = 0;
-    public volatile static int tAcres = 1000;
+    public volatile static int tAcres = 10000;
     public static volatile float fBirthRate = 0.03f;
     public static volatile float fDeathRate = 0.02f;
     public static volatile float wBirthRate = 0.008f;
@@ -46,29 +46,29 @@ public class Main {
         for(int i = 1; i < 2000; i++) {
             year = i; //One tick is 1 year
             popManger.popController();
-            int farmPacks = Wheat.farmPacks(tAcres);
-            int tPop = popManger.fPopulation + popManger.wPopulation;
-            int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, popManger.fPopulation);
-            int employedFarmers = Wheat.employedFarmers(popManger.fPopulation, unemployedFarmers);
-            Warrior.wHunger(popManger.wPopulation);
-            Wheat.tWheat(employedFarmers);
+          //  int farmPacks = Wheat.farmPacks(tAcres);
+          //  int tPop = popManger.fPopulation + popManger.wPopulation;
+            //int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, popManger.fPopulation);
+          //  int employedFarmers = Wheat.employedFarmers(popManger.fPopulation, unemployedFarmers);
+          //  Warrior.wHunger(popManger.wPopulation);
+          //  Wheat.tWheat(employedFarmers);
             aggDemand = ((Farmer.fHunger * popManger.fPopulation) + (Warrior.wHunger * popManger.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
             int tMoney = Money.tMoney(uneatenwheat, wheatPrice);
-            if(debug){
+          //  if(debug){
             	System.out.println("This Year: " + year);
             	System.out.println("\n    Wheat Produced this year: " + uneatenwheat);
                 System.out.println("    Available Acres: " + unusedacres);
             	System.out.println("    Price of wheat: " + wheatPrice);
             	System.out.println("    Money that is sorta kinda in the Treasury: " + tMoney);
                 System.out.println("\n    Total number of Farmers: " + popManger.fPopulation);
-            	System.out.println("        Unemployed Farmers: " + unemployedFarmers);
-            	System.out.println("        Employed Farmers: " + employedFarmers);
-            	System.out.println("\n    Total Population: " + tPop);
+            //	System.out.println("        Unemployed Farmers: " + popManager.unemployedFarmers);
+            //	System.out.println("        Employed Farmers: " + popManager.employedFarmers);
+            	System.out.println("\n    Total Population: " + popManger.tPop);
                 System.out.println("    Total number of Warriors: " + popManger.wPopulation);
                 System.out.println("    Unassigned people: " + Main.unusedpops);
             	System.out.println("\n\n");
-            }
+          //  }
             oldtWheat = Wheat.tWheat;
 
             //Render.drawString("yourmessage", 10, 10);
@@ -152,7 +152,7 @@ public class Main {
 			UIManager.click(Mouse.getX(), Display.getHeight() - Mouse.getY());
 		}
 		else{
-		 // Mouse Up			
+		 // Mouse Up
 		}
 	    }
 	}
