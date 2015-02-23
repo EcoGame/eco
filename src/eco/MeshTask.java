@@ -100,8 +100,6 @@ public class MeshTask implements Runnable {
 		Render.buffersize = vertexData.capacity();
 		Render.texture_handle = texture_handle;
 		Render.vertex_handle = vertex_handle;
-		System.out.println(Render.buffersize);
-		System.out.println(textureData.capacity());
 		try {
 			ThreadManager.drawable.releaseContext();
 		} catch (LWJGLException e) {
