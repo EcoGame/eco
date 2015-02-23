@@ -18,7 +18,7 @@ public class Main {
     public static volatile int year = 1;
     public static volatile int wheatPrice = 20;
     public static volatile int oldtWheat = 0;
-    public volatile static int tAcres = 10000;
+    public static volatile int tAcres = 10000;
     public static volatile float fBirthRate = 0.03f;
     public static volatile float fDeathRate = 0.02f;
     public static volatile float wBirthRate = 0.008f;
