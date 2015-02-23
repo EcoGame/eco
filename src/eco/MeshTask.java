@@ -23,28 +23,28 @@ public class MeshTask implements Runnable {
 		for (int x = 0; x < World.mapsize; x++){
 			for(int y = 0; y < World.mapsize; y++){
 				if (World.map[x][y] == 0){
-					vertex = addArrayToList(buildTileVertex((-x + 1.5f) * tilesize, 
-							0, (-y + 1.5f) * tilesize), vertex);
+					vertex = addArrayToList(buildTileVertex((-x) * tilesize, 
+							0, (-y) * tilesize), vertex);
 					texture = addArrayToList(buildTexCoords(0, 0), texture);
 				}
 				if (World.map[x][y] == 1){
-					vertex = addArrayToList(buildTileVertex((-x + 1.5f) * tilesize, 
-							0, (-y + 1.5f) * tilesize), vertex);
+					vertex = addArrayToList(buildTileVertex((-x) * tilesize, 
+							0, (-y) * tilesize), vertex);
 					texture = addArrayToList(buildTexCoords(1, 0), texture);
 				}
 				if (World.map[x][y] == 2){
-					vertex = addArrayToList(buildTileVertex((-x + 1.5f) * tilesize, 
-							0, (-y + 1.5f) * tilesize), vertex);
+					vertex = addArrayToList(buildTileVertex((-x) * tilesize, 
+							0, (-y) * tilesize), vertex);
 					texture = addArrayToList(buildTexCoords(3, 0), texture);
 				}
 				if (World.structures[x][y] == 1){
-					vertex = addArrayToList(buildStructureVertex((-x + 1.5f) * tilesize, 
-							1, (-y + 1.5f) * tilesize), vertex);
+					vertex = addArrayToList(buildStructureVertex((-x) * tilesize, 
+							1, (-y) * tilesize), vertex);
 					texture = addArrayToList(buildTexCoords(3, 1), texture);
 				}
 				if (World.structures[x][y] == 2){
-					vertex = addArrayToList(buildStructureVertex((-x + 1.5f) * tilesize, 
-							1, (-y + 1.5f) * tilesize), vertex);
+					vertex = addArrayToList(buildStructureVertex((-x) * tilesize, 
+							1, (-y) * tilesize), vertex);
 					texture = addArrayToList(buildTexCoords(3, 1), texture);
 				}
 			}
