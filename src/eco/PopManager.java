@@ -26,7 +26,7 @@ public class PopManager {
 		Main.popArray[0][2].isWarrior = true;
 		Main.popArray[0][0].isUsed = true;
 		Main.popArray[0][1].isUsed = true;
-		Main.popArray[0][1].isUsed = true;
+		Main.popArray[0][2].isUsed = true;
 
 	}
 
