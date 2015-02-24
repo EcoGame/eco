@@ -11,7 +11,7 @@ Left Shift - Move the camera downwards
 
 Q - Re-align the camera back to the default position
 
-Accent Grave (or Tilde) - Toggle on-screen debug information
+H, OR Accent Grave (or Tilde) - Toggle on-screen debug information
 
 G - Toggle stdout debug information
 
