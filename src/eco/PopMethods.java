@@ -9,9 +9,9 @@ public class PopMethods {
             int x = 0;
             int y = 0;
             while(Main.popArray[countrycode].length > x){
-                if((Main.popArray[countrycode][x].people < 100)&& (Main.popArray[countrycode][x].isUsed == true )){
+                if((Main.popArray[countrycode][x].people < Main.popSize)&& (Main.popArray[countrycode][x].isUsed == true )){
 
-                    y= 100- Main.popArray[countrycode][x].people;
+                    y= Main.popSize- Main.popArray[countrycode][x].people;
                     Main.unfilledpops[countrycode][x] = y;
                     //	System.out.println(Main.popArray[x].isFarmer);
                     //	System.out.println(y);
@@ -29,14 +29,14 @@ public class PopMethods {
             //int[][] unemployedfarmersArray = new int[1000][200];// put this is in main
             //	System.out.println(x);
             while((Main.popArray[countrycode].length > x) && (PopManager.unusedacres > 5)){
-                if((Main.popArray[countrycode][x].acres < 500) && (Main.popArray[countrycode][x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[countrycode][x].isUsed == true ){
-                    if(PopManager.unusedacres < 500){
+                if((Main.popArray[countrycode][x].acres < (5*Main.popSize)) && (Main.popArray[countrycode][x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[countrycode][x].isUsed == true ){
+                    if(PopManager.unusedacres < (5*Main.popSize)){
                         y = PopManager.unusedacres;
 												PopManager.unusedacres = 0;
                     }
                     else {
-                        y = 500;
-												PopManager.unusedacres = PopManager.unusedacres - 500;
+                        y = (5*Main.popSize);
+												PopManager.unusedacres = PopManager.unusedacres - (5*Main.popSize);
                     }
                     Main.popArray[countrycode][x].acres = Main.popArray[countrycode][x].acres + y;
                     y = 0;
@@ -53,7 +53,7 @@ public class PopMethods {
             int x = 0;
             int y = 0;
             while(Main.popArray[countrycode].length > x){
-                if((Main.popArray[countrycode][x].people < 100)&&(PopManager.unusedpops > 0) && (Main.popArray[countrycode][x].isUsed == true)) {
+                if((Main.popArray[countrycode][x].people < Main.popSize)&&(PopManager.unusedpops > 0) && (Main.popArray[countrycode][x].isUsed == true)) {
                     //System.out.println("Kek");
                     y = Main.unfilledpops[countrycode][x];
                     if(PopManager.unusedpops < y){
@@ -219,22 +219,22 @@ public class PopMethods {
 						while(PopManager.unusedpops > 0){
 								while(iscomplete == false){
 								//	System.out.println("eke");
-										if(PopManager.unusedpops < 100){
+										if(PopManager.unusedpops < Main.popSize){
 												r= PopManager.unusedpops;
 										//		System.out.println("yell");
 										}
-										if(PopManager.unusedpops >= 100){
-												r = 100;
+										if(PopManager.unusedpops >= Main.popSize){
+												r = Main.popSize;
 										}
 										if(PopManager.unusedpops == 0){
 												iscomplete = true;
 										}
-										if(PopManager.unusedacres < 500){
-												m= Main.unusedacres;
+										if(PopManager.unusedacres < (5*Main.popSize)){
+												m= PopManager.unusedacres;
 										//		Main.unusedacres = Main.unusedacres - m;
 										}
-										if(PopManager.unusedacres >= 500){
-												m = 500;
+										if(PopManager.unusedacres >= (5*Main.popSize)){
+												m = (5*Main.popSize);
 										//		Main.unusedacres = 0;
 										}
 										PopManager.unusedacres = PopManager.unusedacres - m;
@@ -246,7 +246,7 @@ public class PopMethods {
 										Main.popArray[countrycode][Main.unusedarray[countrycode]].groupmoney = 100;
 									m = 0;
 									r = 0;
-									PopManager.unusedarray++;
+									Main.unusedarray[countrycode]++;
 										x++;
 
 										if(x == 2){
@@ -260,22 +260,22 @@ public class PopMethods {
 								x =0;
 								while(iscomplete == false){
 								//	System.out.println("eke2");
-										if(PopManager.unusedpops < 100){
+										if(PopManager.unusedpops < (Main.popSize)){
 												r= PopManager.unusedpops;
 									//			Main.unusedpops; =
 										}
-										if(PopManager.unusedpops >= 100){
-												r = 100;
+										if(PopManager.unusedpops >= (Main.popSize)){
+												r = Main.popSize;
 										}
 										if(PopManager.unusedpops == 0){
 												iscomplete = true;
 										}
 										PopManager.unusedpops = PopManager.unusedpops - r;
-										Main.popArray[countrycode][Main.unusedarray].isUsed = true;
-										Main.popArray[countrycode][Main.unusedarray].isWarrior = true;
-										Main.popArray[countrycode][Main.unusedarray].people = r;
-										Main.popArray[countrycode][Main.unusedarray].groupmoney = 100000;
-										Main.unusedarrayc++;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].isUsed = true;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].isWarrior = true;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].people = r;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].groupmoney = 100000;
+										Main.unusedarray[countrycode]++;
 									r =0;
 										x++;
 										if(x == 1){

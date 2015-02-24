@@ -43,7 +43,7 @@ public class InputManager {
 						System.out.println("DEBUG MODE IS TOGGLED!");
 						break;
 					case Keyboard.KEY_Q:
-						Render.camera = new Camera(-World.mapsize / 2f * Render.tilesize, 
+						Render.camera = new Camera(-World.mapsize / 2f * Render.tilesize,
 										-4f, World.mapsize / 2f * Render.tilesize);
 						System.out.println("Reset camera to default location");
 						break;
@@ -53,6 +53,9 @@ public class InputManager {
 					case Keyboard.KEY_M:
 						Render.multithreading ^= true;
 						break;
+					case Keyboard.KEY_P:
+					Main.popDiags ^= true;
+					break;
 				}
 			}
 		}
@@ -61,7 +64,7 @@ public class InputManager {
 				if (Mouse.getEventButtonState()) {
 					UIManager.click(Mouse.getX(), Display.getHeight() - Mouse.getY());
 				}
-				else{			
+				else{
 				}
 			}
 		}

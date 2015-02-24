@@ -36,8 +36,8 @@ public class RenderLink {
     	}
         if (Main.fullDebug){
    		 	int tPop = PopManager.fPopulation + PopManager.wPopulation;
-        	Render.drawString("Wheat Produced: "+String.valueOf(Main.uneatenwheat), 10, 30);
-            Render.drawString("Unused Acres: "+String.valueOf(Main.unusedacres), 10, 50);
+        	Render.drawString("Wheat Produced: "+String.valueOf(PopManager.uneatenwheat), 10, 30);
+            Render.drawString("Unused Acres: "+String.valueOf(PopManager.unusedacres), 10, 50);
             Render.drawString("Wheat Price: "+String.valueOf(Main.wheatPrice), 10, 70);
             Render.drawString("Money in Treasury: "+String.valueOf(Money.tMoney), 10, 90);
             Render.drawString("Farmers: "+String.valueOf(PopManager.fPopulation), 10, 110);
@@ -48,13 +48,13 @@ public class RenderLink {
             }
             Render.drawString("Total Population: "+String.valueOf(tPop), 10, 170);
             Render.drawString("Warriors: "+String.valueOf(PopManager.wPopulation), 10, 190);
-            Render.drawString("Unassigned: "+String.valueOf(Main.unusedpops), 10, 210);
+            Render.drawString("Unassigned: "+String.valueOf(PopManager.unusedpops), 10, 210);
         }
         Display.update();
         Display.sync(60);
 
         ThreadManager.addJob(new MeshTask());
-        
+
         return World.calcAcres();
 
 	}

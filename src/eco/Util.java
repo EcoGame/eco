@@ -63,7 +63,7 @@ public class Util {
              //System.out.println(Money.tMoney);
              Main.wheatPrice = Integer.valueOf(list.get(6));
              //System.out.println(Main.wheatPrice);
-             Main.uneatenwheat = Integer.valueOf(list.get(7));
+             PopManager.uneatenwheat = Integer.valueOf(list.get(7));
              readSuccess();
          } catch(Exception e){
              readError();

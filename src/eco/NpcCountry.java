@@ -20,7 +20,7 @@ public class NpcCountry {
 
 	}
 
-	public void tickNPC(){
+	public void initNPC(){
 
 	}
 

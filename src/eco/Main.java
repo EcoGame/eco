@@ -27,11 +27,13 @@ public class Main {
     public static int[][] unfilledpops = new int[10][10000];
     public static Pops[][] popArray = new Pops[10][10000];
     //public static int newpops = 0;
-    public static int uneatenwheat = 0;
+    //public static int uneatenwheat = 0;
     public static int[] unusedarray = new int [10];
   //  public static int unusedacres = 0;
+    public static int popSize = 25;
     public static int aggDemand;
     public static boolean debug;
+    public static boolean popDiags = false;
     public static boolean fullDebug = false;
     public static int GDP;
 
@@ -49,7 +51,7 @@ public class Main {
 
         for(int i = 1; i < 2000; i++) {
             year = i; //One tick is 1 year
-            PopManager.popController();
+            PopManager.popController(tAcres, 0);
             int farmPacks = Wheat.farmPacks(tAcres);
 
             int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
@@ -58,11 +60,14 @@ public class Main {
             Wheat.tWheat(employedFarmers);
             aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
-            Money.tMoney(uneatenwheat, wheatPrice);
+            Money.tMoney(PopManager.uneatenwheat, wheatPrice);
             GDP = Money.GDP(Wheat.tWheat, wheatPrice);
 
             if(debug){
             	OutputManager.printDebugInformation();
+            }
+            if(popDiags){
+              OutputManager.popDiagnostics(0);
             }
             UIManager.update();
             oldtWheat = Wheat.tWheat;

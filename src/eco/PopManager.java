@@ -17,10 +17,15 @@ public class PopManager {
 
 		Main.popArray[0][0].people = 5;
 		Main.popArray[0][1].people = 5;
+		Main.popArray[0][2].people = 5;
 		Main.popArray[0][0].isFarmer = true;
+		Main.popArray[0][1].isFarmer = false;
 		Main.popArray[0][0].acres = 5;
-		Main.popArray[0][1].isWarrior = true;
+		Main.popArray[0][1].acres = 5;
+		//Main.popArray[0][].isFarmer = false;
+		Main.popArray[0][2].isWarrior = true;
 		Main.popArray[0][0].isUsed = true;
+		Main.popArray[0][1].isUsed = true;
 		Main.popArray[0][1].isUsed = true;
 
 	}
