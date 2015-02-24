@@ -1,4 +1,4 @@
-# eco
+# Eco
 A basic simulation of an island nation
 
 ## Controls
