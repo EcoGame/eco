@@ -36,6 +36,7 @@ public class Main {
     public static boolean popDiags = false;
     public static boolean fullDebug = false;
     public static int GDP;
+    public static int taxRevenue;
 
     public static boolean attemptSaveLoad = false;
     public static final boolean isInEclipse = false;
@@ -62,6 +63,7 @@ public class Main {
             wheatPrice = Market.wheatPrice(wheatPrice);
             Money.tMoney(PopManager.uneatenwheat, wheatPrice);
             GDP = Money.GDP(Wheat.tWheat, wheatPrice);
+            taxRevenue = Tax.taxRevenue(0);
 
             if(debug){
             	OutputManager.printDebugInformation();
