@@ -3,16 +3,20 @@ A basic simulation of an island nation
 
 ## Controls
 
-WASD - Move the camera within the XZ plane
+W,A,S, and D - Move the camera within the XZ plane
 
-Space - Move the camera upwards
+Space Bar - Move the camera upwards
 
 Left Shift - Move the camera downwards
 
 Q - Re-align the camera back to the default position
 
+R and F - Rotate the camera
+
+### Dignostic Controls
+
 H, OR Accent Grave (or Tilde) - Toggle on-screen debug information
 
-G - Toggle stdout debug information
+G - Toggle standard outout debug information (in the Terminal)
 
-RF - Rotate the camera
+P - Population Diagnostics
