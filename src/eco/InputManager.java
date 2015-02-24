@@ -54,8 +54,8 @@ public class InputManager {
 						Render.multithreading ^= true;
 						break;
 					case Keyboard.KEY_P:
-					Main.popDiags ^= true;
-					break;
+						Main.popDiags ^= true;
+						break;
 				}
 			}
 		}
