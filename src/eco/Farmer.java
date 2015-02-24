@@ -5,11 +5,10 @@ public class Farmer {
     public static int fPop = 5;
     public static int fHunger;
 
-
     public static int fHunger(int p){
-        int x = 0;
-        x = p*11;
-
+        
+        int fHunger = 0;
+        fHunger = p*11;
         return x;
     }
 
