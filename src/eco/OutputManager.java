@@ -2,7 +2,7 @@ package eco;
 
 public class OutputManager {
 
-	public static void printDebugInformation(){
+	public static void printDebugInformation() {
 		int tPop = PopManager.fPopulation + PopManager.wPopulation;
 		System.out.println("This Year: " + Main.year);
     	System.out.println("\n    Wheat Produced this year: " + PopManager.uneatenwheat);
@@ -17,10 +17,12 @@ public class OutputManager {
         System.out.println("    Unassigned people: " + PopManager.unusedpops);
     	System.out.println("\n\n");
 	}
-	public static void popDiagnostics(int countrycode){
+	
+	public static void popDiagnostics(int countrycode) {
 		int x =0;
-		while(Main.popArray[countrycode][x].isUsed == true){
-			System.out.println("Stats for PopArray:"+ x +  "CountryCode:" + countrycode);
+		while(Main.popArray[countrycode][x].isUsed == true) {
+			System.out.println("Stats for PopArray: " + x);
+            System.out.println("CountryCode: " + countrycode);
 			System.out.println("People: " + Main.popArray[countrycode][x].people);
 			System.out.println("Acres: " + Main.popArray[countrycode][x].acres);
 			System.out.println("Famer: " + Main.popArray[countrycode][x].isFarmer);
