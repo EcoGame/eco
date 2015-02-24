@@ -8,7 +8,7 @@ public class Farmer {
     public static int fHunger(int popGroupNumber){
         
         int fHunger = 0;
-        fHunger = popGroupNumber*11;
+        fHunger = popGroupNumber*(Util.randInt(9, 10));
         return fHunger;
     }
 
