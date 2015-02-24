@@ -47,6 +47,7 @@ public class InputManager {
 										-4f, World.mapsize / 2f * Render.tilesize);
 						System.out.println("Reset camera to default location");
 						break;
+					case Keyboard.H:
 					case Keyboard.KEY_GRAVE:
 						Main.fullDebug ^= true;
 						break;
