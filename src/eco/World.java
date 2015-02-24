@@ -11,7 +11,7 @@ public class World {
 	public static short[][] structures = new short[mapsize][mapsize];
 
 	public static long mapseed = "seeds arentr kool".hashCode();
-	
+
 	public static double perlinbias;
 
 	public static ArrayList<Message> messages = new ArrayList<Message>();
@@ -21,7 +21,7 @@ public class World {
 	public static int warriors = 0;
 
 	public static void generate(){
-		
+
 		perlinbias = (double) ((float) mapsize / (float) mapseed);
 
 		map = new short[mapsize][mapsize];
@@ -272,7 +272,7 @@ public class World {
 		}
 		return count * acresPerSquare;
 	}
-	
+
 	public static double getDistanceFromCenter(int x, int y){
 		if (x < mapsize / 2){
 			if (y < mapsize / 2){

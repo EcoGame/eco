@@ -41,6 +41,6 @@ public class Farmer {
             return deadpeople;
         }
         return 0;
-    } 
+    }
 
 }

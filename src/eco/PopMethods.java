@@ -4,15 +4,15 @@ public class PopMethods {
 
 		//public static int[] unfilledpops = new int[1000];
 
-		public static void scanPops(){
+		public static void scanPops(int countrycode){
             // System.out.println("efa");
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x){
-                if((Main.popArray[x].people < 100)&& (Main.popArray[x].isUsed == true )){
+            while(Main.popArray[countrycode].length > x){
+                if((Main.popArray[countrycode][x].people < 100)&& (Main.popArray[countrycode][x].isUsed == true )){
 
-                    y= 100- Main.popArray[x].people;
-                    Main.unfilledpops[x] = y;
+                    y= 100- Main.popArray[countrycode][x].people;
+                    Main.unfilledpops[countrycode][x] = y;
                     //	System.out.println(Main.popArray[x].isFarmer);
                     //	System.out.println(y);
                     //System.out.println("Wdfe");
@@ -22,23 +22,23 @@ public class PopMethods {
             }
 		}
 
-		public static void unusedAcresFarmersAssignment(){
+		public static void unusedAcresFarmersAssignment(int countrycode){
 
             int x = 0;
             int y = 0;
             //int[][] unemployedfarmersArray = new int[1000][200];// put this is in main
             //	System.out.println(x);
-            while((Main.popArray.length > x) && (Main.unusedacres > 5)){
-                if((Main.popArray[x].acres < 500) && (Main.popArray[x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[x].isUsed == true ){
-                    if(Main.unusedacres < 500){
-                        y = Main.unusedacres;
-                        Main.unusedacres = 0;
+            while((Main.popArray[countrycode].length > x) && (PopManager.unusedacres > 5)){
+                if((Main.popArray[countrycode][x].acres < 500) && (Main.popArray[countrycode][x].isFarmer == true) /*&& (Main.popArray[x].people*5 > acres/5)*/ && Main.popArray[countrycode][x].isUsed == true ){
+                    if(PopManager.unusedacres < 500){
+                        y = PopManager.unusedacres;
+												PopManager.unusedacres = 0;
                     }
                     else {
                         y = 500;
-                        Main.unusedacres = Main.unusedacres - 500;
+												PopManager.unusedacres = PopManager.unusedacres - 500;
                     }
-                    Main.popArray[x].acres = Main.popArray[x].acres + y;
+                    Main.popArray[countrycode][x].acres = Main.popArray[countrycode][x].acres + y;
                     y = 0;
                     //System.out.println("fsdf");
                 }
@@ -48,37 +48,37 @@ public class PopMethods {
             // System.out.println("efsf");
 		}
 
-		public static void popAssigner(){
+		public static void popAssigner(int countrycode){
 
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x){
-                if((Main.popArray[x].people < 100)&&(Main.unusedpops > 0) && (Main.popArray[x].isUsed == true)) {
+            while(Main.popArray[countrycode].length > x){
+                if((Main.popArray[countrycode][x].people < 100)&&(PopManager.unusedpops > 0) && (Main.popArray[countrycode][x].isUsed == true)) {
                     //System.out.println("Kek");
-                    y = Main.unfilledpops[x];
-                    if(Main.unusedpops < y){
+                    y = Main.unfilledpops[countrycode][x];
+                    if(PopManager.unusedpops < y){
                         //			System.out.println("Tres");
-                        Main.popArray[x].people = Main.popArray[x].people + Main.unusedpops;
-                        Main.unusedpops = 0;
+                        Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people + PopManager.unusedpops;
+												PopManager.unusedpops = 0;
                     }
                     else {
 
-                        Main.unusedpops = Main.unusedpops - y;
-                        Main.popArray[x].people = Main.popArray[x].people + y;}
-                        Main.unfilledpops[x] = 0;
+											PopManager.unusedpops = PopManager.unusedpops - y;
+                        Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people + y;}
+                        Main.unfilledpops[countrycode][x] = 0;
                         y = 0;
                 }
                 x++;
             }
 		}
 
-		public static int farmertotal(){
+		public static int farmertotal(int countrycode){
 
 				int x = 0;
 				int y = 0;
-				while(Main.popArray.length > x) {
-                    if(Main.popArray[x].isFarmer == true) {
-                        y = y +Main.popArray[x].people;
+				while(Main.popArray[countrycode].length > x) {
+                    if(Main.popArray[countrycode][x].isFarmer == true) {
+                        y = y +Main.popArray[countrycode][x].people;
 						//		System.out.println("kejk" +y);
                     }
                     x++;
@@ -86,52 +86,52 @@ public class PopMethods {
             return y;
 		}
 
-		public static int warriortotal() {
+		public static int warriortotal(int countrycode) {
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x) {
-                if(Main.popArray[x].isWarrior == true) {
-                    y = y + Main.popArray[x].people;
+            while(Main.popArray[countrycode].length > x) {
+                if(Main.popArray[countrycode][x].isWarrior == true) {
+                    y = y + Main.popArray[countrycode][x].people;
                 }
                 x++;
             }
             return y;
 		}
 
-		public static int unemployedFarmerspops() {
+		public static int unemployedFarmerspops(int countrycode) {
 
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x) {
-                y = y +Main.popArray[x].unemployedfarmers;
+            while(Main.popArray[countrycode].length > x) {
+                y = y +Main.popArray[countrycode][x].unemployedfarmers;
                 x++;
             }
             return y;
 		}
 
-		public static int employedFarmerspops() {
+		public static int employedFarmerspops(int countrycode) {
 
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x){
+            while(Main.popArray[countrycode].length > x){
 
-						y = y +Main.popArray[x].employedfarmers;
+						y = y +Main.popArray[countrycode][x].employedfarmers;
 										x++;
 								}
 		return y;
 		}
 
-		public static int usedacres() {
+		public static int usedacres(int countrycode) {
             int x = 0;
             int y = 0;
-            while(Main.popArray.length > x){
-                y = y +Main.popArray[x].acres;
+            while(Main.popArray[countrycode].length > x){
+                y = y +Main.popArray[countrycode][x].acres;
                 x++;
             }
             return y;
 		}
 
-		public static void consumecyclewarrior() {
+		public static void consumecyclewarrior(int countrycode) {
             //food
             int x = 0;
             int y = 0;
@@ -139,31 +139,31 @@ public class PopMethods {
 						int r = 0;
 						int h = 0;
 						int u = 0;
-            while(Main.popArray.length > x) {
-                if(Main.popArray[x].isWarrior == true){
-                    y =	Warrior.wHunger(Main.popArray[x].people);
-										if((Main.wheatPrice*y)> Main.popArray[x].groupmoney){
-											r = Main.popArray[x].groupmoney/Main.wheatPrice;
+            while(Main.popArray[countrycode].length > x) {
+                if(Main.popArray[countrycode][x].isWarrior == true){
+                    y =	Warrior.wHunger(Main.popArray[countrycode][x].people);
+										if((Main.wheatPrice*y)> Main.popArray[countrycode][x].groupmoney){
+											r = Main.popArray[countrycode][x].groupmoney/Main.wheatPrice;
 											h = y- r;
 											u = Warrior.checkStarvation(y, h);
 											if( u > 0){
 												r = 0;
 												h = 0;
 
-												Main.popArray[x].people = Main.popArray[x].people - u;
-												if(Main.popArray[x].people < 0){
-													Main.popArray[x].people = 0;
+												Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people - u;
+												if(Main.popArray[countrycode][x].people < 0){
+													Main.popArray[countrycode][x].people = 0;
 												}
 											}
 										}
-                    Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*100);
-                    Main.uneatenwheat = Main.uneatenwheat - y;
+                    Main.popArray[countrycode][x].groupmoney = Main.popArray[countrycode][x].groupmoney + (Main.wheatPrice*100);
+                    PopManager.uneatenwheat = PopManager.uneatenwheat - y;
                 }
                 x++;
             }
 		}
 
-		public static void farmerconsumecycle() {
+		public static void farmerconsumecycle(int countrycode) {
 
             int x = 0;
             int y =0;
@@ -173,30 +173,30 @@ public class PopMethods {
             int h = 0;
             int m =0;
 			//	System.out.println("here1");
-            while(Main.popArray.length > x){
+            while(Main.popArray[countrycode].length > x){
 
 
-                if(Main.popArray[x].isFarmer == true){
-                    y = Wheat.farmPacks(Main.popArray[x].acres);
-                    k =	Wheat.unemployedFarmers(y, Main.popArray[x].people);
-                    r = Wheat.employedFarmers(Main.popArray[x].people,k);
+                if(Main.popArray[countrycode][x].isFarmer == true){
+                    y = Wheat.farmPacks(Main.popArray[countrycode][x].acres);
+                    k =	Wheat.unemployedFarmers(y, Main.popArray[countrycode][x].people);
+                    r = Wheat.employedFarmers(Main.popArray[countrycode][x].people,k);
                     w = Wheat.tWheat(r);
 									//	System.out.println("eaf" +w);
-                    h = Farmer.fHunger(Main.popArray[x].people);
+                    h = Farmer.fHunger(Main.popArray[countrycode][x].people);
 									//	System.out.println("gah" + h);
                     m = Farmer.checkStarvation(h, w);
                     if( m > 0){
                     	w = 0;
                     	h = 0;
 
-                    	Main.popArray[x].people = Main.popArray[x].people - m;
-											if(Main.popArray[x].people < 0){
-												Main.popArray[x].people = 0;
+                    	Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people - m;
+											if(Main.popArray[countrycode][x].people < 0){
+												Main.popArray[countrycode][x].people = 0;
 											}
                     }
 								//		System.out.println("fstgfd" + Main.popArray[x].people);
-                    Main.uneatenwheat = Main.uneatenwheat + (w-h);
-                    Main.popArray[x].groupmoney = Main.popArray[x].groupmoney + (Main.wheatPrice*w);
+                    PopManager.uneatenwheat = PopManager.uneatenwheat + (w-h);
+                    Main.popArray[countrycode][x].groupmoney = Main.popArray[countrycode][x].groupmoney + (Main.wheatPrice*w);
                     //	System.out.println(Main.popArray[x].groupmoney+ "kel");
                 }
                 x++;
@@ -205,48 +205,48 @@ public class PopMethods {
 
 
 
-		public static void popBuilder(int prefrence){
+		public static void popBuilder(int prefrence, int countrycode){
 
 				boolean iscomplete = false;
 				int x = 0;
 				int y = 0;
-				int l = Main.unusedacres;
+				int l = PopManager.unusedacres;
 				int m = 0;
 				int r = 0;
 				boolean k = false;
 				switch(prefrence){
 						case 1:
-						while(Main.unusedpops > 0){
+						while(PopManager.unusedpops > 0){
 								while(iscomplete == false){
 								//	System.out.println("eke");
-										if(Main.unusedpops < 100){
-												r= Main.unusedpops;
+										if(PopManager.unusedpops < 100){
+												r= PopManager.unusedpops;
 										//		System.out.println("yell");
 										}
-										if(Main.unusedpops >= 100){
+										if(PopManager.unusedpops >= 100){
 												r = 100;
 										}
-										if(Main.unusedpops == 0){
+										if(PopManager.unusedpops == 0){
 												iscomplete = true;
 										}
-										if(Main.unusedacres < 500){
+										if(PopManager.unusedacres < 500){
 												m= Main.unusedacres;
 										//		Main.unusedacres = Main.unusedacres - m;
 										}
-										if(Main.unusedacres >= 500){
+										if(PopManager.unusedacres >= 500){
 												m = 500;
 										//		Main.unusedacres = 0;
 										}
-										Main.unusedacres = Main.unusedacres - m;
-										Main.unusedpops = Main.unusedpops - r;
-										Main.popArray[Main.unusedarray].isUsed = true;
-										Main.popArray[Main.unusedarray].isFarmer = true;
-										Main.popArray[Main.unusedarray].acres = m;
-										Main.popArray[Main.unusedarray].people = r;
-										Main.popArray[Main.unusedarray].groupmoney = 100;
+										PopManager.unusedacres = PopManager.unusedacres - m;
+										PopManager.unusedpops = PopManager.unusedpops - r;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].isUsed = true;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].isFarmer = true;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].acres = m;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].people = r;
+										Main.popArray[countrycode][Main.unusedarray[countrycode]].groupmoney = 100;
 									m = 0;
 									r = 0;
-										Main.unusedarray++;
+									PopManager.unusedarray++;
 										x++;
 
 										if(x == 2){
@@ -260,22 +260,22 @@ public class PopMethods {
 								x =0;
 								while(iscomplete == false){
 								//	System.out.println("eke2");
-										if(Main.unusedpops < 100){
-												r= Main.unusedpops;
+										if(PopManager.unusedpops < 100){
+												r= PopManager.unusedpops;
 									//			Main.unusedpops; =
 										}
-										if(Main.unusedpops >= 100){
+										if(PopManager.unusedpops >= 100){
 												r = 100;
 										}
-										if(Main.unusedpops == 0){
+										if(PopManager.unusedpops == 0){
 												iscomplete = true;
 										}
-										Main.unusedpops = Main.unusedpops - r;
-										Main.popArray[Main.unusedarray].isUsed = true;
-										Main.popArray[Main.unusedarray].isWarrior = true;
-										Main.popArray[Main.unusedarray].people = r;
-										Main.popArray[Main.unusedarray].groupmoney = 100000;
-										Main.unusedarray++;
+										PopManager.unusedpops = PopManager.unusedpops - r;
+										Main.popArray[countrycode][Main.unusedarray].isUsed = true;
+										Main.popArray[countrycode][Main.unusedarray].isWarrior = true;
+										Main.popArray[countrycode][Main.unusedarray].people = r;
+										Main.popArray[countrycode][Main.unusedarray].groupmoney = 100000;
+										Main.unusedarrayc++;
 									r =0;
 										x++;
 										if(x == 1){

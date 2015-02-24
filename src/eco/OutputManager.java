@@ -1,7 +1,7 @@
 package eco;
 
 public class OutputManager {
-	
+
 	public static void printDebugInformation(){
 		int tPop = PopManager.fPopulation + PopManager.wPopulation;
 		System.out.println("This Year: " + Main.year);
