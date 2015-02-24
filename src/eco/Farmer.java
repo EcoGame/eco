@@ -5,11 +5,11 @@ public class Farmer {
     public static int fPop = 5;
     public static int fHunger;
 
-    public static int fHunger(int p){
+    public static int fHunger(int popGroupNumber){
         
         int fHunger = 0;
-        fHunger = p*11;
-        return x;
+        fHunger = popGroupNumber*11;
+        return fHunger;
     }
 
     public static int fPop(float y) { //Returns the number of farmers in
