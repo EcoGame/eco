@@ -19,4 +19,4 @@ H, OR Accent Grave (or Tilde) - Toggle on-screen debug information
 
 G - Toggle standard outout debug information (in the Terminal)
 
-P - Population Diagnostics
+P - Population Diagnostics output in standard output (in the Terminal)
