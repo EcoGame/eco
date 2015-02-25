@@ -39,6 +39,9 @@ public class Market {
     	for(int i=0; i<prices.length - 1; i++){
             prices[i] = prices[i + 1];
         }
+        
+        World.messages.add(new Message("Price", (x - shift), y - 60, 1));
+
 
         //for(int i=0; i<year.length - 1; i++){
           //  year[i] = year[i + 1];
@@ -57,8 +60,10 @@ public class Market {
     	for(int i=0; i<pop.length - 1; i++){
             pop[i] = pop[i + 1];
         }
+        
+        World.messages.add(new Message("Pop", (x - 80 - shift), y - 60, 1));
 
-
+        
 		return newPrice;
 
     /*
