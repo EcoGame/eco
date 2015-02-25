@@ -12,19 +12,16 @@ public class Farmer {
         return fHunger;
     }
 
-    public static int fPop(float y) { //Returns the number of farmers in
-        int k= 0;
-        float x= 0;
-        x = y;
-
-        x = ((x) * (1 + Main.wBirthRate - Main.wDeathRate));
-       // System.out.println("Farmer pops " + x);
-
-        k = (int)(Math.ceil(x));
-
+    public static int fPop(float fPopulation) {
+        
+        float rate = (1 + Main.fBirthRate - Main.fDeathRate);
+        fPopulation = (fPopulation * rate);
+        int k = (int)(fPopulation);
+        System.out.println(k);
         return k;
 
     }
+    
     public static int checkStarvation(int hungriness, int wheat ){
         int deadpeople;
         int q;
