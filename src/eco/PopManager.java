@@ -7,11 +7,12 @@ public class PopManager {
 	public static int tPop = 0;
 	public static int unusedacres = 0;
 	public static int unusedpops = 0;
-	public static int uneatenwheat = 0;
+	public static int uneatenWheat = 0;
 
 	public static void initpops() {
+        
 		for (int w = 0; w < 10; w++)
-        for(int i =0; i < Main.popArray[w].length; i++){
+        for(int i =0; i < Main.popArray[w].length; i++) {
             Main.popArray[w][i] = new Pops();
         }
 
@@ -22,7 +23,6 @@ public class PopManager {
 		Main.popArray[0][1].isFarmer = false;
 		Main.popArray[0][0].acres = 5;
 		Main.popArray[0][1].acres = 5;
-		//Main.popArray[0][].isFarmer = false;
 		Main.popArray[0][2].isWarrior = true;
 		Main.popArray[0][0].isUsed = true;
 		Main.popArray[0][1].isUsed = true;
@@ -30,30 +30,22 @@ public class PopManager {
 
 	}
 
-	public static void popController(int acres, int countrycode) {
+	public static void popController(int acres, int countryCode) {
 
-		int x = 0;
-		int y= 0;
         int r = 0;
         int q = 0;
-        int w = 0;
-        int k = 0;
-        int m = 0;
-        int e = 0;
-        int newtPop = 0;
-        int oldtPop = 0;
-				 unusedacres = 0;
-				unusedpops = 0;
-				uneatenwheat = 0;
-        PopMethods.scanPops(countrycode);
-
-	//	System.out.println(popMethods.usedacres());
+        int newTPop = 0;
+        int oldTPop = 0;
+        unusedAcres = 0;
+        unusedPops = 0;
+        uneatenWheat = 0;
+        PopMethods.scanPops(countryCode);
         unusedacres = acres;
 
-        PopMethods.unusedAcresFarmersAssignment(countrycode);
+        PopMethods.unusedAcresFarmersAssignment(countryCode);
 
-        wPopulation = PopMethods.warriortotal(countrycode);
-        fPopulation = PopMethods.farmertotal(countrycode);
+        wPopulation = PopMethods.warriortotal(countryCode);
+        fPopulation = PopMethods.farmertotal(countryCode);
 
         q = Warrior.wPop(wPopulation);
         r = Farmer.fPop(fPopulation);
@@ -62,15 +54,15 @@ public class PopManager {
         newtPop = q +r;
         PopManager.unusedpops = newtPop- oldtPop;
         //System.out.println(Main.unusedpops);
-        PopMethods.popAssigner(countrycode);
+        PopMethods.popAssigner(countryCode);
 
-        PopMethods.popBuilder(1, countrycode);
+        PopMethods.popBuilder(1, countryCode);
         wPopulation = q;
         fPopulation = r;
         tPop = wPopulation + fPopulation;
 
-        PopMethods.farmerconsumecycle(countrycode);
-        PopMethods.consumecyclewarrior(countrycode);
+        PopMethods.farmerconsumecycle(countryCode);
+        PopMethods.consumecyclewarrior(countryCode);
 
 	}
 }
