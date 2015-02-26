@@ -5,7 +5,7 @@ public class OutputManager {
 	public static void printDebugInformation() {
 		int tPop = PopManager.fPopulation + PopManager.wPopulation;
 		System.out.println("This Year: " + Main.year);
-    	System.out.println("\n    Wheat Produced this year: " + PopManager.uneatenwheat);
+    	System.out.println("\n    Wheat Produced this year: " + PopManager.uneatenWheat);
         System.out.println("    Available Acres: " + PopManager.unusedacres);
     	System.out.println("    Price of wheat: " + Main.wheatPrice);
     	System.out.println("    Money that is sorta kinda in the Treasury: " + Money.tMoney);
