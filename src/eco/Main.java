@@ -26,8 +26,6 @@ public class Main {
     //public static int unusedpops = 0;
     public static int[][] unfilledpops = new int[10][10000];
     public static Pops[][] popArray = new Pops[10][10000];
-    //public static int newpops = 0;
-    //public static int uneatenwheat = 0;
     public static int[] unusedarray = new int [10];
   //  public static int unusedacres = 0;
     public static int popSize = 25;
@@ -61,7 +59,7 @@ public class Main {
             Wheat.tWheat(employedFarmers);
             aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
             wheatPrice = Market.wheatPrice(wheatPrice);
-            Money.tMoney(PopManager.uneatenwheat, wheatPrice);
+            Money.tMoney(PopManager.uneatenWheat, wheatPrice);
             GDP = Money.GDP(Wheat.tWheat, wheatPrice);
             taxRevenue = Tax.taxRevenue(0);
 
