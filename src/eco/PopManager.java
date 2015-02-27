@@ -5,11 +5,11 @@ public class PopManager {
 	public static int wPopulation = 0;
 	public static int fPopulation = 0;
 	public static int tPop = 0;
-	public static int unusedacres = 0;
-	public static int unusedpops = 0;
+	public static int unusedAcres = 0;
+	public static int unusedPops = 0;
 	public static int uneatenWheat = 0;
 
-	public static void initpops() {
+	public static void initPops() {
         
 		for (int w = 0; w < 10; w++)
         for(int i =0; i < Main.popArray[w].length; i++) {
@@ -40,7 +40,7 @@ public class PopManager {
         unusedPops = 0;
         uneatenWheat = 0;
         PopMethods.scanPops(countryCode);
-        unusedacres = acres;
+        unusedAcres = acres;
 
         PopMethods.unusedAcresFarmersAssignment(countryCode);
 
@@ -52,8 +52,7 @@ public class PopManager {
 
         oldtPop = wPopulation + fPopulation;
         newtPop = q +r;
-        PopManager.unusedpops = newtPop- oldtPop;
-        //System.out.println(Main.unusedpops);
+        PopManager.unusedPops = newTPop- oldTPop;
         PopMethods.popAssigner(countryCode);
 
         PopMethods.popBuilder(1, countryCode);
