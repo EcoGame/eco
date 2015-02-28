@@ -109,16 +109,11 @@ public class Main {
 			Display.update();
 			Display.sync(60);
 		}
-		//****************//
-		//     WARNING    //
-		//                //
-		//ALL STRINGS MUST//
-		//BE DRAWN AFTER  //
-		//THIS POINT      //
-		//****************//
+		
 	}
 
 	public static void tick(){
+
         Farmer.fPop = Farmer.fPop();
         Warrior.wPop = Warrior.wPop();
         // Warrior.wHunger(PopManager.wPopulation);
@@ -170,9 +165,9 @@ public class Main {
 
 	public static void init() {
 
-        Render.initDisplay();
-        Render.init();
-        try {
+    Render.initDisplay();
+    Render.init();
+    try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {
 			e.printStackTrace();
@@ -181,7 +176,6 @@ public class Main {
 		if (attemptSaveLoad){
 			Util.readSave();
 		}
-		//PopManager.initpops();
 
 	}
 

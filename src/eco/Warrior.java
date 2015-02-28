@@ -6,9 +6,9 @@ public class Warrior {
     public static int wPop = 5;
     public static float floatWPop = wPop;
     public static int wHunger;
-    
+
 	public static int wPop() {
-        
+
 		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
 		floatWPop = (floatWPop * rate);
 		wPop = (int)(floatWPop);
@@ -16,23 +16,24 @@ public class Warrior {
 
 	}
 
-    public static int wHunger(int p){
+    public static int wHunger(int wPop){
 
-        int x = 0;
-        x = p * 11;
-        return x;
+        int wHunger = 0;
+        wHunger = wPop * (Util.randInt(9, 11));
+        return wHunger;
 
     }
 
-    public static int checkStarvation(int hungriness, int wheat ){
+    public static int checkStarvation(int hunger, int wheat ){
+
         int deadpeople;
         int q;
         int e;
         double k;
         double o;
-        if(hungriness > wheat){
+        if(hunger > wheat){
             o = wheat/11;
-            k = hungriness/11;
+            k = hunger/11;
             e = (int) Math.floor(k);// floors hungirness
             q = (int) Math.floor(o);// floors total wheat
             deadpeople = e-q;
