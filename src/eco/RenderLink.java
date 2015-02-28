@@ -23,12 +23,9 @@ public class RenderLink {
         
 		
 		if (!Main.paused){
-		
-			
+            
 			Render.draw();
-	        
 	        Render.initOrtho();
-	        
 	        Render.drawString("FPS: "+String.valueOf(FPSCounter.getFPS()), 10, 10);
 	        Render.drawString("Year: "+String.valueOf(year), 10, 30);
 	    	if (Render.multithreading){
@@ -71,7 +68,6 @@ public class RenderLink {
 	public static void update(){
 		World.updateMap(Farmer.fPop, Warrior.wPop);
         World.freeAcres = World.calcAcres();
-      //  DisplayLists.mesh();
         ThreadManager.addJob(new MeshTask());
 
 	}

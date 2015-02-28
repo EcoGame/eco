@@ -48,7 +48,7 @@ public class Main {
 		while (year < ticks && !Display.isCloseRequested()){
 			frame++;
 			if (frame >= framesPerTick && !paused){
-				year++;//One tick is 1 year
+				year++;
 				if (!willsCode){
 					tick();
 				}
@@ -88,7 +88,6 @@ public class Main {
 			if(popDiags){
 				OutputManager.popDiagnostics(0);
 			}
-			// PopManager.tPop = RenderLink.tryToUpdatePop();
 			RenderLink.update();
 
 	}
@@ -113,7 +112,6 @@ public class Main {
 		if(popDiags){
 			OutputManager.popDiagnostics(0);
 		}
-		// PopManager.tPop = RenderLink.tryToUpdatePop();
 		RenderLink.update();
 
 }

@@ -22,7 +22,6 @@ public class PopManager {
 		Main.popArray[0][1].isFarmer = false;
 		Main.popArray[0][0].acres = 5;
 		Main.popArray[0][1].acres = 5;
-		//Main.popArray[0][].isFarmer = false;
 		Main.popArray[0][2].isWarrior = true;
 		Main.popArray[0][0].isUsed = true;
 		Main.popArray[0][1].isUsed = true;
@@ -53,8 +52,8 @@ public class PopManager {
         wPopulation = PopMethods.warriortotal(countrycode);
         fPopulation = PopMethods.farmertotal(countrycode);
 
-        q = Warrior.wPop(wPopulation);
-        r = Farmer.fPop(fPopulation);
+        q = Warrior.wPop();
+        r = Farmer.fPop();
 
         oldtPop = wPopulation + fPopulation;
         newtPop = q +r;

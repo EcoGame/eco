@@ -5,7 +5,7 @@ public class Farmer {
 	public static int fPop = 5;
 	public static int fHunger;
 
-	public static float realFPop = fPop;
+	public static float floatFPop = fPop;
 	
 	public static int wheatPerFarmer = 15;
 	
@@ -16,22 +16,20 @@ public class Farmer {
 		int fHunger = 0;
 		fHunger = popGroupNumber*(Util.randInt(9, 10));
 		return fHunger;
+        
 	}
 
 	public static int fPop() {
+        
 		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
-		realFPop = (realFPop * rate);
-		fPop = (int)(realFPop);
+		floatFPop = (floatFPop * rate);
+		fPop = (int)(floatFPop);
 		return fPop;
 
 	}
 	
 	public static void harvest(){
 		totalHarvest = wheatPerFarmer * fPop;
-	}
-
-	public static int fPop(float screwYouWill){
-		return -1;
 	}
 
 	public static int checkStarvation(int hungriness, int wheat ){
