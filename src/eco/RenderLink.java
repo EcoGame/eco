@@ -1,23 +1,10 @@
 package eco;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.SharedDrawable;
 
 public class RenderLink {
-
-	public static void init() {
-        Render.initDisplay();
-        Render.init();
-        try {
-			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-		}
-        ThreadManager.addJob(new MeshTask());
-	}
 
 	public static int tick(int year) {
         
@@ -65,14 +52,6 @@ public class RenderLink {
 
 	}
 	
-	public static void update(){
-		World.updateMap(Farmer.fPop, Warrior.wPop);
-        World.freeAcres = World.calcAcres();
-        ThreadManager.addJob(new MeshTask());
-
-	}
-
-
 	public static void simDone() {
 
 		while (!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) && !Display.isCloseRequested()) {

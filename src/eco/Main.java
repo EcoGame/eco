@@ -2,6 +2,8 @@ package eco;
 
 import java.util.Random;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.SharedDrawable;
+import org.lwjgl.LWJGLException;
 
 public class Main {
 
@@ -72,23 +74,25 @@ public class Main {
 	}
 
 	public static void tick(){
-			Farmer.fPop = Farmer.fPop();
-			Warrior.wPop = Warrior.wPop();
-			// Warrior.wHunger(PopManager.wPopulation);
-			// Wheat.tWheat(employedFarmers);
-			//aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
-			//wheatPrice = Market.wheatPrice(wheatPrice);
-			//Money.tMoney(PopManager.uneatenwheat, wheatPrice);
-			//GDP = Money.GDP(Wheat.tWheat, wheatPrice);
-			//taxRevenue = Tax.taxRevenue(0);
+        Farmer.fPop = Farmer.fPop();
+        Warrior.wPop = Warrior.wPop();
+        // Warrior.wHunger(PopManager.wPopulation);
+        // Wheat.tWheat(employedFarmers);
+        //aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
+        //wheatPrice = Market.wheatPrice(wheatPrice);
+        //Money.tMoney(PopManager.uneatenwheat, wheatPrice);
+        //GDP = Money.GDP(Wheat.tWheat, wheatPrice);
+        //taxRevenue = Tax.taxRevenue(0);
 
-			if(debug){
-				OutputManager.printDebugInformation();
-			}
-			if(popDiags){
-				OutputManager.popDiagnostics(0);
-			}
-			RenderLink.update();
+        if(debug){
+            OutputManager.printDebugInformation();
+        }
+        if(popDiags){
+            OutputManager.popDiagnostics(0);
+        }
+        World.updateMap(Farmer.fPop, Warrior.wPop);
+        World.freeAcres = World.calcAcres();
+        ThreadManager.addJob(new MeshTask());
 
 	}
 	
@@ -112,14 +116,23 @@ public class Main {
 		if(popDiags){
 			OutputManager.popDiagnostics(0);
 		}
-		RenderLink.update();
+        World.updateMap(Farmer.fPop, Warrior.wPop);
+        World.freeAcres = World.calcAcres();
+        ThreadManager.addJob(new MeshTask());
 
 }
 
 
 	public static void init() {
 
-		RenderLink.init();
+        Render.initDisplay();
+        Render.init();
+        try {
+			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
+        ThreadManager.addJob(new MeshTask());
 		if (attemptSaveLoad){
 			Util.readSave();
 		}

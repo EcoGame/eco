@@ -19,7 +19,7 @@ public class Warrior {
     public static int wHunger(int p){
 
         int x = 0;
-        x = p*11;
+        x = p * 11;
         return x;
 
     }
