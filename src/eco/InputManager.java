@@ -5,6 +5,9 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 public class InputManager {
+	
+	public static final float moveSpeed = 0.1f;
+	
 
 	public static void update(){
 		if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
@@ -14,26 +17,26 @@ public class InputManager {
 			Render.rot += 0.5f;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			Render.z += 0.1f;
-			Render.camera.moveForward(0.1f);
+			Render.z += moveSpeed;
+			Render.camera.moveForward(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			Render.x -= 0.1f;
-			Render.camera.moveRight(0.1f);
+			Render.x -= moveSpeed;
+			Render.camera.moveRight(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			Render.z -= 0.1f;
-			Render.camera.moveBack(0.1f);
+			Render.z -= moveSpeed;
+			Render.camera.moveBack(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			Render.x += 0.1f;
-			Render.camera.moveLeft(0.1f);
+			Render.x += moveSpeed;
+			Render.camera.moveLeft(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-			Render.camera.moveDown(0.1f);
+			Render.camera.moveDown(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			Render.camera.moveUp(0.1f);
+			Render.camera.moveUp(moveSpeed);
 		}
 		while (Keyboard.next()){
 			if (Keyboard.getEventKeyState()){
@@ -56,6 +59,9 @@ public class InputManager {
 						break;
 					case Keyboard.KEY_P:
 						Main.popDiags ^= true;
+						break;
+					case Keyboard.KEY_ESCAPE:
+						Main.paused ^= true;
 						break;
 				}
 			}

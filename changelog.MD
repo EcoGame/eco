@@ -25,8 +25,3 @@
 ## Buttons
 * Fixed button rendering
 * Changed the dank button to toggle rendering modes
-
-# Verison 0.15 - Will
-## General
-*Added the Framework to multicountry use
-*Added Diagnostic tools for pops

@@ -2,8 +2,6 @@ package eco;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -24,6 +22,10 @@ public class Util {
     public static void createSave(){
 
     }
+    
+	public static Treble<Float, Float, Float> convertColor(Treble<Float, Float, Float> base){
+		return new Treble<Float, Float, Float>(base.x / 255f, base.y / 255f, base.z / 255f);
+	}
 
     public static void readSave(){
          String path = "../saves/save.txt";

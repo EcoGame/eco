@@ -1,10 +1,10 @@
 package eco;
 
-import java.util.Random;
 
 public class Warrior {
 
-    //  public static int wPop = 5;
+    public static int wPop = 5;
+    public static float realWPop = wPop;
     public static int wHunger;
     // public static float rate = wPop;
 
@@ -23,6 +23,14 @@ public class Warrior {
 
 
     }
+    
+	public static int wPop() {
+		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
+		realWPop = (realWPop * rate);
+		wPop = (int)(realWPop);
+		return wPop;
+
+	}
 
     public static int wHunger(int p){
 
