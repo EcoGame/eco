@@ -23,11 +23,9 @@ public class Main {
     public static volatile float fDeathRate = 0.02f;
     public static volatile float wBirthRate = 0.008f;
     public static volatile float wDeathRate = 0.002f;
-    //public static int unusedpops = 0;
     public static int[][] unfilledpops = new int[10][10000];
     public static Pops[][] popArray = new Pops[10][10000];
     public static int[] unusedarray = new int [10];
-  //  public static int unusedacres = 0;
     public static int popSize = 25;
     public static int aggDemand;
     public static boolean debug;
@@ -86,7 +84,7 @@ public class Main {
         if (attemptSaveLoad){
         	Util.readSave();
         }
-        PopManager.initpops();
+        PopManager.initPops();
 
 	}
 

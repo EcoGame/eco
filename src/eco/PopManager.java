@@ -50,8 +50,8 @@ public class PopManager {
         q = Warrior.wPop(wPopulation);
         r = Farmer.fPop(fPopulation);
 
-        oldtPop = wPopulation + fPopulation;
-        newtPop = q +r;
+        oldTPop = wPopulation + fPopulation;
+        newTPop = q + r;
         PopManager.unusedPops = newTPop- oldTPop;
         PopMethods.popAssigner(countryCode);
 
