@@ -12,21 +12,21 @@ public class DisplayLists {
 	public static int farmHandle;
 	public static int houseHandle;
 	public static int castleHandle;
-	
+
 	public static final int indexes = 1;
-	
+
 	public static final float offset = Render.tilesize / 2f;
 	public static final float tilesize = Render.tilesize;
-	
+
 	public static int index;
-	
+
 	public static void init(){
 		index = GL11.glGenLists(indexes);
 		if (index == 0){
 			System.out.println("Error in display list initiation!");
 		}
 	}
-	
+
 	public static void mesh(){
 		GL11.glNewList(index + 3, GL11.GL_COMPILE);
 		for (int x = 0; x < World.mapsize; x++){

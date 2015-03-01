@@ -38,7 +38,7 @@ public class PopMethods {
                         PopManager.unusedAcres =  PopManager.unusedAcres + y;
                         y= y*-1;
                     }
-                    
+
                     else {
                         y = (5*Main.popSize);
 												PopManager.unusedAcres = PopManager.unusedAcres - (5*Main.popSize);
@@ -154,7 +154,7 @@ public class PopMethods {
 											if( u > 0){
 												r = 0;
 												h = 0;
-
+											//	System.out.println("Warriors be startving" + x);
 												Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people - u;
 												if(Main.popArray[countrycode][x].people < 0){
 													Main.popArray[countrycode][x].people = 0;
@@ -193,7 +193,7 @@ public class PopMethods {
                     if( m > 0){
                     	w = 0;
                     	h = 0;
-
+											//System.out.println("Farmers be startving"+ x );
                     	Main.popArray[countrycode][x].people = Main.popArray[countrycode][x].people - m;
 											if(Main.popArray[countrycode][x].people < 0){
 												Main.popArray[countrycode][x].people = 0;

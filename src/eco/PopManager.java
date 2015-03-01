@@ -14,7 +14,7 @@ public class PopManager {
         for(int i =0; i < Main.popArray[w].length; i++){
             Main.popArray[w][i] = new Pops();
         }
-
+				System.out.println("Kill yourself");
 		Main.popArray[0][0].people = 5;
 		Main.popArray[0][1].people = 5;
 		Main.popArray[0][2].people = 5;
@@ -56,7 +56,9 @@ public class PopManager {
         r = Farmer.fPop();
 
         oldtPop = wPopulation + fPopulation;
+				System.out.println("Popmanager old +" +oldtPop);
         newtPop = q +r;
+				System.out.println("Popmanager new +" +newtPop);
         PopManager.unusedPops = newtPop- oldtPop;
         PopMethods.popAssigner(countrycode);
 

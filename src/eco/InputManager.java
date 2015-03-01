@@ -5,9 +5,9 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 public class InputManager {
-	
+
 	public static final float moveSpeed = 0.1f;
-	
+
 
 	public static void update(){
 		if (Keyboard.isKeyDown(Keyboard.KEY_R)) {

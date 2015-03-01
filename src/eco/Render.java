@@ -56,39 +56,39 @@ import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class Render {
-    
+
 	public static float rot;
-    
+
 	public static float x = 0;
 	public static float y = 0;
 	public static float z = 0;
-	
+
 	public static volatile boolean shouldRender = true;
-    
+
 	static TextureAtlas atlas;
 	static TrueTypeFont font;
-    
+
 	public static final float tilesize = 0.2f;
-    
+
 	public static volatile boolean mesh = false;
-    
+
 	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize, -8f, World.mapsize / 2f * tilesize);
-    
+
 	public static volatile int vertex_handle;
 	public static volatile int texture_handle;
 	public static volatile int structure_vertex_handle;
 	public static volatile int structure_texture_handle;
 	public static volatile int buffersize;
 	public static volatile int structure_buffersize;
-	
+
 	public static float heightConstant = MeshTask.heightConstant;
-    
+
 	public static final float rotSpeed = 0.05f;
-    
+
 	public static boolean multithreading = false;
-	
+
 	public static boolean multiThreadStructures = false;
-    
+
 	public static void initDisplay(){
 		try {
 			Display.setDisplayMode(new DisplayMode(Main.width, Main.height));
@@ -102,20 +102,20 @@ public class Render {
 			e.printStackTrace();
 		}
 		Display.setVSyncEnabled(true);
-        
+
 	}
-    
+
 	public static void init(){
-        
+
 		Log.setVerbose(false);
-        
+
 		World.generate();
-        
-        
+
+
 		//while (!World.isValid()){
         //World.generate();
 		//}
-        
+
 		try {
 			if (Main.isInEclipse){
 				atlas = new TextureAtlas(TextureLoader.getTexture("PNG",
@@ -130,9 +130,9 @@ public class Render {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
+
 		atlas.getTexture().bind();
-        
+
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -140,19 +140,19 @@ public class Render {
 		glEnable(GL_ALPHA_TEST);
 		glAlphaFunc(GL_GREATER, 0.0f);
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-		
+
 		GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
 		GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-        
+
         /* GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST_MIPMAP_NEAREST);
          GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
          GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL14.GL_GENERATE_MIPMAP, GL11.GL_TRUE);
          GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL12.GL_TEXTURE_MAX_LEVEL, 3);*/
-        
+
 		initFrustrum();
 		//initOrtho();
 		GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
-        
+
 	    try {
 	    	InputStream inputStream;
 	    	if (Main.isInEclipse){
@@ -161,25 +161,25 @@ public class Render {
 	        else{
 	        	inputStream = ResourceLoader.getResourceAsStream("../assets/font.ttf");
 	        }
-            
+
 	        Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 	        awtFont = awtFont.deriveFont(16f); // set font size
 	        font = new TrueTypeFont(awtFont, true);
-            
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-        
+
 		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 		GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-		
+
 		texture_handle = glGenBuffers();
 		vertex_handle = glGenBuffers();
 		structure_texture_handle = glGenBuffers();
 		structure_vertex_handle = glGenBuffers();
 	}
-    
+
 	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -191,7 +191,7 @@ public class Render {
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 		glEnable(GL_BLEND);
 	}
-    
+
 	public static void initOrtho(){
 		glClearDepth(1);
 		glViewport(0,0,Display.getWidth(), Display.getHeight());
@@ -203,29 +203,29 @@ public class Render {
 		glLoadIdentity();
 		//GL11.glClearColor(0.5f, 0.5f, 0.5f, 1);
 	}
-    
+
 	public static void draw(){
 		glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		//glRotatef(30f, 1.0f, 0.0f, 0.0f);
 		//glTranslatef(x, y, z);
-		
+
 		initFrustrum();
-		
+
 		camera.look();
-        
+
 		atlas.texture.bind();
-        
+
 		int mapsize = World.mapsize;
-        
+
 		rot += 0.05f;
-        
+
 		float offset = mapsize * tilesize / 2f;
 		glTranslatef(-offset, 0f, -offset);
 		glRotatef(rot, 0.0f, 1.0f, 0.0f);
 		glTranslatef(offset, 0f, offset);
-        
-        
+
+
 		if (multithreading){
 			if (vertex_handle == 0 ||  texture_handle == 0){
 				return;
@@ -233,10 +233,10 @@ public class Render {
 			else{
 				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertex_handle);
 				GL11.glVertexPointer(3, GL11.GL_FLOAT, 0, 0L);
-                
+
 				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, texture_handle);
 				GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0L);
-                
+
 				GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
 			}
 			if (structure_vertex_handle == 0 ||  structure_texture_handle == 0){
@@ -249,7 +249,7 @@ public class Render {
 				glTranslatef(offset, 0f, offset);
 				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, structure_vertex_handle);
 				GL11.glVertexPointer(3, GL11.GL_FLOAT, 0, 0L);
-                
+
 				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, structure_texture_handle);
 				GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0L);
 				GL11.glDrawArrays(GL11.GL_QUADS, 0, structure_buffersize / 3);
@@ -268,7 +268,7 @@ public class Render {
 				}
 			}
 		}
-        
+
 		atlas.getTexture().bind();
 		if (!multithreading){
 			for (int x = 0; x < mapsize; x++){
@@ -281,7 +281,7 @@ public class Render {
 					}
 					if (World.map[x][y] == 0){
 						drawTile(-x * tilesize, -y * tilesize, 0);
-                        
+
 					}
 					if (World.map[x][y] == 1){
 						drawTile(-x * tilesize, -y * tilesize, 1);
@@ -295,14 +295,14 @@ public class Render {
 		initOrtho();
 		glPushMatrix();
 		UIManager.render();
-        
+
 		for (Message message : World.messages){
 			if (message.time > 0){
 				message.time--;
 				drawString(message.message, message.x, message.y);
 			}
 		}
-        
+
 		for (int i = 0; i < World.messages.size(); i++){
 			if (World.messages.get(i).time <= 0){
 				World.messages.remove(i);
@@ -310,7 +310,7 @@ public class Render {
 		}
 		glPopMatrix();
 	}
-	
+
 	public static void drawDisplayList(int index, float x, float y, float z, float rot){
 		//glPushMatrix();
 		glTranslatef(x, y, z);
@@ -318,10 +318,10 @@ public class Render {
 		glTranslatef(-x, -y, -z);
 		//glPopMatrix();
 	}
-    
+
 	public static void drawTile(float x, float z, Treble<Float, Float, Float> color){
-        
-        
+
+
 		glColor3f(color.x, color.y, color.z);
 		glBegin(GL_QUADS);
         glVertex3f(x, 1f, z);
@@ -331,12 +331,12 @@ public class Render {
 		glEnd();
 		glColor3f(1f, 1f, 1f);
 	}
-    
+
 	public static void drawTile(float x, float z, int texpos){
-        
+
 		int tex = texpos % 4;
 		int tey = texpos / 4;
-        
+
 		glBegin(GL_QUADS);
         glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
         glVertex3f(x, 0f, z);
@@ -347,22 +347,22 @@ public class Render {
         glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
         glVertex3f(x, 0f, z + tilesize);
 		glEnd();
-        
+
 		glColor3f(1.0f, 1.0f, 1.0f);
 	}
-    
+
 	public static void drawStructure(float x, float z, int texpos){
 		glPushMatrix();
-        
+
 		float offset = (tilesize / 2);
-        
+
 		int tex = texpos % 4;
 		int tey = texpos / 4;
-        
+
 		glTranslatef(x, 0, z);
 		glRotatef(-rot, 0f, 1f, 0f);
 		glTranslatef(-x, 0, -z);
-        
+
 		glBegin(GL_QUADS);
 		glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
 		glVertex3f(x - offset, offset * 2, z);
@@ -373,22 +373,22 @@ public class Render {
 		glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
 		glVertex3f(x - offset, 0f, z);
 		glEnd();
-        
+
 		glPopMatrix();
 	}
-	
+
 	public static void drawStructure(float x, float y, float z, int texpos){
 		glPushMatrix();
-        
+
 		float offset = (tilesize / 2);
-        
+
 		int tex = texpos % 4;
 		int tey = texpos / 4;
-        
+
 		glTranslatef(x, 0, z);
 		glRotatef(-rot, 0f, 1f, 0f);
 		glTranslatef(-x, 0, -z);
-        
+
 		glBegin(GL_QUADS);
 		glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
 		glVertex3f(x - offset, y + offset * 2, z);
@@ -399,24 +399,24 @@ public class Render {
 		glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
 		glVertex3f(x - offset, y, z);
 		glEnd();
-        
+
 		glPopMatrix();
 	}
-    
+
 	public static void drawString(String message, float x, float y){
 		font.drawString(x, y, message);
 	}
-    
+
 	public static void drawPaused() {
-		
+
 		float centerX = Display.getWidth() / 2f;
 		float centerY = Display.getHeight() / 2f;
-		
+
 		float textWidth = font.getWidth("Paused") / 2f;
 		float textHeight = font.getHeight("Paused") / 2f;
-		
+
 		Treble<Float, Float, Float> pauseColor = Util.convertColor(new Treble<Float, Float, Float>(186f,179f,178f));
-		
+
 		glDisable(GL11.GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glColor4f(pauseColor.x, pauseColor.y, pauseColor.z, 0.05f);
@@ -430,11 +430,11 @@ public class Render {
 		glEnd();
 		glColor4f(1f, 1f, 1f, 1f);
 		glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		glDisable(GL_DEPTH_TEST);
 		font.drawString(centerX - textWidth, centerY - textHeight, "Paused");
 		glEnable(GL_DEPTH_TEST);
-        
+
 	}
-    
+
 }

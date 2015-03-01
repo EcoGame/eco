@@ -19,17 +19,17 @@ public class World {
 
 	public static int oldFarmers = 0;
 	public static int oldWarriors = 0;
-	
+
 	public static int freeAcres = 0;
 	public static int totalAcres = 0;
-	
+
 	public static final float randomLocCutoff = 0.3f;
-	
+
 	public static int farmerOverflow = 0;
 	public static int warriorOverflow = 0;
-	
+
 	public static int displacedPeople = 0;
-	
+
 	public static int extraHouses = 0;
 	public static int extraFarmers = 0;
 	public static int extraWarriors = 0;
@@ -39,12 +39,12 @@ public class World {
 		mapseed = System.currentTimeMillis();
 		map = new short[mapsize][mapsize];
 		structures = new short[mapsize][mapsize];
-		
+
 		float[][] heightmap = new float[mapsize][mapsize];
-		
+
 		int centx = (mapsize / 2) - 1;
 		int centy = (mapsize / 2) - 1;
-		
+
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
 				float distx = (float) Math.pow(centx - x, 2);
@@ -54,7 +54,7 @@ public class World {
 				heightmap[x][y] = distance;
 			}
 		}
-		 
+
 		NoiseSampler.initSimplexNoise((int) mapseed);
 		NoiseSampler.setNoiseScale(mapsize / 4);
 
@@ -68,7 +68,7 @@ public class World {
 				noise[x][y] *= 128;
 			}
 		}
-		
+
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
 				if (noise[x][y] < 48){
@@ -132,14 +132,14 @@ public class World {
 		}
 		return true;
 	}
-	
+
 	public static void updateMap(int farmers, int warriors){
-		
+
 		Random random = new Random();
-		
+
 		int deltaFarmer = farmers - oldFarmers + extraFarmers;
 		int deltaWarriors = warriors - oldWarriors + extraWarriors;
-		
+
 		if (deltaFarmer > 0){
 			int newFarms = deltaFarmer;
 			if ((float) freeAcres / (float) totalAcres >= randomLocCutoff){
@@ -174,7 +174,7 @@ public class World {
 
 			}
 		}
-		
+
 		if (deltaWarriors > 0){
 			int newCastles = deltaWarriors;
 			if ((float) freeAcres / (float) totalAcres >= randomLocCutoff){
@@ -193,7 +193,7 @@ public class World {
 
 			}
 		}
-		
+
 		oldFarmers = farmers;
 		oldWarriors = warriors;
 	}

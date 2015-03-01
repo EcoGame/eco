@@ -22,7 +22,7 @@ public class Util {
     public static void createSave(){
 
     }
-    
+
 	public static Treble<Float, Float, Float> convertColor(Treble<Float, Float, Float> base){
 		return new Treble<Float, Float, Float>(base.x / 255f, base.y / 255f, base.z / 255f);
 	}

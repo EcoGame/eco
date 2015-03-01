@@ -33,7 +33,7 @@ public class Main {
 	public static int taxRevenue;
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
-	public static final boolean willsCode = false;
+	public static final boolean willsCode = true;
 	public static boolean paused = false;
 	public static final int ticks = 2000;
 	public static final String vn = "0.2";
@@ -109,7 +109,7 @@ public class Main {
 			Display.update();
 			Display.sync(60);
 		}
-		
+
 	}
 
 	public static void tick(){
@@ -137,13 +137,13 @@ public class Main {
 	}
 
 	public static void willTick(){
-
-		PopManager.popController(tAcres, 0);
-		int farmPacks = Wheat.farmPacks(tAcres);
+		System.out.println("acres " + World.freeAcres);
+		PopManager.popController(World.freeAcres, 0);
+		/*int farmPacks = Wheat.farmPacks(tAcres);
 		int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
 		int employedFarmers = Wheat.employedFarmers(PopManager.fPopulation, unemployedFarmers);
 		Warrior.wHunger(PopManager.wPopulation);
-		Wheat.tWheat(employedFarmers);
+		Wheat.tWheat(employedFarmers);*/
 		aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
 		wheatPrice = Market.wheatPrice(wheatPrice);
 		Money.tMoney(PopManager.uneatenWheat, wheatPrice);
@@ -167,6 +167,9 @@ public class Main {
 
     Render.initDisplay();
     Render.init();
+		if (willsCode){
+			PopManager.initpops();
+		}
     try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {

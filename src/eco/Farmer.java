@@ -6,9 +6,9 @@ public class Farmer {
 	public static int fHunger;
 
 	public static float floatFPop = fPop;
-	
+
 	public static int wheatPerFarmer = 15;
-	
+
 	public static int totalHarvest;
 
 	public static int fHunger(int popGroupNumber){
@@ -16,18 +16,18 @@ public class Farmer {
 		int fHunger = 0;
 		fHunger = popGroupNumber*(Util.randInt(9, 10));
 		return fHunger;
-        
+
 	}
 
 	public static int fPop() {
-        
+
 		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
 		floatFPop = (floatFPop * rate);
 		fPop = (int)(floatFPop);
 		return fPop;
 
 	}
-	
+
 	public static void harvest(){
 		totalHarvest = wheatPerFarmer * fPop;
 	}

@@ -17,7 +17,7 @@ public class MeshTask implements Runnable {
 
 		ArrayList<Float> vertex = new ArrayList<Float>();
 		ArrayList<Float> texture = new ArrayList<Float>();
-		
+
 		ArrayList<Float> structureVertex = new ArrayList<Float>();
 		ArrayList<Float> structureTexture = new ArrayList<Float>();
 
@@ -75,24 +75,24 @@ public class MeshTask implements Runnable {
 		for (int i = 0; i < buffersize; i++){
 			textureData.put((float) texture.get(i));
 		}
-		
+
 		if (Render.multiThreadStructures){
 			buffersize = structureVertex.size();
 			FloatBuffer structureVertexData = BufferUtils.createFloatBuffer(buffersize);
-	
+
 			for (int i = 0; i < buffersize; i++){
 				structureVertexData.put((float) vertex.get(i));
 			}
 			buffersize = structureTexture.size();
-	
+
 			FloatBuffer structureTextureData = BufferUtils.createFloatBuffer(buffersize);
-	
-	
+
+
 			for (int i = 0; i < buffersize; i++){
 				structureTextureData.put((float) texture.get(i));
 			}
 		}
-		
+
 		vertexData.flip();
 		textureData.flip();
 
@@ -123,7 +123,7 @@ public class MeshTask implements Runnable {
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, structureVertexData,
 				GL15.GL_STATIC_DRAW);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);*/
-		
+
 
 
 		Render.buffersize = vertexData.capacity();
@@ -153,23 +153,23 @@ public class MeshTask implements Runnable {
 					x + tilesize, y, z,
 					x + tilesize, y, z + tilesize,
 					x , y, z + tilesize,
-					
-					
+
+
 					x, 0, z,
 					x + tilesize, 0, z,
 					x + tilesize, y, z,
 					x, y, z,
-					
+
 					x, 0, z + tilesize,
 					x + tilesize, 0, z + tilesize,
 					x + tilesize, y, z + tilesize,
 					x, y, z + tilesize,
-					
+
 					x, 0, z,
 					x, 0, z + tilesize,
 					x, y, z + tilesize,
 					x, y, z,
-					
+
 					x + tilesize, 0, z,
 					x + tilesize, 0, z + tilesize,
 					x + tilesize, y, z + tilesize,
@@ -203,22 +203,22 @@ public class MeshTask implements Runnable {
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, false),
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, false),
-					
+
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, false),
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, false),
-					
+
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, false),
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, false),
-					
+
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, false),
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, false),
-					
+
 					Render.atlas.getCoord(tex, false), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, true),
 					Render.atlas.getCoord(tex, true), Render.atlas.getCoord(tey, false),

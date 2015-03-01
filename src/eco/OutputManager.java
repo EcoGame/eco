@@ -17,7 +17,7 @@ public class OutputManager {
         System.out.println("    Unassigned people: " + PopManager.unusedPops);
     	System.out.println("\n\n");
 	}
-	
+
 	public static void popDiagnostics(int countrycode) {
 		int x =0;
 		while(Main.popArray[countrycode][x].isUsed == true) {
