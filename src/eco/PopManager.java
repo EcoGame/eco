@@ -30,7 +30,8 @@ public class PopManager {
 	}
 
 	public static void popController(int acres, int countrycode) {
-
+        Main.unemployedFarmers =0;
+        Main.employedFarmers = 0;
 		int x = 0;
 		int y= 0;
         int r = 0;
