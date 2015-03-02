@@ -137,7 +137,7 @@ public class Main {
 	}
 
 	public static void willTick(){
-		System.out.println("acres " + World.freeAcres);
+		//System.out.println("acres " + World.freeAcres);
 		PopManager.popController(World.freeAcres, 0);
 		/*int farmPacks = Wheat.farmPacks(tAcres);
 		int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
