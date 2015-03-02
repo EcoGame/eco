@@ -184,7 +184,9 @@ public class PopMethods {
                 if(Main.popArray[countrycode][x].isFarmer == true){
                     y = Wheat.farmPacks(Main.popArray[countrycode][x].acres);
                     k =	Wheat.unemployedFarmers(y, Main.popArray[countrycode][x].people);
+                    Main.unemployedFarmers = Main.unemployedFarmers + k;
                     r = Wheat.employedFarmers(Main.popArray[countrycode][x].people,k);
+                    Main.employedFarmers = Main.employedFarmers + r;
                     w = Wheat.tWheat(r);
 									//	System.out.println("eaf" +w);
                     h = Farmer.fHunger(Main.popArray[countrycode][x].people);
