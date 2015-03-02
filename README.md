@@ -13,7 +13,7 @@ Q - Re-align the camera back to the default position
 
 R and F - Rotate the camera
 
-### Dignostic Controls
+### Diagnostic Controls
 
 H, OR Accent Grave (or Tilde) - Toggle on-screen debug information
 
