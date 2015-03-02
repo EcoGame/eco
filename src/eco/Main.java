@@ -39,7 +39,8 @@ public class Main {
 	public static final String vn = "0.2";
 	public static int framesPerTick = 1;
 	public static int frame = 0;
-
+    public static int unemployedFarmers = 0;
+    public static int employedFarmers = 0;
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
 		gameLoop();
@@ -83,9 +84,9 @@ public class Main {
 		      Render.drawString("Wheat Price: " + String.valueOf(Main.wheatPrice), 10, 110);
 	        Render.drawString("Money in Treasury: " + String.valueOf(Money.tMoney), 10, 130);
 	        Render.drawString("Farmers: " + String.valueOf(Farmer.fPop), 10, 150);
-	        Render.drawString("Employed Farmers: " + String.valueOf(Wheat.employedFarmers), 10, 170);
-	        Render.drawString("Unemployed Farmers: " + String.valueOf(Wheat.unemployedFarmers), 10, 190);
-		      if (Wheat.employedFarmers + Wheat.unemployedFarmers != PopManager.fPopulation){
+	        Render.drawString("Employed Farmers: " + String.valueOf(Main.employedFarmers), 10, 170);
+	        Render.drawString("Unemployed Farmers: " + String.valueOf( Main.unemployedFarmers), 10, 190);
+		      if (Main.employedFarmers +  Main.unemployedFarmers != PopManager.fPopulation){
 		     		Render.drawString("Warning! Population is mis-matched!", 100, 210);
 		      }
 		      Render.drawString("Total Population: " + String.valueOf(tPop), 10, 230);
@@ -137,6 +138,7 @@ public class Main {
 	}
 
 	public static void willTick(){
+         //Main.unemployedFarmers = 0
 		//System.out.println("acres " + World.freeAcres);
 		PopManager.popController(World.freeAcres, 0);
 		/*int farmPacks = Wheat.farmPacks(tAcres);
