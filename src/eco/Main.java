@@ -17,10 +17,12 @@ public class Main {
 	public static volatile int wheatPrice = 20;
 	public static volatile int oldtWheat = 0;
 	public static volatile int tAcres = 10000;
-	public static volatile float fBirthRate = 0.03f;
+	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
-	public static volatile float wBirthRate = 0.008f;
+	public static float fDefaultDeathRate = 0.02f;
+	public static float wBirthRate = 0.008f;
 	public static volatile float wDeathRate = 0.002f;
+	public static float wDefaultDeathRate = 0.002f;
 	public static int[][] unfilledpops = new int[10][10000];
 	public static Pops[][] popArray = new Pops[10][10000];
 	public static int[] unusedarray = new int [10];
