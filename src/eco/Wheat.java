@@ -38,7 +38,7 @@ public class Wheat {
      /**/}
 
     public static int tWheat(int farmers) {
-        tWheat = farmers * wheatPerFarmer;
+        tWheat += farmers * wheatPerFarmer;
         return tWheat;
     }
 
