@@ -10,14 +10,24 @@ public class Farmer {
 	public static int wheatPerFarmer = 15;
 
 	public static int totalHarvest;
+	
+	public static int normalHunger = 30;
 
-	public static int fHunger(int popGroupNumber){
+ /**/	public static int fHunger(int popGroupNumber){
+
+	 /**/	int fHunger = 0;
+	 /**/	fHunger = popGroupNumber*(Util.randInt(9, 10));
+	 /**/	return fHunger;
+
+	 /**/}
+	 
+        public static int fHunger(){
 
 		int fHunger = 0;
-		fHunger = popGroupNumber*(Util.randInt(9, 10));
-		return fHunger;
+	   	fHunger = 30 + (Util.randInt(5, 10));
+	 	return fHunger;
 
-	}
+	 }
 
 	public static int fPop() {
 
