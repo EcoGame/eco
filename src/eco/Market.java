@@ -1,4 +1,4 @@
-package eco; 
+package eco;
 
 public class Market {
 	static int[] prices = new int[75];

@@ -8,6 +8,7 @@ public class NpcCountry {
 	private String name = "";
 	private int tMoneyNPC =0;
   private int countrycode = 0;
+	private boolean isused = false;
 
 	public NpcCountry() {
 
@@ -16,7 +17,8 @@ public class NpcCountry {
 		fPopNPC = 5;
 		wPopNPC = 10;
 		tMoneyNPC = 500;
-    countrycode = 1;
+    countrycode = 0;
+		
 
 	}
 

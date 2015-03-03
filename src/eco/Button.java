@@ -14,7 +14,7 @@ public class Button{
 
 	public int tex;
 	public int tey;
-	
+
 	public Button(float x, float y, float size, int tex, int tey){
 		this.x = x;
 		this.y = y;
@@ -25,21 +25,21 @@ public class Button{
 
 	public void click(float mousex, float mousey){
 		Rectangle rect = new Rectangle((int) x, (int)y, (int)size, (int)size);
-		if (rect.contains(mousex, mousey)){	
-			clickFlag = true;		
+		if (rect.contains(mousex, mousey)){
+			clickFlag = true;
 		}
 	}
 
 	public boolean checkForClick(){
 		if (clickFlag){
 			clickFlag = false;
-			return true;		
+			return true;
 		}
 		return false;
 	}
 
 	public void render(){
-		TextureAtlas atlas = Render.atlas;		
+		TextureAtlas atlas = Render.atlas;
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
 		GL11.glVertex2f(x, y);
@@ -50,7 +50,7 @@ public class Button{
 		GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
 		GL11.glVertex2f(x, y + size);
 		GL11.glEnd();
-		
+
 	}
 
 }

@@ -18,7 +18,7 @@ public class Stockpile {
 	}
 
 	public static void tax(){
-		realRate = (Farmer.fPop()) / (Warrior.wPop() * 5f);
+		realRate = (PopManager.fPopulation) / (PopManager.wPopulation * 5f);
 		if (realRate > 1){
 			realRate = wheatTax;
 		}

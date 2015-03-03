@@ -39,6 +39,8 @@ public class Main {
 	public static final String vn = "0.2";
 	public static int framesPerTick = 1;
 	public static int frame = 0;
+	public static int unemployedFarmers = 0;
+		public static int employedFarmers = 0;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
@@ -89,8 +91,8 @@ public class Main {
 
 	public static void tick(){
 
-        Farmer.fPop = Farmer.fPop();
-        Warrior.wPop = Warrior.wPop();
+        //Farmer.fPop = Farmer.fPop();
+      //  Warrior.wPop = Warrior.wPop();
         // Warrior.wHunger(PopManager.wPopulation);
         // Wheat.tWheat(employedFarmers);
         //aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
@@ -105,14 +107,14 @@ public class Main {
         if(popDiags){
             OutputManager.popDiagnostics(0);
         }
-        World.updateMap(Farmer.fPop, Warrior.wPop);
+        World.updateMap(PopManager.fPopulation, PopManager.wPopulation);
         World.freeAcres = World.calcAcres();
         ThreadManager.addJob(new MeshTask());
 
 	}
 
 	public static void willTick(){
-		//System.out.println("acres " + World.freeAcres);
+
 		PopManager.popController(World.freeAcres, 0);
 		/*int farmPacks = Wheat.farmPacks(tAcres);
 		int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
@@ -131,7 +133,7 @@ public class Main {
 		if(popDiags){
 			OutputManager.popDiagnostics(0);
 		}
-        World.updateMap(Farmer.fPop, Warrior.wPop);
+        World.updateMap(PopManager.fPopulation, PopManager.wPopulation);
         World.freeAcres = World.calcAcres();
         ThreadManager.addJob(new MeshTask());
 

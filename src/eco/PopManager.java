@@ -9,6 +9,7 @@ public class PopManager {
 	public static int unusedPops = 0;
 	public static int uneatenWheat = 0;
 
+
 	public static void initpops() {
 		for (int w = 0; w < 10; w++)
         for(int i =0; i < Main.popArray[w].length; i++){
@@ -45,6 +46,8 @@ public class PopManager {
 				 unusedAcres = 0;
 				unusedPops = 0;
 				uneatenWheat = 0;
+				Main.unemployedFarmers =0;
+				Main.employedFarmers = 0;
         PopMethods.scanPops(countrycode);
         unusedAcres = acres;
 
@@ -53,6 +56,7 @@ public class PopManager {
         wPopulation = PopMethods.warriortotal(countrycode);
         fPopulation = PopMethods.farmertotal(countrycode);
 
+				
         q = Warrior.wPop();
         r = Farmer.fPop();
 
@@ -70,6 +74,8 @@ public class PopManager {
 
         PopMethods.farmerconsumecycle(countrycode);
         PopMethods.consumecyclewarrior(countrycode);
+				//wPopulation = PopMethods.warriortotal(countrycode);
+				//fPopulation = PopMethods.farmertotal(countrycode);
 
 	}
 }

@@ -22,17 +22,17 @@ public class Camera {
 
 	public Camera(float x, float y, float z) {
 		position = new Vector3f(x, y, z);
-		pitch = 0f;	
+		pitch = 0f;
 	}
 
 	public void moveForward(float distance) {
 		position.x += distance * (float) Math.sin(Math.toRadians(yaw));
-		position.z -= distance * (float) Math.cos(Math.toRadians(yaw));	
+		position.z -= distance * (float) Math.cos(Math.toRadians(yaw));
 	}
 
 	public void moveBack(float distance) {
 		position.x -= distance * (float) Math.sin(Math.toRadians(yaw));
-		position.z += distance * (float) Math.cos(Math.toRadians(yaw));	
+		position.z += distance * (float) Math.cos(Math.toRadians(yaw));
 	}
 
 	public void moveLeft(float distance) {
@@ -46,13 +46,13 @@ public class Camera {
 	}
 
 	public void moveUp(float distance) {
-		position.y -= distance;	
+		position.y -= distance;
 	}
-    
+
 	public void moveDown(float distance) {
-		position.y += distance;	
+		position.y += distance;
 	}
-    
+
 	public void look() {
 		GL11.glRotatef(yaw, 0f, 0f, 1f);
 		GL11.glRotatef(30, 1f, 0f, 0f);

@@ -24,6 +24,7 @@ public class Farmer {
 		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
 		floatFPop = (floatFPop * rate);
 		fPop = (int)(floatFPop);
+		
 		return fPop;
 
 	}
