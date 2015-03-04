@@ -63,4 +63,25 @@ public class OutputManager {
         }
     }
 
+		public static void newDebug(){
+			Render.initOrtho();
+			Render.drawString("FPS: " + String.valueOf(FPSCounter.getFPS()), 10, 10);
+			Render.drawString("Year: " + String.valueOf(Main.year), 10, 30);
+			if (Render.multithreading) {
+					Render.drawString("Multithreading On", Main.width - (Render.font.getWidth("Multithreading On") + 5), 30);
+					Render.drawString("Using Bufferobjects", Main.width - (Render.font.getWidth("Using Bufferobjects") + 5), 10);
+			}
+			else{
+					Render.drawString("Using Immediate Mode :(", Main.width - (Render.font.getWidth("Using Immediate Mode :(") + 5), 10);
+			}
+			if (Main.fullDebug){
+				Render.drawString("Population: " + String.valueOf(Main.getTotalPop()), 10, 70);
+				Render.drawString("Farmers: " + String.valueOf(Farmer.fPop), 10, 90);
+				Render.drawString("Warriors: " + String.valueOf(Warrior.wPop), 10, 110);
+				Render.drawString("Displaced: " + String.valueOf(World.displacedPeople), 10, 130);
+				Render.drawString("	Farmers: " + String.valueOf(World.displacedFarmers), 10, 150);
+				Render.drawString("	Warriors: " + String.valueOf(World.displacedWarriors), 10, 170);
+			}
+		}
+
 }

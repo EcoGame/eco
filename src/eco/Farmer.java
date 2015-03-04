@@ -3,6 +3,7 @@ package eco;
 public class Farmer {
 
 	public static int fPop = 5;
+	public static int oldFPop = fPop;
 	public static int fHunger;
 
 	public static float floatFPop = fPop;
@@ -10,7 +11,7 @@ public class Farmer {
 	public static int wheatPerFarmer = 15;
 
 	public static int totalHarvest;
-	
+
 	public static int normalHunger = 30;
 
  /**/	public static int fHunger(int popGroupNumber){
@@ -20,7 +21,7 @@ public class Farmer {
 	 /**/	return fHunger;
 
 	 /**/}
-	 
+
         public static int fHunger(){
 
 		int fHunger = 0;
@@ -33,9 +34,20 @@ public class Farmer {
 
 		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
 		floatFPop = (floatFPop * rate);
+		oldFPop = fPop;
 		fPop = (int)(floatFPop);
-		
+
 		return fPop;
+
+	}
+
+	public static void addPop(float newPop){
+		floatFPop += newPop;
+		fPop = (int) floatFPop;
+	}
+
+	public static int newPop() {
+		return fPop - oldFPop;
 
 	}
 

@@ -63,6 +63,9 @@ public class InputManager {
 					case Keyboard.KEY_ESCAPE:
 						Main.paused ^= true;
 						break;
+						case Keyboard.KEY_F10:
+							Util.takeScreenshot();
+							break;
 				}
 			}
 		}

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class World {
 
-	public static int mapscale = 6;
+	public static int mapscale = 7;
 	public static int mapsize = (int) Math.pow(2, mapscale);
 	public static short[][] map = new short[mapsize][mapsize];
 	public static float[][] noise = new float[mapsize][mapsize];
@@ -28,11 +28,16 @@ public class World {
 	public static int farmerOverflow = 0;
 	public static int warriorOverflow = 0;
 
+	public static int displacedFarmers= 0;
+	public static int displacedWarriors = 0;
 	public static int displacedPeople = 0;
 
 	public static int extraHouses = 0;
 	public static int extraFarmers = 0;
 	public static int extraWarriors = 0;
+
+	public static float forestHeight = 0.25f; // The lower this is (can go down to -1), the more forests there will be
+	public static boolean cutForests = false; // Will forests be removed to build things
 
 	public static void generate(){
 
@@ -79,6 +84,18 @@ public class World {
 				}
 				else{
 					map[x][y] = 3;
+				}
+			}
+		}
+
+		NoiseSampler.initSimplexNoise((int) mapseed);
+		NoiseSampler.setNoiseScale(mapsize / 16);
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (NoiseSampler.getNoise(x, y) >= forestHeight){
+					if (map[x][y] == 1){
+						structures[x][y] = 3;
+					}
 				}
 			}
 		}
@@ -140,6 +157,17 @@ public class World {
 		int deltaFarmer = farmers - oldFarmers + extraFarmers;
 		int deltaWarriors = warriors - oldWarriors + extraWarriors;
 
+		ArrayList<Point> validLocs = new ArrayList<Point>();
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (map[x][y] == 1){
+					if (structures[x][y] == 0 || (cutForests && structures[x][y] == 3)){
+						validLocs.add(new Point(x, y));
+					}
+				}
+			}
+		}
+
 		if (deltaFarmer > 0){
 			int newFarms = deltaFarmer;
 			if ((float) freeAcres / (float) totalAcres >= randomLocCutoff){
@@ -147,7 +175,7 @@ public class World {
 					int ranx = random.nextInt(mapsize);
 					int rany = random.nextInt(mapsize);
 					if (map[ranx][rany] == 1){
-						if (structures[ranx][rany] == 0){
+						if (structures[ranx][rany] == 0 || (cutForests && structures[ranx][rany] == 3)){
 							map[ranx][rany] = 2;
 							newFarms--;
 						}
@@ -155,7 +183,12 @@ public class World {
 				}
 			}
 			else{
-
+				while (newFarms > 0 && validLocs.size() > 0){
+					Point loc = validLocs.get(random.nextInt(validLocs.size()));
+					map[loc.getX()][loc.getY()] = 2;
+					validLocs.remove(loc);
+					newFarms--;
+				}
 			}
 			int newHouses = deltaFarmer;
 			if ((float) freeAcres / (float) totalAcres >= randomLocCutoff){
@@ -163,7 +196,7 @@ public class World {
 					int ranx = random.nextInt(mapsize);
 					int rany = random.nextInt(mapsize);
 					if (map[ranx][rany] == 1){
-						if (structures[ranx][rany] == 0){
+						if (structures[ranx][rany] == 0 || (cutForests && structures[ranx][rany] == 3)){
 							structures[ranx][rany] = 1;
 							newHouses--;
 						}
@@ -171,8 +204,14 @@ public class World {
 				}
 			}
 			else{
-
+				while (newHouses > 0 && validLocs.size() > 0){
+					Point loc = validLocs.get(random.nextInt(validLocs.size()));
+					structures[loc.getX()][loc.getY()] = 1;
+					validLocs.remove(loc);
+					newHouses--;
+				}
 			}
+			displacedFarmers += newHouses;
 		}
 
 		if (deltaWarriors > 0){
@@ -182,7 +221,7 @@ public class World {
 					int ranx = random.nextInt(mapsize);
 					int rany = random.nextInt(mapsize);
 					if (map[ranx][rany] == 1){
-						if (structures[ranx][rany] == 0){
+						if (structures[ranx][rany] == 0 || (cutForests && structures[ranx][rany] == 3)){
 							structures[ranx][rany] = 2;
 							newCastles--;
 						}
@@ -190,8 +229,14 @@ public class World {
 				}
 			}
 			else{
-
+				while (newCastles > 0 && validLocs.size() > 0){
+					Point loc = validLocs.get(random.nextInt(validLocs.size()));
+					structures[loc.getX()][loc.getY()] = 2;
+					validLocs.remove(loc);
+					newCastles--;
+				}
 			}
+			displacedWarriors += newCastles;
 		}
 
 		oldFarmers = farmers;

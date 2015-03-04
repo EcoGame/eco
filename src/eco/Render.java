@@ -264,6 +264,9 @@ public class Render {
 						if (World.structures[x][y] == 2){
 							drawStructure((-x + 0.5f) * tilesize, World.noise[x][y] * heightConstant, (-y + 0.5f) * tilesize, 5);
 						}
+						if (World.structures[x][y] == 3){
+							drawStructure((-x + 0.5f) * tilesize, World.noise[x][y] * heightConstant, (-y + 0.5f) * tilesize, 6);
+						}
 					}
 				}
 			}
@@ -274,10 +277,13 @@ public class Render {
 			for (int x = 0; x < mapsize; x++){
 				for (int y = 0; y < mapsize; y++){
 					if (World.structures[x][y] == 1){
-						drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 4);
+						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 4);
 					}
 					if (World.structures[x][y] == 2){
-						drawStructure((-x + 1.5f) * tilesize, (-y + 1.5f) * tilesize, 5);
+						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 5);
+					}
+					if (World.structures[x][y] == 3){
+						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 6);
 					}
 					if (World.map[x][y] == 0){
 						drawTile(-x * tilesize, -y * tilesize, 0);
@@ -288,6 +294,9 @@ public class Render {
 					}
 					if (World.map[x][y] == 2){
 						drawTile(-x * tilesize, -y * tilesize, 3);
+					}
+					if (World.map[x][y] == 3){
+						drawTile(-x * tilesize, -y * tilesize, 2);
 					}
 				}
 			}
