@@ -13,10 +13,10 @@ public class Country {
 	public Country() {
 
 		name = "Canada";
-		acresNPC = 6000;
-		fPopNPC = 5;
-		wPopNPC = 10;
-		tMoneyNPC = 500;
+		acres = 6000;
+		fPop = 5;
+		wPop = 10;
+		tMoney = 500;
     countrycode = 0;
 		
 
