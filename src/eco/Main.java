@@ -16,7 +16,7 @@ public class Main {
 	public static final int width = 854;
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
-	public static final boolean willsCode = false;
+	public static final boolean willsCode = true;
 	public static boolean paused = false;
 	public static boolean debug;
 	public static boolean popDiags = false;
@@ -33,6 +33,7 @@ public class Main {
 	public static volatile int wheatPrice = 20;
 	public static volatile int oldtWheat = 0;
 	public static volatile int tAcres = 10000;
+
 
 	public static int GDP;
 	public static int taxRevenue;
@@ -52,7 +53,8 @@ public class Main {
 
 	public static boolean shouldQuit = false;
 
-	public static float warriorRatio = 0.15f;
+	public static float desiredWarriorRatio = 0.15f;
+	public static float desiredFarmerRatio = 0.85f;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
@@ -120,7 +122,7 @@ public class Main {
 				World.displacedFarmers = 0;
 				World.displacedWarriors = 0;
         float newPopulation = Farmer.newPop() + Warrior.newPop();
-				float newWarriors = newPopulation * warriorRatio;
+				float newWarriors = newPopulation * desiredWarriorRatio;
 				newPopulation -= newWarriors;
 				Farmer.addPop(newPopulation);
 				Warrior.addPop(newWarriors);

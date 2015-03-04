@@ -4,10 +4,10 @@ public class Wheat {
 
     public static int tWheat;
     public static int wheatPrice;
-    
+
     public static int wheatPerFarmer = 50;
-   
-   
+
+
    /**/ public static int unemployedFarmers = 0;
    /**/  public static int employedFarmers = 0;
 
