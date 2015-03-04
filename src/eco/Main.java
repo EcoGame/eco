@@ -126,6 +126,7 @@ public class Main {
 				newPopulation -= newWarriors;
 				Farmer.addPop(newPopulation);
 				Warrior.addPop(newWarriors);
+	Wheat.tWheat(Farmer.fPop);
 
         if(debug){
             OutputManager.printDebugInformation();
