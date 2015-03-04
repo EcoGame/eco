@@ -46,8 +46,8 @@ public class Main {
 	public static int employedFarmers = 0;
 
 	public static int aggDemand;
-	public static int[][] unfilledpops = new int[10][10000];
-	public static Pops[][] popArray = new Pops[10][10000];
+	public static int[][] unfilledpops = new int[10][1000000];
+	public static Pops[][] popArray = new Pops[10][1000000];
 	public static int[] unusedarray = new int [10];
 	public static int popSize = 25;
 
