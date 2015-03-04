@@ -1,16 +1,16 @@
 package eco;
 
-public class NpcCountry {
+public class Country {
 
-	private int acresNPC = 0;
-	private int fPopNPC = 0;
-	private int wPopNPC = 0;
+	private int acres = 0;
+	private int fPop = 0;
+	private int wPop = 0;
 	private String name = "";
-	private int tMoneyNPC =0;
+	private int tMoney =0;
   private int countrycode = 0;
 	private boolean isused = false;
 
-	public NpcCountry() {
+	public Country() {
 
 		name = "Canada";
 		acresNPC = 6000;
