@@ -43,7 +43,7 @@ public class OutputManager {
             Render.drawString("Using Bufferobjects", Main.width - (Render.font.getWidth("Using Bufferobjects") + 5), 10);
         }
         else{
-            Render.drawString("Using Immediate Mode :(", Main.width - (Render.font.getWidth("Using Immediate Mode :(") + 5), 10);
+            Render.drawString("Using DisplayLists", Main.width - (Render.font.getWidth("Using DisplayLists") + 5), 10);
         }
         if (Main.fullDebug){
             int tPop = PopManager.fPopulation + PopManager.wPopulation;
@@ -72,7 +72,7 @@ public class OutputManager {
 					Render.drawString("Using Bufferobjects", Main.width - (Render.font.getWidth("Using Bufferobjects") + 5), 10);
 			}
 			else{
-					Render.drawString("Using Immediate Mode :(", Main.width - (Render.font.getWidth("Using Immediate Mode :(") + 5), 10);
+					Render.drawString("Using DisplayLists", Main.width - (Render.font.getWidth("Using DisplayLists") + 5), 10);
 			}
 			if (Main.fullDebug){
 				Render.drawString("Population: " + String.valueOf(Main.getTotalPop()), 10, 70);
