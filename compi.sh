@@ -8,3 +8,6 @@ cd ~/Desktop/eco/src
 sleep 1
 echo Running…
 java -cp .:../lib/* -Djava.library.path=../native eco/Main
+cd ~/Desktop/eco/src/eco
+rm -f *.class
+
