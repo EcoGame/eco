@@ -16,11 +16,12 @@ public class Main {
 	public static final int width = 854;
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
-	public static final boolean willsCode = true;
+	public static final boolean willsCode = false;
 	public static boolean paused = false;
 	public static boolean debug;
 	public static boolean popDiags = false;
 	public static boolean fullDebug = false;
+	public static boolean skipFrame = false;
 
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
@@ -39,8 +40,8 @@ public class Main {
 	public static int taxRevenue;
 
 	public static final int ticks = 2000;
-	public static final String vn = "0.2";
-	public static int framesPerTick = 2;
+	public static final String vn = "0.3";
+	public static int framesPerTick = 4;
 	public static int frame = 0;
 	public static int unemployedFarmers = 0;
 	public static int employedFarmers = 0;
@@ -84,11 +85,16 @@ public class Main {
 			InputManager.update();
 			tAcres = 0;
 			if (!Main.paused){
-				Render.draw();
-        OutputManager.newDebug();
-        FPSCounter.tick();
-        Display.update();
-        Display.sync(60);
+				if (!skipFrame){
+					Render.draw();
+	        OutputManager.newDebug();
+				}
+				else{
+					skipFrame = false;
+				}
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
       }
       else{
 				Render.drawPaused();
@@ -126,7 +132,7 @@ public class Main {
 				newPopulation -= newWarriors;
 				Farmer.addPop(newPopulation);
 				Warrior.addPop(newWarriors);
-	Wheat.tWheat(Farmer.fPop);
+				Wheat.tWheat(Farmer.fPop);
 
         if(debug){
             OutputManager.printDebugInformation();
@@ -134,10 +140,16 @@ public class Main {
         if(popDiags){
             OutputManager.popDiagnostics(0);
         }
+
         World.updateMap(Farmer.fPop, Warrior.wPop);
         World.freeAcres = World.calcAcres();
+
         if (Render.multithreading){
 					ThreadManager.addJob(new MeshTask());
+				}
+				else{
+					DisplayLists.mesh();
+					skipFrame = true;
 				}
 
 	}
@@ -162,9 +174,11 @@ public class Main {
 		if(popDiags){
 			OutputManager.popDiagnostics(0);
 		}
-        World.updateMap(PopManager.fPopulation, PopManager.wPopulation);
-        World.freeAcres = World.calcAcres();
-        ThreadManager.addJob(new MeshTask());
+    World.updateMap(PopManager.fPopulation, PopManager.wPopulation);
+    World.freeAcres = World.calcAcres();
+    if (Render.multithreading){
+			ThreadManager.addJob(new MeshTask());
+		}
 
 }
 
@@ -188,10 +202,12 @@ public static int getTotalPop(){
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-        ThreadManager.addJob(new MeshTask());
+      //  ThreadManager.addJob(new MeshTask());
 		if (attemptSaveLoad){
 			Util.readSave();
 		}
+
+		DisplayLists.mesh();
 
 	}
 
