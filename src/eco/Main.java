@@ -16,7 +16,7 @@ public class Main {
 	public static final int width = 854;
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
-	public static final boolean willsCode = true;
+	public static final boolean willsCode = false;
 	public static boolean paused = false;
 	public static boolean debug;
 	public static boolean popDiags = false;
@@ -41,7 +41,7 @@ public class Main {
 
 	public static final int ticks = 2000;
 	public static final String vn = "0.3";
-	public static int framesPerTick = 2;
+	public static int framesPerTick = 4;
 	public static int frame = 0;
 	public static int unemployedFarmers = 0;
 	public static int employedFarmers = 0;
@@ -87,7 +87,7 @@ public class Main {
 			if (!Main.paused){
 				if (!skipFrame){
 					Render.draw();
-	        OutputManager.newDebug();
+	       				OutputManager.newDebug();
 				}
 				else{
 					skipFrame = false;
@@ -96,11 +96,11 @@ public class Main {
 				Display.update();
 				Display.sync(60);
       }
-      else{
+     			 else{
 				Render.drawPaused();
-        FPSCounter.tick();
-        Display.update();
-        Display.sync(60);
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
 			}
 		}
 
