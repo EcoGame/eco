@@ -140,7 +140,7 @@ public class Main {
         if(popDiags){
             OutputManager.popDiagnostics(0);
         }
-
+        Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
         World.updateMap(Farmer.fPop, Warrior.wPop);
         World.freeAcres = World.calcAcres();
 
