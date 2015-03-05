@@ -166,7 +166,6 @@ public class Main {
 		wheatPrice = Market.wheatPrice(wheatPrice);
 		Money.tMoney(PopManager.uneatenWheat, wheatPrice);
 		GDP = Money.GDP(Wheat.tWheat, wheatPrice);
-		taxRevenue = Tax.taxRevenue(0);
 
 		if(debug){
 			OutputManager.printDebugInformation();
