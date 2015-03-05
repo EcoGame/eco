@@ -45,7 +45,7 @@ public class Graphs {
     	for(int i=0; i<tax.length - 1; i++){
         	tax[i] = tax[i + 1];
     	}
-    	World.messages.add(new Message("Tax", (x - (perGraphShift * num) - shift), y - labelDistance, 1));
+    	World.messages.add(new Message("(????)", (x - (perGraphShift * num) - shift), y - labelDistance, 1));
     	num++;
     }
 
