@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class World {
 
-	public static int mapscale = 7;
+	public static int mapscale = 6; // 6 is best right now
 	public static int mapsize = (int) Math.pow(2, mapscale);
 	public static short[][] map = new short[mapsize][mapsize];
 	public static float[][] noise = new float[mapsize][mapsize];
