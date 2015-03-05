@@ -124,6 +124,7 @@ public class Main {
 				else{
 					Warrior.oldWPop = Warrior.wPop; // Need to update this manually because it's done in wPop()
 				}
+				wheatPrice = Market.wheatPrice(wheatPrice);
 				World.displacedPeople += World.displacedFarmers + World.displacedWarriors;
 				World.displacedFarmers = 0;
 				World.displacedWarriors = 0;
