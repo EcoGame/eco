@@ -125,6 +125,7 @@ public class Main {
 					Warrior.oldWPop = Warrior.wPop; // Need to update this manually because it's done in wPop()
 				}
 				wheatPrice = Market.wheatPrice(wheatPrice);
+				taxRevenue = Tax.taxRevenue();
 				World.displacedPeople += World.displacedFarmers + World.displacedWarriors;
 				World.displacedFarmers = 0;
 				World.displacedWarriors = 0;
