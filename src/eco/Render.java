@@ -178,6 +178,8 @@ public class Render {
 		vertex_handle = glGenBuffers();
 		structure_texture_handle = glGenBuffers();
 		structure_vertex_handle = glGenBuffers();
+		
+		DisplayLists.init();
 	}
 
 	public static void initFrustrum(){
@@ -274,7 +276,7 @@ public class Render {
 
 		atlas.getTexture().bind();
 		if (!multithreading){
-			for (int x = 0; x < mapsize; x++){
+			/*for (int x = 0; x < mapsize; x++){
 				for (int y = 0; y < mapsize; y++){
 					if (World.structures[x][y] == 1){
 						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 4);
@@ -299,7 +301,21 @@ public class Render {
 						drawTile(-x * tilesize, -y * tilesize, 2);
 					}
 				}
-			}
+			}*/
+			GL11.glCallList(DisplayLists.index);
+				for (int x = 0; x < mapsize; x++){
+					for (int y = 0; y < mapsize; y++){
+						if (World.structures[x][y] == 1){
+							drawStructure((-x) * tilesize,World.noise[x][y] * heightConstant,  (-y) * tilesize, 4);
+						}
+						if (World.structures[x][y] == 2){
+							drawStructure((-x) * tilesize, World.noise[x][y] * heightConstant, (-y) * tilesize, 5);
+						}
+						if (World.structures[x][y] == 3){
+							drawStructure((-x) * tilesize, World.noise[x][y] * heightConstant, (-y) * tilesize, 6);
+						}
+					}
+				}
 		}
 		initOrtho();
 		glPushMatrix();

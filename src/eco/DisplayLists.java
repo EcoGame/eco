@@ -28,10 +28,10 @@ public class DisplayLists {
 	}
 
 	public static void mesh(){
-		GL11.glNewList(index + 3, GL11.GL_COMPILE);
+		GL11.glNewList(index, GL11.GL_COMPILE);
 		for (int x = 0; x < World.mapsize; x++){
 			for (int y = 0; y < World.mapsize; y++){
-				if (World.structures[x][y] == 1){
+				/*if (World.structures[x][y] == 1){
 					GL11.glBegin(GL11.GL_QUADS);
 					glTexCoord2f(Render.atlas.getCoord(0, false), Render.atlas.getCoord(1, true));
 					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize);
@@ -45,16 +45,28 @@ public class DisplayLists {
 				}
 				if (World.structures[x][y] == 2){
 					GL11.glBegin(GL11.GL_QUADS);
-					glTexCoord2f(Render.atlas.getCoord(0, false), Render.atlas.getCoord(0, true));
+					glTexCoord2f(Render.atlas.getCoord(1, false), Render.atlas.getCoord(1, true));
 					glVertex3f(-x * tilesize - offset, offset * 2, -y * tilesize);
-					glTexCoord2f(Render.atlas.getCoord(0, true), Render.atlas.getCoord(0, true));
+					glTexCoord2f(Render.atlas.getCoord(1, true), Render.atlas.getCoord(1, true));
 					glVertex3f(-x * tilesize + offset, offset * 2, -y * tilesize);
-					glTexCoord2f(Render.atlas.getCoord(0, true), Render.atlas.getCoord(0, false));
+					glTexCoord2f(Render.atlas.getCoord(1, true), Render.atlas.getCoord(1, false));
 					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize);
-					glTexCoord2f(Render.atlas.getCoord(0, false), Render.atlas.getCoord(0, false));
+					glTexCoord2f(Render.atlas.getCoord(1, false), Render.atlas.getCoord(1, false));
 					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize);
 					GL11.glEnd();
 				}
+				if (World.structures[x][y] == 3){
+					GL11.glBegin(GL11.GL_QUADS);
+					glTexCoord2f(Render.atlas.getCoord(2, false), Render.atlas.getCoord(1, true));
+					glVertex3f(-x * tilesize - offset, offset * 2, -y * tilesize);
+					glTexCoord2f(Render.atlas.getCoord(2, true), Render.atlas.getCoord(1, true));
+					glVertex3f(-x * tilesize + offset, offset * 2, -y * tilesize);
+					glTexCoord2f(Render.atlas.getCoord(2, true), Render.atlas.getCoord(1, false));
+					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize);
+					glTexCoord2f(Render.atlas.getCoord(2, false), Render.atlas.getCoord(1, false));
+					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize);
+					GL11.glEnd();
+				}*/
 				if (World.map[x][y] == 0){
 					GL11.glBegin(GL11.GL_QUADS);
 					glTexCoord2f(Render.atlas.getCoord(0, false), Render.atlas.getCoord(0, false));
@@ -65,6 +77,10 @@ public class DisplayLists {
 					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize + offset);
 					glTexCoord2f(Render.atlas.getCoord(0, false), Render.atlas.getCoord(0, true));
 					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize + offset);
+
+
+
+
 					GL11.glEnd();
 				}
 				if (World.map[x][y] == 1){
@@ -88,6 +104,18 @@ public class DisplayLists {
 					glTexCoord2f(Render.atlas.getCoord(3, true), Render.atlas.getCoord(0, true));
 					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize + offset);
 					glTexCoord2f(Render.atlas.getCoord(3, false), Render.atlas.getCoord(0, true));
+					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize + offset);
+					GL11.glEnd();
+				}
+				if (World.map[x][y] == 3){
+					GL11.glBegin(GL11.GL_QUADS);
+					glTexCoord2f(Render.atlas.getCoord(2, false), Render.atlas.getCoord(0, false));
+					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize - offset);
+					glTexCoord2f(Render.atlas.getCoord(2, true), Render.atlas.getCoord(0, false));
+					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize - offset);
+					glTexCoord2f(Render.atlas.getCoord(2, true), Render.atlas.getCoord(0, true));
+					glVertex3f(-x * tilesize + offset, 0f, -y * tilesize + offset);
+					glTexCoord2f(Render.atlas.getCoord(2, false), Render.atlas.getCoord(0, true));
 					glVertex3f(-x * tilesize - offset, 0f, -y * tilesize + offset);
 					GL11.glEnd();
 				}
