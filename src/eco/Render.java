@@ -44,6 +44,13 @@ import org.newdawn.slick.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
+import org.newdawn.slick.opengl.ImageIOImageData;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -55,6 +62,8 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
+
+import java.io.File;
 
 public class Render {
 
@@ -132,6 +141,15 @@ public class Render {
 			e.printStackTrace();
 		}
 
+
+		try {
+			Display.setIcon(new ByteBuffer[] {
+							new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("../assets/icon128.png")), false, false, null)
+							});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		atlas.getTexture().bind();
 
 		glEnable(GL_TEXTURE_2D);
@@ -179,6 +197,7 @@ public class Render {
 		vertex_handle = glGenBuffers();
 		structure_texture_handle = glGenBuffers();
 		structure_vertex_handle = glGenBuffers();
+
 
 		DisplayLists.init();
 	}
