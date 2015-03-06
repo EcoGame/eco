@@ -5,7 +5,6 @@ public class Wheat {
     public static int tWheat;
     public static int wheatPrice;
 
-    public static int wheatPerFarmer = 50;
 
 
    /**/ public static int unemployedFarmers = 0;
@@ -38,8 +37,20 @@ public class Wheat {
      /**/}
 
     public static int tWheat(int farmers) {
-        tWheat += farmers * wheatPerFarmer;
+        tWheat += farmers * Farmer.wheatPerFarmer;
         return tWheat;
+    }
+
+    public static int eatWheat(int request){
+      if (request > tWheat){
+        int diff = request - tWheat;
+        tWheat = 0;
+        return diff;
+      }
+      else{
+        tWheat -= request;
+        return 0;
+      }
     }
 
 }

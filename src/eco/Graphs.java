@@ -6,6 +6,7 @@ public class Graphs {
 	static int[] pop = new int[size];
 	static int[] year = new int[size];
 	static int[] tax = new int[size];
+	static int[] displaced = new int[size];
     public static void draw(int year, int wheatPrice, int tPop, int taxRevenue){
         int y = 620;
         int x = 854;
@@ -36,14 +37,14 @@ public class Graphs {
         }
 		World.messages.add(new Message("Pop", (x - (perGraphShift * num) - shift), y - labelDistance, 1));
 		num++;
-		
-		
-		tax[74] = taxRevenue;
-    	for(int i=0; i<tax.length; i++){
-    		World.messages.add(new Message("\u25A0 .", (x - (perGraphShift * num) - shift) + i, (y - shift) - (tax[i]), 1));
+
+
+		displaced[74] = World.displacedPeople;
+    	for(int i=0; i<displaced.length; i++){
+    		World.messages.add(new Message("\u25A0 .", (x - (perGraphShift * num) - shift) + i, (y - shift) - (displaced[i]), 1));
     	}
-    	for(int i=0; i<tax.length - 1; i++){
-        	tax[i] = tax[i + 1];
+    	for(int i=0; i<displaced.length - 1; i++){
+        	displaced[i] = displaced[i + 1];
     	}
     	World.messages.add(new Message("(????)", (x - (perGraphShift * num) - shift), y - labelDistance, 1));
     	num++;

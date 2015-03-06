@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class World {
 
-	public static int mapscale = 6; // 6 is best right now
+	public static int mapscale = 6;
 	public static int mapsize = (int) Math.pow(2, mapscale);
 	public static short[][] map = new short[mapsize][mapsize];
 	public static float[][] noise = new float[mapsize][mapsize];
@@ -107,6 +107,17 @@ public class World {
 				}
 			}
 		}
+	}
+
+	public static float getHeight(int x, int y){
+		try{
+			if (map[x][y] == 0){
+				return 48;
+			}
+			return noise[x][y];
+		}
+		catch(Exception e){}
+		return -10;
 	}
 
 	public static boolean isValid() {

@@ -3,50 +3,26 @@ package eco;
 import org.lwjgl.opengl.GL11;
 import java.awt.Rectangle;
 
-public class Button{
+public class ToggleButton extends Button{
 
-	public float x;
-	public float y;
+  public boolean toggle = false;
 
-	public float size;
-
-	public boolean clickFlag = false;
-
-	public int tex;
-	public int tey;
-
-	public int texselected;
-	public int teyselected;
-
-	public Button(float x, float y, float size, int tex, int tey, int texselected, int teyselected){
-		this.x = x;
-		this.y = y;
-		this.size = size;
-		this.tex = tex;
-		this.tey = tey;
-		this.texselected = texselected;
-		this.teyselected = teyselected;
+	public ToggleButton(float x, float y, float size, int tex, int tey, int texselected, int teyselected, boolean on){
+		super(x, y, size, tex, tey, texselected, teyselected);
+    toggle = on;
 	}
 
 	public void click(float mousex, float mousey){
 		Rectangle rect = new Rectangle((int) x, (int)y, (int)size, (int)size);
 		if (rect.contains(mousex, mousey)){
 			clickFlag = true;
+      toggle ^= true;
 		}
-	}
-
-	public boolean checkForClick(){
-		if (clickFlag){
-			clickFlag = false;
-			return true;
-		}
-		return false;
 	}
 
 	public void render(float mousex, float mousey){
 		TextureAtlas atlas = Render.atlas;
-		Rectangle rect = new Rectangle((int) x, (int)y, (int)size, (int)size);
-		if (rect.contains(mousex, mousey)){
+		if (toggle){
 			GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(atlas.getCoord(texselected, false), atlas.getCoord(teyselected, false));
 			GL11.glVertex2f(x, y);

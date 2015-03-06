@@ -7,7 +7,7 @@ public class TextureAtlas {
 	public  Texture texture;
 
 	public int textureRes = 8;
-	public int size = 4;
+	public int size = 8;
 
 	public TextureAtlas(Texture texture) {
 		this.texture = texture;

@@ -142,4 +142,30 @@ public class Util {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 
+  public static int computeTotalHunger(){
+    return Farmer.totalHunger + Warrior.totalHunger + ((int) (Farmer.fHunger * World.displacedPeople / 2f));
+  }
+
+  public static String getWheatRateForDisplay(){
+    int hunger = computeTotalHunger();
+    int input = Farmer.wheatPerFarmer * Farmer.fPop;
+    int total = input - hunger;
+    if (total < 0){
+      return "dW/dT: "+String.valueOf(total)+" Bushels";
+    }
+    else if (total == 0){
+      return "dW/dT: "+"0 Bushels";
+    }
+    else{
+      return "dW/dT: +"+String.valueOf(total)+" Bushels";
+    }
+  }
+
+  public static int getWheatRate(){
+    int hunger = computeTotalHunger();
+    int input = Farmer.wheatPerFarmer * Farmer.fPop;
+    int total = input - hunger;
+    return total;
+  }
+
 }

@@ -8,6 +8,9 @@ public class Warrior {
     public static float floatWPop = wPop;
     public static int wHunger;
 
+    public static int normalHunger = 10;
+    public static int totalHunger;
+
 	public static int wPop() {
 
 		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
@@ -26,13 +29,16 @@ public class Warrior {
 		floatWPop += newPop;
     wPop = (int) floatWPop;
 	}
+    public static int wHunger(){
 
-    public static int wHunger(int wPop){
-
-        int wHunger = 0;
-        wHunger = wPop * (Util.randInt(9, 11));
+        wHunger = 0;
+        wHunger = normalHunger + (Util.randInt(0, 3));
         return wHunger;
 
+    }
+    @Deprecated
+    public static int wHunger(int dummy){
+      return -1;
     }
 
     public static int checkStarvation(int hunger, int wheat ){

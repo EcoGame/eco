@@ -39,6 +39,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.opengl.GL15.glGenBuffers;
+import org.newdawn.slick.Color;
 
 import java.awt.Font;
 import java.io.IOException;
@@ -178,14 +179,14 @@ public class Render {
 		vertex_handle = glGenBuffers();
 		structure_texture_handle = glGenBuffers();
 		structure_vertex_handle = glGenBuffers();
-		
+
 		DisplayLists.init();
 	}
 
 	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		GLU.gluPerspective(Main.fov / 2f, Main.width / Main.height, 0.1f, 1000f);
+		GLU.gluPerspective(Main.fov / 2f, Main.windowwidth / Main.windowheight, 0.1f, 1000f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_DEPTH_TEST);
@@ -200,7 +201,7 @@ public class Render {
 		glMatrixMode(GL_MODELVIEW);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 1, -1);
+		glOrtho(0, Main.width, Main.height, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		//GL11.glClearColor(0.5f, 0.5f, 0.5f, 1);
@@ -213,6 +214,8 @@ public class Render {
 		//glTranslatef(x, y, z);
 
 		initFrustrum();
+
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 
 		camera.look();
 
@@ -276,32 +279,6 @@ public class Render {
 
 		atlas.getTexture().bind();
 		if (!multithreading){
-			/*for (int x = 0; x < mapsize; x++){
-				for (int y = 0; y < mapsize; y++){
-					if (World.structures[x][y] == 1){
-						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 4);
-					}
-					if (World.structures[x][y] == 2){
-						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 5);
-					}
-					if (World.structures[x][y] == 3){
-						drawStructure((-x + 0.5f) * tilesize, (-y + 0.5f) * tilesize, 6);
-					}
-					if (World.map[x][y] == 0){
-						drawTile(-x * tilesize, -y * tilesize, 0);
-
-					}
-					if (World.map[x][y] == 1){
-						drawTile(-x * tilesize, -y * tilesize, 1);
-					}
-					if (World.map[x][y] == 2){
-						drawTile(-x * tilesize, -y * tilesize, 3);
-					}
-					if (World.map[x][y] == 3){
-						drawTile(-x * tilesize, -y * tilesize, 2);
-					}
-				}
-			}*/
 			GL11.glCallList(DisplayLists.index);
 				for (int x = 0; x < mapsize; x++){
 					for (int y = 0; y < mapsize; y++){
@@ -318,8 +295,112 @@ public class Render {
 				}
 		}
 		initOrtho();
-		glPushMatrix();
+
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+
+		glColor3f(169f / 255f, 145f / 255f, 126f / 255f);
+		glBegin(GL_QUADS);
+			glVertex2f(0, Main.height);
+			glVertex2f(Main.width, Main.height);
+			glVertex2f(Main.width, 6f * Main.height / 8f);
+			glVertex2f(0, 6f * Main.height / 8f);
+		glEnd();
+		glColor3f(1f, 1f, 1f);
+
+		glColor3f(157f / 255f, 130f / 255f, 117f / 255f);
+		glBegin(GL_QUADS);
+			glVertex2f(10, Main.height - 00);
+			glVertex2f(Main.width - 10, Main.height - 00);
+			glVertex2f(Main.width - 10, (6f * Main.height / 8f) + 10);
+			glVertex2f(10, (6f * Main.height / 8f) + 10);
+		glEnd();
+		glColor3f(1f, 1f, 1f);
+
+		glColor3f(169f / 255f, 145f / 255f, 126f / 255f);
+		glBegin(GL_QUADS);
+			glVertex2f(0, (6f * Main.height / 8f));
+			glVertex2f(20, (6f * Main.height / 8f));
+			glVertex2f(20, (6f * Main.height / 8f) + 20);
+			glVertex2f(0, (6f * Main.height / 8f) + 20);
+		glEnd();
+		glColor3f(1f, 1f, 1f);
+
+		glColor3f(169f / 255f, 145f / 255f, 126f / 255f);
+		glBegin(GL_QUADS);
+			glVertex2f(Main.width, (6f * Main.height / 8f));
+			glVertex2f(Main.width - 20, (6f * Main.height / 8f));
+			glVertex2f(Main.width - 20, (6f * Main.height / 8f) + 20);
+			glVertex2f(Main.width, (6f * Main.height / 8f) + 20);
+		glEnd();
+		glColor3f(1f, 1f, 1f);
+
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+
+		atlas.getTexture().bind();
+		glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glVertex2f(50, 575);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glVertex2f(75, 575);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glVertex2f(75, 600);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glVertex2f(50, 600);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(1, false));
+			glVertex2f(50, 610);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(1, false));
+			glVertex2f(75, 610);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(1, true));
+			glVertex2f(75, 635);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(1, true));
+			glVertex2f(50, 635);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(1, false));
+			glVertex2f(50, 645);
+			glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(1, false));
+			glVertex2f(75, 645);
+			glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(1, true));
+			glVertex2f(75, 670);
+			glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(1, true));
+			glVertex2f(50, 670);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+
 		UIManager.render();
+
+		drawString(String.valueOf(Warrior.wPop)+" Warriors", 85, 657);
+
+		drawString(String.valueOf(Farmer.fPop)+" Farmers", 85, 627);
+
+		drawString(String.valueOf(Wheat.tWheat), 85, 587);
+		if (Util.getWheatRate() > 0){
+			font.drawString(85 + font.getWidth(String.valueOf(Wheat.tWheat+" ")), 587, " ("+Util.getWheatRateForDisplay()+")", Color.green);
+		}
+		else{
+			font.drawString(85 + font.getWidth(String.valueOf(Wheat.tWheat+" ")), 587, " ("+Util.getWheatRateForDisplay()+")", Color.red);
+		}
+
+		drawString("Conscription Rate: "+((int) (100 * Main.desiredWarriorRatio))+"%", 285, 657);
+
+		drawString("Frames Per Tick: "+String.valueOf(Main.framesPerTick), 285, 627);
+
+		drawString("Feed Displaced: "+String.valueOf(Main.displacedEat), 585, 657);
+
+		drawString("Favor Warrior Rations: "+String.valueOf(!Main.favorFarmers), 585, 627);
+
+		glPushMatrix();
+
 
 		for (Message message : World.messages){
 			if (message.time > 0){
@@ -333,6 +414,7 @@ public class Render {
 				World.messages.remove(i);
 			}
 		}
+
 		glPopMatrix();
 	}
 
@@ -458,6 +540,38 @@ public class Render {
 
 		glDisable(GL_DEPTH_TEST);
 		font.drawString(centerX - textWidth, centerY - textHeight, "Paused");
+		glEnable(GL_DEPTH_TEST);
+
+	}
+
+	public static void drawGameOver(String reason) {
+
+		float centerX = Display.getWidth() / 2f;
+		float centerY = Display.getHeight() / 2f;
+
+		float textWidth = font.getWidth("Game Over") / 2f;
+		float textHeight = font.getHeight("Game Over") / 2f;
+		float textWidth2 = font.getWidth(reason) / 2f;
+
+		Treble<Float, Float, Float> pauseColor = Util.convertColor(new Treble<Float, Float, Float>(168f,78f,78f));
+
+		glDisable(GL11.GL_TEXTURE_2D);
+		glBegin(GL_QUADS);
+		glColor4f(pauseColor.x, pauseColor.y, pauseColor.z, 0.15f);
+		glVertex2f(0f, 0f);
+		glColor4f(pauseColor.x, pauseColor.y, pauseColor.z, 0.15f);
+		glVertex2f(Display.getWidth(), 0f);
+		glColor4f(pauseColor.x, pauseColor.y, pauseColor.z, 0.15f);
+		glVertex2f(Display.getWidth(), Display.getHeight());
+		glColor4f(pauseColor.x, pauseColor.y, pauseColor.z, 0.15f);
+		glVertex2f(0f, Display.getHeight());
+		glEnd();
+		glColor4f(1f, 1f, 1f, 1f);
+		glEnable(GL11.GL_TEXTURE_2D);
+
+		glDisable(GL_DEPTH_TEST);
+		font.drawString(centerX - textWidth, centerY - textHeight, "Game Over");
+		font.drawString(centerX - textWidth2, centerY - textHeight + 30, reason);
 		glEnable(GL_DEPTH_TEST);
 
 	}

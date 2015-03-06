@@ -8,11 +8,13 @@ public class Farmer {
 
 	public static float floatFPop = fPop;
 
-	public static int wheatPerFarmer = 15;
+	public static int wheatPerFarmer = 14;
 
 	public static int totalHarvest;
 
-	public static int normalHunger = 30;
+	public static int totalHunger;
+
+	public static int normalHunger = 10;
 
  /**/	public static int fHunger(int popGroupNumber){
 
@@ -22,11 +24,11 @@ public class Farmer {
 
 	 /**/}
 
-        public static int fHunger(){
+    public static int fHunger(){
 
-		int fHunger = 0;
-	   	fHunger = 30 + (Util.randInt(5, 10));
-	 	return fHunger;
+			fHunger = 0;
+	   	fHunger = normalHunger + (Util.randInt(0, 3));
+	 		return fHunger;
 
 	 }
 

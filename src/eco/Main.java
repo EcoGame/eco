@@ -12,8 +12,10 @@ public class Main {
 	public static Random random = new Random();
 
 	public static final int fov = 90;
-	public static final int height = 620;
-	public static final int width = 854;
+	public static final int windowheight = 620;
+	public static final int windowwidth = 854;
+	public static final int height = 720;
+	public static final int width = 1280;
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
 	public static final boolean willsCode = false;
@@ -35,13 +37,20 @@ public class Main {
 	public static volatile int oldtWheat = 0;
 	public static volatile int tAcres = 10000;
 
+	public static float farmerDeathRatio = 0.75f;
+	public static float warriorDeathRatio = 0.75f;
+
+	public static boolean favorFarmers = true;
+
+	public static boolean displacedEat = true;
+
 
 	public static int GDP;
 	public static int taxRevenue;
 
 	public static final int ticks = 2000;
-	public static final String vn = "0.3";
-	public static int framesPerTick = 4;
+	public static final String vn = "0.4";
+	public static int framesPerTick = 8;
 	public static int frame = 0;
 	public static int unemployedFarmers = 0;
 	public static int employedFarmers = 0;
@@ -56,6 +65,9 @@ public class Main {
 
 	public static float desiredWarriorRatio = 0.15f;
 	public static float desiredFarmerRatio = 0.85f;
+
+	public static boolean gameOver = false;
+	public static String reason = "All of your citizens have perished!";
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
@@ -75,6 +87,10 @@ public class Main {
 				year++;
 				if (!willsCode){
 					tick();
+					if (Farmer.fPop == 0 && Warrior.wPop == 0
+					&& World.displacedPeople == 0){
+						gameOver = true;
+					}
 				}
 				else{
 					willTick();
@@ -84,7 +100,13 @@ public class Main {
 			UIManager.update();
 			InputManager.update();
 			tAcres = 0;
-			if (!Main.paused){
+			if (gameOver){
+				Render.drawGameOver(reason);
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
+			}
+			else if (!Main.paused){
 				if (!skipFrame){
 					Render.draw();
 	       				OutputManager.newDebug();
@@ -92,11 +114,12 @@ public class Main {
 				else{
 					skipFrame = false;
 				}
+			//	Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
 				FPSCounter.tick();
 				Display.update();
 				Display.sync(60);
       }
-     			 else{
+     	else{
 				Render.drawPaused();
 				FPSCounter.tick();
 				Display.update();
@@ -135,14 +158,51 @@ public class Main {
 				Farmer.addPop(newPopulation);
 				Warrior.addPop(newWarriors);
 				Wheat.tWheat(Farmer.fPop);
-
+				Farmer.totalHunger = Farmer.fHunger() * Farmer.fPop;
+				Warrior.totalHunger = Warrior.wHunger() * Warrior.wPop;
+				int warriorWheat = Warrior.totalHunger;
+				int farmerWheat = Farmer.totalHunger;
+				if (favorFarmers){
+					farmerWheat = Wheat.eatWheat(farmerWheat);
+					warriorWheat = Wheat.eatWheat(warriorWheat);
+				}
+				else{
+					warriorWheat = Wheat.eatWheat(warriorWheat);
+					farmerWheat = Wheat.eatWheat(farmerWheat);
+				}
+				if (farmerWheat != 0){
+					int fDeath = (int) Math.round(((float) farmerWheat / (float) Farmer.fHunger) * farmerDeathRatio);
+					Farmer.fPop -= fDeath;
+					Farmer.floatFPop -= fDeath;
+				}
+				if (warriorWheat != 0){
+					int wDeath = (int) Math.round(((float) warriorWheat / (float) Warrior.wHunger) * warriorDeathRatio);
+					Warrior.wPop -= wDeath;
+					Warrior.floatWPop -= wDeath;
+				}
+				if (displacedEat){
+					int displacedHungerConst = Farmer.fHunger / 2;
+					int displacedHunger = World.displacedPeople * displacedHungerConst;
+					displacedHunger = Wheat.eatWheat(displacedHunger);
+					if (displacedHunger != 0){
+						int displacedDeath = (int) Math.round(((float) displacedHunger / (float) Farmer.fHunger / 2f) * 1f);
+						World.displacedPeople -= displacedDeath;
+					}
+				}
+				else{
+					int displacedHungerConst = Farmer.fHunger / 2;
+					int displacedHunger = World.displacedPeople * displacedHungerConst;
+					if (displacedHunger != 0){
+						int displacedDeath = (int) Math.round(((float) displacedHunger / (float) Farmer.fHunger / 2f) * 1f);
+						World.displacedPeople -= displacedDeath;
+					}
+				}
         if(debug){
             OutputManager.printDebugInformation();
         }
         if(popDiags){
             OutputManager.popDiagnostics(0);
         }
-        Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
         World.updateMap(Farmer.fPop, Warrior.wPop);
         World.freeAcres = World.calcAcres();
 
