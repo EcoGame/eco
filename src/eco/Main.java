@@ -24,7 +24,7 @@ public class Main {
 	public static boolean popDiags = false;
 	public static boolean fullDebug = false;
 	public static boolean skipFrame = false;
-
+    	public static String saveName = "save";
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
