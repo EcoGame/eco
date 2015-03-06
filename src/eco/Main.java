@@ -257,17 +257,18 @@ public static int getTotalPop(){
 
 	public static void init() {
 
-    Render.initDisplay();
-    Render.init();
+    		Render.initDisplay();
+    		Render.init();
+    		Util.readSave();
 		if (willsCode){
 			PopManager.initpops();
 		}
-    try {
+    		try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-      //  ThreadManager.addJob(new MeshTask());
+      		//  ThreadManager.addJob(new MeshTask());
 		if (attemptSaveLoad){
 			Util.readSave();
 		}
