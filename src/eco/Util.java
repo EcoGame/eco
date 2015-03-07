@@ -41,7 +41,7 @@ public class Util {
 	}
 
     public static void readSave(){
-	String path = "../saves/" + Main.saveName + ".txt";
+         String path = "../saves/save.txt";
          Scanner s = null;
          try {
              s = new Scanner(new File(path));
