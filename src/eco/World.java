@@ -37,7 +37,7 @@ public class World {
 	public static int extraWarriors = 0;
 
 	public static float forestHeight = 0.25f; // The lower this is (can go down to -1), the more forests there will be
-	public static boolean cutForests = false; // Will forests be removed to build things
+	public static boolean cutForests = true; // Will forests be removed to build things
 
 	public static void generate(){
 
@@ -188,6 +188,7 @@ public class World {
 					if (map[ranx][rany] == 1){
 						if (structures[ranx][rany] == 0 || (cutForests && structures[ranx][rany] == 3)){
 							map[ranx][rany] = 2;
+							structures[ranx][rany] = 0;
 							newFarms--;
 						}
 					}
@@ -197,6 +198,7 @@ public class World {
 				while (newFarms > 0 && validLocs.size() > 0){
 					Point loc = validLocs.get(random.nextInt(validLocs.size()));
 					map[loc.getX()][loc.getY()] = 2;
+					structures[loc.getX()][loc.getY()] = 0;
 					validLocs.remove(loc);
 					newFarms--;
 				}
@@ -224,14 +226,23 @@ public class World {
 			}
 			displacedFarmers += newHouses;
 		}
-
+		validLocs = new ArrayList<Point>();
+			for (int x = 0; x < mapsize; x++){
+				for (int y = 0; y < mapsize; y++){
+				if (map[x][y] == 1){
+					if (structures[x][y] == 0 || (cutForests && structures[x][y] == 3) || map[x][y] == 3){
+							validLocs.add(new Point(x, y));
+						}
+					}
+				}
+			}
 		if (deltaWarriors > 0){
 			int newCastles = deltaWarriors;
 			if ((float) freeAcres / (float) totalAcres >= randomLocCutoff){
 				while (newCastles > 0){
 					int ranx = random.nextInt(mapsize);
 					int rany = random.nextInt(mapsize);
-					if (map[ranx][rany] == 1){
+					if (map[ranx][rany] == 1 || map[ranx][rany] == 3){
 						if (structures[ranx][rany] == 0 || (cutForests && structures[ranx][rany] == 3)){
 							structures[ranx][rany] = 2;
 							newCastles--;
