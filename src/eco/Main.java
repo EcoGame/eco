@@ -24,7 +24,11 @@ public class Main {
 	public static boolean popDiags = false;
 	public static boolean fullDebug = false;
 	public static boolean skipFrame = false;
-
+	public static String saveName1 = "save";
+	public static String saveName2 = "save2";
+	public static String saveName3 = "save3";
+	public static String saveName4 = "save4";
+	public static String saveName5 = "save5";
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
