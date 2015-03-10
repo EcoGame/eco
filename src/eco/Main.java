@@ -10,11 +10,13 @@ import org.lwjgl.opengl.GL11;
 public class Main {
 
 	public static Random random = new Random();
+
 	public static final int fov = 90;
 	public static final int windowheight = 620;
 	public static final int windowwidth = 854;
 	public static final int height = 720;
 	public static final int width = 1280;
+	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
 	public static final boolean willsCode = false;
 	public static boolean paused = false;
@@ -22,55 +24,80 @@ public class Main {
 	public static boolean popDiags = false;
 	public static boolean fullDebug = false;
 	public static boolean skipFrame = false;
+
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
 	public static float wBirthRate = 0.008f;
 	public static volatile float wDeathRate = 0.002f;
 	public static float wDefaultDeathRate = 0.002f;
+
 	public static volatile int year = 0;
 	public static volatile int wheatPrice = 20;
 	public static volatile int oldtWheat = 0;
 	public static volatile int tAcres = 10000;
+
 	public static float farmerDeathRatio = 0.75f;
 	public static float warriorDeathRatio = 0.75f;
-	public static String saveName1 = "save";
-	public static String saveName2 = "save2";
-	public static String saveName3 = "save3";
-	public static String saveName4 = "save4";
-	public static String saveName5 = "save5";
-	public static String currentSave = saveName1;
+
 	public static boolean favorFarmers = true;
+
 	public static boolean displacedEat = true;
+
+
 	public static int GDP;
 	public static int taxRevenue;
+
 	public static final int ticks = 2000;
-	public static final String vn = "0.4";
+	public static final String vn = "0.5";
 	public static int framesPerTick = 8;
 	public static int frame = 0;
 	public static int unemployedFarmers = 0;
 	public static int employedFarmers = 0;
+
 	public static int aggDemand;
 	public static int[][] unfilledpops = new int[10][1000000];
 	public static Pops[][] popArray = new Pops[10][1000000];
 	public static int[] unusedarray = new int [10];
 	public static int popSize = 25;
+
 	public static boolean shouldQuit = false;
+
 	public static float desiredWarriorRatio = 0.15f;
 	public static float desiredFarmerRatio = 0.85f;
+
 	public static boolean gameOver = false;
 	public static String reason = "All of your citizens have perished!";
-	public static boolean menuToggle = true;
+
+	public static boolean shouldBeInMenu = true;
+
+	public static int generatorToUse = 0;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
+		init();
+		mainMenu();
 		gameLoop();
 		System.exit(0);
 
 	}
 
+	public static void mainMenu(){
+		while (!shouldQuit && shouldBeInMenu){
+			if (Display.isCloseRequested()){
+				shouldQuit = true;
+				break;
+			}
+			Render.drawMainMenu();
+			InputManager.updateMenu();
+			UIManager.updateMenu();
+			FPSCounter.tick();
+			Display.update();
+			Display.sync(60);
+		}
+	}
+
 	public static void gameLoop(){
-		init();
 		while (!shouldQuit){
 			if (Display.isCloseRequested()){
 				break;
@@ -102,12 +129,12 @@ public class Main {
 			else if (!Main.paused){
 				if (!skipFrame){
 					Render.draw();
-	       	OutputManager.newDebug();
+	       				OutputManager.newDebug();
 				}
 				else{
 					skipFrame = false;
 				}
-				//	Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
+			//	Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
 				FPSCounter.tick();
 				Display.update();
 				Display.sync(60);
@@ -119,6 +146,7 @@ public class Main {
 				Display.sync(60);
 			}
 		}
+
 	}
 
 	public static void tick(){
@@ -251,7 +279,6 @@ public static int getTotalPop(){
 
     Render.initDisplay();
     Render.init();
-		Util.readSave();
 		if (willsCode){
 			PopManager.initpops();
 		}
@@ -260,9 +287,22 @@ public static int getTotalPop(){
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-    //  ThreadManager.addJob(new MeshTask());
-		DisplayLists.mesh();
+      //  ThreadManager.addJob(new MeshTask());
 
+
+	}
+
+	public static void initGame(){
+		if (attemptSaveLoad){
+			Util.readSave();
+		}
+
+		DisplayLists.mesh();
+	}
+
+	public static void initTempGame(){
+	  World.generate(generatorToUse);
+		DisplayLists.mesh();
 	}
 
 }
