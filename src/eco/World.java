@@ -39,7 +39,11 @@ public class World {
 	public static float forestHeight = 0.25f; // The lower this is (can go down to -1), the more forests there will be
 	public static boolean cutForests = true; // Will forests be removed to build things
 
-	public static void generate(){
+	public static void init(int generator){
+		World.generate(generator);
+	}
+
+	public static void generate(int generator){
 
 		mapseed = System.currentTimeMillis();
 		map = new short[mapsize][mapsize];
@@ -50,63 +54,193 @@ public class World {
 		int centx = (mapsize / 2) - 1;
 		int centy = (mapsize / 2) - 1;
 
-		for (int x = 0; x < mapsize; x++) {
-			for (int y = 0; y < mapsize; y++) {
-				float distx = (float) Math.pow(centx - x, 2);
-				float disty = (float) Math.pow(centy - y, 2);
-				float distance = (float) Math.sqrt(distx + disty);
-				distance /= mapsize;
-				heightmap[x][y] = distance;
-			}
-		}
 
-		NoiseSampler.initSimplexNoise((int) mapseed);
-		NoiseSampler.setNoiseScale(mapsize / 4);
-
-
-		for (int x = 0; x < mapsize; x++) {
-			for (int y = 0; y < mapsize; y++) {
-				noise[x][y] = NoiseSampler.getNoise(x, y);
-				noise[x][y] += 1;
-				noise[x][y] /= 2;
-				noise[x][y] -= heightmap[x][y];
-				noise[x][y] *= 128;
-			}
-		}
-
-		for (int x = 0; x < mapsize; x++) {
-			for (int y = 0; y < mapsize; y++) {
-				if (noise[x][y] < 48){
-					map[x][y] = 0;
+		if (generator == 0){
+				for (int x = 0; x < mapsize; x++) {
+					for (int y = 0; y < mapsize; y++) {
+						float distx = (float) Math.pow(centx - x, 2);
+						float disty = (float) Math.pow(centy - y, 2);
+						float distance = (float) Math.sqrt(distx + disty);
+						distance /= mapsize;
+						heightmap[x][y] = distance;
+					}
 				}
-				else if (noise[x][y] < 75){
-					map[x][y] = 1;
-				}
-				else{
-					map[x][y] = 3;
-				}
-			}
-		}
 
-		NoiseSampler.initSimplexNoise((int) mapseed);
-		NoiseSampler.setNoiseScale(mapsize / 16);
-		for (int x = 0; x < mapsize; x++) {
-			for (int y = 0; y < mapsize; y++) {
-				if (NoiseSampler.getNoise(x, y) >= forestHeight){
-					if (map[x][y] == 1){
-						structures[x][y] = 3;
+				NoiseSampler.initSimplexNoise((int) mapseed);
+				NoiseSampler.setNoiseScale(mapsize / 4);
+
+
+				for (int x = 0; x < mapsize; x++) {
+					for (int y = 0; y < mapsize; y++) {
+						noise[x][y] = NoiseSampler.getNoise(x, y);
+						noise[x][y] += 1;
+						noise[x][y] /= 2;
+						noise[x][y] -= heightmap[x][y];
+						noise[x][y] *= 128;
+					}
+				}
+
+				for (int x = 0; x < mapsize; x++) {
+					for (int y = 0; y < mapsize; y++) {
+						if (noise[x][y] < 48){
+							map[x][y] = 0;
+						}
+						else if (noise[x][y] < 75){
+							map[x][y] = 1;
+						}
+						else{
+							map[x][y] = 3;
+						}
+					}
+				}
+
+				NoiseSampler.initSimplexNoise((int) mapseed);
+				NoiseSampler.setNoiseScale(mapsize / 16);
+				for (int x = 0; x < mapsize; x++) {
+					for (int y = 0; y < mapsize; y++) {
+						if (NoiseSampler.getNoise(x, y) >= forestHeight){
+							if (map[x][y] == 1){
+								structures[x][y] = 3;
+							}
+						}
 					}
 				}
 			}
-		}
 
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (map[x][y] != 0){
-					totalAcres++;
+
+			if (generator == 1){
+					Random random = new Random();
+					for (int i = 0; i < 20; i++){
+						centx = random.nextInt(mapsize / 2) + (mapsize / 4);
+						centy = random.nextInt(mapsize / 2) + (mapsize / 4);
+						int radius = random.nextInt(mapsize / 32) + (mapsize / 16);
+						for (int x = 0; x < mapsize; x++) {
+							for (int y = 0; y < mapsize; y++) {
+								float distx = (float) Math.pow(centx - x, 2);
+								float disty = (float) Math.pow(centy - y, 2);
+								float distance = (float) Math.sqrt(distx + disty);
+								distance /= radius;
+								if (distance > 1){
+									distance = 0f;
+								}
+								heightmap[x][y] += distance;
+							}
+						}
+					}
+					for (int x = 0; x < mapsize; x++) {
+						for (int y = 0; y < mapsize; y++) {
+							if (heightmap[x][y] == 0){
+								heightmap[x][y] = 0.5f;
+							}
+							heightmap[x][y] /= 2;
+							if (x == 0 || y == 0 || x == mapsize - 1 || y == mapsize - 1){
+								heightmap[x][y] = 1;
+							}
+						}
+					}
+
+					NoiseSampler.initSimplexNoise((int) mapseed);
+					NoiseSampler.setNoiseScale(mapsize / 4);
+
+
+					for (int x = 0; x < mapsize; x++) {
+						for (int y = 0; y < mapsize; y++) {
+							noise[x][y] = NoiseSampler.getNoise(x, y);
+							noise[x][y] += 1;
+							noise[x][y] /= 2;
+							noise[x][y] -= heightmap[x][y];
+							noise[x][y] *= 128;
+						}
+					}
+
+					for (int x = 0; x < mapsize; x++) {
+						for (int y = 0; y < mapsize; y++) {
+							if (noise[x][y] < 48){
+								map[x][y] = 0;
+							}
+							else if (noise[x][y] < 75){
+								map[x][y] = 1;
+							}
+							else{
+								map[x][y] = 3;
+							}
+						}
+					}
+
+					NoiseSampler.initSimplexNoise((int) mapseed);
+					NoiseSampler.setNoiseScale(mapsize / 16);
+					for (int x = 0; x < mapsize; x++) {
+						for (int y = 0; y < mapsize; y++) {
+							if (NoiseSampler.getNoise(x, y) >= forestHeight){
+								if (map[x][y] == 1){
+									structures[x][y] = 3;
+								}
+							}
+						}
+					}
+				}
+
+
+				if (generator == 2){
+						for (int x = 0; x < mapsize; x++) {
+							for (int y = 0; y < mapsize; y++) {
+								float distx = (float) Math.pow(centx - x, 2);
+								float disty = (float) Math.pow(centy - y, 2);
+								float distance = (float) Math.sqrt(distx + disty);
+								distance /= mapsize;
+								heightmap[x][y] = distance;
+							}
+						}
+
+						NoiseSampler.initSimplexNoise((int) mapseed);
+						NoiseSampler.setNoiseScale(mapsize / 4);
+
+
+						for (int x = 0; x < mapsize; x++) {
+							for (int y = 0; y < mapsize; y++) {
+								noise[x][y] = NoiseSampler.getNoise(x, y);
+								noise[x][y] += 1;
+								noise[x][y] /= 2;
+								noise[x][y] += heightmap[x][y] / 8f;
+								noise[x][y] *= 128;
+							}
+						}
+
+						for (int x = 0; x < mapsize; x++) {
+							for (int y = 0; y < mapsize; y++) {
+								if (noise[x][y] < 48){
+									map[x][y] = 0;
+								}
+								else if (noise[x][y] < 75){
+									map[x][y] = 1;
+								}
+								else{
+									map[x][y] = 3;
+								}
+							}
+						}
+
+						NoiseSampler.initSimplexNoise((int) mapseed);
+						NoiseSampler.setNoiseScale(mapsize / 16);
+						for (int x = 0; x < mapsize; x++) {
+							for (int y = 0; y < mapsize; y++) {
+								if (NoiseSampler.getNoise(x, y) >= forestHeight){
+									if (map[x][y] == 1){
+										structures[x][y] = 3;
+									}
+								}
+							}
+						}
+					}
+
+
+			for (int x = 0; x < mapsize; x++){
+				for (int y = 0; y < mapsize; y++){
+					if (map[x][y] != 0){
+						totalAcres++;
+					}
 				}
 			}
-		}
 	}
 
 	public static float getHeight(int x, int y){
