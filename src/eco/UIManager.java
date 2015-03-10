@@ -12,11 +12,15 @@ public class UIManager{
 	public static Button increaseTickRate = new Button(495, 606, 20, 0, 2, 1, 2);
 	public static Button decreaseTickRate = new Button(495, 636, 20, 2, 2, 3, 2);
 
-	public static TextButton startTempGame = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Test Game");
+	public static TextButton startSaveGame1 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 1");
+    public static TextButton startSaveGame2 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 2");
+    public static TextButton startSaveGame3 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 3");
+    public static TextButton startSaveGame4 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 4");
+    public static TextButton startSaveGame5 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 5");
 
 	public static ToggleTextButton generatorIsland = new ToggleTextButton((Main.width / 2) + 256, 256, 256, 32, 6, 2, 7, 2, "Island", true);
 	public static ToggleTextButton generatorArchipelago = new ToggleTextButton((Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, "Archipelago", false);
-	public static ToggleTextButton generatorMountains = new ToggleTextButton((Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, "Mountains (WIP)", false);
+	public static ToggleTextButton generatorMountains = new ToggleTextButton((Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, "Mountains", false);
 
 	public static void update(){
 		if (toggleFeedDisplaced.checkForClick()){
@@ -48,32 +52,28 @@ public class UIManager{
 	}
 
 	public static void clickMenu(float x, float y){
-		startTempGame.click(x, y);
+		startSaveGame1.click(x, y);
 		generatorIsland.click(x, y);
 		generatorArchipelago.click(x, y);
 		generatorMountains.click(x, y);
 	}
 
 	public static void renderMenu(){
-		startTempGame.render(Mouse.getX(), Main.height - Mouse.getY());
+		startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorIsland.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorArchipelago.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorMountains.render(Mouse.getX(), Main.height - Mouse.getY());
 	}
 
 	public static void renderMenu2(){
-		startTempGame.render2();
+		startSaveGame1.render2();
 		generatorIsland.render2();
 		generatorArchipelago.render2();
 		generatorMountains.render2();
 	}
 
-	public static void render2(){
-
-	}
-
 	public static void updateMenu(){
-		if (startTempGame.checkForClick()){
+		if (startSaveGame1.checkForClick()){
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
