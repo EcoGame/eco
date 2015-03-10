@@ -119,12 +119,8 @@ public class Render {
 
 		Log.setVerbose(false);
 
-		World.generate();
 
 
-		//while (!World.isValid()){
-        //World.generate();
-		//}
 
 		try {
 			if (Main.isInEclipse){
@@ -205,7 +201,7 @@ public class Render {
 	public static void initFrustrum(){
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		GLU.gluPerspective(Main.fov / 2f, Main.windowwidth / Main.windowheight, 0.1f, 1000f);
+		GLU.gluPerspective(Main.fov / 2f, Main.width / Main.height, 0.1f, 1000f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_DEPTH_TEST);
@@ -595,8 +591,94 @@ public class Render {
 
 	}
 
-	public static void Menu() {
+	public static void drawMainMenu(){
 
+		glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+
+		initOrtho();
+
+		Treble<Float, Float, Float> backColor = Util.convertColor(new Treble<Float, Float, Float>(157f,130f,117f));
+		Treble<Float, Float, Float> borderColor = Util.convertColor(new Treble<Float, Float, Float>(169f,145f,126f));
+
+		glDisable(GL11.GL_TEXTURE_2D);
+
+		glColor3f(borderColor.x, borderColor.y, borderColor.z);
+		glBegin(GL_QUADS);
+			glVertex2f(0, 0);
+			glVertex2f(0, Main.height);
+			glVertex2f(Main.width, Main.height);
+			glVertex2f(Main.width, 0);
+		glEnd();
+
+		glColor3f(backColor.x, backColor.y, backColor.z);
+		glBegin(GL_QUADS);
+			glVertex2f(10, 10);
+			glVertex2f(10, Main.height - 10);
+			glVertex2f(Main.width - 10, Main.height - 10);
+			glVertex2f(Main.width - 10, 10);
+		glEnd();
+
+		glColor3f(borderColor.x, borderColor.y, borderColor.z);
+		glBegin(GL_QUADS);
+			glVertex2f(0, 0);
+			glVertex2f(20, 0);
+			glVertex2f(20, 20);
+			glVertex2f(0, 20);
+			glVertex2f(Main.width, 0);
+			glVertex2f(Main.width - 20, 0);
+			glVertex2f(Main.width - 20, 20);
+			glVertex2f(Main.width, 20);
+			glVertex2f(0, Main.height);
+			glVertex2f(20, Main.height);
+			glVertex2f(20, Main.height - 20);
+			glVertex2f(0, Main.height - 20);
+			glVertex2f(Main.width, Main.height);
+			glVertex2f(Main.width - 20, Main.height);
+			glVertex2f(Main.width - 20, Main.height - 20);
+			glVertex2f(Main.width, Main.height - 20);
+		glEnd();
+		glColor3f(1f, 1f, 1f);
+		glEnable(GL11.GL_TEXTURE_2D);
+
+		float centx = Main.width / 2f;
+		float size = 128;
+		float pad = 0;
+
+		atlas.getTexture().bind();
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(4, false));
+			glVertex2f(centx - (size / 2) - size - pad, 30);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(4, false));
+			glVertex2f(centx + (size / 2) - size - pad, 30);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(4, true));
+			glVertex2f(centx + (size / 2) - size - pad, 30 + size);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(4, true));
+			glVertex2f(centx - (size / 2) - size - pad, 30 + size);
+
+			glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(4, false));
+			glVertex2f(centx - (size / 2), 30);
+			glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(4, false));
+			glVertex2f(centx + (size / 2), 30);
+			glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(4, true));
+			glVertex2f(centx + (size / 2), 30 + size);
+			glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(4, true));
+			glVertex2f(centx - (size / 2), 30 + size);
+
+			glTexCoord2f(atlas.getCoord(2, false), atlas.getCoord(4, false));
+			glVertex2f(centx - (size / 2) + size + pad, 30);
+			glTexCoord2f(atlas.getCoord(2, true), atlas.getCoord(4, false));
+			glVertex2f(centx + (size / 2) + size + pad, 30);
+			glTexCoord2f(atlas.getCoord(2, true), atlas.getCoord(4, true));
+			glVertex2f(centx + (size / 2) + size + pad, 30 + size);
+			glTexCoord2f(atlas.getCoord(2, false), atlas.getCoord(4, true));
+			glVertex2f(centx - (size / 2) + size + pad, 30 + size);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		UIManager.renderMenu();
+		UIManager.renderMenu2();
+		drawString("Generation Settings", ((Main.width / 2) + 280), 224);
 
 	}
 
