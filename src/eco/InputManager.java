@@ -70,6 +70,10 @@ public class InputManager {
 										-4f, World.mapsize / 2f * Render.tilesize);
 						System.out.println("Reset camera to default location");
 						break;
+						        case Keyboard.KEY_LMETA:
+                            Util.createSave();
+                            System.out.println("Saved");
+						break;
 					case Keyboard.KEY_H:
 					case Keyboard.KEY_GRAVE:
 						Main.fullDebug ^= true;
