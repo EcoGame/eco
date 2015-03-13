@@ -18,7 +18,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.FileInputStream;
 import java.io.Writer;
+import java.io.File;
+import java.nio.file.NoSuchFileException;
 
 public class Util {
 
@@ -36,18 +39,32 @@ public class Util {
 	*/
   public static void createSave(){
 
-    Writer writer = null;
-
+      String path = null;
     try {
-      writer = new BufferedWriter(new OutputStreamWriter(
-      new FileOutputStream(Main.currentSave + ".txt"), "utf-8"));
-      writer.write((int)Main.fDeathRate);
+        if(Main.currentSave == 1) {
+            path = "../saves/" + Main.saveName1 + ".txt";
+        }
+        if(Main.currentSave == 2) {
+            path = "../saves/" + Main.saveName2 + ".txt";
+        }
+        if(Main.currentSave == 3) {
+            path = "../saves/" + Main.saveName3 + ".txt";
+        }
+        if(Main.currentSave == 4) {
+            path = "../saves/" + Main.saveName4 + ".txt";
+        }
+        if(Main.currentSave == 5) {
+            path = "../saves/" + Main.saveName5 + ".txt";
+        }
+        File fOut = new File(path);
+        FileOutputStream FOS = new FileOutputStream(fOut);
+        BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
+        BW.write(Integer.toString(Main.year));
+        BW.newLine();
+        BW.close();
     }
     catch (IOException ex) {
-    // Can add error message if we want.
-    }
-    finally {
-      try {writer.close();} catch (Exception ex) {}
+        System.out.println("IOException");
     }
 
   }
@@ -58,8 +75,29 @@ public class Util {
 
 	}
 
-  public static void readSave(){
-    String path = "../saves/" + Main.currentSave + ".txt";
+  public static void readSave() {
+    String path = "";
+    File name = null;
+    if(Main.currentSave == 1) {
+      path = "../saves/" + Main.saveName1 + ".txt";
+      name = new File(Main.saveName1 + ".txt");
+    }
+    if(Main.currentSave == 2) {
+      path = "../saves/" + Main.saveName2 + ".txt";
+      name = new File(Main.saveName2 + ".txt");
+    }
+    if(Main.currentSave == 3) {
+      path = "../saves/" + Main.saveName3 + ".txt";
+        name = new File(Main.saveName3 + ".txt");
+    }
+    if(Main.currentSave == 4) {
+      path = "../saves/" + Main.saveName4 + ".txt";
+        name = new File(Main.saveName4 + ".txt");
+    }
+    if(Main.currentSave == 5) {
+      path = "../saves/" + Main.saveName5 + ".txt";
+        name = new File(Main.saveName5 + ".txt");
+    }
     Scanner s = null;
     try {
       s = new Scanner(new File(path));
@@ -87,8 +125,8 @@ public class Util {
              Main.tAcres = Integer.valueOf(list.get(2));
              Money.tMoney = Integer.valueOf(list.get(5));
              Main.wheatPrice = Integer.valueOf(list.get(6));
-             PopManager.uneatenWheat = Integer.valueOf(list.get(7));
-             readSuccess();
+            PopManager.uneatenWheat = Integer.valueOf(list.get(7));
+            readSuccess();
          } catch(Exception e){
              readError();
          }
@@ -106,9 +144,9 @@ public class Util {
 
   public static void readSuccess() {
 
-		World.messages.add(new Message("----------------------------------", 100, 100, 30));
-	 	World.messages.add(new Message("Loaded game state from save file!", 100, 130, 30));
-	 	World.messages.add(new Message("----------------------------------", 100, 160, 30));
+      World.messages.add(new Message("----------------------------------", 100, 100, 30));
+      World.messages.add(new Message("Loaded game state from save file!", 100, 130, 30));
+      World.messages.add(new Message("----------------------------------", 100, 160, 30));
 
 	}
 
@@ -125,17 +163,17 @@ public class Util {
 	}
 
   public static void takeScreenshot(){
+
+        DateFormat dateFormat = new SimpleDateFormat("H:mm:ss yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		int width = Display.getDisplayMode().getWidth();
 		int height= Display.getDisplayMode().getHeight();
 		int bpp = 4; // Assuming a 32-bit display with a byte each for red, green, blue, and alpha.
 		ByteBuffer buffer = BufferUtils.createByteBuffer(width * height * bpp);
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer );
-
-		DateFormat dateFormat = new SimpleDateFormat("H:mm:ss yyyy-MM-dd");
-		Date date = new Date(System.currentTimeMillis());
 		File file = new File("../screenshots/"+dateFormat.format(date)); // The file to save to.
-    file.mkdirs();
+        file.mkdirs();
 		String format = "PNG";
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -157,10 +195,13 @@ public class Util {
 	}
 
   public static int computeTotalHunger(){
+
     return Farmer.totalHunger + Warrior.totalHunger + ((int) (Farmer.fHunger * World.displacedPeople / 2f));
+
   }
 
   public static String getWheatRateForDisplay(){
+
     int hunger = computeTotalHunger();
     int input = Farmer.wheatPerFarmer * Farmer.fPop;
     int total = input - hunger;
