@@ -37,9 +37,9 @@ public class Util {
 		tWheat
 
 	*/
-  public static void createSave(){
+    public static void createSave(){
 
-      String path = null;
+    String path = null;
     try {
         if(Main.currentSave == 1) {
             path = "../saves/" + Main.saveName1 + ".txt";
@@ -61,6 +61,12 @@ public class Util {
         BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
         BW.write(Integer.toString(Main.year));
         BW.newLine();
+        BW.write(Integer.toString(Wheat.tWheat(Farmer.fPop())));
+        BW.newLine();
+        BW.write(Integer.toString(Farmer.fPop()));
+        BW.newLine();
+        BW.write(Integer.toString(Warrior.wPop()));
+        BW.newLine();
         BW.close();
     }
     catch (IOException ex) {
@@ -79,36 +85,36 @@ public class Util {
     String path = "";
     File name = null;
     if(Main.currentSave == 1) {
-      path = "../saves/" + Main.saveName1 + ".txt";
-      name = new File(Main.saveName1 + ".txt");
+        path = "../saves/" + Main.saveName1 + ".txt";
+        name = new File(Main.saveName1 + ".txt");
     }
     if(Main.currentSave == 2) {
-      path = "../saves/" + Main.saveName2 + ".txt";
-      name = new File(Main.saveName2 + ".txt");
+        path = "../saves/" + Main.saveName2 + ".txt";
+        name = new File(Main.saveName2 + ".txt");
     }
     if(Main.currentSave == 3) {
-      path = "../saves/" + Main.saveName3 + ".txt";
+        path = "../saves/" + Main.saveName3 + ".txt";
         name = new File(Main.saveName3 + ".txt");
     }
     if(Main.currentSave == 4) {
-      path = "../saves/" + Main.saveName4 + ".txt";
+        path = "../saves/" + Main.saveName4 + ".txt";
         name = new File(Main.saveName4 + ".txt");
     }
     if(Main.currentSave == 5) {
-      path = "../saves/" + Main.saveName5 + ".txt";
+        path = "../saves/" + Main.saveName5 + ".txt";
         name = new File(Main.saveName5 + ".txt");
     }
     Scanner s = null;
     try {
       s = new Scanner(new File(path));
       } catch (FileNotFoundException e){
-             readError();
+             System.out.println("File Not Found");
              return;
       }
       ArrayList<String> list = new ArrayList<String>();
       try{
-        while (s.hasNext()){
-        list.add(s.next());
+          while (s.hasNext()){
+              list.add(s.next());
       }
              s.close();
          }
@@ -120,14 +126,11 @@ public class Util {
             for (String str : list){
             str = str.replace(System.getProperty("line.separator"), "");
             }
-             PopManager.wPopulation = Integer.valueOf(list.get(0));
-             PopManager.fPopulation = Integer.valueOf(list.get(1));
-             Main.tAcres = Integer.valueOf(list.get(2));
-             Money.tMoney = Integer.valueOf(list.get(5));
-             Main.wheatPrice = Integer.valueOf(list.get(6));
-             PopManager.uneatenWheat = Integer.valueOf(list.get(7));
+             Main.year = Integer.valueOf(list.get(0));
+             Wheat.tWheat = Integer.valueOf(list.get(1));
+             Farmer.fPop = Integer.valueOf(list.get(2));
+             Warrior.wPop = Integer.valueOf(list.get(3));
 
-            //name.delete();
             readSuccess();
          } catch(Exception e){
              readError();
@@ -146,9 +149,9 @@ public class Util {
 
   public static void readSuccess() {
 
-      World.messages.add(new Message("----------------------------------", 100, 100, 30));
-      World.messages.add(new Message("Loaded game state from save file!", 100, 130, 30));
-      World.messages.add(new Message("----------------------------------", 100, 160, 30));
+      World.messages.add(new Message("----------------------------------", 100, 100, 300));
+      World.messages.add(new Message("Loaded game state from save file!", 100, 130, 300));
+      World.messages.add(new Message("----------------------------------", 100, 160, 300));
 
 	}
 
