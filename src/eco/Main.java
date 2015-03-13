@@ -29,7 +29,7 @@ public class Main {
 	public static String saveName3 = "save3";
 	public static String saveName4 = "save4";
 	public static String saveName5 = "save5";
-		public static int currentSave = 1;
+    public static int currentSave = 1;
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
@@ -79,6 +79,7 @@ public class Main {
 	public static int generatorToUse = 0;
 
 	public static void main(String[] args) {
+        
 		System.out.println("Welcome to EcoLand!");
 		init();
 		mainMenu();
@@ -88,6 +89,7 @@ public class Main {
 	}
 
 	public static void mainMenu(){
+        
 		while (!shouldQuit && shouldBeInMenu){
 			if (Display.isCloseRequested()){
 				shouldQuit = true;
@@ -270,43 +272,43 @@ public class Main {
 			skipFrame = true;
 		}
 
-}
+    }
 
-public static float getTotalPopf(){
-	return Warrior.floatWPop + Farmer.floatFPop;
-}
+    public static float getTotalPopf(){
+        return Warrior.floatWPop + Farmer.floatFPop;
+    }
 
-public static int getTotalPop(){
-	return Warrior.wPop + Farmer.fPop;
-}
+    public static int getTotalPop(){
+        return Warrior.wPop + Farmer.fPop;
+    }
 
 	public static void init() {
-
-    Render.initDisplay();
-    Render.init();
+        
+        Render.initDisplay();
+        Render.init();
 		if (willsCode){
 			PopManager.initpops();
 		}
-    try {
+        try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-      //  ThreadManager.addJob(new MeshTask());
-
-
+        //  ThreadManager.addJob(new MeshTask());
+        
+        
 	}
-
+    
 	public static void initGame(){
 		if (attemptSaveLoad){
 			Util.readSave();
 		}
-
+        
 		DisplayLists.mesh();
 	}
-
+    
 	public static void initTempGame(){
-	  World.generate(generatorToUse);
+        World.generate(generatorToUse);
 		DisplayLists.mesh();
 	}
 

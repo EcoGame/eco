@@ -125,7 +125,9 @@ public class Util {
              Main.tAcres = Integer.valueOf(list.get(2));
              Money.tMoney = Integer.valueOf(list.get(5));
              Main.wheatPrice = Integer.valueOf(list.get(6));
-            PopManager.uneatenWheat = Integer.valueOf(list.get(7));
+             PopManager.uneatenWheat = Integer.valueOf(list.get(7));
+
+            //name.delete();
             readSuccess();
          } catch(Exception e){
              readError();

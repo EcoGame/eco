@@ -66,13 +66,8 @@ public class InputManager {
 						System.out.println("DEBUG MODE IS TOGGLED!");
 						break;
 					case Keyboard.KEY_Q:
-						Render.camera = new Camera(-World.mapsize / 2f * Render.tilesize,
-										-4f, World.mapsize / 2f * Render.tilesize);
+						Render.camera = new Camera(-World.mapsize / 2f * Render.tilesize, -4f, World.mapsize / 2f * Render.tilesize);
 						System.out.println("Reset camera to default location");
-						break;
-						        case Keyboard.KEY_LMETA:
-                            Util.createSave();
-                            System.out.println("Saved");
 						break;
 					case Keyboard.KEY_H:
 					case Keyboard.KEY_GRAVE:
@@ -81,13 +76,17 @@ public class InputManager {
 					case Keyboard.KEY_M:
 						Render.multithreading ^= true;
 						break;
+                    case Keyboard.KEY_LMETA:
+                            Util.createSave();
+                            System.out.println("Saved");
+						break;
 					case Keyboard.KEY_P:
 						Main.popDiags ^= true;
 						break;
 					case Keyboard.KEY_ESCAPE:
 						Main.paused ^= true;
 						break;
-						case Keyboard.KEY_F10:
+                    case Keyboard.KEY_F10:
 							Util.takeScreenshot();
 							break;
 				}

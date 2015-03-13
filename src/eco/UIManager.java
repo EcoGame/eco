@@ -12,11 +12,11 @@ public class UIManager{
 	public static Button increaseTickRate = new Button(495, 606, 20, 0, 2, 1, 2);
 	public static Button decreaseTickRate = new Button(495, 636, 20, 2, 2, 3, 2);
 
-	public static TextButton startSaveGame1 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 1");
-    public static TextButton startSaveGame2 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 2");
-    public static TextButton startSaveGame3 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 3");
-    public static TextButton startSaveGame4 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 4");
-    public static TextButton startSaveGame5 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Start Game 5");
+	public static TextButton startSaveGame1 = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, Main.saveName1);
+    public static TextButton startSaveGame2 = new TextButton((Main.width / 2) - 128, 286, 256, 32, 6, 2, 7, 2, Main.saveName2);
+    public static TextButton startSaveGame3 = new TextButton((Main.width / 2) - 128, 316, 256, 32, 6, 2, 7, 2, Main.saveName3);
+    public static TextButton startSaveGame4 = new TextButton((Main.width / 2) - 128, 346, 256, 32, 6, 2, 7, 2, Main.saveName4);
+    public static TextButton startSaveGame5 = new TextButton((Main.width / 2) - 128, 376, 256, 32, 6, 2, 7, 2, Main.saveName5);
 
 	public static ToggleTextButton generatorIsland = new ToggleTextButton((Main.width / 2) + 256, 256, 256, 32, 6, 2, 7, 2, "Island", true);
 	public static ToggleTextButton generatorArchipelago = new ToggleTextButton((Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, "Archipelago", false);
@@ -44,36 +44,81 @@ public class UIManager{
 				Main.framesPerTick++;
 			}
 		}
-		if (decreaseTickRate.checkForClick()){
+		if (decreaseTickRate.checkForClick()) {
 			if (Main.framesPerTick != 2){
 				Main.framesPerTick--;
 			}
 		}
 	}
 
-	public static void clickMenu(float x, float y){
+	public static void clickMenu(float x, float y) {
+
 		startSaveGame1.click(x, y);
+        startSaveGame2.click(x, y);
+        startSaveGame3.click(x, y);
+        startSaveGame4.click(x, y);
+        startSaveGame5.click(x, y);
 		generatorIsland.click(x, y);
 		generatorArchipelago.click(x, y);
 		generatorMountains.click(x, y);
+
 	}
 
-	public static void renderMenu(){
+	public static void renderMenu() {
+
 		startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame5.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorIsland.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorArchipelago.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorMountains.render(Mouse.getX(), Main.height - Mouse.getY());
+
 	}
 
-	public static void renderMenu2(){
+	public static void renderMenu2() {
+
 		startSaveGame1.render2();
-		generatorIsland.render2();
+		startSaveGame2.render2();
+		startSaveGame3.render2();
+		startSaveGame4.render2();
+        startSaveGame5.render2();
+        generatorIsland.render2();
 		generatorArchipelago.render2();
 		generatorMountains.render2();
+
 	}
 
-	public static void updateMenu(){
+	public static void updateMenu() {
+
 		if (startSaveGame1.checkForClick()){
+            Main.currentSave = 1;
+						Util.createSave();
+			Main.initTempGame();
+			Main.shouldBeInMenu = false;
+		}
+        if (startSaveGame2.checkForClick()){
+            Main.currentSave = 2;
+						Util.createSave();
+			Main.initTempGame();
+			Main.shouldBeInMenu = false;
+		}
+        if (startSaveGame3.checkForClick()){
+            Main.currentSave = 3;
+						Util.createSave();
+			Main.initTempGame();
+			Main.shouldBeInMenu = false;
+		}
+        if (startSaveGame4.checkForClick()){
+            Main.currentSave = 4;
+						Util.createSave();
+			Main.initTempGame();
+			Main.shouldBeInMenu = false;
+		}
+        if (startSaveGame5.checkForClick()){
+            Main.currentSave = 5;
+						Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
@@ -96,7 +141,7 @@ public class UIManager{
 		}
 	}
 
-	public static void click(float x, float y){
+	public static void click(float x, float y) {
 		toggleFeedDisplaced.click(x, y);
 		toggleFavorWarrior.click(x, y);
 		increaseWarriorRatio.click(x, y);
@@ -105,7 +150,7 @@ public class UIManager{
 		decreaseTickRate.click(x, y);
 	}
 
-	public static void render(){
+	public static void render() {
 		toggleFeedDisplaced.render(Mouse.getX(), Main.height - Mouse.getY());
 		toggleFavorWarrior.render(Mouse.getX(), Main.height - Mouse.getY());
 		increaseWarriorRatio.render(Mouse.getX(), Main.height - Mouse.getY());
