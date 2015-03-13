@@ -112,16 +112,11 @@ public class Main {
 			frame++;
 			if (frame >= framesPerTick && !paused && year < ticks){
 				year++;
-				if (!willsCode){
 					tick();
 					if (Farmer.fPop == 0 && Warrior.wPop == 0
 					&& World.displacedPeople == 0){
 						gameOver = true;
 					}
-				}
-				else{
-					willTick();
-				}
 				frame = 0;
 			}
 			UIManager.update();
@@ -141,7 +136,6 @@ public class Main {
 				else{
 					skipFrame = false;
 				}
-			//	Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
 				FPSCounter.tick();
 				Display.update();
 				Display.sync(60);
@@ -243,37 +237,6 @@ public class Main {
 
 	}
 
-	public static void willTick(){
-
-		PopManager.popController(World.freeAcres, 0);
-		/*int farmPacks = Wheat.farmPacks(tAcres);
-		int unemployedFarmers = Wheat.unemployedFarmers(farmPacks, PopManager.fPopulation);
-		int employedFarmers = Wheat.employedFarmers(PopManager.fPopulation, unemployedFarmers);
-		Warrior.wHunger(PopManager.wPopulation);
-		Wheat.tWheat(employedFarmers);*/
-		aggDemand = ((Farmer.fHunger * PopManager.fPopulation) + (Warrior.wHunger * PopManager.wPopulation));
-		wheatPrice = Market.wheatPrice(wheatPrice);
-		Money.tMoney(PopManager.uneatenWheat, wheatPrice);
-		GDP = Money.GDP(Wheat.tWheat, wheatPrice);
-
-		if(debug){
-			OutputManager.printDebugInformation();
-		}
-		if(popDiags){
-			OutputManager.popDiagnostics(0);
-		}
-    World.updateMap(PopManager.fPopulation, PopManager.wPopulation);
-    World.freeAcres = World.calcAcres();
-    if (Render.multithreading){
-			ThreadManager.addJob(new MeshTask());
-		}
-		else{
-			DisplayLists.mesh();
-			skipFrame = true;
-		}
-
-    }
-
     public static float getTotalPopf(){
         return Warrior.floatWPop + Farmer.floatFPop;
     }
@@ -286,28 +249,17 @@ public class Main {
         
         Render.initDisplay();
         Render.init();
-		if (willsCode){
-			PopManager.initpops();
-		}
         try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-        //  ThreadManager.addJob(new MeshTask());
+        Util.readSave();
         
-        
-	}
-    
-	public static void initGame(){
-		if (attemptSaveLoad){
-			Util.readSave();
-		}
-        
-		DisplayLists.mesh();
 	}
     
 	public static void initTempGame(){
+
         World.generate(generatorToUse);
 		DisplayLists.mesh();
 	}
