@@ -29,7 +29,7 @@ public class Main {
 	public static String saveName3 = "save3";
 	public static String saveName4 = "save4";
 	public static String saveName5 = "save5";
-    public static int currentSave = 1;
+  public static int currentSave = 1;
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
@@ -79,7 +79,7 @@ public class Main {
 	public static int generatorToUse = 0;
 
 	public static void main(String[] args) {
-        
+
 		System.out.println("Welcome to EcoLand!");
 		init();
 		mainMenu();
@@ -89,7 +89,7 @@ public class Main {
 	}
 
 	public static void mainMenu(){
-        
+
 		while (!shouldQuit && shouldBeInMenu){
 			if (Display.isCloseRequested()){
 				shouldQuit = true;
@@ -142,6 +142,8 @@ public class Main {
       }
      	else{
 				Render.drawPaused();
+				InputManager.updatePaused();
+				UIManager.updatePaused();
 				FPSCounter.tick();
 				Display.update();
 				Display.sync(60);
@@ -246,7 +248,7 @@ public class Main {
     }
 
 	public static void init() {
-        
+
         Render.initDisplay();
         Render.init();
         try {
@@ -255,12 +257,12 @@ public class Main {
 			e.printStackTrace();
 		}
         Util.readSave();
-        
+
 	}
-    
+
 	public static void initTempGame(){
 
-        World.generate(generatorToUse);
+        //World.generate(generatorToUse);
 		DisplayLists.mesh();
 	}
 

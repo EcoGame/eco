@@ -29,6 +29,27 @@ public class InputManager {
 		}
 	}
 
+	public static void updatePaused(){
+		while (Keyboard.next()){
+			if (Keyboard.getEventKeyState()){
+				switch (Keyboard.getEventKey()){
+					case Keyboard.KEY_F10:
+						Util.takeScreenshot();
+						break;
+				}
+			}
+		}
+		while(Mouse.next()) {
+			if (Mouse.getEventButton() > -1) {
+				if (Mouse.getEventButtonState()) {
+					UIManager.clickPaused(Mouse.getX(), Display.getHeight() - Mouse.getY());
+				}
+				else{
+				}
+			}
+		}
+	}
+
 	public static void update(){
 		if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
 			Render.rot -= 0.5f;

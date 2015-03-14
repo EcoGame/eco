@@ -22,6 +22,9 @@ public class UIManager{
 	public static ToggleTextButton generatorArchipelago = new ToggleTextButton((Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, "Archipelago", false);
 	public static ToggleTextButton generatorMountains = new ToggleTextButton((Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, "Mountains", false);
 
+	public static TextButton saveGame = new TextButton((Main.width / 2) - 128, 450, 256, 32, 6, 2, 7, 2, "Save: " + Main.saveName1);
+	public static TextButton exit = new TextButton((Main.width / 2) - 128, 420, 256, 32, 6, 2, 7, 2, "Exit to Main Menu");
+
 	public static void update(){
 		if (toggleFeedDisplaced.checkForClick()){
 			Main.displacedEat ^= true;
@@ -51,13 +54,34 @@ public class UIManager{
 		}
 	}
 
+	public static void clickPaused(float x, float y) {
+
+		saveGame.click(x, y);
+		exit.click(x, y);
+
+	}
+
+	public static void renderPaused() {
+
+		saveGame.render(Mouse.getX(), Main.height - Mouse.getY());
+		exit.render(Mouse.getX(), Main.height - Mouse.getY());
+
+	}
+
+	public static void renderPaused2() {
+
+		saveGame.render2();
+		exit.render2();
+
+	}
+
 	public static void clickMenu(float x, float y) {
 
 		startSaveGame1.click(x, y);
-        startSaveGame2.click(x, y);
-        startSaveGame3.click(x, y);
-        startSaveGame4.click(x, y);
-        startSaveGame5.click(x, y);
+    startSaveGame2.click(x, y);
+    startSaveGame3.click(x, y);
+    startSaveGame4.click(x, y);
+		startSaveGame5.click(x, y);
 		generatorIsland.click(x, y);
 		generatorArchipelago.click(x, y);
 		generatorMountains.click(x, y);
@@ -67,10 +91,10 @@ public class UIManager{
 	public static void renderMenu() {
 
 		startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
-        startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
-        startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
-        startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
-        startSaveGame5.render(Mouse.getX(), Main.height - Mouse.getY());
+    startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
+    startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
+    startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
+    startSaveGame5.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorIsland.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorArchipelago.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorMountains.render(Mouse.getX(), Main.height - Mouse.getY());
@@ -83,42 +107,54 @@ public class UIManager{
 		startSaveGame2.render2();
 		startSaveGame3.render2();
 		startSaveGame4.render2();
-        startSaveGame5.render2();
-        generatorIsland.render2();
+    startSaveGame5.render2();
+    generatorIsland.render2();
 		generatorArchipelago.render2();
 		generatorMountains.render2();
+
+	}
+
+	public static void updatePaused() {
+
+		if (saveGame.checkForClick()) {
+			Util.createSave();
+		}
+		if (saveGame.checkForClick()) {
+			Util.createSave();
+			Main.mainMenu();
+		}
 
 	}
 
 	public static void updateMenu() {
 
 		if (startSaveGame1.checkForClick()){
-            Main.currentSave = 1;
-						Util.createSave();
+      Main.currentSave = 1;
+			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
-        if (startSaveGame2.checkForClick()){
-            Main.currentSave = 2;
-						Util.createSave();
+    if (startSaveGame2.checkForClick()){
+      Main.currentSave = 2;
+			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
-        if (startSaveGame3.checkForClick()){
-            Main.currentSave = 3;
-						Util.createSave();
+    if (startSaveGame3.checkForClick()){
+      Main.currentSave = 3;
+			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
-        if (startSaveGame4.checkForClick()){
-            Main.currentSave = 4;
-						Util.createSave();
+    if (startSaveGame4.checkForClick()){
+      Main.currentSave = 4;
+			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
-        if (startSaveGame5.checkForClick()){
-            Main.currentSave = 5;
-						Util.createSave();
+    if (startSaveGame5.checkForClick()){
+      Main.currentSave = 5;
+			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
@@ -142,21 +178,25 @@ public class UIManager{
 	}
 
 	public static void click(float x, float y) {
+
 		toggleFeedDisplaced.click(x, y);
 		toggleFavorWarrior.click(x, y);
 		increaseWarriorRatio.click(x, y);
 		decreaseWarriorRatio.click(x, y);
 		increaseTickRate.click(x, y);
 		decreaseTickRate.click(x, y);
+
 	}
 
 	public static void render() {
+
 		toggleFeedDisplaced.render(Mouse.getX(), Main.height - Mouse.getY());
 		toggleFavorWarrior.render(Mouse.getX(), Main.height - Mouse.getY());
 		increaseWarriorRatio.render(Mouse.getX(), Main.height - Mouse.getY());
 		decreaseWarriorRatio.render(Mouse.getX(), Main.height - Mouse.getY());
 		increaseTickRate.render(Mouse.getX(), Main.height - Mouse.getY());
 		decreaseTickRate.render(Mouse.getX(), Main.height - Mouse.getY());
+
 	}
 
 }

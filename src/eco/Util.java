@@ -67,6 +67,12 @@ public class Util {
         BW.newLine();
         BW.write(Integer.toString(Warrior.wPop()));
         BW.newLine();
+        for (int x = 0; x < World.mapsize; x++){
+            for (int y = 0; y < World.mapsize; y++){
+                BW.write(Short.toString(World.map[x][y]));
+            }
+            BW.newLine();
+        }
         BW.close();
     }
     catch (IOException ex) {
@@ -130,10 +136,20 @@ public class Util {
              Wheat.tWheat = Integer.valueOf(list.get(1));
              Farmer.fPop = Integer.valueOf(list.get(2));
              Warrior.wPop = Integer.valueOf(list.get(3));
+            
+             int line = 4;
+             for (int x = 0; x < World.mapsize; x++){
+                 String values = list.get(line);
+                 for (int y = 0; y < World.mapsize; y++){
+                     World.map[x][y] = Short.valueOf(values.substring(y, y + 1));
+                 }
+                 line++;
+             }
 
             readSuccess();
          } catch(Exception e){
-             readError();
+             e.printStackTrace();
+            readError();
          }
          return;
      }

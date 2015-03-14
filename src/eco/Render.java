@@ -556,6 +556,8 @@ public class Render {
 		glDisable(GL_DEPTH_TEST);
 		font.drawString(centerX - textWidth, centerY - textHeight, "Paused");
 		glEnable(GL_DEPTH_TEST);
+		UIManager.renderPaused();
+		UIManager.renderPaused2();
 
 	}
 
