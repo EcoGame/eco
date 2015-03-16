@@ -1,48 +1,43 @@
 package eco;
 
+/**
+* This class describes the international market for wheat,
+* it manages wheat reserve goals and sells or buys to
+* meet it.
+*
+* @Author phil
+*/
+
 public class Economy {
 
-	public static int treasury = 0;
+	private static int treasury = 0;
 
-	public static int wheatPrice = 10;
-	public static int supplyShock = 0;
-
-	public static float shockRatio = 2f;
-
-	public static int foreignDemand = 1000;
+	private static int wheatPrice = 10;
 
 	public static int buyWheat(int ammount){
-		return 0;
-	}
-
-	public static void sellWheat(int ammount){
-		while (ammount > 0 && foreignDemand > 0){
-			if (ammount >= 100){
-				int toSell = ammount - 100;
-				treasury += toSell * getRealPrice();
-				ammount -= toSell;
-				supplyShock += shockRatio;
-				foreignDemand -= toSell * getRealPrice();
-			}
-			else{
-				int toSell = ammount;
-				treasury += toSell * getRealPrice();
-				ammount -= toSell;
-				supplyShock += shockRatio;
-				foreignDemand -= toSell * getRealPrice();
-			}
+		int neededMoney = wheatPrice * ammount;
+		if (neededMoney <= treasury){
+			treasury -= neededMoney;
+			return ammount;
+		}
+		else{
+			int canBuy = treasury / wheatPrice;
+			treasury = 0;
+			return canBuy;		
 		}
 	}
 
-	public static int getRealPrice(){
-		return wheatPrice - supplyShock;
+	public static int sellWheat(int ammount){
+		treasury += wheatPrice * ammount;
+		return ammount;
 	}
 
 	public static void updateMarket(int time){
-		float timeMul = (float) Math.sin(Math.toRadians(time / 8f));
-		int deltaPrice = (int) (timeMul * 1f);
-		wheatPrice += deltaPrice;
-		foreignDemand -= (timeMul * 50);
+		wheatPrice += Util.randInt(-5, 7); // Biased to increase over time
 	}
+
+	public static int getTreasury(){
+		return treasury;	
+	}	
 
 }
