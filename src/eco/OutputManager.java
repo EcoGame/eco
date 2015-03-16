@@ -57,6 +57,8 @@ public class OutputManager {
 						Render.drawString("Wheat Stored: " + String.valueOf(Wheat.tWheat)+" ("+Util.getWheatRateForDisplay()+")", 10, 190);
 						Render.drawString("Farmer Wheat Quota: " + String.valueOf(Farmer.totalHunger), 10, 210);
 						Render.drawString("Warrior Wheat Quota: " + String.valueOf(Warrior.totalHunger), 10, 230);
+	    Render.drawString("Price: " + String.valueOf(Economy.getPrice()), 10, 250);
+
 
         }
     }
