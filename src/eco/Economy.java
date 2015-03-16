@@ -38,6 +38,10 @@ public class Economy {
 
 	public static int getTreasury(){
 		return treasury;	
-	}	
+	}
+	
+	public static int getPrice(){
+		return wheatPrice;
+	}
 
 }
