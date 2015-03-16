@@ -137,6 +137,7 @@ public class Main {
 					skipFrame = false;
 				}
 				FPSCounter.tick();
+				Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
 				Display.update();
 				Display.sync(60);
       }
