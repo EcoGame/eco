@@ -30,6 +30,7 @@ public class UIManager{
 	public static TextButton exit = new TextButton((Main.width / 2) - 128, 420, 256, 32, 6, 2, 7, 2, "Exit to Main Menu");
 
 	public static void update(){
+        
 		if (toggleFeedDisplaced.checkForClick()){
 			Main.displacedEat ^= true;
 		}
@@ -94,7 +95,7 @@ public class UIManager{
 
 	public static void renderMenu() {
 
-		startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
         startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
         startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
         startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
@@ -108,7 +109,10 @@ public class UIManager{
 	public static void renderMenu2() {
         
 		startSaveGame1.render2();
-		startSaveGame2.render2();
+		File save2 = new File("../saves/save2.txt");
+        if(save2.exists()) {
+            startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
+        }
 		startSaveGame3.render2();
 		startSaveGame4.render2();
         startSaveGame5.render2();
@@ -149,7 +153,7 @@ public class UIManager{
         if (startSaveGame2.checkForClick()){
             Main.currentSave = 2;
             World.generate(Main.generatorToUse);
-            File f = new File("../saves/save.txt");
+            File f = new File("../saves/save2.txt");
             if(f.exists()) {
                 Main.initTempGame();
                 Main.shouldBeInMenu = false;
@@ -165,7 +169,7 @@ public class UIManager{
         if (startSaveGame3.checkForClick()){
             Main.currentSave = 3;
             World.generate(Main.generatorToUse);
-            File f = new File("../saves/save.txt");
+            File f = new File("../saves/save3.txt");
             if(f.exists()) {
                 Main.initTempGame();
                 Main.shouldBeInMenu = false;
@@ -181,7 +185,7 @@ public class UIManager{
         if (startSaveGame4.checkForClick()){
             Main.currentSave = 4;
             World.generate(Main.generatorToUse);
-            File f = new File("../saves/save.txt");
+            File f = new File("../saves/save4.txt");
             if(f.exists()) {
                 Main.initTempGame();
                 Main.shouldBeInMenu = false;
@@ -197,7 +201,7 @@ public class UIManager{
             Main.currentSave = 5;
             World.generate(Main.generatorToUse);
 
-            File f = new File("../saves/save.txt");
+            File f = new File("../saves/save5.txt");
             if(f.exists()) {
                 Main.initTempGame();
                 Main.shouldBeInMenu = false;
