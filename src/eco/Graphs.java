@@ -19,7 +19,7 @@ public class Graphs {
         int labelDistance = 60;
         int num = 0;
         int height = 90;
-        int maxOne = 100;
+        int maxOne = wheatPrice + 100;
         int maxTwo = 200;
         int maxThree = 200;
         
@@ -52,7 +52,7 @@ public class Graphs {
         pop[74] = tPop;
         for(int i=0; i<pop.length; i++){
             	//World.messages.add(new Message("\u25A0 .", (x - (perGraphShift * num) - shift) + i, (y - shift) - (int) (pop[i] * ((float)height/maxTwo)), 1));
-            	Render.font.drawString((x - (perGraphShift * num) - shift) + i,(y - shift) - (int) (prices[i] * ((float)height/maxTwo)), "\u25A0 .", Color.orange);
+            	Render.font.drawString((x - (perGraphShift * num) - shift) + i,(y - shift) - (int) (pop[i] * ((float)height/maxTwo)), "\u25A0 .", Color.orange);
 
          }
     	for(int i=0; i<pop.length - 1; i++){
@@ -65,7 +65,7 @@ public class Graphs {
 		displaced[74] = World.displacedPeople;
     	for(int i=0; i<displaced.length; i++){
     		//World.messages.add(new Message("\u25A0 .", (x - (perGraphShift * num) - shift) + i, (y - shift) - (int) (displaced[i] * ((float)height/maxThree)), 1));
-    		Render.font.drawString((x - (perGraphShift * num) - shift) + i,(y - shift) - (int) (prices[i] * ((float)height/maxThree)), "\u25A0 .", Color.orange);
+    		Render.font.drawString((x - (perGraphShift * num) - shift) + i,(y - shift) - (int) (displaced[i] * ((float)height/maxThree)), "\u25A0 .", Color.orange);
 
     	}
     	for(int i=0; i<displaced.length - 1; i++){
