@@ -84,11 +84,11 @@ public class InputManager {
 				switch (Keyboard.getEventKey()){
 					case Keyboard.KEY_G:
 						Main.debug ^= true;
-						System.out.println("DEBUG MODE IS TOGGLED!");
+						//System.out.println("DEBUG MODE IS TOGGLED!");
 						break;
 					case Keyboard.KEY_Q:
 						Render.camera = new Camera(-World.mapsize / 2f * Render.tilesize, -4f, World.mapsize / 2f * Render.tilesize);
-						System.out.println("Reset camera to default location");
+						//System.out.println("Reset camera to default location");
 						break;
 					case Keyboard.KEY_H:
 					case Keyboard.KEY_GRAVE:
