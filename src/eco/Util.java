@@ -73,6 +73,12 @@ public class Util {
             }
             BW.newLine();
         }
+        for (int x = 0; x < World.mapsize; x++){
+            for (int y = 0; y < World.mapsize; y++){
+                BW.write(Float.toString(World.noise[x][y])+",");
+            }
+            BW.newLine();
+        }
         BW.close();
     }
     catch (IOException ex) {
@@ -145,7 +151,14 @@ public class Util {
                  }
                  line++;
              }
-
+             for (int x = 0; x < World.mapsize; x++){
+                 String values = list.get(line);
+                 String[] parts = values.split(",");
+                 for (int y = 0; y < World.mapsize; y++){
+                     World.noise[x][y] = Float.valueOf((parts[y]));
+                 }
+                 line++;
+             }
             readSuccess();
          } catch(Exception e){
              e.printStackTrace();
