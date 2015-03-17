@@ -1,6 +1,10 @@
 package eco;
 
 import org.lwjgl.input.Mouse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class UIManager{
 	public static ToggleButton toggleFeedDisplaced = new ToggleButton(900, 657, 25, 4, 2, 5, 2, true);
@@ -78,9 +82,9 @@ public class UIManager{
 	public static void clickMenu(float x, float y) {
 
 		startSaveGame1.click(x, y);
-    startSaveGame2.click(x, y);
-    startSaveGame3.click(x, y);
-    startSaveGame4.click(x, y);
+        startSaveGame2.click(x, y);
+        startSaveGame3.click(x, y);
+        startSaveGame4.click(x, y);
 		startSaveGame5.click(x, y);
 		generatorIsland.click(x, y);
 		generatorArchipelago.click(x, y);
@@ -91,10 +95,10 @@ public class UIManager{
 	public static void renderMenu() {
 
 		startSaveGame1.render(Mouse.getX(), Main.height - Mouse.getY());
-    startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
-    startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
-    startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
-    startSaveGame5.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame2.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame3.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame4.render(Mouse.getX(), Main.height - Mouse.getY());
+        startSaveGame5.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorIsland.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorArchipelago.render(Mouse.getX(), Main.height - Mouse.getY());
 		generatorMountains.render(Mouse.getX(), Main.height - Mouse.getY());
@@ -102,13 +106,13 @@ public class UIManager{
 	}
 
 	public static void renderMenu2() {
-
+        
 		startSaveGame1.render2();
 		startSaveGame2.render2();
 		startSaveGame3.render2();
 		startSaveGame4.render2();
-    startSaveGame5.render2();
-    generatorIsland.render2();
+        startSaveGame5.render2();
+        generatorIsland.render2();
 		generatorArchipelago.render2();
 		generatorMountains.render2();
 
@@ -121,7 +125,6 @@ public class UIManager{
 		}
 		if (saveGame.checkForClick()) {
 			Util.createSave();
-			Main.mainMenu();
 		}
 
 	}
@@ -129,31 +132,44 @@ public class UIManager{
 	public static void updateMenu() {
 
 		if (startSaveGame1.checkForClick()){
-      Main.currentSave = 1;
-			Util.createSave();
+            Main.currentSave = 1;
+            World.generate(Main.generatorToUse);
+            File f = new File("../saves/save.txt");
+            if(f.exists()) {
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+            else {
+                Util.createSave();
+            }
+		}
+        if (startSaveGame2.checkForClick()){
+            Main.currentSave = 2;
+            World.generate(Main.generatorToUse);
+            Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
-    if (startSaveGame2.checkForClick()){
-      Main.currentSave = 2;
-			Util.createSave();
-			Main.initTempGame();
-			Main.shouldBeInMenu = false;
-		}
-    if (startSaveGame3.checkForClick()){
-      Main.currentSave = 3;
+        if (startSaveGame3.checkForClick()){
+            Main.currentSave = 3;
+            World.generate(Main.generatorToUse);
+
 			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
     if (startSaveGame4.checkForClick()){
       Main.currentSave = 4;
+        World.generate(Main.generatorToUse);
+
 			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
 		}
     if (startSaveGame5.checkForClick()){
       Main.currentSave = 5;
+        World.generate(Main.generatorToUse);
+
 			Util.createSave();
 			Main.initTempGame();
 			Main.shouldBeInMenu = false;
