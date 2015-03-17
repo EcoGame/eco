@@ -171,6 +171,7 @@ public class Main {
 				else{
 					Warrior.oldWPop = Warrior.wPop; // Need to update this manually because it's done in wPop()
 				}
+				Economy.updateMarket(0);
 				Economy.getPrice();
 				taxRevenue = Tax.taxRevenue();
 				World.displacedPeople += World.displacedFarmers + World.displacedWarriors;
