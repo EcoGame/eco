@@ -141,39 +141,74 @@ public class UIManager{
             }
             else {
                 Util.createSave();
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
             }
 		}
+        
         if (startSaveGame2.checkForClick()){
             Main.currentSave = 2;
             World.generate(Main.generatorToUse);
-            Util.createSave();
-			Main.initTempGame();
-			Main.shouldBeInMenu = false;
+            File f = new File("../saves/save.txt");
+            if(f.exists()) {
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+            else {
+                Util.createSave();
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+
 		}
+        
         if (startSaveGame3.checkForClick()){
             Main.currentSave = 3;
             World.generate(Main.generatorToUse);
+            File f = new File("../saves/save.txt");
+            if(f.exists()) {
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+            else {
+                Util.createSave();
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
 
-			Util.createSave();
-			Main.initTempGame();
-			Main.shouldBeInMenu = false;
 		}
-    if (startSaveGame4.checkForClick()){
-      Main.currentSave = 4;
-        World.generate(Main.generatorToUse);
+        
+        if (startSaveGame4.checkForClick()){
+            Main.currentSave = 4;
+            World.generate(Main.generatorToUse);
+            File f = new File("../saves/save.txt");
+            if(f.exists()) {
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+            else {
+                Util.createSave();
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+		}
+        
+        if (startSaveGame5.checkForClick()){
+            Main.currentSave = 5;
+            World.generate(Main.generatorToUse);
 
-			Util.createSave();
-			Main.initTempGame();
-			Main.shouldBeInMenu = false;
+            File f = new File("../saves/save.txt");
+            if(f.exists()) {
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
+            else {
+                Util.createSave();
+                Main.initTempGame();
+                Main.shouldBeInMenu = false;
+            }
 		}
-    if (startSaveGame5.checkForClick()){
-      Main.currentSave = 5;
-        World.generate(Main.generatorToUse);
-
-			Util.createSave();
-			Main.initTempGame();
-			Main.shouldBeInMenu = false;
-		}
+        
 		if (generatorIsland.checkForClick()){
 			Main.generatorToUse = 0;
 			generatorArchipelago.toggle = false;
