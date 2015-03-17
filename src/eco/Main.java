@@ -257,13 +257,10 @@ public class Main {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-        Util.readSave();
-
 	}
 
 	public static void initTempGame(){
-
-        //World.generate(generatorToUse);
+        Util.readSave();
 		DisplayLists.mesh();
 	}
 
