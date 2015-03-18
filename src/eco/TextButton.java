@@ -5,60 +5,66 @@ import java.awt.Rectangle;
 
 public class TextButton extends Button{
 
-  public float width;
-  public float height;
+	private float width;
+	private float height;
 
-  public String text;
+	private String text;
 
-  public TextButton(float x, float y, float width, float height, int tex, int tey, int texselected, int teyselected, String text){
-    super(x, y, width, tex, tey, texselected, teyselected);
-    this.width = width;
-    this.height = height;
-    this.text = text;
-  }
+	public TextButton(float x, float y, float width, float height, int tex, int tey, int texselected, int teyselected, String text){
+		super(x, y, width, tex, tey, texselected, teyselected);
+		this.width = width;
+		this.height = height;
+		this.text = text;
+	}
 
-  public void click(float mousex, float mousey){
-    Rectangle rect = new Rectangle((int) x, (int)y, (int)width, (int)height);
-    if (rect.contains(mousex, mousey)){
-      clickFlag = true;
-    }
-  }
+	public void click(float mousex, float mousey){
+		Rectangle rect = new Rectangle((int) getX(), (int) getY(), (int)width, (int)height);
+		if (rect.contains(mousex, mousey)){
+			setClickFlag(true);
+		}
+	}
 
-  public void render(float mousex, float mousey){
-    TextureAtlas atlas = Render.atlas;
-    Rectangle rect = new Rectangle((int) x, (int)y, (int)width, (int)height);
-    if (rect.contains(mousex, mousey)){
-      GL11.glBegin(GL11.GL_QUADS);
-      GL11.glTexCoord2f(atlas.getCoord(texselected, false), atlas.getCoord(teyselected, false));
-      GL11.glVertex2f(x, y);
-      GL11.glTexCoord2f(atlas.getCoord(texselected, true), atlas.getCoord(teyselected, false));
-      GL11.glVertex2f(x + width, y);
-      GL11.glTexCoord2f(atlas.getCoord(texselected, true), atlas.getCoord(teyselected, true));
-      GL11.glVertex2f(x + width, y + height);
-      GL11.glTexCoord2f(atlas.getCoord(texselected, false), atlas.getCoord(teyselected, true));
-      GL11.glVertex2f(x, y + height);
-      GL11.glEnd();
-    }
-    else{
-      GL11.glBegin(GL11.GL_QUADS);
-      GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, false));
-      GL11.glVertex2f(x, y);
-      GL11.glTexCoord2f(atlas.getCoord(tex, true), atlas.getCoord(tey, false));
-      GL11.glVertex2f(x + width, y);
-      GL11.glTexCoord2f(atlas.getCoord(tex, true), atlas.getCoord(tey, true));
-      GL11.glVertex2f(x + width, y + height);
-      GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
-      GL11.glVertex2f(x, y + height);
-      GL11.glEnd();
-    }
+	public void render(float mousex, float mousey){
+		TextureAtlas atlas = Render.atlas;
+		Rectangle rect = new Rectangle((int) getX(), (int)getY(), (int)width, (int)height);
+		if (rect.contains(mousex, mousey)){
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(atlas.getCoord(getTexselected(), false), atlas.getCoord(getTeyselected(), false));
+			GL11.glVertex2f(getX(), getY());
+			GL11.glTexCoord2f(atlas.getCoord(getTexselected(), true), atlas.getCoord(getTeyselected(), false));
+			GL11.glVertex2f(getX() + width, getY());
+			GL11.glTexCoord2f(atlas.getCoord(getTexselected(), true), atlas.getCoord(getTeyselected(), true));
+			GL11.glVertex2f(getX() + width, getY() + height);
+			GL11.glTexCoord2f(atlas.getCoord(getTexselected(), false), atlas.getCoord(getTeyselected(), true));
+			GL11.glVertex2f(getX(), getY() + height);
+			GL11.glEnd();
+		}
+		else{
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(atlas.getCoord(getTex(), false), atlas.getCoord(getTey(), false));
+			GL11.glVertex2f(getX(), getY());
+			GL11.glTexCoord2f(atlas.getCoord(getTex(), true), atlas.getCoord(getTey(), false));
+			GL11.glVertex2f(getX() + width, getY());
+			GL11.glTexCoord2f(atlas.getCoord(getTex(), true), atlas.getCoord(getTey(), true));
+			GL11.glVertex2f(getX() + width, getY() + height);
+			GL11.glTexCoord2f(atlas.getCoord(getTex(), false), atlas.getCoord(getTey(), true));
+			GL11.glVertex2f(getX(), getY() + height);
+			GL11.glEnd();
+		}
+	}
 
-
-  }
-
-  public void render2(){
-    int centX = (int) x;
-    centX += (width - Render.font.getWidth(text)) / 2;
-    Render.drawString(text, centX, (int) y + ((height - Render.font.getHeight(text)) / 2));
-  }
+	public void render2(){
+		int centX = (int) getX();
+		centX += (width - Render.font.getWidth(text)) / 2;
+		Render.drawString(text, centX, (int) getY() + ((height - Render.font.getHeight(text)) / 2));
+	}
+	
+	public void setText(String text){
+		this.text = text;
+	}
+	
+	public String getText(){
+		return text;
+	}
 
 }
