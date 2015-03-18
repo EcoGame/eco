@@ -1,62 +1,97 @@
 package eco;
 
+/**
+ * This class represents the warriors in the world, and manages their needs and
+ * outputs
+ * 
+ * @author connor, will, nate, phil
+ * 
+ */
 
 public class Warrior {
 
-    public static int wPop = 5;
-    public static int oldWPop = wPop;
-    public static float floatWPop = wPop;
-    public static int wHunger;
+	private static int wPop = 5;
+	private static int oldWPop = wPop;
+	private static float floatWPop = wPop;
+	private static int wHunger;
 
-    public static int normalHunger = 10;
-    public static int totalHunger;
+	private static int normalHunger = 10;
+	private static int totalHunger;
 
 	public static int wPop() {
-
 		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
 		floatWPop = (floatWPop * rate);
 		oldWPop = wPop;
-    wPop = (int)(floatWPop);
+		wPop = (int) (floatWPop);
 		return wPop;
-
 	}
 
-  public static int newPop(){
-    return wPop - oldWPop;
-  }
+	public static int newPop() {
+		return wPop - oldWPop;
+	}
 
-  public static void addPop(float newPop){
+	public static void addPop(float newPop) {
 		floatWPop += newPop;
-    wPop = (int) floatWPop;
+		wPop = (int) floatWPop;
 	}
-    public static int wHunger(){
 
-        wHunger = 0;
-        wHunger = normalHunger + (Util.randInt(0, 3));
-        return wHunger;
+	public static int wHunger() {
+		wHunger = 0;
+		wHunger = normalHunger + (Util.randInt(0, 3));
+		return wHunger;
+	}
 
-    }
-    @Deprecated
-    public static int wHunger(int dummy){
-      return -1;
-    }
+	public static int getwPop() {
+		return wPop;
+	}
 
-    public static int checkStarvation(int hunger, int wheat ){
+	public static void setwPop(int wPop) {
+		Warrior.wPop = wPop;
+	}
 
-        int deadpeople;
-        int q;
-        int e;
-        double k;
-        double o;
-        if(hunger > wheat){
-            o = wheat/11;
-            k = hunger/11;
-            e = (int) Math.floor(k);// floors hungirness
-            q = (int) Math.floor(o);// floors total wheat
-            deadpeople = e-q;
-            return deadpeople;
-        }
-        return 0;
-    }
+	public static int getOldWPop() {
+		return oldWPop;
+	}
+
+	public static void setOldWPop(int oldWPop) {
+		Warrior.oldWPop = oldWPop;
+	}
+
+	public static float getFloatWPop() {
+		return floatWPop;
+	}
+
+	public static void setFloatWPop(float floatWPop) {
+		Warrior.floatWPop = floatWPop;
+	}
+
+	public static int getwHunger() {
+		return wHunger;
+	}
+
+	public static void setwHunger(int wHunger) {
+		Warrior.wHunger = wHunger;
+	}
+
+	public static int getNormalHunger() {
+		return normalHunger;
+	}
+
+	public static void setNormalHunger(int normalHunger) {
+		Warrior.normalHunger = normalHunger;
+	}
+
+	public static int getTotalHunger() {
+		return totalHunger;
+	}
+
+	public static void setTotalHunger(int totalHunger) {
+		Warrior.totalHunger = totalHunger;
+	}
+
+	public static void addPop(int tooAdd) {
+		wPop += tooAdd;
+		floatWPop += tooAdd;
+	}
 
 }

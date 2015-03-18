@@ -1,35 +1,44 @@
 package eco;
 
+import java.io.File;
 import java.util.Random;
+
+import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.SharedDrawable;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
+
+/**
+ * Main class
+ * 
+ * @author phil, connor, nate, will
+ * 
+ */
 
 public class Main {
 
 	public static Random random = new Random();
 
-	public static final int fov = 90;
+	public static final int fov = 70;
 	public static final int windowheight = 620;
 	public static final int windowwidth = 854;
 	public static final int height = 720;
 	public static final int width = 1280;
+
 	public static boolean attemptSaveLoad = false;
 	public static final boolean isInEclipse = false;
-	public static final boolean willsCode = false;
 	public static boolean paused = false;
 	public static boolean debug;
-	public static boolean popDiags = false;
 	public static boolean fullDebug = false;
+
 	public static boolean skipFrame = false;
+
 	public static String saveName1 = "save";
 	public static String saveName2 = "save2";
 	public static String saveName3 = "save3";
 	public static String saveName4 = "save4";
 	public static String saveName5 = "save5";
-  public static int currentSave = 1;
+	public static int currentSave;
+
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
 	public static float fDefaultDeathRate = 0.02f;
@@ -49,22 +58,17 @@ public class Main {
 
 	public static boolean displacedEat = true;
 
-
 	public static int GDP;
 	public static int taxRevenue;
 
 	public static final int ticks = 2000;
-	public static final String vn = "0.5";
+
+	public static final String vn = "Stable 0.6";
+
 	public static int framesPerTick = 8;
 	public static int frame = 0;
 	public static int unemployedFarmers = 0;
 	public static int employedFarmers = 0;
-
-	public static int aggDemand;
-	public static int[][] unfilledpops = new int[10][1000000];
-	public static Pops[][] popArray = new Pops[10][1000000];
-	public static int[] unusedarray = new int [10];
-	public static int popSize = 25;
 
 	public static boolean shouldQuit = false;
 
@@ -78,22 +82,83 @@ public class Main {
 
 	public static int generatorToUse = 0;
 
-	public static void main(String[] args) {
+	public static int aggDemand;
 
+	public static boolean displayCloseReq = false;
+
+	/* Main method */
+	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
 		init();
-		mainMenu();
-		gameLoop();
+		while (!displayCloseReq) {
+			shouldBeInMenu = true;
+			paused = false;
+			menuInit();
+			displayCloseReq = mainMenu();
+		}
 		System.exit(0);
-
 	}
 
-	public static void mainMenu(){
+	/* Normal game loop */
+	/* returns if the display was closed */
+	public static boolean gameLoop() {
+		shouldBeInMenu = true;
+		while (!shouldQuit) {
+			if (Display.isCloseRequested()) {
+				return true;
+			}
+			if (gameOver) {
+				Render.drawGameOver(reason);
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
+			} else if (!Main.paused) {
+				frame++;
+				if (frame >= framesPerTick && !paused && year < ticks) {
+					year++;
+					tick();
+					if (Farmer.getfPop() == 0 && Warrior.getwPop() == 0
+							&& World.displacedPeople == 0) {
+						gameOver = true;
+					}
+					frame = 0;
+				}
+				UIManager.update();
+				InputManager.update();
+				tAcres = 0;
+				if (!skipFrame) {
+					Render.draw();
+					OutputManager.newDebug();
+				} else {
+					skipFrame = false;
+				}
+				// Graphs.draw(year, wheatPrice, getTotalPop(), taxRevenue);
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
+			} else {
+				Render.drawPaused();
+				InputManager.updatePause();
 
-		while (!shouldQuit && shouldBeInMenu){
-			if (Display.isCloseRequested()){
+				UIManager.renderPause();
+				UIManager.renderPause2();
+				UIManager.updatePaused();
+				FPSCounter.tick();
+				Display.update();
+				Display.sync(60);
+			}
+		}
+		Util.createSave();
+		return false;
+	}
+
+	/* Main menu loop */
+	/* returns if the display was closed */
+	public static boolean mainMenu() {
+		while (shouldBeInMenu) {
+			if (Display.isCloseRequested()) {
 				shouldQuit = true;
-				break;
+				return true;
 			}
 			Render.drawMainMenu();
 			InputManager.updateMenu();
@@ -102,167 +167,139 @@ public class Main {
 			Display.update();
 			Display.sync(60);
 		}
+		return false;
 	}
 
-	public static void gameLoop(){
-		while (!shouldQuit){
-			if (Display.isCloseRequested()){
-				break;
+	/* Game tick */
+	public static void tick() {
+
+		Farmer.addPop(-World.displacedFarmers);
+		Warrior.addPop(-World.displacedWarriors);
+		if (World.displacedFarmers == 0) {
+			Farmer.fPop();
+		} else {
+			Farmer.setOldFPop(Farmer.getfPop()); // Need to update this manually
+													// because it's done in
+													// fPop()
+		}
+		if (World.displacedWarriors == 0) {
+			Warrior.wPop();
+		} else {
+			Warrior.setOldWPop(Warrior.getwPop()); // Need to update this
+													// manually because it's
+													// done in wPop()
+		}
+		wheatPrice = Market.wheatPrice(wheatPrice);
+		taxRevenue = Tax.taxRevenue();
+		World.displacedPeople += World.displacedFarmers
+				+ World.displacedWarriors;
+		World.displacedFarmers = 0;
+		World.displacedWarriors = 0;
+		float newPopulation = Farmer.newPop() + Warrior.newPop();
+		float newWarriors = newPopulation * desiredWarriorRatio;
+		newPopulation -= newWarriors;
+		Farmer.addPop(newPopulation);
+		Warrior.addPop(newWarriors);
+		Wheat.tWheat(Farmer.getfPop());
+		Farmer.setTotalHunger(Farmer.fHunger() * Farmer.fPop());
+		Warrior.setTotalHunger(Warrior.wHunger() * Warrior.getwPop());
+		int warriorWheat = Warrior.getTotalHunger();
+		int farmerWheat = Farmer.getTotalHunger();
+		if (favorFarmers) {
+			farmerWheat = Wheat.eatWheat(farmerWheat);
+			warriorWheat = Wheat.eatWheat(warriorWheat);
+		} else {
+			warriorWheat = Wheat.eatWheat(warriorWheat);
+			farmerWheat = Wheat.eatWheat(farmerWheat);
+		}
+		if (farmerWheat != 0) {
+			int fDeath = (int) Math.round(((float) farmerWheat / (float) Farmer
+					.getfHunger()) * farmerDeathRatio);
+			Farmer.addPop(-fDeath);
+		}
+		if (warriorWheat != 0) {
+			int wDeath = (int) Math
+					.round(((float) warriorWheat / (float) Warrior.getwHunger())
+							* warriorDeathRatio);
+			Warrior.addPop(-wDeath);
+		}
+		if (displacedEat) {
+			int displacedHungerConst = Farmer.getfHunger() / 2;
+			int displacedHunger = World.displacedPeople * displacedHungerConst;
+			displacedHunger = Wheat.eatWheat(displacedHunger);
+			if (displacedHunger != 0) {
+				int displacedDeath = (int) Math.round(((float) displacedHunger
+						/ (float) Farmer.getfHunger() / 2f) * 1f);
+				World.displacedPeople -= displacedDeath;
 			}
-			frame++;
-			if (frame >= framesPerTick && !paused && year < ticks){
-				year++;
-					tick();
-					if (Farmer.fPop == 0 && Warrior.wPop == 0
-					&& World.displacedPeople == 0){
-						gameOver = true;
-					}
-				frame = 0;
-			}
-			UIManager.update();
-			InputManager.update();
-			tAcres = 0;
-			if (gameOver){
-				Render.drawGameOver(reason);
-				FPSCounter.tick();
-				Display.update();
-				Display.sync(60);
-			}
-			else if (!Main.paused){
-				if (!skipFrame){
-					Render.draw();
-	       				OutputManager.newDebug();
-				}
-				else{
-					skipFrame = false;
-				}
-				FPSCounter.tick();
-				Graphs.draw(year, Economy.getPrice(), getTotalPop(), taxRevenue);
-				Display.update();
-				Display.sync(60);
-      }
-     	else{
-				Render.drawPaused();
-				InputManager.updatePaused();
-				UIManager.updatePaused();
-				FPSCounter.tick();
-				Display.update();
-				Display.sync(60);
+		} else {
+			int displacedHungerConst = Farmer.getfHunger() / 2;
+			int displacedHunger = World.displacedPeople * displacedHungerConst;
+			if (displacedHunger != 0) {
+				int displacedDeath = (int) Math.round(((float) displacedHunger
+						/ (float) Farmer.getfHunger() / 2f) * 1f);
+				World.displacedPeople -= displacedDeath;
 			}
 		}
+		World.updateMap(Farmer.getfPop(), Warrior.getwPop());
+		World.freeAcres = World.calcAcres();
 
+		if (Render.multithreading) {
+			ThreadManager.addJob(new MeshTask());
+		} else {
+			DisplayLists.mesh();
+			skipFrame = true;
+		}
 	}
 
-	public static void tick(){
-
-				Farmer.fPop -= World.displacedFarmers;
-				Warrior.wPop -= World.displacedWarriors;
-				Farmer.floatFPop -= World.displacedFarmers;
-				Warrior.floatWPop -= World.displacedWarriors;
-				if (World.displacedFarmers == 0){
-					Farmer.fPop();
-				}
-				else{
-					Farmer.oldFPop = Farmer.fPop; // Need to update this manually because it's done in fPop()
-				}
-				if (World.displacedWarriors == 0){
-					Warrior.wPop();
-				}
-				else{
-					Warrior.oldWPop = Warrior.wPop; // Need to update this manually because it's done in wPop()
-				}
-				Economy.updateMarket(0);
-				Economy.getPrice();
-				taxRevenue = Tax.taxRevenue();
-				World.displacedPeople += World.displacedFarmers + World.displacedWarriors;
-				World.displacedFarmers = 0;
-				World.displacedWarriors = 0;
-        float newPopulation = Farmer.newPop() + Warrior.newPop();
-				float newWarriors = newPopulation * desiredWarriorRatio;
-				newPopulation -= newWarriors;
-				Farmer.addPop(newPopulation);
-				Warrior.addPop(newWarriors);
-				Wheat.tWheat(Farmer.fPop);
-				Farmer.totalHunger = Farmer.fHunger() * Farmer.fPop;
-				Warrior.totalHunger = Warrior.wHunger() * Warrior.wPop;
-				int warriorWheat = Warrior.totalHunger;
-				int farmerWheat = Farmer.totalHunger;
-				if (favorFarmers){
-					farmerWheat = Wheat.eatWheat(farmerWheat);
-					warriorWheat = Wheat.eatWheat(warriorWheat);
-				}
-				else{
-					warriorWheat = Wheat.eatWheat(warriorWheat);
-					farmerWheat = Wheat.eatWheat(farmerWheat);
-				}
-				if (farmerWheat != 0){
-					int fDeath = (int) Math.round(((float) farmerWheat / (float) Farmer.fHunger) * farmerDeathRatio);
-					Farmer.fPop -= fDeath;
-					Farmer.floatFPop -= fDeath;
-				}
-				if (warriorWheat != 0){
-					int wDeath = (int) Math.round(((float) warriorWheat / (float) Warrior.wHunger) * warriorDeathRatio);
-					Warrior.wPop -= wDeath;
-					Warrior.floatWPop -= wDeath;
-				}
-				if (displacedEat){
-					int displacedHungerConst = Farmer.fHunger / 2;
-					int displacedHunger = World.displacedPeople * displacedHungerConst;
-					displacedHunger = Wheat.eatWheat(displacedHunger);
-					if (displacedHunger != 0){
-						int displacedDeath = (int) Math.round(((float) displacedHunger / (float) Farmer.fHunger / 2f) * 1f);
-						World.displacedPeople -= displacedDeath;
-					}
-				}
-				else{
-					int displacedHungerConst = Farmer.fHunger / 2;
-					int displacedHunger = World.displacedPeople * displacedHungerConst;
-					if (displacedHunger != 0){
-						int displacedDeath = (int) Math.round(((float) displacedHunger / (float) Farmer.fHunger / 2f) * 1f);
-						World.displacedPeople -= displacedDeath;
-					}
-				}
-        if(debug){
-            OutputManager.printDebugInformation();
-        }
-        if(popDiags){
-            OutputManager.popDiagnostics(0);
-        }
-        World.updateMap(Farmer.fPop, Warrior.wPop);
-        World.freeAcres = World.calcAcres();
-
-        if (Render.multithreading){
-					ThreadManager.addJob(new MeshTask());
-				}
-				else{
-					DisplayLists.mesh();
-					skipFrame = true;
-				}
-
-	}
-
-    public static float getTotalPopf(){
-        return Warrior.floatWPop + Farmer.floatFPop;
-    }
-
-    public static int getTotalPop(){
-        return Warrior.wPop + Farmer.fPop;
-    }
-
+	/* Initiate stuff */
 	public static void init() {
-
-        Render.initDisplay();
-        Render.init();
-        try {
+		Render.initDisplay();
+		Render.init();
+		try {
 			ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		if (attemptSaveLoad) {
+			Util.readSave();
+		}
+		DisplayLists.mesh();
+
 	}
 
-	public static void initTempGame(){
-        Util.readSave();
+	public static void initGame() {
+		World.init(generatorToUse);
+		if (Util.doesSaveExist(currentSave)) {
+			Util.readSave();
+		}
 		DisplayLists.mesh();
+	}
+
+	public static void menuInit() {
+		paused = false;
+		if (isInEclipse) {
+			File saves = new File("saves");
+			saves.mkdirs();
+		} else {
+			File saves = new File("../saves");
+			saves.mkdirs();
+		}
+		if (!Util.doesSaveExist(1)) {
+			UIManager.startSaveGame1.setText("Create " + saveName1);
+		}
+		if (!Util.doesSaveExist(2)) {
+			UIManager.startSaveGame2.setText("Create " + saveName2);
+		}
+		if (!Util.doesSaveExist(3)) {
+			UIManager.startSaveGame3.setText("Create " + saveName3);
+		}
+		if (!Util.doesSaveExist(4)) {
+			UIManager.startSaveGame4.setText("Create " + saveName4);
+		}
+		if (!Util.doesSaveExist(5)) {
+			UIManager.startSaveGame5.setText("Create " + saveName5);
+		}
 	}
 
 }

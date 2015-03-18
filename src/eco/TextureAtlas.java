@@ -2,20 +2,35 @@ package eco;
 
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * This class makes is easier to use a texture atlas. It contains methods that
+ * return a float position of where a subtexture is located. Has adjustable
+ * resolution and size
+ * 
+ * @author phil
+ * 
+ */
+
 public class TextureAtlas {
 
-	public  Texture texture;
+	private Texture texture;
 
-	public int textureRes = 8;
-	public int size = 8;
+	private int textureRes = 8;
+	private int size = 8;
 
 	public TextureAtlas(Texture texture) {
 		this.texture = texture;
 	}
 
+	public TextureAtlas(Texture texture, int size, int resolution) {
+		this.texture = texture;
+		this.size = size;
+		this.textureRes = resolution;
+	}
+
 	public float getXCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
-		if (increase){
+		if (increase) {
 			pixelPos += textureRes;
 		}
 		return (float) pixelPos / (float) (textureRes * size);
@@ -23,7 +38,7 @@ public class TextureAtlas {
 
 	public float getYCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
-		if (increase){
+		if (increase) {
 			pixelPos += textureRes;
 		}
 		return (float) pixelPos / (float) (textureRes * size);
@@ -31,7 +46,7 @@ public class TextureAtlas {
 
 	public float getCoord(int pos, boolean increase) {
 		int pixelPos = pos * textureRes;
-		if (increase){
+		if (increase) {
 			pixelPos += textureRes;
 		}
 		return (float) pixelPos / (float) (textureRes * size);
@@ -39,6 +54,10 @@ public class TextureAtlas {
 
 	public Texture getTexture() {
 		return texture;
+	}
+
+	public void bind() {
+		texture.bind();
 	}
 
 }

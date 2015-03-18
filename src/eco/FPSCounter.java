@@ -1,12 +1,20 @@
 package eco;
 
+/**
+ * A class that keeps track of how fast the program is running. Call
+ * <i>tick()</i> once every frame to update correctly.
+ * 
+ * @author phil
+ * 
+ */
+
 public class FPSCounter {
 
 	private static int totalFrames = 0;
 	private static int FPS = 0;
 	private static long delta = 0;
 
-	public static void tick(){
+	public static void tick() {
 		totalFrames++;
 		if (System.currentTimeMillis() - delta >= 1000) {
 			FPS = totalFrames;
@@ -15,7 +23,7 @@ public class FPSCounter {
 		}
 	}
 
-	public static int getFPS(){
+	public static int getFPS() {
 		return FPS;
 	}
 
