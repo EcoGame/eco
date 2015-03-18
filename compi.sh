@@ -8,7 +8,7 @@ javac src/eco/NameGen.java
 echo "Compiled..."
 sleep 1
 echo "Running..."
-java src/eco/NameGen.java
+java src/eco/NameGen
 else
 # Actual stuff below
 echo "Compiling..."
