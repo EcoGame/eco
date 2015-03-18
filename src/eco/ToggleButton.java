@@ -3,25 +3,43 @@ package eco;
 import org.lwjgl.opengl.GL11;
 import java.awt.Rectangle;
 
+/**
+ * A <i>ToggleButton</i> behaves just like
+ * a normal <i>Button</i>, but will toggle to
+ * it's second texture when pressed, not just when
+ * moused over
+ * 
+ * @author phil
+ *
+ */
+
 public class ToggleButton extends Button{
 
-  public boolean toggle = false;
+	private boolean toggle = false;
 
 	public ToggleButton(float x, float y, float size, int tex, int tey, int texselected, int teyselected, boolean on){
 		super(x, y, size, tex, tey, texselected, teyselected);
-    toggle = on;
+		toggle = on;
 	}
 
 	public void click(float mousex, float mousey){
-		Rectangle rect = new Rectangle((int) x, (int)y, (int)size, (int)size);
+		Rectangle rect = new Rectangle((int) getX(), (int)getY(), (int) getSize(), (int) getSize());
 		if (rect.contains(mousex, mousey)){
-			clickFlag = true;
-      toggle ^= true;
+			setClickFlag(true);
+			toggle ^= true;
 		}
 	}
 
 	public void render(float mousex, float mousey){
 		TextureAtlas atlas = Render.atlas;
+		float x = getX();
+		float y = getY();
+		float size = getSize();
+		int texselected = getTexselected();
+		int teyselected = getTeyselected();
+		int tex = getTex();
+		int tey = getTey();
+
 		if (toggle){
 			GL11.glBegin(GL11.GL_QUADS);
 			GL11.glTexCoord2f(atlas.getCoord(texselected, false), atlas.getCoord(teyselected, false));
@@ -45,7 +63,7 @@ public class ToggleButton extends Button{
 			GL11.glTexCoord2f(atlas.getCoord(tex, false), atlas.getCoord(tey, true));
 			GL11.glVertex2f(x, y + size);
 			GL11.glEnd();
-	}
+		}
 
 	}
 
