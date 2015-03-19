@@ -129,6 +129,7 @@ public class Main {
 				if (!skipFrame) {
 					Render.draw();
 					OutputManager.newDebug();
+					Graphs.draw(year, Economy.getPrice(), Farmer.getfPop() + Warrior.getwPop(), 0);
 				} else {
 					skipFrame = false;
 				}
@@ -189,7 +190,7 @@ public class Main {
 													// manually because it's
 													// done in wPop()
 		}
-		wheatPrice = Market.wheatPrice(wheatPrice);
+		//wheatPrice = Market.wheatPrice(wheatPrice);
 		taxRevenue = Tax.taxRevenue();
 		World.displacedPeople += World.displacedFarmers
 				+ World.displacedWarriors;
@@ -243,7 +244,6 @@ public class Main {
 		}
 		World.updateMap(Farmer.getfPop(), Warrior.getwPop());
 		World.freeAcres = World.calcAcres();
-
 		if (Render.multithreading) {
 			ThreadManager.addJob(new MeshTask());
 		} else {
