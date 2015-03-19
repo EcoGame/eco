@@ -433,40 +433,43 @@ public class Render {
 
 		for (int i = 0; i < 4; i++) {
 			for (int k = 0; k < 4; k++) {
-				float tempx = x + (i * offset) * 2;
-				float tempz = z + (k * offset) * 2;
+				float tempx = x + ((i * offset) * 2.0f) - (offset * 3.0f);
+				float tempz = z + ((k * offset) * 2.0f) - (offset * 3.0f);
+				float centx = x + ((i * offset) * 2.0f) - (offset * 3.0f);
+				float centz = z + ((k * offset) * 2.0f) - (offset * 3.0f);
 				glPushMatrix();
-				glTranslatef(-x - (tilesize / 2) + (offset / 1f), 0, -z
-						- (tilesize / 2) + (offset / 1f));
+				glTranslatef(centx, 0, centz);
+				glRotatef(-rot, 0f, 1f, 0f);
+				glTranslatef(-centx, 0, -centz);
 				if (city.getBuilding(i, k) == 1) {
 					glBegin(GL_QUADS);
 					glTexCoord2f(atlas.getCoord(tex, false),
 							atlas.getCoord(tey, false));
-					glVertex3f(x - offset + tempx, y + offset * 4, z + tempz);
+					glVertex3f(tempx - offset, y + offset * 4, tempz);
 					glTexCoord2f(atlas.getCoord(tex, true),
 							atlas.getCoord(tey, false));
-					glVertex3f(x + offset + tempx, y + offset * 4, z + tempz);
+					glVertex3f(tempx + offset, y + offset * 4, tempz);
 					glTexCoord2f(atlas.getCoord(tex, true),
 							atlas.getCoord(tey, true));
-					glVertex3f(x + offset + tempx, y, z + tempz);
+					glVertex3f(tempx + offset, y, tempz);
 					glTexCoord2f(atlas.getCoord(tex, false),
 							atlas.getCoord(tey, true));
-					glVertex3f(x - offset + tempx, y, z + tempz);
+					glVertex3f(tempx - offset, y, tempz);
 					glEnd();
 				} else if (city.getBuilding(i, k) == 2) {
 					glBegin(GL_QUADS);
 					glTexCoord2f(atlas.getCoord(tex2, false),
 							atlas.getCoord(tey2, false));
-					glVertex3f(x - offset + tempx, y + offset * 4, z + tempz);
+					glVertex3f(tempx - offset, y + offset * 4, tempz);
 					glTexCoord2f(atlas.getCoord(tex2, true),
 							atlas.getCoord(tey2, false));
-					glVertex3f(x + offset + tempx, y + offset * 4, z + tempz);
+					glVertex3f(tempx + offset, y + offset * 4, tempz);
 					glTexCoord2f(atlas.getCoord(tex2, true),
 							atlas.getCoord(tey2, true));
-					glVertex3f(x + offset + tempx, y, z + tempz);
+					glVertex3f(tempx + offset, y, tempz);
 					glTexCoord2f(atlas.getCoord(tex2, false),
 							atlas.getCoord(tey2, true));
-					glVertex3f(x - offset + tempx, y, z + tempz);
+					glVertex3f(tempx - offset, y, tempz);
 					glEnd();
 				}
 				glPopMatrix();
@@ -478,27 +481,37 @@ public class Render {
 
 	/* Draw a city nameplate */
 	public static void drawCityName(float x, float y, float z, City city) {
+		GL11.glShadeModel(GL11.GL_FLAT);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glDepthMask(false);
 		glPushMatrix();
 		int width = font.getWidth(city.getName());
 		width /= 2f;
-		@SuppressWarnings("unused")
 		int height = font.getHeight(city.getName());
 		height /= 2;
 		float size = 0.005f;
 		glTranslatef(0, 0, z);
 		glScalef(size, -size, size);
+		float xpos = (x * (1f / size)) - 0;
+		float ypos = y * (-1f / size) - 50;
+		glTranslatef(xpos, ypos, 0);
+		glRotatef(-rot, 0f, 1f, 0f);
+		glTranslatef(-xpos, -ypos, 0);
 		font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
 				city.getName(), new Color(1f, 1f, 1f, 2f));
 		glDisable(GL11.GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
-		glColor4f(0f, 0f, 0f, 0.15f);
-		glVertex2f(x - width, y - width);
-		glVertex2f(x + width, y - width);
-		glVertex2f(x + width, y + width);
-		glVertex2f(x - width, y + width);
+		glColor4f(0f, 0f, 0f, 0.25f);
+		glVertex2f(xpos - width, ypos - height + 6);
+		glVertex2f(xpos + width, ypos - height + 6);
+		glVertex2f(xpos + width, ypos + height + 6);
+		glVertex2f(xpos - width, ypos + height + 6);
 		glEnd();
 		glColor4f(1f, 1f, 1f, 1f);
 		glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
 		glPopMatrix();
 	}
 
@@ -673,7 +686,7 @@ public class Render {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		GLU.gluPerspective(Main.fov / 2f, Main.windowwidth / Main.windowheight,
-				0.1f, 1000f);
+				0.1f, 100000000000000f);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_DEPTH_TEST);
