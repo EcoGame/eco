@@ -6,7 +6,7 @@ import java.util.Random;
  * An object that stores additional information about a city, such as the
  * configuration of buildings and name.
  * 
- * @author phil
+ * @author phil, nate
  * 
  */
 
@@ -20,7 +20,7 @@ public class City {
 
 	public City() {
 		Random random = new Random();
-		name = names[random.nextInt(names.length)];
+		name = NameGen.generateSyllables();
 	}
 
 	public City(String name) {
