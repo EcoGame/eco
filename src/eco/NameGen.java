@@ -40,6 +40,7 @@ class NameGen {
 			"phil",
 			"will"
 			
+			
 		};
 		public static String[] consonants = new String[] {
 			"b",
@@ -47,7 +48,6 @@ class NameGen {
 			"d",
 			"f",
 			"g",
-			"j",
 			"k",
 			"l",
 			"m",
@@ -70,12 +70,13 @@ class NameGen {
 			"s",
 			"t",
 			"v",
-			"w",
-			"x",
-			"z",
+			//"w",
+			//"x",
+			//"z",
 			"th",
 			"sh",
 			"ch",
+			"ph",
 			"phil",
 			"ing"
 		
@@ -83,7 +84,6 @@ class NameGen {
 		
 		public static String[] vowels = new String[] {
 			"a",
-			"e",
 			"e",
 			"e",
 			"e",
@@ -101,11 +101,42 @@ class NameGen {
 		
 		public static String[] suffixes = new String[] {
 			"stan",
-			"grad"
+			"grad",
+			"bad",
+			"ville",
+			"stead",
+			" On the Sea",
+			"land",
+			"wood",
+			"field",
+			"shire",
+			"burg",
+			"furt",
+			"ham",
+			"dale",
+			"port",
+			"ford",
+			"ia",
+			"mare",
+			"polis",
+			"ago",
+			"uim"
+			
 		
 		};
 
 		public static Random random = new Random();
+		
+		
+		
+	public static void list(int loops){
+		for(int i = 0; i < loops; i++){
+			System.out.println(generateSyllables());
+		}
+		System.out.println("===== DONE!!! ======");
+	
+	
+	}
 	
 	
 	
@@ -138,7 +169,7 @@ class NameGen {
 	}
 	
 	public static String generateSyllables(){
-		int length = randInt(1,3);
+		int length = randInt(1,2);
 		String name = "";
 		for(int i = 0; i <= length; i++){
 			if(i == 0)
@@ -147,8 +178,13 @@ class NameGen {
 				name = name + consonants[randInt(1, consonants.length - 1)] + vowels[randInt(0, vowels.length - 1)];
 		}
 		name = name.substring(0,1).toUpperCase() + name.substring(1);
-		if(randInt(1,100) > 75)
+		int chance = (randInt(1,100));
+		if(chance < 25){
 			name = name + suffixes[randInt(0, suffixes.length - 1)];
+		}
+		else if (chance >= 25 && chance < 75){
+			name = name + consonants[randInt(0, consonants.length -1)];
+		}
 		return name ;
 	}
 }
