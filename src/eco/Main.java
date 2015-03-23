@@ -129,7 +129,7 @@ public class Main {
 				if (!skipFrame) {
 					Render.draw();
 					OutputManager.newDebug();
-					Graphs.draw(year, Economy.getPrice(), Farmer.getfPop() + Warrior.getwPop(), 0);
+					Graphs.draw(year, Economy.getPrice(), Farmer.getfPop() + Warrior.getwPop(), Economy.getTreasury());
 				} else {
 					skipFrame = false;
 				}
@@ -242,6 +242,7 @@ public class Main {
 				World.displacedPeople -= displacedDeath;
 			}
 		}
+		Wheat.update();		
 		World.updateMap(Farmer.getfPop(), Warrior.getwPop());
 		World.freeAcres = World.calcAcres();
 		if (Render.multithreading) {
