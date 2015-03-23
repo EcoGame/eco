@@ -1,47 +1,62 @@
 package eco;
 
 /**
-* This class describes the international market for wheat,
-* it manages wheat reserve goals and sells or buys to
-* meet it.
-*
-* @Author phil
-*/
+ * This class represents wheat and associated methods, including the wheat
+ * stockpile
+ * 
+ * @author phil, nate, will, connor
+ * 
+ */
 
-public class Economy {
+public class Wheat {
 
-	private static int treasury = 0;
+	private static int tWheat;
+	private static int wheatPrice;
 
-	private static int wheatPrice = 10;
+	private static int maxwheat = 5000;
+	private static int minwheat = 1000;
 
-	public static int buyWheat(int ammount){
-		int neededMoney = wheatPrice * ammount;
-		if (neededMoney <= treasury){
-			treasury -= neededMoney;
-			return ammount;
+	public static int tWheat(int farmers) {
+		tWheat += farmers * Farmer.getWheatProductionRate();
+		return tWheat;
+	}
+
+	public static int eatWheat(int request) {
+		if (tWheat < minwheat){
+		  int toBuy = minwheat - tWheat;
+	          tWheat += Economy.buyWheat(toBuy);		
+		}	
+		if (request > tWheat) {
+			int diff = request - tWheat;
+			tWheat = 0;
+			return diff;
+		} else {
+			tWheat -= request;
+			return 0;
 		}
-		else{
-			int canBuy = treasury / wheatPrice;
-			treasury = 0;
-			return canBuy;		
-		}
 	}
 
-	public static int sellWheat(int ammount){
-		treasury += wheatPrice * ammount;
-		return ammount;
+	public static int gettWheat() {
+		return tWheat;
 	}
 
-	public static void updateMarket(int time){
-		wheatPrice += Util.randInt(-5, 7); // Biased to increase over time
+	public static void settWheat(int tWheat) {
+		Wheat.tWheat = tWheat;
 	}
 
-	public static int getTreasury(){
-		return treasury;	
-	}
-
-	public static int getPrice(){
+	public static int getWheatPrice() {
 		return wheatPrice;
+	}
+
+	public static void update(){
+		if (tWheat > maxwheat){
+			Economy.sellWheat(tWheat - maxwheat);
+			tWheat = maxwheat;	
+		}
 	}	
+
+	public static void setWheatPrice(int wheatPrice) {
+		Wheat.wheatPrice = wheatPrice;
+	}
 
 }
