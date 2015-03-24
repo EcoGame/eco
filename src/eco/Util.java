@@ -30,10 +30,6 @@ import org.lwjgl.opengl.GL11;
 
 public class Util {
 
-	/*
-	 * Lines of the save file: wPop fPop tAcres employedFarmers
-	 * unemployedFarmers tMoney wheatPrice tWheat
-	 */
 	public static void createSave() {
 
 		String path = null;
@@ -59,6 +55,8 @@ public class Util {
 			File fOut = new File(path);
 			FileOutputStream FOS = new FileOutputStream(fOut);
 			BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
+            
+            //Data Being Saved:
 			BW.write(Integer.toString(Main.year));
 			BW.newLine();
 			BW.write(Integer.toString(Wheat.tWheat(Farmer.fPop())));
@@ -79,6 +77,13 @@ public class Util {
 				}
 				BW.newLine();
 			}
+            /* Use:
+             * BW.write(STUFF TO BE SAVED HERE);
+             * BW.newLine();
+             *
+             * Unless it needs to use loops in which case see the loops above. 
+             */
+            
 			BW.close();
 		} catch (IOException ex) {
 			System.out.println("IOException");
@@ -134,11 +139,12 @@ public class Util {
 			for (String str : list) {
 				str = str.replace(System.getProperty("line.separator"), "");
 			}
+            
+            // Information being loaded:
 			Main.year = Integer.valueOf(list.get(0));
 			Wheat.settWheat(Integer.valueOf(list.get(1)));
 			Farmer.setfPop(Integer.valueOf(list.get(2)));
 			Warrior.setwPop(Integer.valueOf(list.get(3)));
-
 			int line = 4;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
@@ -155,6 +161,9 @@ public class Util {
 				}
 				line++;
 			}
+            // Set the variable that the information will become
+            // To the end here.
+            
 			readSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
