@@ -6,7 +6,6 @@ import java.io.*;
 
 /* Name of the class has to be "Main" only if the class is public. */
 class NameGen {
-	
 
 		public static String[] uno = new String[] {
 			"new",
@@ -92,10 +91,17 @@ class NameGen {
 			"o",
 			"u",
 			"y",
+			"a",
+			"e",
+			"e",
+			"i",
+			"o",
+			"u",
+			"y",
 			"oo",
 			"ue",
 			"ee",
-			"ai"
+			//"ai"
 			
 		
 		};
@@ -133,13 +139,13 @@ class NameGen {
 			"gordos",
 			"pequenos",
 			"grandes",
+			"altos",
 			"llenos"
 		};
 		
 		public static String[] spanishWordsO = new String[]{
 			"gato",
 			"globo",
-			"alto",
 			"asalto",
 			"pato",
 			"inodoro",
@@ -166,6 +172,27 @@ class NameGen {
 			"pajaro",
 			"plato",
 			"trono",
+			"abalorio",
+			"abandono",
+			"ajo",
+			"banco",
+			"bando",
+			"borujo",
+			"cacho",
+			"cigarillo",
+			"churro",
+			"dinero",
+			"durazno",
+			"enimigo",
+			"epico",
+			"exclusivo",
+			"mercado",
+			"mercado",
+			"burro",
+			"fracaso",
+			"conflicto",
+			"turbulento",
+			"cero",
 			"mundo"
 			
 			
@@ -190,81 +217,50 @@ class NameGen {
 			"espada",
 			"piedra",
 			"joya",
+			"babosa",
+			"calavera",
+			"defensa",
+			"elitista",
+			"mesa",
+			"medusa",
+			"abeja",
+			"paloma",
+			"calabaza",
+			"soldadura",
 			"corona"
 			
 		};
-
-		public static Random random = new Random();
 		
-		
-	//public static void main(String[] args){
-	//	list(20);
-		
-	//}	
-	public static void list(int loops){
-		for(int i = 0; i < loops; i++){
-			System.out.println(generateRandom());
-		}
-		System.out.println("===== DONE!!! ======");
-	
-	
-	}
-	
-	
-	
-
-	/*public static void main (String[] args) throws java.lang.Exception
-	{
-		System.out.println("Ten random names below!");
-		
-		for(int i = 0; i < 10; i++){
-			//System.out.println(generate(uno, dos, tres));
-			System.out.println(generateSyllables(consonants, vowels, suffixes));
-		}
-	}
-	*/
-	public static int randInt(int min, int max) { //Returns a random number between min and max.
-    	return min + random.nextInt((max + 1) - min);
-	}
-	public static String generate(){
-		int length = randInt(0,1);
-		String name = "";
-		for(int i = 0; i <= length; i++){
-			if(i == 0)
-				name = name + uno[randInt(1, uno.length - 1)];
-			else
-				name = name + dos[randInt(1, dos.length - 1)];
-		}
-		name = name.substring(0,1).toUpperCase() + name.substring(1);
-		return name ;
-	}
-	
-	public static String generateRandom(){
-		String name = "";
-		int num = randInt(0,2);
-		switch (num){
-			case 1: name = generateSpanish();
-					break;
-			case 2: name = generateSyllables();
-					break;
-		}
-		return name;
-	}
-	
-	public static String generateSpanish(){
-		boolean gender = random.nextBoolean();
-		boolean plurality = random.nextBoolean();
-		boolean adjective = random.nextBoolean();
-		int num = randInt(1, spanishAdjectives.length - 1);
-		String name = "";
-		if(gender){
-			if(plurality){
-				name = "Los " + spanishWordsO[randInt(1, spanishWordsO.length - 1)] + "s";
-				name = name.substring(0,4) + name.substring(4,5).toUpperCase() + name.substring(5);
-				if(adjective){
-					name = name + " " + spanishAdjectives[num].substring(0,1).toUpperCase() + spanishAdjectives[num].substring(1);
-				}
+		public static String generateRandom(){
+			String name = "";
+			int num = randInt(1,4);
+			switch (num){
+				case 1: name = generateSpanish(); //+ ".es";
+						break;
+				case 2: name = generateSyllables(); // + ".uz";
+						break;
+				case 3: name = generateJapanese(); // + ".jp";
+						break;
+				case 4: name = generateCastle(); // + ".castle";
+						break;
 			}
+			return name;
+		}
+		
+		public static String generateSpanish(){
+			boolean gender = random.nextBoolean();
+			boolean plurality = random.nextBoolean();
+			boolean adjective = random.nextBoolean();
+			int num = randInt(1, spanishAdjectives.length - 1);
+			String name = "";
+			if(gender){
+				if(plurality){
+					name = "Los " + spanishWordsO[randInt(1, spanishWordsO.length - 1)] + "s";
+					name = name.substring(0,4) + name.substring(4,5).toUpperCase() + name.substring(5);
+					if(adjective){
+						name = name + " " + spanishAdjectives[num].substring(0,1).toUpperCase() + spanishAdjectives[num].substring(1);
+					}
+				}
 			else{
 				name = "El " + spanishWordsO[randInt(1, spanishWordsO.length - 1)];
 				name = name.substring(0,3) + name.substring(3,4).toUpperCase() + name.substring(4);
@@ -292,6 +288,386 @@ class NameGen {
 		name = name.substring(0,1).toUpperCase() + name.substring(1);
 		return name;
 	}
+		
+		public static String[] noveltyPrefixes = new String[] {
+			"Connor's",
+			"Phil's",
+			"Nate's",
+			"Will's",
+			"Mr. Drew's",
+			"Krugman's"
+		
+		};
+		
+		public static String[] noveltySuffixes = new String[] {
+			"of Bailey",
+			"of Heikoop",
+			"of Delgado",
+			"of Sidley-Parker",
+			"de Leon"
+		
+		};
+		
+		public static String[] castleSuffixes = new String[] {
+			"fard",
+			"ton",
+			"wood",
+			"ham", "hampton",
+			"bury",
+			"ester", "aster",
+			"chester",
+			"seed",
+			"hurst",
+			"ville",
+			"stow",
+			"don",
+			"worth",
+			"aple",
+			"minster",
+			"more",
+			"roth",
+			"wick",
+			"port",
+			"field",
+			"dill",
+			"sham",
+			"hollow",
+			"borough",
+			"dale",
+			"pass",
+			"cove",
+			"tail",
+			"cliff",
+			"born", "borne", "bourne",
+			"marsh",
+			"firth",
+			"isle",
+			"broth",
+			"well",
+			"mouth",
+			"fall",
+			"lock",
+			"shop", "shoppe", "shoppe"
+		};
+		
+		public static String[] castlePrefixes = new String[] {
+			"wolf",
+			"deer",
+			"weasal",
+			"sea",
+			"grist",
+			"axe",
+			"cone",
+			"hammer",
+
+			"strath",
+			"mill",
+			"horn",
+			"stone",
+			"west", "north", "south",
+			"beck",
+			"wake",
+			"holly",
+			"white", "black", "blue", "grey", "silver", "iron", "yellow", "brown", "gold", "bronze",
+			"bull",
+			"finch",
+			"dragon", "draco",
+			"trout",
+			"dry",
+			"sharp",
+			"cray",
+			"long", "short",
+			"aber",
+			"ruther",
+			"cardinal",
+			"arrow", "dagger", "spears", "cannon", "pike", 
+			"siege",
+			"boat",
+			"salt",
+			"bell",
+			"dire",
+			"hill",
+			"leaf", "vine", "tree", "ivy",
+			"garth",
+			"apple",
+			"ample",
+			"skag",
+			"smoke",
+			"berx",
+			"wind",
+			"star",
+			"sun",
+			"moon",
+			"frost",
+			"bleak",
+			"air",
+			"brae",
+			"dawn",
+			"weld",
+			"hull", "hell",
+			"saxon",
+			"aqua",
+			"death",
+			"mir",
+			"warring",
+			"ram",
+			"deer",
+			"lizard",
+			"card",
+			"fire", "flame", "blaze", "char", "ember", "flare",
+			"ox",
+			"mag",
+			"veil", "vail",
+			"mount",
+			"valley",
+			"heaven",
+			"stein", 
+			
+			"fortran",
+			"cobol",
+			
+			"tiger"
+			
+			
+		};
+		
+		public static String[] castleSynonyms = new String[] {
+			"stronghold",
+			"acropolis",
+			"citadel",
+			"fortress",
+			"establishment",
+			"fortification",
+			"keep",
+			"hold",
+			"manor",
+			"mansion",
+			"palace",
+			"safehold",
+			"villa",
+			"tower",
+			"bastion",
+			"castle",
+			"garrison",
+			"rampart",
+			
+			"abode",
+			"residency",
+			"legal residence",
+			"pad",
+			"estate"
+			
+		
+		};
+		
+		public static String[] castlePreSynonyms = new String[]{
+			"fort",
+			"camp",
+			"castle"
+		
+		};
+
+		
+		
+		public static String[] castleAdjectives = new String[] {
+			"big",
+			"great",
+			"soaring",
+			"towering",
+			"elevated",
+			"giant",
+			"skyscraping",
+			
+			"shining",
+			"glimmering",
+			"lustrous",
+			"radiant",
+			
+			"immortal",
+			"enduring",
+			"everlasting",
+			"imperishable",
+			"indestructible",
+			"invincible",
+			"invulnerable",
+			"impenetrable",
+			
+			"decrepit",
+			"deteriorated",
+			"crippled",
+			"battered",
+			"weather-beaten"
+		
+		};
+		
+		
+		public static String[] japaneseKatakana = new String[] {
+			"a",
+			"e",
+			"i",
+			"o",
+			"u",
+			"ya",
+			"yu",
+			"yo",
+			"ka",
+			"ki",
+			"ku",
+			"ke",
+			"ko",
+			"sa",
+			"si",
+			"su",
+			"se",
+			"so",
+			"ta",
+			"ti",
+			"tu",
+			"te",
+			"to",
+			"na",
+			"ni",
+			"nu",
+			"ne",
+			"no",
+			"ha",
+			"hi",
+			"hu",
+			"he",
+			"ho",
+			"ma",
+			"mi",
+			"mu",
+			"me",
+			"mo",
+			"ra",
+			"ri",
+			"ru",
+			"re",
+			"ro",
+			"wa",
+			"wi",
+			"wu",
+			"we",
+			"wo",
+			"ga",
+			"gi",
+			"gu",
+			"ge",
+			"go",
+			"za",
+			"zi",
+			"zu",
+			"ze",
+			"zo",
+			"da",
+			"di",
+			"du",
+			"de",
+			"do"
+			
+			
+		
+		};
+		
+		public static String[] historicalLeaders = new String[] {
+			"Napoleon",
+			"Genghis",
+			"Pizarro",	
+			"Pachacuti",
+			"Claudius",
+			"Ghandi",
+			"Mandela",
+			"@lexand3r the GR8",
+			"Henry VIII"
+		
+		};
+
+		public static Random random = new Random();
+		
+		
+		
+	public static void list(int loops){
+		for(int i = 0; i < loops; i++){
+			System.out.println(generateRandom());
+		}
+		System.out.println("\n\n\n\n");
+		for(int i = 0; i < loops; i++){
+			System.out.println(generateCastle());
+		}
+		
+		System.out.println("===== DONE!!! ======");
+	
+	
+	}
+	
+	public static String generateCastle(){
+		int length = randInt(1,3);
+		int choice = randInt(1,20);
+		int otherChoice = randInt(1,20);
+		int otherOtherChoice = randInt(1,6);
+		int preOrSuff = randInt(1,10);
+		String name = "";
+		if(choice == 1){
+			int num = randInt(1, noveltyPrefixes.length - 1);
+			name = name + noveltyPrefixes[num].substring(0,1).toUpperCase() + noveltyPrefixes[num].substring(1) + " ";
+		}
+		else if(choice == 2){
+			int num = randInt(1, historicalLeaders.length - 1);
+			name = name + "The " + historicalLeaders[num].substring(0,1).toUpperCase() + historicalLeaders[num].substring(1) + " ";
+		}
+		if (otherOtherChoice == 1){
+			int num = randInt(1, castleAdjectives.length - 1);
+			name = name + castleAdjectives[num].substring(0,1).toUpperCase() + castleAdjectives[num].substring(1) + " ";
+		}
+		if(preOrSuff == 1){
+			int num = randInt(1, castlePreSynonyms.length - 1);
+			name = name + castlePreSynonyms[num].substring(0,1).toUpperCase() + castlePreSynonyms[num].substring(1) + " ";
+		}
+		int num = randInt(1, castlePrefixes.length - 1);
+		name = name + castlePrefixes[num].substring(0,1).toUpperCase() + castlePrefixes[num].substring(1);
+		num = randInt(1, castleSuffixes.length - 1);
+		name = name + castleSuffixes[num] + " ";
+		if(preOrSuff > 1){
+			num = randInt(1, castleSynonyms.length - 1);
+			name = name + castleSynonyms[num].substring(0,1).toUpperCase() + castleSynonyms[num].substring(1) + " ";
+		}
+		if(otherChoice == 1){
+			num = randInt(1, noveltySuffixes.length - 1);
+			name = name + noveltySuffixes[num].substring(0,1).toUpperCase() + noveltySuffixes[num].substring(1);
+		}
+		name = name.substring(0,1).toUpperCase() + name.substring(1);
+		return name;
+	}
+	
+	
+
+	/*public static void main (String[] args) throws java.lang.Exception
+	{
+		System.out.println("Ten random names below!");
+		
+		for(int i = 0; i < 10; i++){
+			//System.out.println(generate(uno, dos, tres));
+			System.out.println(generateSyllables(consonants, vowels, suffixes));
+		}
+
+	}
+	*/
+	public static int randInt(int min, int max) { //Returns a random number between min and max.
+    	return min + random.nextInt((max + 1)- min);
+	}
+	public static String generate(){
+		int length = randInt(0,1);
+		String name = "";
+		for(int i = 0; i <= length; i++){
+			if(i == 0)
+				name = name + uno[randInt(1, uno.length - 1)];
+			else
+				name = name + dos[randInt(1, dos.length - 1)];
+		}
+		name = name.substring(0,1).toUpperCase() + name.substring(1);
+		return name ;
+	}
 	
 	public static String generateSyllables(){
 		int length = randInt(1,2);
@@ -311,5 +687,15 @@ class NameGen {
 			name = name + consonants[randInt(0, consonants.length -1)];
 		}
 		return name ;
+	}
+	
+	public static String generateJapanese(){
+		int length = randInt(1,3);
+		String name = "";
+		for(int i = 0; i <= length; i++){
+				name = name + japaneseKatakana[randInt(1, japaneseKatakana.length - 1)];
+		}
+		name = name.substring(0,1).toUpperCase() + name.substring(1);
+		return name;
 	}
 }
