@@ -20,7 +20,7 @@ public class City {
 
 	public City() {
 		Random random = new Random();
-		name = NameGen.generateSyllables();
+		name = NameGen.generateRandom();
 	}
 
 	public City(String name) {
