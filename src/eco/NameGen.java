@@ -579,6 +579,8 @@ class NameGen {
 			"Ghandi",
 			"Mandela",
 			"@lexand3r the GR8",
+			"Solomon",
+			"Washington",
 			"Henry VIII"
 		
 		};
