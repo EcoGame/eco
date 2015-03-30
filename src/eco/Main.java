@@ -47,9 +47,6 @@ public class Main {
 	public static float wDefaultDeathRate = 0.002f;
 
 	public static volatile int year = 0;
-	public static volatile int wheatPrice = 20;
-	public static volatile int oldtWheat = 0;
-	public static volatile int tAcres = 10000;
 
 	public static float farmerDeathRatio = 0.75f;
 	public static float warriorDeathRatio = 0.75f;
@@ -57,9 +54,6 @@ public class Main {
 	public static boolean favorFarmers = true;
 
 	public static boolean displacedEat = true;
-
-	public static int GDP;
-	public static int taxRevenue;
 
 	public static final int ticks = 2000;
 
@@ -125,7 +119,6 @@ public class Main {
 				}
 				UIManager.update();
 				InputManager.update();
-				tAcres = 0;
 				if (!skipFrame) {
 					Render.draw();
 					OutputManager.newDebug();
@@ -191,7 +184,6 @@ public class Main {
 													// done in wPop()
 		}
 		//wheatPrice = Market.wheatPrice(wheatPrice);
-		taxRevenue = Tax.taxRevenue();
 		World.displacedPeople += World.displacedFarmers
 				+ World.displacedWarriors;
 		World.displacedFarmers = 0;
