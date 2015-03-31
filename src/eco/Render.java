@@ -151,8 +151,11 @@ public class Render {
 								World.cities.get(new Point(x, y)));
 					}
 					if (World.structures[x][y] == 2) {
-						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 5);
+						World.cities.get(new Point(x, y)).updatePop(
+								(int) World.popdensity[x][y]);
+						drawCity((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 2,
+								World.cities.get(new Point(x, y)));
 					}
 					if (World.structures[x][y] == 3) {
 						drawStructure((-x) * tilesize, World.noise[x][y]
@@ -166,6 +169,11 @@ public class Render {
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
 				if (World.structures[x][y] == 1) {
+					drawCityName((-x) * tilesize, World.noise[x][y]
+							* heightConstant, (-y) * tilesize,
+							World.cities.get(new Point(x, y)));
+				}
+				if (World.structures[x][y] == 2) {
 					drawCityName((-x) * tilesize, World.noise[x][y]
 							* heightConstant, (-y) * tilesize,
 							World.cities.get(new Point(x, y)));
@@ -423,6 +431,10 @@ public class Render {
 			texpos = 8;
 			texpos2 = 11;
 		}
+		if (type == 2) {
+			texpos = 9;
+			texpos2 = 12;
+		}
 
 		float offset = (tilesize / 8);
 
@@ -481,6 +493,10 @@ public class Render {
 
 	/* Draw a city nameplate */
 	public static void drawCityName(float x, float y, float z, City city) {
+		String name = city.getName();
+		if (name.equals("")){
+			return;
+		}
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -502,6 +518,7 @@ public class Render {
 				city.getName(), new Color(1f, 1f, 1f, 2f));
 		glDisable(GL11.GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
+		glTranslatef(0, 0, z - 1);
 		glColor4f(0f, 0f, 0f, 0.25f);
 		glVertex2f(xpos - width, ypos - height + 6);
 		glVertex2f(xpos + width, ypos - height + 6);
