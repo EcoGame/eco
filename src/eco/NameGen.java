@@ -240,8 +240,6 @@ class NameGen {
 						break;
 				case 3: name = generateJapanese(); // + ".jp";
 						break;
-				case 4: name = generateCastle(); // + ".castle";
-						break;
 			}
 			return name;
 		}
