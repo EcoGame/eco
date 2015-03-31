@@ -22,19 +22,23 @@ public class Country {
 	
 	
 	
+	public int wheatPrice = 10;
+	public int tWheat;
+	public int maxwheat;
+	
 	public int unemployedFarmers = 0;
 	public int employedFarmers = 0;
 	public int treasury = 0;
 	
 	
-	public static int fPop = 5;
-	public static int oldFPop = fPop;
-	public static int fHunger;
-	public static float floatFPop = fPop;
-	public static int wheatPerFarmer = 14;
-	public static int totalHarvest;
-	public static int totalHunger;
-	public static int normalHunger = 10;
+	public int fPop = 5;
+	public int oldFPop = fPop;
+	public int fHunger;
+	public float floatFPop = fPop;
+	public int wheatPerFarmer = 14;
+	public int totalHarvest;
+	public int totalHunger;
+	public int normalHunger = 10;
 	
 	
 	public int wPop = 5;
@@ -234,29 +238,21 @@ public class Country {
 		wPop += tooAdd;
 		floatWPop += tooAdd;
 	}
+	
+	public void update(){
+		if (tWheat > maxwheat){
+			Economy.sellWheat(tWheat - maxwheat);
+			tWheat = maxwheat;	
+		}
+	}	
 
 	
 	public void tick(){
-		addPop(-World.displacedFarmers);
-		wAddPop(-World.displacedWarriors);
-		if (World.displacedFarmers == 0) {
 			fPop();
-		} else {
 			setOldFPop(getfPop()); // Need to update this manually
 													// because it's done in
 													// fPop()
-		}
-		if (World.displacedWarriors == 0) {
 			wPop();
-		} else {
-			setOldWPop(getwPop()); // Need to update this
-													// manually because it's
-													// done in wPop()
-		}
-		World.displacedPeople += World.displacedFarmers
-				+ World.displacedWarriors;
-		World.displacedFarmers = 0;
-		World.displacedWarriors = 0;
 		float newPopulation = newPop() + newWPop();
 		float newWarriors = newPopulation * desiredWarriorRatio;
 		newPopulation -= newWarriors;
@@ -291,7 +287,6 @@ public class Country {
 			if (displacedHunger != 0) {
 				int displacedDeath = (int) Math.round(((float) displacedHunger
 						/ (float) getfHunger() / 2f) * 1f);
-				World.displacedPeople -= displacedDeath;
 			}
 		} else {
 			int displacedHungerConst = getfHunger() / 2;
@@ -299,12 +294,9 @@ public class Country {
 			if (displacedHunger != 0) {
 				int displacedDeath = (int) Math.round(((float) displacedHunger
 						/ (float) getfHunger() / 2f) * 1f);
-				World.displacedPeople -= displacedDeath;
 			}
 		}
-		Wheat.update();		
-		World.updateMap(getfPop(), getwPop());
-		World.freeAcres = World.calcAcres();
+		update();		
 		if (Render.multithreading) {
 			ThreadManager.addJob(new MeshTask());
 		} else {
