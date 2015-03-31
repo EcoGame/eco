@@ -31,15 +31,9 @@ public class City {
 	}
 
 	public City(Point key, boolean isCastle) {
-		name = NameGen.generateSyllables();
+		name = NameGen.generateRandom();
 		if (isCastle){
-			Random random = new Random();
-			if (random.nextInt(2) == 0){
-				name = castlePrefix[random.nextInt(castlePrefix.length)] + " "+ name;
-			}
-			else{
-				name = name + " "+ castleSuffix[random.nextInt(castleSuffix.length)];
-			}
+			name = NameGen.generateCastle();
 		}
 		if (World.cities.size() == 0){
 			name = capitalEpithet+name;
