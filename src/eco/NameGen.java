@@ -10,7 +10,6 @@ class NameGen {
 		public static String[] uno = new String[] {
 			"new",
 			"wam",
-			"phil",
 			"will",
 			"notting",
 			"burn"
