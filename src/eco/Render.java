@@ -514,8 +514,13 @@ public class Render {
 		glTranslatef(xpos, ypos, 0);
 		glRotatef(-rot, 0f, 1f, 0f);
 		glTranslatef(-xpos, -ypos, 0);
-		font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
-				city.getName(), new Color(1f, 1f, 1f, 2f));
+        if(city.getName().contains(city.capitalEpithet)) {
+            glColor3f(245f / 255f, 63f / 255f, 63f / 255f);
+            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50, city.getName(), new Color(245f / 255f, 63f / 255f, 63f / 255f, 2f));
+        }
+        else{
+            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50, city.getName(), new Color(1f, 1f, 1f, 2f));
+        }
 		glDisable(GL11.GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glTranslatef(0, 0, z - 1);
