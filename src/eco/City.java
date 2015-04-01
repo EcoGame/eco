@@ -33,7 +33,7 @@ public class City {
 	public City(Point key, boolean isCastle) {
 		name = NameGen.generateRandom();
 		if (isCastle){
-            name = NameGen.generateCastle();
+            		name = NameGen.generateCastle();
 		}
 		if (World.cities.size() == 0){
 			name = capitalEpithet+name;
