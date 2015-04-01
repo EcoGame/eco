@@ -80,7 +80,7 @@ public class Graphs {
 					//"\u25A0 .", new Color(1, 169, 212));
 			GL11.glVertex2f((float)(x - (perGraphShift * num) - shift) + i,
 					(y - shift) - (pops[i] * ((float) height / maxOne)));
-			System.out.println((x - (perGraphShift * num) - shift) + i);
+			//System.out.println((x - (perGraphShift * num) - shift) + i);
 		}
 		GL11.glEnd();
 		for (int i = 0; i < pops.length - 1; i++){
