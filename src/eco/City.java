@@ -22,7 +22,7 @@ public class City {
 	
 	private Point loc;
 	
-	private static String capitalEpithet = "# ";
+	public static String capitalEpithet = "# ";
 	
 	public boolean castle = false;
 	
@@ -33,7 +33,7 @@ public class City {
 	public City(Point key, boolean isCastle) {
 		name = NameGen.generateRandom();
 		if (isCastle){
-			name = NameGen.generateCastle();
+            name = NameGen.generateCastle();
 		}
 		if (World.cities.size() == 0){
 			name = capitalEpithet+name;
@@ -130,8 +130,7 @@ public class City {
 	};
 	
 	private static String[] castleSuffix = new String[] {
-		"Castle","Citadel","Garrision","Redoubt","Acropolis","Bulwark",
-		"Bastion","Fortress","Vallation","Embankment","Stronghold"
+		"Castle","Citadel","Garrision","Redoubt","Acropolis","Bulwark","Bastion","Fortress","Vallation","Embankment","Stronghold"
 	};
 	
 	public int getSize(){
