@@ -292,6 +292,7 @@ class NameGen {
 			"Nate's",
 			"Will's",
 			"Mr. Drew's",
+			"Greenspan",
 			"Krugman's"
 		
 		};
@@ -450,7 +451,6 @@ class NameGen {
 			
 			"abode",
 			"residency",
-			"legal residence",
 			"pad",
 			"estate"
 			
@@ -586,9 +586,11 @@ class NameGen {
 		
 		
 		
-	public static void list(int loops){
-		for(int i = 0; i < loops; i++){
-			System.out.println(generateRandom());
+	public static void list(int loops, int choice){
+		if(choice == 1){
+			for(int i = 0; i < loops; i++){
+				System.out.println(generateRandom());
+			}
 		}
 		System.out.println("\n\n\n\n");
 		for(int i = 0; i < loops; i++){
@@ -606,18 +608,27 @@ class NameGen {
 		int otherChoice = randInt(1,20);
 		int otherOtherChoice = randInt(1,6);
 		int preOrSuff = randInt(1,10);
+		int historical = randInt(1,2);
 		String name = "";
-		if(choice == 1){
+		if(choice == 1 && otherOtherChoice > 1 && otherChoice > 1){
 			int num = randInt(1, noveltyPrefixes.length - 1);
 			name = name + noveltyPrefixes[num].substring(0,1).toUpperCase() + noveltyPrefixes[num].substring(1) + " ";
 		}
-		else if(choice == 2){
-			int num = randInt(1, historicalLeaders.length - 1);
-			name = name + "The " + historicalLeaders[num].substring(0,1).toUpperCase() + historicalLeaders[num].substring(1) + " ";
+		if(historical == 1){
+			if(choice == 2 && otherOtherChoice > 1 && otherChoice > 1){
+				int num = randInt(1, historicalLeaders.length - 1);
+				name = name + "The " + historicalLeaders[num].substring(0,1).toUpperCase() + historicalLeaders[num].substring(1) + " ";
+				num = randInt(1, castleSynonyms.length - 1);
+				name = name + castleSynonyms[num].substring(0,1).toUpperCase() + castleSynonyms[num].substring(1) + " ";
+				return name;
+			}
 		}
 		if (otherOtherChoice == 1){
 			int num = randInt(1, castleAdjectives.length - 1);
 			name = name + castleAdjectives[num].substring(0,1).toUpperCase() + castleAdjectives[num].substring(1) + " ";
+			num = randInt(1, castleSynonyms.length - 1);
+			name = name + castleSynonyms[num].substring(0,1).toUpperCase() + castleSynonyms[num].substring(1) + " ";
+			return name;
 		}
 		if(preOrSuff == 1){
 			int num = randInt(1, castlePreSynonyms.length - 1);
@@ -631,7 +642,7 @@ class NameGen {
 			num = randInt(1, castleSynonyms.length - 1);
 			name = name + castleSynonyms[num].substring(0,1).toUpperCase() + castleSynonyms[num].substring(1) + " ";
 		}
-		if(otherChoice == 1){
+		if(otherChoice == 1 && otherOtherChoice > 1 && choice > 2){
 			num = randInt(1, noveltySuffixes.length - 1);
 			name = name + noveltySuffixes[num].substring(0,1).toUpperCase() + noveltySuffixes[num].substring(1);
 		}
