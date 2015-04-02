@@ -37,7 +37,7 @@ public class Economy {
 	}
 
 	public static int getTreasury(){
-		System.out.println(treasury);
+		//System.out.println(treasury);
  		return treasury;	
 	}
 
