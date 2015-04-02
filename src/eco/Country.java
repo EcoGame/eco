@@ -1,7 +1,15 @@
 package eco;
 
 public class Country {
-	public String name = "Mauritania";
+	public static String[] names = new String[] {
+		"Tumblr",
+		"Yahoo",
+		"PiedPiper",
+		"Baidu",
+		"Xiaomi"	
+	};
+	
+	public String name = names[Util.randInt(0, names.length - 1)];
 	
 	 //To be randomized
 	public float fBirthRate = 0.03f;
@@ -258,7 +266,7 @@ public class Country {
 		newPopulation -= newWarriors;
 		addPop(newPopulation);
 		addWPop(newWarriors);
-		Wheat.tWheat(getfPop());
+		//Wheat.tWheat(getfPop());
 		setTotalHunger(fHunger() * fPop());
 		setWTotalHunger(wHunger() * getwPop());
 		int warriorWheat = getTotalHunger();
