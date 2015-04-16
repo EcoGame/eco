@@ -32,12 +32,12 @@ public class Main {
 
 	public static boolean skipFrame = false;
 
-	public static String saveName1 = "save";
-	public static String saveName2 = "save2";
-	public static String saveName3 = "save3";
-	public static String saveName4 = "save4";
-	public static String saveName5 = "save5";
-	public static int currentSave;
+	public static String saveName1 = "a save";
+	public static String saveName2 = "a save";
+	public static String saveName3 = "a save";
+	public static String saveName4 = "a save";
+	public static String saveName5 = "a save";
+	public static int currentSave = 0;
 
 	public static float fBirthRate = 0.03f;
 	public static volatile float fDeathRate = 0.02f;
@@ -57,7 +57,7 @@ public class Main {
 
 	public static final int ticks = 2000;
 
-	public static final String vn = "Stable 0.6.3.1.4.xxx";
+	public static final String vn = "Stable 0.7";
 
 	public static int framesPerTick = 8;
 	public static int frame = 0;
@@ -83,11 +83,11 @@ public class Main {
 	/* Main method */
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
-		init();
+		initRender();
 		while (!displayCloseReq) {
 			shouldBeInMenu = true;
 			paused = false;
-			menuInit();
+			initMenu();
 			displayCloseReq = mainMenu();
 		}
 		System.exit(0);
@@ -246,7 +246,7 @@ public class Main {
 	}
 
 	/* Initiate stuff */
-	public static void init() {
+	public static void initRender() {
 		Render.initDisplay();
 		Render.init();
 		try {
@@ -269,30 +269,68 @@ public class Main {
 		DisplayLists.mesh();
 	}
 
-	public static void menuInit() {
+	public static void initMenu() {
 		paused = false;
 		if (isInEclipse) {
 			File saves = new File("saves");
 			saves.mkdirs();
-		} else {
+		}
+        else {
 			File saves = new File("../saves");
 			saves.mkdirs();
 		}
+        
 		if (!Util.doesSaveExist(1)) {
 			UIManager.startSaveGame1.setText("Create " + saveName1);
 		}
+        else {
+            if(saveName1.contains("|")) {
+                saveName1 = saveName1.replace("|", "");
+            }
+            UIManager.startSaveGame1.setText("Play " + saveName1);
+        }
+        
 		if (!Util.doesSaveExist(2)) {
 			UIManager.startSaveGame2.setText("Create " + saveName2);
 		}
+        else {
+            if(saveName2.contains("|")) {
+                saveName2 = saveName2.replace("|", "");
+            }
+            UIManager.startSaveGame2.setText("Play " + saveName2);
+        }
+        
 		if (!Util.doesSaveExist(3)) {
 			UIManager.startSaveGame3.setText("Create " + saveName3);
 		}
+        else {
+            if(saveName3.contains("|")) {
+                saveName3 = saveName3.replace("|", "");
+            }
+            UIManager.startSaveGame3.setText("Play " + saveName3);
+        }
+        
 		if (!Util.doesSaveExist(4)) {
 			UIManager.startSaveGame4.setText("Create " + saveName4);
 		}
+        else {
+            if(saveName4.contains("|")) {
+                saveName4 = saveName4.replace("|", "");
+            }
+            UIManager.startSaveGame4.setText("Play " + saveName4);
+        }
+        
 		if (!Util.doesSaveExist(5)) {
 			UIManager.startSaveGame5.setText("Create " + saveName5);
 		}
+        else {
+            if(saveName5.contains("|")) {
+                System.out.println(saveName5);
+                saveName5 = saveName5.replace("|", "");
+                System.out.println(saveName5);
+            }
+            UIManager.startSaveGame5.setText("Play " + saveName5);
+        }
 	}
 
 }
