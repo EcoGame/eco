@@ -21,7 +21,7 @@ public class Typing {
       }
 
         boolean didletter = false;
-        if (word.length() < 16) {
+        if (word.length() < 8) {
             while (Keyboard.next()) {
                 if (Keyboard.getEventKeyState()) {
                     didletter = true;
@@ -104,8 +104,11 @@ public class Typing {
                       case Keyboard.KEY_M:
                         word = word + "m";
                         break;
+                    case Keyboard.KEY_SPACE:
+                            word = word + " ";
+                            break;
                       case Keyboard.KEY_DELETE:
-                        if (word.length() > 0) {
+                        if (word.length() > 1) {
                           if (word.contains("|")) {
                             word = word.replace("|", "");
                           }
@@ -117,7 +120,7 @@ public class Typing {
                         word = "@";
                         break;
                       case Keyboard.KEY_BACK:
-                        if (word.length() > 0) {
+                        if (word.length() > 1) {
                           if (word.contains("|")) {
                             word = word.replace("|", "");
                           }
