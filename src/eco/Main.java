@@ -57,7 +57,7 @@ public class Main {
 
 	public static final int ticks = 2000;
 
-	public static final String vn = "Stable 0.6.1";
+	public static final String vn = "Stable 0.6.3.1.4.xxx";
 
 	public static int framesPerTick = 8;
 	public static int frame = 0;
