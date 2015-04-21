@@ -9,7 +9,7 @@ public class Country {
 		"Xiaomi"	
 	};
 	
-	public String name = names[Util.randInt(0, names.length - 1)];
+	public String name;
 	
 	 //To be randomized
 	public float fBirthRate = 0.03f;
@@ -28,9 +28,6 @@ public class Country {
 	public float desiredWarriorRatio = 0.15f;
 	public float desiredFarmerRatio = 0.85f;
 	
-	
-	
-	public int wheatPrice = 10;
 	public int tWheat;
 	public int maxwheat;
 	
@@ -57,10 +54,37 @@ public class Country {
 	public int wTotalHunger;
 	
 	
-	public Country(boolean favorFarmers, boolean displacedEat,
-					float desiredWarriorRatio, float desiredFarmerRatio){
+	public Country(boolean favorFarmers, boolean displacedEat, 
+		float desiredWarriorRatio, float desiredFarmerRatio){
+		name = names[Util.randInt(0, names.length - 1)];
+		
+		//randomize the variables below
+		fBirthRate = 0.03f;
+		fDeathRate = 0.02f;
+		fDefaultDeathRate = 0.02f;
+		wBirthRate = 0.008f;
+		wDeathRate = 0.002f;
+		wDefaultDeathRate = 0.002f;
+		farmerDeathRatio = 0.75f;
+		warriorDeathRatio = 0.75f;
+		landSize = 0; //idk, randomize
+		
+		
+	}
 	
+	public void buy(Country partner, int wheat) {
+		partner.tWheat = partner.tWheat - wheat;
+		partner.treasury = partner.treasury + (wheat * Economy.getPrice());
+		tWheat = tWheat + wheat;
+		treasury = treasury - (wheat * Economy.getPrice()); 
 	
+	}
+	
+	public void sell(Country partner, int wheat){
+		partner.tWheat = partner.tWheat + wheat;
+		partner.treasury = partner.treasury - (wheat * Economy.getPrice());
+		tWheat = tWheat - wheat;
+		treasury = treasury + (wheat * Economy.getPrice()); 
 	}
 	
 	public int fHunger() {
