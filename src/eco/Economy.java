@@ -41,6 +41,10 @@ public class Economy {
  		return treasury;	
 	}
 
+	public static void setTreasury(int ammount){
+		treasury = ammount;	
+	}
+
 	public static int getPrice(){
 		return wheatPrice;
 	}	
