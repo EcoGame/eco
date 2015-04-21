@@ -79,6 +79,8 @@ public class Main {
 	public static int aggDemand;
 
 	public static boolean displayCloseReq = false;
+	public static ArrayList<Country> countries = new ArrayList<Country>();
+
 
 	/* Main method */
 	public static void main(String[] args) {
