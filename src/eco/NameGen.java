@@ -232,7 +232,7 @@ class NameGen {
 		
 		public static String generateRandom(){
 			String name = "";
-			int num = randInt(1,4);
+			int num = randInt(1,10);
 			switch (num){
 				case 1: name = generateSpanish(); //+ ".es";
 						break;
