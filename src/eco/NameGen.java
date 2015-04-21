@@ -240,6 +240,11 @@ class NameGen {
 						break;
 				case 3: name = generateJapanese(); // + ".jp";
 						break;
+				default: num = randInt(1,2);
+					if(num == 1){
+						name = generateJapanese();
+						name = generateSyllables();
+					}
 			}
 			return name;
 		}
@@ -451,7 +456,6 @@ class NameGen {
 			
 			"abode",
 			"residency",
-			"pad",
 			"estate"
 			
 		
