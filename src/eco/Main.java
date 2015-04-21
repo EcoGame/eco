@@ -301,25 +301,25 @@ public class Main {
 			UIManager.startSaveGame2.setText("Create " + saveName2);
 		}
 		else{
-			UIManager.startSaveGame1.setText("Play "+Util.loadSaveName(2));	
+			UIManager.startSaveGame2.setText("Play "+Util.loadSaveName(2));	
 		}
 		if (!Util.doesSaveExist(3)) {
 			UIManager.startSaveGame3.setText("Create " + saveName3);
 		}
 		else{
-			UIManager.startSaveGame1.setText("Play "+Util.loadSaveName(3));	
+			UIManager.startSaveGame3.setText("Play "+Util.loadSaveName(3));	
 		}
 		if (!Util.doesSaveExist(4)) {
 			UIManager.startSaveGame4.setText("Create " + saveName4);
 		}
 		else{
-			UIManager.startSaveGame1.setText("Play "+Util.loadSaveName(4));	
+			UIManager.startSaveGame4.setText("Play "+Util.loadSaveName(4));	
 		}
 		if (!Util.doesSaveExist(5)) {
 			UIManager.startSaveGame5.setText("Create " + saveName5);
 		}
 		else{
-			UIManager.startSaveGame1.setText("Play "+Util.loadSaveName(5));	
+			UIManager.startSaveGame5.setText("Play "+Util.loadSaveName(5));	
 		}
 	}
 
