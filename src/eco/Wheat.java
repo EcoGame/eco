@@ -59,4 +59,8 @@ public class Wheat {
 		Wheat.wheatPrice = wheatPrice;
 	}
 
+	public static void resetWheat(){
+		tWheat = 0;		
+	}
+
 }
