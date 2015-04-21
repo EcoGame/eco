@@ -34,21 +34,7 @@ public class Util {
 
 		String path = null;
 		try {
-			if (Main.currentSave == 1) {
-				path = "saves/" + Main.saveName1 + ".txt";
-			}
-			if (Main.currentSave == 2) {
-				path = "saves/" + Main.saveName2 + ".txt";
-			}
-			if (Main.currentSave == 3) {
-				path = "saves/" + Main.saveName3 + ".txt";
-			}
-			if (Main.currentSave == 4) {
-				path = "saves/" + Main.saveName4 + ".txt";
-			}
-			if (Main.currentSave == 5) {
-				path = "saves/" + Main.saveName5 + ".txt";
-			}
+			path = "saves/" + Main.currentSave + ".txt";
 			if (!Main.isInEclipse) {
 				path = "../" + path;
 			}
@@ -57,6 +43,27 @@ public class Util {
 			BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
             
             //Data Being Saved:
+			if (Main.currentSave == 1){			
+				BW.write(Main.saveName1);
+				BW.newLine();
+			}
+			if (Main.currentSave == 2){			
+				BW.write(Main.saveName2);
+				BW.newLine();
+			}
+			if (Main.currentSave == 3){			
+				BW.write(Main.saveName3);
+				BW.newLine();
+			}
+			if (Main.currentSave == 4){			
+				BW.write(Main.saveName4);
+				BW.newLine();
+			}
+			if (Main.currentSave == 5){			
+				BW.write(Main.saveName5);
+				BW.newLine();
+			}
+
 			BW.write(Integer.toString(Main.year));
 			BW.newLine();
 			BW.write(Integer.toString(Wheat.tWheat(Farmer.fPop())));
@@ -74,6 +81,24 @@ public class Util {
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Float.toString(World.noise[x][y]) + ",");
+				}
+				BW.newLine();
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				for (int y = 0; y < World.mapsize; y++) {
+					BW.write(Short.toString(World.structures[x][y]) + ",");
+				}
+				BW.newLine();
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				for (int y = 0; y < World.mapsize; y++) {
+					BW.write(Short.toString(World.popmap[x][y]) + ",");
+				}
+				BW.newLine();
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				for (int y = 0; y < World.mapsize; y++) {
+					BW.write(Short.toString(World.popdensity[x][y]) + ",");
 				}
 				BW.newLine();
 			}
@@ -95,26 +120,8 @@ public class Util {
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
-		if (Main.currentSave == 1) {
-			path = "saves/" + Main.saveName1 + ".txt";
+			path = "saves/" + Main.currentSave + ".txt";
 			name = new File(Main.saveName1 + ".txt");
-		}
-		if (Main.currentSave == 2) {
-			path = "saves/" + Main.saveName2 + ".txt";
-			name = new File(Main.saveName2 + ".txt");
-		}
-		if (Main.currentSave == 3) {
-			path = "saves/" + Main.saveName3 + ".txt";
-			name = new File(Main.saveName3 + ".txt");
-		}
-		if (Main.currentSave == 4) {
-			path = "saves/" + Main.saveName4 + ".txt";
-			name = new File(Main.saveName4 + ".txt");
-		}
-		if (Main.currentSave == 5) {
-			path = "saves/" + Main.saveName5 + ".txt";
-			name = new File(Main.saveName5 + ".txt");
-		}
 		if (!Main.isInEclipse) {
 			path = "../" + path;
 		}
@@ -141,11 +148,26 @@ public class Util {
 			}
             
             // Information being loaded:
-			Main.year = Integer.valueOf(list.get(0));
-			Wheat.settWheat(Integer.valueOf(list.get(1)));
-			Farmer.setfPop(Integer.valueOf(list.get(2)));
-			Warrior.setwPop(Integer.valueOf(list.get(3)));
-			int line = 4;
+			if (Main.currentSave == 1){
+				Main.saveName1 = list.get(0);			
+			}
+			if (Main.currentSave == 2){
+				Main.saveName2 = list.get(0);			
+			}
+			if (Main.currentSave == 3){
+				Main.saveName3 = list.get(0);			
+			}
+			if (Main.currentSave == 4){
+				Main.saveName4 = list.get(0);			
+			}
+			if (Main.currentSave == 5){
+				Main.saveName5 = list.get(0);			
+			}
+			Main.year = Integer.valueOf(list.get(1));
+			Wheat.settWheat(Integer.valueOf(list.get(2)));
+			Farmer.setfPop(Integer.valueOf(list.get(3)));
+			Warrior.setwPop(Integer.valueOf(list.get(4)));
+			int line = 5;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
 				for (int y = 0; y < World.mapsize; y++) {
@@ -158,6 +180,30 @@ public class Util {
 				String[] parts = values.split(",");
 				for (int y = 0; y < World.mapsize; y++) {
 					World.noise[x][y] = Float.valueOf((parts[y]));
+				}
+				line++;
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				for (int y = 0; y < World.mapsize; y++) {
+					World.structures[x][y] = Short.valueOf((parts[y]));
+				}
+				line++;
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				for (int y = 0; y < World.mapsize; y++) {
+					World.popmap[x][y] = Short.valueOf((parts[y]));
+				}
+				line++;
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				for (int y = 0; y < World.mapsize; y++) {
+					World.popdensity[x][y] = Short.valueOf((parts[y]));
 				}
 				line++;
 			}
@@ -275,26 +321,8 @@ public class Util {
 	public static boolean doesSaveExist(int currentSave) {
 		String path = "";
 		File name = null;
-		if (currentSave == 1) {
-			path = "saves/" + Main.saveName1 + ".txt";
-			name = new File(Main.saveName1 + ".txt");
-		}
-		if (currentSave == 2) {
-			path = "saves/" + Main.saveName2 + ".txt";
-			name = new File(Main.saveName2 + ".txt");
-		}
-		if (currentSave == 3) {
-			path = "saves/" + Main.saveName3 + ".txt";
-			name = new File(Main.saveName3 + ".txt");
-		}
-		if (currentSave == 4) {
-			path = "saves/" + Main.saveName4 + ".txt";
-			name = new File(Main.saveName4 + ".txt");
-		}
-		if (currentSave == 5) {
-			path = "saves/" + Main.saveName5 + ".txt";
-			name = new File(Main.saveName5 + ".txt");
-		}
+			path = "saves/" + currentSave + ".txt";
+			name = new File(currentSave + ".txt");
 		if (!Main.isInEclipse) {
 			path = "../" + path;
 		}
@@ -309,6 +337,60 @@ public class Util {
 			Treble<Float, Float, Float> base) {
 		return new Treble<Float, Float, Float>(base.x / 255f, base.y / 255f,
 				base.z / 255f);
+	}
+
+	public static String loadSaveName(int currentSave){
+		String path = "";
+		@SuppressWarnings("unused")
+		File name = null;
+			path = "saves/" + currentSave + ".txt";
+		if (!Main.isInEclipse) {
+			path = "../" + path;
+		}
+		Scanner s = null;
+		try {
+			s = new Scanner(new File(path));
+		} catch (FileNotFoundException e) {
+			System.out.println("File Not Found");
+			return "";
+		}
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			while (s.hasNext()) {
+				list.add(s.next());
+			}
+			s.close();
+		} catch (Exception e) {
+			readError();
+			return "";
+		}
+		try {
+			for (String str : list) {
+				str = str.replace(System.getProperty("line.separator"), "");
+			}
+            
+            // Information being loaded:
+			/*if (currentSave == 1){
+				Main.saveName1 = list.get(0);			
+			}
+			if (currentSave == 2){
+				Main.saveName2 = list.get(0);			
+			}
+			if (currentSave == 3){
+				Main.saveName3 = list.get(0);			
+			}
+			if (currentSave == 4){
+				Main.saveName4 = list.get(0);			
+			}
+			if (currentSave == 5){
+				Main.saveName5 = list.get(0);			
+			}*/
+				return list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			readError();
+		}
+		return "";
 	}
 
 }
