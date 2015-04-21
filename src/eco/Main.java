@@ -273,6 +273,11 @@ public class Main {
 		else{
 		}
 		DisplayLists.mesh();
+		ArrayList<Country> countries = new ArrayList<Country>();
+		int countriesToGenerate = 600;
+		for(int i = 0; i <= 600; i++){
+			countries.add(new Country(true, true, 0.15f, 0.85f));
+		}
 	}
 
 	public static void menuInit() {
