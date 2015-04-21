@@ -115,14 +115,15 @@ public class UIManager {
 
 	public static void updateMenu() {
 
-		if (startSaveGame1.checkForClick()) {
-            Main.saveName1 = "";
-            while (!word.equals("@")) {
-                cursorTick++;
-                word = Typing.currentMenuName(word, cursorTick);
-                if (word.equals("@")){
-                    break;
-                }
+	if (startSaveGame1.checkForClick()) {
+		if (!Util.doesSaveExist(1)){         	          
+  		Main.saveName1 = "";
+            while (!word.equals("@")) {       
+			cursorTick++;
+		        word = Typing.currentMenuName(word, cursorTick);
+		        if (word.equals("@")){
+		            break;
+		        }
                 Main.saveName1 = word;
                 startSaveGame1.setText(word);
                 Render.initOrtho();
@@ -131,7 +132,7 @@ public class UIManager {
                 Render.drawMainMenu();
                 Display.update();
                 Display.sync(20);
-            }
+            }}
 			Main.currentSave = 1;
 			Main.initGame();
 			Main.gameLoop();
@@ -140,6 +141,7 @@ public class UIManager {
 		}
 
     if (startSaveGame2.checkForClick()) {
+     if (!Util.doesSaveExist(2)){     
       Main.saveName2 = "";
       while (!word.equals("@")) {
         cursorTick++;
@@ -156,6 +158,7 @@ public class UIManager {
         Display.update();
         Display.sync(20);
       }
+}
 			Main.currentSave = 2;
 			Main.initGame();
 			Main.gameLoop();
@@ -163,7 +166,8 @@ public class UIManager {
 			Main.shouldQuit = false;
 		}
 		if (startSaveGame3.checkForClick()) {
-      Main.saveName3 = "";
+     		if (!Util.doesSaveExist(3)){     
+	 Main.saveName3 = "";
       while (!word.equals("@")) {
         cursorTick++;
         word = Typing.currentMenuName(word, cursorTick);
@@ -178,7 +182,7 @@ public class UIManager {
         Render.drawMainMenu();
         Display.update();
         Display.sync(20);
-      }
+      }}
 			Main.currentSave = 3;
 			Main.initGame();
 			Main.gameLoop();
@@ -186,7 +190,8 @@ public class UIManager {
 			Main.shouldQuit = false;
 		}
 		if (startSaveGame4.checkForClick()) {
-      Main.saveName4 = "";
+		if (!Util.doesSaveExist(4)){           
+	Main.saveName4 = "";
       while (!word.equals("@")) {
         cursorTick++;
         word = Typing.currentMenuName(word, cursorTick);
@@ -201,7 +206,7 @@ public class UIManager {
         Render.drawMainMenu();
         Display.update();
         Display.sync(20);
-      }
+      }}
 			Main.currentSave = 4;
 			Main.initGame();
 			Main.gameLoop();
@@ -209,13 +214,15 @@ public class UIManager {
 			Main.shouldQuit = false;
 		}
 		if (startSaveGame5.checkForClick()) {
-      Main.saveName5 = "";
+		if (!Util.doesSaveExist(5)){           
+Main.saveName5 = "";
       while (!word.equals("@")) {
         cursorTick++;
         word = Typing.currentMenuName(word, cursorTick);
         if (word.equals("@")){
           break;
         }
+
         Main.saveName5 = word;
         startSaveGame5.setText(word);
         Render.initOrtho();
@@ -224,7 +231,7 @@ public class UIManager {
         Render.drawMainMenu();
         Display.update();
         Display.sync(20);
-      }
+      }}
 			Main.currentSave = 5;
 			Main.initGame();
 			Main.gameLoop();
