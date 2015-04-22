@@ -119,7 +119,7 @@ public class UIManager {
 		if (!Util.doesSaveExist(1)){         	          
   		Main.saveName1 = "";
             while (!word.equals("@")) {       
-			cursorTick++;
+                cursorTick++;
 		        word = Typing.currentMenuName(word, cursorTick);
 		        if (word.equals("@")){
 		            break;
@@ -132,112 +132,134 @@ public class UIManager {
                 Render.drawMainMenu();
                 Display.update();
                 Display.sync(20);
-            }}
-			Main.currentSave = 1;
-			Main.initGame();
-			Main.gameLoop();
-			Main.shouldBeInMenu = false;
-			Main.shouldQuit = false;
-		}
+            }
+        }
+        if(Main.saveName1.contains("|")) {
+            Main.saveName1 = Main.saveName1.replace("|", "");
+        }
+        Main.currentSave = 1;
+        Main.initGame();
+        Main.gameLoop();
+        Main.shouldBeInMenu = false;
+        Main.shouldQuit = false;
+    }
 
     if (startSaveGame2.checkForClick()) {
-     if (!Util.doesSaveExist(2)){     
-      Main.saveName2 = "";
-      while (!word.equals("@")) {
-        cursorTick++;
-        word = Typing.currentMenuName(word, cursorTick);
-        if (word.equals("@")){
-          break;
+        if (!Util.doesSaveExist(2)){
+            Main.saveName2 = "";
+            while (!word.equals("@")) {
+                cursorTick++;
+                word = Typing.currentMenuName(word, cursorTick);
+                if (word.equals("@")){
+                    break;
+                }
+                Main.saveName2 = word;
+                startSaveGame2.setText(word);
+                Render.initOrtho();
+                renderMenu();
+                renderMenu2();
+                Render.drawMainMenu();
+                Display.update();
+                Display.sync(20);
+            }
         }
-        Main.saveName2 = word;
-        startSaveGame2.setText(word);
-        Render.initOrtho();
-        renderMenu();
-        renderMenu2();
-        Render.drawMainMenu();
-        Display.update();
-        Display.sync(20);
-      }
-}
-			Main.currentSave = 2;
-			Main.initGame();
-			Main.gameLoop();
-			Main.shouldBeInMenu = false;
-			Main.shouldQuit = false;
-		}
-		if (startSaveGame3.checkForClick()) {
-     		if (!Util.doesSaveExist(3)){     
-	 Main.saveName3 = "";
-      while (!word.equals("@")) {
-        cursorTick++;
-        word = Typing.currentMenuName(word, cursorTick);
-        if (word.equals("@")){
-          break;
+        if(Main.saveName2.contains("|")) {
+            Main.saveName2 = Main.saveName2.replace("|", "");
         }
-        Main.saveName3 = word;
-        startSaveGame3.setText(word);
-        Render.initOrtho();
-        renderMenu();
-        renderMenu2();
-        Render.drawMainMenu();
-        Display.update();
-        Display.sync(20);
-      }}
-			Main.currentSave = 3;
-			Main.initGame();
-			Main.gameLoop();
-			Main.shouldBeInMenu = false;
-			Main.shouldQuit = false;
-		}
-		if (startSaveGame4.checkForClick()) {
+        Main.currentSave = 2;
+        Main.initGame();
+        Main.gameLoop();
+        Main.shouldBeInMenu = false;
+        Main.shouldQuit = false;
+    }
+        
+    if (startSaveGame3.checkForClick()) {
+        if (!Util.doesSaveExist(3)){
+            Main.saveName3 = "";
+            while (!word.equals("@")) {
+                cursorTick++;
+                word = Typing.currentMenuName(word, cursorTick);
+                if (word.equals("@")){
+                    break;
+                }
+                Main.saveName3 = word;
+                startSaveGame3.setText(word);
+                Render.initOrtho();
+                renderMenu();
+                renderMenu2();
+                Render.drawMainMenu();
+                Display.update();
+                Display.sync(20);
+            }
+        }
+        if(Main.saveName3.contains("|")) {
+            Main.saveName3 = Main.saveName3.replace("|", "");
+        }
+        Main.currentSave = 3;
+        Main.initGame();
+        Main.gameLoop();
+        Main.shouldBeInMenu = false;
+        Main.shouldQuit = false;
+    }
+	
+    if (startSaveGame4.checkForClick()) {
 		if (!Util.doesSaveExist(4)){           
-	Main.saveName4 = "";
-      while (!word.equals("@")) {
-        cursorTick++;
-        word = Typing.currentMenuName(word, cursorTick);
-        if (word.equals("@")){
-          break;
+            Main.saveName4 = "";
+            while (!word.equals("@")) {
+                cursorTick++;
+                word = Typing.currentMenuName(word, cursorTick);
+                if (word.equals("@")){
+                    break;
+                }
+                Main.saveName4 = word;
+                startSaveGame4.setText(word);
+                Render.initOrtho();
+                renderMenu();
+                renderMenu2();
+                Render.drawMainMenu();
+                Display.update();
+                Display.sync(20);
+            }
         }
-        Main.saveName4 = word;
-        startSaveGame4.setText(word);
-        Render.initOrtho();
-        renderMenu();
-        renderMenu2();
-        Render.drawMainMenu();
-        Display.update();
-        Display.sync(20);
-      }}
-			Main.currentSave = 4;
-			Main.initGame();
-			Main.gameLoop();
-			Main.shouldBeInMenu = false;
-			Main.shouldQuit = false;
-		}
-		if (startSaveGame5.checkForClick()) {
-		if (!Util.doesSaveExist(5)){           
-Main.saveName5 = "";
-      while (!word.equals("@")) {
-        cursorTick++;
-        word = Typing.currentMenuName(word, cursorTick);
-        if (word.equals("@")){
-          break;
+        if(Main.saveName4.contains("|")) {
+            Main.saveName4 = Main.saveName4.replace("|", "");
         }
-
-        Main.saveName5 = word;
-        startSaveGame5.setText(word);
-        Render.initOrtho();
-        renderMenu();
-        renderMenu2();
-        Render.drawMainMenu();
-        Display.update();
-        Display.sync(20);
-      }}
-			Main.currentSave = 5;
-			Main.initGame();
-			Main.gameLoop();
-			Main.shouldBeInMenu = false;
-			Main.shouldQuit = false;
-		}
+        Main.currentSave = 4;
+        Main.initGame();
+        Main.gameLoop();
+        Main.shouldBeInMenu = false;
+        Main.shouldQuit = false;
+    }
+        
+    if (startSaveGame5.checkForClick()) {
+        if (!Util.doesSaveExist(5)){
+            Main.saveName5 = "";
+            while (!word.equals("@")) {
+                cursorTick++;
+                word = Typing.currentMenuName(word, cursorTick);
+                if (word.equals("@")){
+                    break;
+                }
+                Main.saveName5 = word;
+                startSaveGame5.setText(word);
+                Render.initOrtho();
+                renderMenu();
+                renderMenu2();
+                Render.drawMainMenu();
+                Display.update();
+                Display.sync(20);
+            }
+        }
+        if(Main.saveName5.contains("|")) {
+            Main.saveName5 = Main.saveName5.replace("|", "");
+        }
+        Main.currentSave = 5;
+        Main.initGame();
+        Main.gameLoop();
+        Main.shouldBeInMenu = false;
+        Main.shouldQuit = false;
+    }
+        
 		if (generatorIsland.checkForClick()) {
 			Main.generatorToUse = 0;
 			generatorArchipelago.setToggle(false);
