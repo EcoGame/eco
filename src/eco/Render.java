@@ -144,18 +144,24 @@ public class Render {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (World.structures[x][y] == 1) {
+						try{						
 						World.cities.get(new Point(x, y)).updatePop(
 								(int) World.popdensity[x][y]);
 						drawCity((-x) * tilesize, World.noise[x][y]
 								* heightConstant, (-y) * tilesize, 1,
 								World.cities.get(new Point(x, y)));
+						}
+						catch(Exception e){World.cities.put(new Point(x, y), new City(new Point(x, y)));}
 					}
 					if (World.structures[x][y] == 2) {
+						try{						
 						World.cities.get(new Point(x, y)).updatePop(
 								(int) World.popdensity[x][y]);
 						drawCity((-x) * tilesize, World.noise[x][y]
 								* heightConstant, (-y) * tilesize, 2,
 								World.cities.get(new Point(x, y)));
+						}
+						catch(Exception e){World.cities.put(new Point(x, y), new City(new Point(x, y), true));}
 					}
 					if (World.structures[x][y] == 3) {
 						drawStructure((-x) * tilesize, World.noise[x][y]
@@ -168,16 +174,18 @@ public class Render {
 		/* Draw city names */
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
-				if (World.structures[x][y] == 1) {
-					drawCityName((-x) * tilesize, World.noise[x][y]
-							* heightConstant, (-y) * tilesize,
-							World.cities.get(new Point(x, y)));
-				}
-				if (World.structures[x][y] == 2) {
-					drawCityName((-x) * tilesize, World.noise[x][y]
-							* heightConstant, (-y) * tilesize,
-							World.cities.get(new Point(x, y)));
-				}
+				try{				
+					if (World.structures[x][y] == 1) {
+						drawCityName((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize,
+								World.cities.get(new Point(x, y)));
+					}
+					if (World.structures[x][y] == 2) {
+						drawCityName((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize,
+								World.cities.get(new Point(x, y)));
+					}
+				} catch(Exception e){}
 			}
 		}
 
@@ -515,7 +523,7 @@ public class Render {
 		glRotatef(-rot, 0f, 1f, 0f);
 		glTranslatef(-xpos, -ypos, 0);
         if(city.getName().contains(city.capitalEpithet)) {
-            glColor3f(245f / 255f, 63f / 255f, 63f / 255f);
+            glColor3f(173f / 255f, 93f / 255f, 93f / 255f);
             font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50, city.getName(), new Color(245f / 255f, 63f / 255f, 63f / 255f, 2f));
         }
         else{
@@ -647,11 +655,11 @@ public class Render {
 		}
 		/* Creates the icon */
 		try {
-			Display.setIcon(new ByteBuffer[] { new ImageIOImageData()
+			/*Display.setIcon(new ByteBuffer[] { new ImageIOImageData()
 					.imageToByteBuffer(
-							ImageIO.read(new File("../assets/icon128.png")),
-							false, false, null) });
-		} catch (IOException e) {
+							ImageIO.read(new File("../assets/icon.png")),
+							false, false, null) });*/
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
