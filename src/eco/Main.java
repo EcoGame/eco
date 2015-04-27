@@ -53,7 +53,6 @@ public class Main {
 	public static float warriorDeathRatio = 0.75f;
 
 	public static boolean favorFarmers = true;
-
 	public static boolean displacedEat = true;
 
 	public static final int ticks = 2000;
@@ -76,8 +75,6 @@ public class Main {
 	public static boolean shouldBeInMenu = true;
 
 	public static int generatorToUse = 0;
-
-	public static int aggDemand;
 
 	public static boolean displayCloseReq = false;
 	public static ArrayList<Country> countries = new ArrayList<Country>();
