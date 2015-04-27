@@ -20,7 +20,7 @@ public class Country {
 	public float wDefaultDeathRate = 0.002f;
 	public float farmerDeathRatio = 0.75f;
 	public float warriorDeathRatio = 0.75f;
-	public int landSize = 0; //idk, randomize
+	public int landSize = 10000; //idk, randomize
 	// To be randomized ^^^^
 	
 	public boolean favorFarmers = true;
@@ -46,6 +46,11 @@ public class Country {
 	public int normalHunger = 10;
 	
 	
+	public int displacedFarmers = 0;
+	public int displacedWarriors = 0;
+	public int displacedPeople = 0;
+	
+	
 	public int wPop = 5;
 	public int oldWPop = wPop;
 	public float floatWPop = wPop;
@@ -69,6 +74,64 @@ public class Country {
 		warriorDeathRatio = 0.75f;
 		landSize = 0; //idk, randomize
 		
+		
+	}
+	
+	public void sim(){
+		
+		float newPopulation = newPop() + newPop();
+		float newWarriors = newPopulation * desiredWarriorRatio;
+		newPopulation -= newWarriors;
+		addPop(newPopulation);
+		addPop(newWarriors);
+		tWheat(getfPop());
+		setTotalHunger(fHunger() * fPop());
+		setTotalHunger(wHunger() * getwPop());
+		int warriorWheat = getTotalHunger();
+		int farmerWheat = getTotalHunger();
+		if (favorFarmers) {
+			farmerWheat = eatWheat(farmerWheat);
+			warriorWheat = eatWheat(warriorWheat);
+		} else {
+			warriorWheat = eatWheat(warriorWheat);
+			farmerWheat = eatWheat(farmerWheat);
+		}
+		if (farmerWheat != 0) {
+			int fDeath = (int) Math.round(((float) farmerWheat / (float) getfHunger()) * farmerDeathRatio);
+			addPop(-fDeath);
+		}
+		if (warriorWheat != 0) {
+			int wDeath = (int) Math
+					.round(((float) warriorWheat / (float) getwHunger())
+							* warriorDeathRatio);
+			addPop(-wDeath);
+		}
+		if (displacedEat) {
+			int displacedHungerConst = getfHunger() / 2;
+			int displacedHunger = displacedPeople * displacedHungerConst;
+			displacedHunger = eatWheat(displacedHunger);
+			if (displacedHunger != 0) {
+				int displacedDeath = (int) Math.round(((float) displacedHunger
+						/ (float) Farmer.getfHunger() / 2f) * 1f);
+				displacedPeople -= displacedDeath;
+			}
+		} else {
+			int displacedHungerConst = getfHunger() / 2;
+			int displacedHunger = displacedPeople * displacedHungerConst;
+			if (displacedHunger != 0) {
+				int displacedDeath = (int) Math.round(((float) displacedHunger
+						/ (float) getfHunger() / 2f) * 1f);
+				displacedPeople -= displacedDeath;
+			}
+		}
+		update();		
+		freeAcres = calcAcres();
+		if (Render.multithreading) {
+			ThreadManager.addJob(new MeshTask());
+		} else {
+			DisplayLists.mesh();
+			skipFrame = true;
+		}
 		
 	}
 	
@@ -277,6 +340,26 @@ public class Country {
 			tWheat = maxwheat;	
 		}
 	}	
+	
+	public static int tWheat(int farmers) {
+		tWheat += farmers * getWheatProductionRate();
+		return tWheat;
+	}
+
+	public static int eatWheat(int request) {
+		if (tWheat < minwheat){
+		  int toBuy = minwheat - tWheat;
+	          tWheat += Economy.buyWheat(toBuy);		
+		}	
+		if (request > tWheat) {
+			int diff = request - tWheat;
+			tWheat = 0;
+			return diff;
+		} else {
+			tWheat -= request;
+			return 0;
+		}
+	}
 
 	
 	public void tick(){
