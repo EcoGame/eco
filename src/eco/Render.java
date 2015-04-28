@@ -42,12 +42,8 @@ import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.opengl.GL15.glGenBuffers;
 
 import java.awt.Font;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -57,7 +53,6 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
@@ -144,24 +139,28 @@ public class Render {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (World.structures[x][y] == 1) {
-						try{						
-						World.cities.get(new Point(x, y)).updatePop(
-								(int) World.popdensity[x][y]);
-						drawCity((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 1,
-								World.cities.get(new Point(x, y)));
+						try {
+							World.cities.get(new Point(x, y)).updatePop(
+									(int) World.popdensity[x][y]);
+							drawCity((-x) * tilesize, World.noise[x][y]
+									* heightConstant, (-y) * tilesize, 1,
+									World.cities.get(new Point(x, y)));
+						} catch (Exception e) {
+							World.cities.put(new Point(x, y), new City(
+									new Point(x, y)));
 						}
-						catch(Exception e){World.cities.put(new Point(x, y), new City(new Point(x, y)));}
 					}
 					if (World.structures[x][y] == 2) {
-						try{						
-						World.cities.get(new Point(x, y)).updatePop(
-								(int) World.popdensity[x][y]);
-						drawCity((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 2,
-								World.cities.get(new Point(x, y)));
+						try {
+							World.cities.get(new Point(x, y)).updatePop(
+									(int) World.popdensity[x][y]);
+							drawCity((-x) * tilesize, World.noise[x][y]
+									* heightConstant, (-y) * tilesize, 2,
+									World.cities.get(new Point(x, y)));
+						} catch (Exception e) {
+							World.cities.put(new Point(x, y), new City(
+									new Point(x, y), true));
 						}
-						catch(Exception e){World.cities.put(new Point(x, y), new City(new Point(x, y), true));}
 					}
 					if (World.structures[x][y] == 3) {
 						drawStructure((-x) * tilesize, World.noise[x][y]
@@ -174,7 +173,7 @@ public class Render {
 		/* Draw city names */
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
-				try{				
+				try {
 					if (World.structures[x][y] == 1) {
 						drawCityName((-x) * tilesize, World.noise[x][y]
 								* heightConstant, (-y) * tilesize,
@@ -185,7 +184,8 @@ public class Render {
 								* heightConstant, (-y) * tilesize,
 								World.cities.get(new Point(x, y)));
 					}
-				} catch(Exception e){}
+				} catch (Exception e) {
+				}
 			}
 		}
 
@@ -277,18 +277,20 @@ public class Render {
 		UIManager.render();
 
 		/* Draw all the text */
-		drawString(String.valueOf(Warrior.getwPop()) + " Warriors", 85, 657);
-		drawString(String.valueOf(Farmer.getfPop()) + " Farmers", 85, 627);
-		drawString(String.valueOf(Wheat.gettWheat()), 85, 587);
+		drawString(String.valueOf(Main.warrior.getwPop()) + " Warriors", 85,
+				657);
+		drawString(String.valueOf(Main.farmer.getfPop()) + " Farmers", 85, 627);
+		drawString(String.valueOf(Main.wheat.gettWheat()), 85, 587);
 		if (Util.getWheatRate() > 0) {
 			font.drawString(
-					85 + font.getWidth(String.valueOf(Wheat.gettWheat() + " ")),
-					587, " (" + Util.getWheatRateForDisplay() + ")",
-					Color.green);
+					85 + font.getWidth(String.valueOf(Main.wheat.gettWheat()
+							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
+							+ ")", Color.green);
 		} else {
 			font.drawString(
-					85 + font.getWidth(String.valueOf(Wheat.gettWheat() + " ")),
-					587, " (" + Util.getWheatRateForDisplay() + ")", Color.red);
+					85 + font.getWidth(String.valueOf(Main.wheat.gettWheat()
+							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
+							+ ")", Color.red);
 		}
 		drawString("Conscription Rate: "
 				+ ((int) (100 * Main.desiredWarriorRatio)) + "%", 285, 657);
@@ -502,7 +504,7 @@ public class Render {
 	/* Draw a city nameplate */
 	public static void drawCityName(float x, float y, float z, City city) {
 		String name = city.getName();
-		if (name.equals("")){
+		if (name.equals("")) {
 			return;
 		}
 		GL11.glShadeModel(GL11.GL_FLAT);
@@ -522,13 +524,15 @@ public class Render {
 		glTranslatef(xpos, ypos, 0);
 		glRotatef(-rot, 0f, 1f, 0f);
 		glTranslatef(-xpos, -ypos, 0);
-        if(city.getName().contains(city.capitalEpithet)) {
-            glColor3f(173f / 255f, 93f / 255f, 93f / 255f);
-            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50, city.getName(), new Color(245f / 255f, 63f / 255f, 63f / 255f, 2f));
-        }
-        else{
-            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50, city.getName(), new Color(1f, 1f, 1f, 2f));
-        }
+		if (city.getName().contains(City.capitalEpithet)) {
+			glColor3f(173f / 255f, 93f / 255f, 93f / 255f);
+			font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
+					city.getName(), new Color(245f / 255f, 63f / 255f,
+							63f / 255f, 2f));
+		} else {
+			font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
+					city.getName(), new Color(1f, 1f, 1f, 2f));
+		}
 		glDisable(GL11.GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 		glTranslatef(0, 0, z - 1);
@@ -655,10 +659,11 @@ public class Render {
 		}
 		/* Creates the icon */
 		try {
-			/*Display.setIcon(new ByteBuffer[] { new ImageIOImageData()
-					.imageToByteBuffer(
-							ImageIO.read(new File("../assets/icon.png")),
-							false, false, null) });*/
+			/*
+			 * Display.setIcon(new ByteBuffer[] { new ImageIOImageData()
+			 * .imageToByteBuffer( ImageIO.read(new File("../assets/icon.png")),
+			 * false, false, null) });
+			 */
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

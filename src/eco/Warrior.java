@@ -10,15 +10,15 @@ package eco;
 
 public class Warrior {
 
-	private static int wPop = 5;
-	private static int oldWPop = wPop;
-	private static float floatWPop = wPop;
-	private static int wHunger;
+	private int wPop = 5;
+	private int oldWPop = wPop;
+	private float floatWPop = wPop;
+	private int wHunger;
 
-	private static int normalHunger = 10;
-	private static int totalHunger;
+	private int normalHunger = 10;
+	private int totalHunger;
 
-	public static int wPop() {
+	public int wPop() {
 		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
 		floatWPop = (floatWPop * rate);
 		oldWPop = wPop;
@@ -26,70 +26,70 @@ public class Warrior {
 		return wPop;
 	}
 
-	public static int newPop() {
+	public int newPop() {
 		return wPop - oldWPop;
 	}
 
-	public static void addPop(float newPop) {
+	public void addPop(float newPop) {
 		floatWPop += newPop;
 		wPop = (int) floatWPop;
 	}
 
-	public static int wHunger() {
+	public int wHunger() {
 		wHunger = 0;
 		wHunger = normalHunger + (Util.randInt(0, 3));
 		return wHunger;
 	}
 
-	public static int getwPop() {
+	public int getwPop() {
 		return wPop;
 	}
 
-	public static void setwPop(int wPop) {
-		Warrior.wPop = wPop;
+	public void setwPop(int wPop) {
+		this.wPop = wPop;
 	}
 
-	public static int getOldWPop() {
+	public int getOldWPop() {
 		return oldWPop;
 	}
 
-	public static void setOldWPop(int oldWPop) {
-		Warrior.oldWPop = oldWPop;
+	public void setOldWPop(int oldWPop) {
+		this.oldWPop = oldWPop;
 	}
 
-	public static float getFloatWPop() {
+	public float getFloatWPop() {
 		return floatWPop;
 	}
 
-	public static void setFloatWPop(float floatWPop) {
-		Warrior.floatWPop = floatWPop;
+	public void setFloatWPop(float floatWPop) {
+		this.floatWPop = floatWPop;
 	}
 
-	public static int getwHunger() {
+	public int getwHunger() {
 		return wHunger;
 	}
 
-	public static void setwHunger(int wHunger) {
-		Warrior.wHunger = wHunger;
+	public void setwHunger(int wHunger) {
+		this.wHunger = wHunger;
 	}
 
-	public static int getNormalHunger() {
+	public int getNormalHunger() {
 		return normalHunger;
 	}
 
-	public static void setNormalHunger(int normalHunger) {
-		Warrior.normalHunger = normalHunger;
+	public void setNormalHunger(int normalHunger) {
+		this.normalHunger = normalHunger;
 	}
 
-	public static int getTotalHunger() {
+	public int getTotalHunger() {
 		return totalHunger;
 	}
 
-	public static void setTotalHunger(int totalHunger) {
-		Warrior.totalHunger = totalHunger;
+	public void setTotalHunger(int totalHunger) {
+		this.totalHunger = totalHunger;
 	}
 
-	public static void addPop(int tooAdd) {
+	public void addPop(int tooAdd) {
 		wPop += tooAdd;
 		floatWPop += tooAdd;
 	}

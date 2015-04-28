@@ -10,22 +10,22 @@ package eco;
 
 public class Wheat {
 
-	private static int tWheat;
+	private int tWheat;
 	private static int wheatPrice;
 
-	private static int maxwheat = 5000;
-	private static int minwheat = 1000;
+	private int maxwheat = 5000;
+	private int minwheat = 1000;
 
-	public static int tWheat(int farmers) {
-		tWheat += farmers * Farmer.getWheatProductionRate();
+	public int tWheat(int farmers, Farmer farmer) {
+		tWheat += farmers * farmer.getWheatProductionRate();
 		return tWheat;
 	}
 
-	public static int eatWheat(int request) {
-		if (tWheat < minwheat){
-		  int toBuy = minwheat - tWheat;
-	          tWheat += Economy.buyWheat(toBuy);		
-		}	
+	public int eatWheat(int request, Economy economy) {
+		if (tWheat < minwheat) {
+			int toBuy = minwheat - tWheat;
+			tWheat += economy.buyWheat(toBuy);
+		}
 		if (request > tWheat) {
 			int diff = request - tWheat;
 			tWheat = 0;
@@ -36,31 +36,31 @@ public class Wheat {
 		}
 	}
 
-	public static int gettWheat() {
+	public int gettWheat() {
 		return tWheat;
 	}
 
-	public static void settWheat(int tWheat) {
-		Wheat.tWheat = tWheat;
+	public void settWheat(int tWheat) {
+		this.tWheat = tWheat;
 	}
 
-	public static int getWheatPrice() {
+	public int getWheatPrice() {
 		return wheatPrice;
 	}
 
-	public static void update(){
-		if (tWheat > maxwheat){
-			Economy.sellWheat(tWheat - maxwheat);
-			tWheat = maxwheat;	
+	public void update(Economy economy) {
+		if (tWheat > maxwheat) {
+			economy.sellWheat(tWheat - maxwheat);
+			tWheat = maxwheat;
 		}
-	}	
+	}
 
-	public static void setWheatPrice(int wheatPrice) {
+	public void setWheatPrice(int wheatPrice) {
 		Wheat.wheatPrice = wheatPrice;
 	}
 
-	public static void resetWheat(){
-		tWheat = 0;		
+	public void resetWheat() {
+		tWheat = 0;
 	}
 
 }

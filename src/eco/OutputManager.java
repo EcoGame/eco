@@ -33,10 +33,11 @@ public class OutputManager {
 		if (Main.fullDebug) {
 			Render.drawString(
 					"Population: " + String.valueOf(Util.getTotalPop()), 10, 70);
-			Render.drawString("Farmers: " + String.valueOf(Farmer.getfPop()),
-					10, 90);
-			Render.drawString("Warriors: " + String.valueOf(Warrior.getwPop()),
-					10, 110);
+			Render.drawString(
+					"Farmers: " + String.valueOf(Main.farmer.getfPop()), 10, 90);
+			Render.drawString(
+					"Warriors: " + String.valueOf(Main.warrior.getwPop()), 10,
+					110);
 			Render.drawString(
 					"Total Displaced: " + String.valueOf(World.displacedPeople),
 					10, 130);
@@ -47,14 +48,17 @@ public class OutputManager {
 					"Displaced Warriors: "
 							+ String.valueOf(World.displacedWarriors), 40, 170);
 			Render.drawString(
-					"Wheat Stored: " + String.valueOf(Wheat.gettWheat()) + " ("
-							+ Util.getWheatRateForDisplay() + ")", 10, 190);
+					"Wheat Stored: " + String.valueOf(Main.wheat.gettWheat())
+							+ " (" + Util.getWheatRateForDisplay() + ")", 10,
+					190);
 			Render.drawString(
 					"Farmer Wheat Quota: "
-							+ String.valueOf(Farmer.getTotalHunger()), 10, 210);
+							+ String.valueOf(Main.farmer.getTotalHunger()), 10,
+					210);
 			Render.drawString(
 					"Warrior Wheat Quota: "
-							+ String.valueOf(Warrior.getTotalHunger()), 10, 230);
+							+ String.valueOf(Main.warrior.getTotalHunger()),
+					10, 230);
 
 		}
 	}

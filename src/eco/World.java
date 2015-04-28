@@ -247,8 +247,8 @@ public class World {
 				}
 			}
 		}
-		if (isAllOcean()){
-			generate(generator);		
+		if (isAllOcean()) {
+			generate(generator);
 		}
 	}
 
@@ -263,17 +263,16 @@ public class World {
 		return -10;
 	}
 
-	public static boolean isAllOcean(){
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (map[x][y] != 0){
+	public static boolean isAllOcean() {
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (map[x][y] != 0) {
 					return false;
 				}
-			}		
+			}
 		}
 		return true;
-	}	
-
+	}
 
 	public static boolean isValid() {
 		for (int x = 0; x < mapsize; x++) {
@@ -386,10 +385,10 @@ public class World {
 
 			int newhouses = deltafarmers;
 			int popToResettle = 0;
-			if (random.nextInt(100) == 0){
+			if (random.nextInt(100) == 0) {
 				popToResettle = random.nextInt(newhouses) / 2;
 				newhouses -= popToResettle;
-			}	
+			}
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (popmap[x][y] == 2 && newhouses > 0) {
@@ -411,26 +410,26 @@ public class World {
 			int nearCityBias = 50;
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
-					if ((map[x][y] == 1 || map[x][y] == 1
-							)&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
+					if ((map[x][y] == 1 || map[x][y] == 1)
+							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
 						validLocs.add(new Point(x, y));
-						if (popmap[x][y + 1] == 2){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x][y + 1] == 2) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x + 1][y + 1] == 2){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x + 1][y + 1] == 2) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x][y - 1] == 2){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x][y - 1] == 2) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x - 1][y] == 2){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x - 1][y] == 2) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
@@ -449,8 +448,9 @@ public class World {
 					}
 					popmap[rand.getX()][rand.getY()] = 2;
 					structures[rand.getX()][rand.getY()] = 1;
-					cities.put(new Point(rand.getX(), rand.getY()), new City(rand, false));
-					//map[rand.getX()][rand.getY()] = 3;
+					cities.put(new Point(rand.getX(), rand.getY()), new City(
+							rand, false));
+					// map[rand.getX()][rand.getY()] = 3;
 					if (newhouses >= housesPerTile) {
 						popdensity[rand.getX()][rand.getY()] += housesPerTile;
 						newhouses -= housesPerTile;
@@ -462,8 +462,9 @@ public class World {
 					Point loc = validLocs.get(random.nextInt(validLocs.size()));
 					structures[loc.getX()][loc.getY()] = 1;
 					popmap[loc.getX()][loc.getY()] = 2;
-					cities.put(new Point(loc.getX(), loc.getY()), new City(loc, false));
-					//map[loc.getX()][loc.getY()] = 3;
+					cities.put(new Point(loc.getX(), loc.getY()), new City(loc,
+							false));
+					// map[loc.getX()][loc.getY()] = 3;
 					validLocs.remove(loc);
 					if (newhouses >= housesPerTile) {
 						popdensity[loc.getX()][loc.getY()] += housesPerTile;
@@ -476,8 +477,7 @@ public class World {
 			}
 			oldFarmers = farmers - newfarmland;
 			displacedFarmers = newfarmland;
-		}
-		else{
+		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
@@ -487,19 +487,18 @@ public class World {
 				}
 			}
 			int farmstoremove = -deltafarmers;
-			while (farmstoremove >  0 && validLocs.size() > 0){
+			while (farmstoremove > 0 && validLocs.size() > 0) {
 				Point loc = validLocs.get(random.nextInt(validLocs.size()));
 				int pop = popdensity[loc.getX()][loc.getY()];
-				if (farmstoremove >= pop){
+				if (farmstoremove >= pop) {
 					popdensity[loc.getX()][loc.getY()] = 0;
 					popmap[loc.getX()][loc.getY()] = 0;
 					farmstoremove -= pop;
 					validLocs.remove(loc);
 					map[loc.getX()][loc.getY()] = 1;
-				}
-				else{
+				} else {
 					popdensity[loc.getX()][loc.getY()] -= farmstoremove;
-					if (popdensity[loc.getX()][loc.getY()] <= 0){
+					if (popdensity[loc.getX()][loc.getY()] <= 0) {
 						popdensity[loc.getX()][loc.getY()] = 0;
 						popmap[loc.getX()][loc.getY()] = 0;
 						validLocs.remove(loc);
@@ -517,24 +516,23 @@ public class World {
 				}
 			}
 			int housestoremove = -deltafarmers;
-			while (housestoremove >  0 && validLocs.size() > 0){
+			while (housestoremove > 0 && validLocs.size() > 0) {
 				int popthispass = random.nextInt(housestoremove);
 				Point loc = validLocs.get(random.nextInt(validLocs.size()));
-				if (random.nextInt(3) == 0){
+				if (random.nextInt(3) == 0) {
 					loc = validLocs.get(random.nextInt(validLocs.size()));
 				}
 				int pop = popdensity[loc.getX()][loc.getY()];
-				if (popthispass > pop){
+				if (popthispass > pop) {
 					popdensity[loc.getX()][loc.getY()] = 0;
 					popmap[loc.getX()][loc.getY()] = 0;
 					housestoremove -= pop;
 					cities.remove(loc);
 					structures[loc.getX()][loc.getY()] = 0;
 					validLocs.remove(loc);
-				}
-				else{
+				} else {
 					popdensity[loc.getX()][loc.getY()] -= popthispass;
-					if (popdensity[loc.getX()][loc.getY()] <= 0){
+					if (popdensity[loc.getX()][loc.getY()] <= 0) {
 						popdensity[loc.getX()][loc.getY()] = 0;
 						popmap[loc.getX()][loc.getY()] = 0;
 						cities.remove(loc);
@@ -545,15 +543,15 @@ public class World {
 				}
 			}
 			oldFarmers = farmers - farmstoremove;
-			displacedFarmers = farmstoremove;	
+			displacedFarmers = farmstoremove;
 		}
-		
+
 		if (deltawarriors > 0) {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
-					if ((map[x][y] == 1 || map[x][y] == 1
-							)&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
+					if ((map[x][y] == 1 || map[x][y] == 1)
+							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
 						validLocs.add(new Point(x, y));
 					}
 				}
@@ -561,10 +559,10 @@ public class World {
 
 			int newcastles = deltawarriors;
 			int popToResettle = 0;
-			if (random.nextInt(100) == 0){
+			if (random.nextInt(100) == 0) {
 				popToResettle = random.nextInt(newcastles) / 2;
 				newcastles -= popToResettle;
-			}	
+			}
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (popmap[x][y] == 3 && newcastles > 0) {
@@ -586,26 +584,26 @@ public class World {
 			int nearCityBias = 50;
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
-					if ((map[x][y] == 1 || map[x][y] == 1
-							)&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
+					if ((map[x][y] == 1 || map[x][y] == 1)
+							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3))) {
 						validLocs.add(new Point(x, y));
-						if (popmap[x][y + 1] == 3){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x][y + 1] == 3) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x + 1][y + 1] == 3){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x + 1][y + 1] == 3) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x][y - 1] == 3){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x][y - 1] == 3) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
-						if (popmap[x - 1][y] == 3){
-							for (int i = 0; i < nearCityBias; i++){
+						if (popmap[x - 1][y] == 3) {
+							for (int i = 0; i < nearCityBias; i++) {
 								validLocs.add(new Point(x, y));
 							}
 						}
@@ -616,16 +614,18 @@ public class World {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
-					while ((map[rand.getX()][rand.getY()] != 1 && map[rand.getX()][rand.getY()] != 1
-							)&& (structures[rand.getX()][rand.getY()] == 0 || (cutForests && structures[rand
+					while ((map[rand.getX()][rand.getY()] != 1 && map[rand
+							.getX()][rand.getY()] != 1)
+							&& (structures[rand.getX()][rand.getY()] == 0 || (cutForests && structures[rand
 									.getX()][rand.getY()] == 3))) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
 					popmap[rand.getX()][rand.getY()] = 3;
 					structures[rand.getX()][rand.getY()] = 2;
-					cities.put(new Point(rand.getX(), rand.getY()), new City(rand, true));
-					//map[rand.getX()][rand.getY()] = 3;
+					cities.put(new Point(rand.getX(), rand.getY()), new City(
+							rand, true));
+					// map[rand.getX()][rand.getY()] = 3;
 					if (newcastles >= castlesPerTile) {
 						popdensity[rand.getX()][rand.getY()] += castlesPerTile;
 						newcastles -= castlesPerTile;
@@ -637,8 +637,9 @@ public class World {
 					Point loc = validLocs.get(random.nextInt(validLocs.size()));
 					structures[loc.getX()][loc.getY()] = 2;
 					popmap[loc.getX()][loc.getY()] = 3;
-					cities.put(new Point(loc.getX(), loc.getY()), new City(loc, true));
-					//map[loc.getX()][loc.getY()] = 3;
+					cities.put(new Point(loc.getX(), loc.getY()), new City(loc,
+							true));
+					// map[loc.getX()][loc.getY()] = 3;
 					validLocs.remove(loc);
 					if (newcastles >= castlesPerTile) {
 						popdensity[loc.getX()][loc.getY()] += castlesPerTile;
@@ -651,8 +652,7 @@ public class World {
 			}
 			oldWarriors = warriors - newcastles;
 			displacedWarriors = newcastles;
-		}
-		else{
+		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
@@ -662,24 +662,23 @@ public class World {
 				}
 			}
 			int castlestoremove = -deltawarriors;
-			while (castlestoremove >  0 && validLocs.size() > 0){
+			while (castlestoremove > 0 && validLocs.size() > 0) {
 				int popthispass = random.nextInt(castlestoremove);
 				Point loc = validLocs.get(random.nextInt(validLocs.size()));
-				if (random.nextInt(3) == 0){
+				if (random.nextInt(3) == 0) {
 					loc = validLocs.get(random.nextInt(validLocs.size()));
 				}
 				int pop = popdensity[loc.getX()][loc.getY()];
-				if (popthispass > pop){
+				if (popthispass > pop) {
 					popdensity[loc.getX()][loc.getY()] = 0;
 					popmap[loc.getX()][loc.getY()] = 0;
 					cities.remove(loc);
 					structures[loc.getX()][loc.getY()] = 0;
 					castlestoremove -= pop;
 					validLocs.remove(loc);
-				}
-				else{
+				} else {
 					popdensity[loc.getX()][loc.getY()] -= popthispass;
-					if (popdensity[loc.getX()][loc.getY()] <= 0){
+					if (popdensity[loc.getX()][loc.getY()] <= 0) {
 						popdensity[loc.getX()][loc.getY()] = 0;
 						popmap[loc.getX()][loc.getY()] = 0;
 						cities.remove(loc);
@@ -689,7 +688,7 @@ public class World {
 					validLocs.remove(loc);
 				}
 			}
-			oldWarriors= warriors;
+			oldWarriors = warriors;
 		}
 
 		/*

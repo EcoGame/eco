@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import java.awt.image.BufferedImage;
@@ -22,13 +23,15 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 /**
- * A class that contains various utilities and convience methods
+ * A class that contains various utilities and convenience methods
  * 
  * @author phil, nate, connor, will
  * 
  */
 
 public class Util {
+
+	private static Random random = new Random();
 
 	public static void createSave() {
 
@@ -41,36 +44,36 @@ public class Util {
 			File fOut = new File(path);
 			FileOutputStream FOS = new FileOutputStream(fOut);
 			BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
-            
-            //Data Being Saved:
-			if (Main.currentSave == 1){			
+
+			// Data Being Saved:
+			if (Main.currentSave == 1) {
 				BW.write(Main.saveName1);
 				BW.newLine();
 			}
-			if (Main.currentSave == 2){			
+			if (Main.currentSave == 2) {
 				BW.write(Main.saveName2);
 				BW.newLine();
 			}
-			if (Main.currentSave == 3){			
+			if (Main.currentSave == 3) {
 				BW.write(Main.saveName3);
 				BW.newLine();
 			}
-			if (Main.currentSave == 4){			
+			if (Main.currentSave == 4) {
 				BW.write(Main.saveName4);
 				BW.newLine();
 			}
-			if (Main.currentSave == 5){			
+			if (Main.currentSave == 5) {
 				BW.write(Main.saveName5);
 				BW.newLine();
 			}
 
 			BW.write(Integer.toString(Main.year));
 			BW.newLine();
-			BW.write(Integer.toString(Wheat.tWheat(Farmer.fPop())));
+			BW.write(Integer.toString(Main.wheat.gettWheat()));
 			BW.newLine();
-			BW.write(Integer.toString(Farmer.fPop()));
+			BW.write(Integer.toString(Main.farmer.fPop()));
 			BW.newLine();
-			BW.write(Integer.toString(Warrior.wPop()));
+			BW.write(Integer.toString(Main.warrior.wPop()));
 			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
@@ -102,13 +105,12 @@ public class Util {
 				}
 				BW.newLine();
 			}
-            /* Use:
-             * BW.write(STUFF TO BE SAVED HERE);
-             * BW.newLine();
-             *
-             * Unless it needs to use loops in which case see the loops above. 
-             */
-            
+			/*
+			 * Use: BW.write(STUFF TO BE SAVED HERE); BW.newLine();
+			 * 
+			 * Unless it needs to use loops in which case see the loops above.
+			 */
+
 			BW.close();
 		} catch (IOException ex) {
 			System.out.println("IOException");
@@ -120,8 +122,8 @@ public class Util {
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
-			path = "saves/" + Main.currentSave + ".txt";
-			name = new File(Main.saveName1 + ".txt");
+		path = "saves/" + Main.currentSave + ".txt";
+		name = new File(Main.saveName1 + ".txt");
 		if (!Main.isInEclipse) {
 			path = "../" + path;
 		}
@@ -146,27 +148,27 @@ public class Util {
 			for (String str : list) {
 				str = str.replace(System.getProperty("line.separator"), "");
 			}
-            
-            // Information being loaded:
-			if (Main.currentSave == 1){
-				Main.saveName1 = list.get(0);			
+
+			// Information being loaded:
+			if (Main.currentSave == 1) {
+				Main.saveName1 = list.get(0);
 			}
-			if (Main.currentSave == 2){
-				Main.saveName2 = list.get(0);			
+			if (Main.currentSave == 2) {
+				Main.saveName2 = list.get(0);
 			}
-			if (Main.currentSave == 3){
-				Main.saveName3 = list.get(0);			
+			if (Main.currentSave == 3) {
+				Main.saveName3 = list.get(0);
 			}
-			if (Main.currentSave == 4){
-				Main.saveName4 = list.get(0);			
+			if (Main.currentSave == 4) {
+				Main.saveName4 = list.get(0);
 			}
-			if (Main.currentSave == 5){
-				Main.saveName5 = list.get(0);			
+			if (Main.currentSave == 5) {
+				Main.saveName5 = list.get(0);
 			}
 			Main.year = Integer.valueOf(list.get(1));
-			Wheat.settWheat(Integer.valueOf(list.get(2)));
-			Farmer.setfPop(Integer.valueOf(list.get(3)));
-			Warrior.setwPop(Integer.valueOf(list.get(4)));
+			Main.wheat.settWheat(Integer.valueOf(list.get(2)));
+			Main.farmer.setfPop(Integer.valueOf(list.get(3)));
+			Main.warrior.setwPop(Integer.valueOf(list.get(4)));
 			int line = 5;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
@@ -207,9 +209,9 @@ public class Util {
 				}
 				line++;
 			}
-            // Set the variable that the information will become
-            // To the end here.
-            
+			// Set the variable that the information will become
+			// To the end here.
+
 			readSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,14 +241,14 @@ public class Util {
 
 	public static int randInt(int max) { // Returns a random number below max.
 
-		return Main.random.nextInt(max);
+		return random.nextInt(max);
 
 	}
 
 	public static int randInt(int min, int max) { // Returns a random number
 													// between min and max.
 
-		return min + Main.random.nextInt((max + 1) - min);
+		return min + random.nextInt((max + 1) - min);
 
 	}
 
@@ -286,13 +288,15 @@ public class Util {
 	}
 
 	public static int computeTotalHunger() {
-		return Farmer.getTotalHunger() + Warrior.getTotalHunger()
-				+ ((int) (Farmer.getfHunger() * World.displacedPeople / 2f));
+		return Main.farmer.getTotalHunger()
+				+ Main.warrior.getTotalHunger()
+				+ ((int) (Main.farmer.getfHunger() * World.displacedPeople / 2f));
 	}
 
 	public static String getWheatRateForDisplay() {
 		int hunger = computeTotalHunger();
-		int input = Farmer.getWheatProductionRate() * Farmer.getfPop();
+		int input = Main.farmer.getWheatProductionRate()
+				* Main.farmer.getfPop();
 		int total = input - hunger;
 		if (total < 0) {
 			return "dW/dT: " + String.valueOf(total) + " Bushels";
@@ -305,24 +309,25 @@ public class Util {
 
 	public static int getWheatRate() {
 		int hunger = computeTotalHunger();
-		int input = Farmer.getWheatProductionRate() * Farmer.getfPop();
+		int input = Main.farmer.getWheatProductionRate()
+				* Main.farmer.getfPop();
 		int total = input - hunger;
 		return total;
 	}
 
 	public static float getTotalPopf() {
-		return Warrior.getFloatWPop() + Farmer.getFloatFPop();
+		return Main.warrior.getFloatWPop() + Main.farmer.getFloatFPop();
 	}
 
 	public static int getTotalPop() {
-		return Warrior.getwPop() + Farmer.getfPop();
+		return Main.warrior.getwPop() + Main.farmer.getfPop();
 	}
 
 	public static boolean doesSaveExist(int currentSave) {
 		String path = "";
 		File name = null;
-			path = "saves/" + currentSave + ".txt";
-			name = new File(currentSave + ".txt");
+		path = "saves/" + currentSave + ".txt";
+		name = new File(currentSave + ".txt");
 		if (!Main.isInEclipse) {
 			path = "../" + path;
 		}
@@ -339,11 +344,11 @@ public class Util {
 				base.z / 255f);
 	}
 
-	public static String loadSaveName(int currentSave){
+	public static String loadSaveName(int currentSave) {
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
-			path = "saves/" + currentSave + ".txt";
+		path = "saves/" + currentSave + ".txt";
 		if (!Main.isInEclipse) {
 			path = "../" + path;
 		}
@@ -368,24 +373,16 @@ public class Util {
 			for (String str : list) {
 				str = str.replace(System.getProperty("line.separator"), "");
 			}
-            
-            // Information being loaded:
-			/*if (currentSave == 1){
-				Main.saveName1 = list.get(0);			
-			}
-			if (currentSave == 2){
-				Main.saveName2 = list.get(0);			
-			}
-			if (currentSave == 3){
-				Main.saveName3 = list.get(0);			
-			}
-			if (currentSave == 4){
-				Main.saveName4 = list.get(0);			
-			}
-			if (currentSave == 5){
-				Main.saveName5 = list.get(0);			
-			}*/
-				return list.get(0);
+
+			// Information being loaded:
+			/*
+			 * if (currentSave == 1){ Main.saveName1 = list.get(0); } if
+			 * (currentSave == 2){ Main.saveName2 = list.get(0); } if
+			 * (currentSave == 3){ Main.saveName3 = list.get(0); } if
+			 * (currentSave == 4){ Main.saveName4 = list.get(0); } if
+			 * (currentSave == 5){ Main.saveName5 = list.get(0); }
+			 */
+			return list.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			readError();

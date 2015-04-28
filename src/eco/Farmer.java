@@ -10,21 +10,21 @@ package eco;
 
 public class Farmer {
 
-	private static int fPop = 5;
-	private static int oldFPop = fPop;
-	private static int fHunger;
+	private int fPop = 5;
+	private int oldFPop = fPop;
+	private int fHunger;
 
-	private static float floatFPop = fPop;
+	private float floatFPop = fPop;
 
-	private static int wheatPerFarmer = 14;
+	private int wheatPerFarmer = 14;
 
-	private static int totalHarvest;
+	private int totalHarvest;
 
-	private static int totalHunger;
+	private int totalHunger;
 
-	private static int normalHunger = 10;
+	private int normalHunger = 10;
 
-	public static int fHunger() {
+	public int fHunger() {
 
 		fHunger = 0;
 		fHunger = normalHunger + (Util.randInt(0, 3));
@@ -32,7 +32,7 @@ public class Farmer {
 
 	}
 
-	public static int fPop() {
+	public int fPop() {
 
 		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
 		floatFPop = (floatFPop * rate);
@@ -43,85 +43,85 @@ public class Farmer {
 
 	}
 
-	public static void addPop(float newPop) {
+	public void addPop(float newPop) {
 		floatFPop += newPop;
 		fPop = (int) floatFPop;
 	}
 
-	public static int newPop() {
+	public int newPop() {
 		return fPop - oldFPop;
 
 	}
 
-	public static void harvest() {
+	public void harvest() {
 		totalHarvest = wheatPerFarmer * fPop;
 	}
 
-	public static int getfPop() {
+	public int getfPop() {
 		return fPop;
 	}
 
-	public static void setfPop(int fPop) {
-		Farmer.fPop = fPop;
+	public void setfPop(int fPop) {
+		this.fPop = fPop;
 	}
 
-	public static int getOldFPop() {
+	public int getOldFPop() {
 		return oldFPop;
 	}
 
-	public static void setOldFPop(int oldFPop) {
-		Farmer.oldFPop = oldFPop;
+	public void setOldFPop(int oldFPop) {
+		this.oldFPop = oldFPop;
 	}
 
-	public static int getfHunger() {
+	public int getfHunger() {
 		return fHunger;
 	}
 
-	public static void setfHunger(int fHunger) {
-		Farmer.fHunger = fHunger;
+	public void setfHunger(int fHunger) {
+		this.fHunger = fHunger;
 	}
 
-	public static float getFloatFPop() {
+	public float getFloatFPop() {
 		return floatFPop;
 	}
 
-	public static void setFloatFPop(float floatFPop) {
-		Farmer.floatFPop = floatFPop;
+	public void setFloatFPop(float floatFPop) {
+		this.floatFPop = floatFPop;
 	}
 
-	public static int getWheatProductionRate() {
+	public int getWheatProductionRate() {
 		return wheatPerFarmer;
 	}
 
-	public static void setWheatPerFarmer(int wheatPerFarmer) {
-		Farmer.wheatPerFarmer = wheatPerFarmer;
+	public void setWheatPerFarmer(int wheatPerFarmer) {
+		this.wheatPerFarmer = wheatPerFarmer;
 	}
 
-	public static int getTotalHarvest() {
+	public int getTotalHarvest() {
 		return totalHarvest;
 	}
 
-	public static void setTotalHarvest(int totalHarvest) {
-		Farmer.totalHarvest = totalHarvest;
+	public void setTotalHarvest(int totalHarvest) {
+		this.totalHarvest = totalHarvest;
 	}
 
-	public static int getTotalHunger() {
+	public int getTotalHunger() {
 		return totalHunger;
 	}
 
-	public static void setTotalHunger(int totalHunger) {
-		Farmer.totalHunger = totalHunger;
+	public void setTotalHunger(int totalHunger) {
+		this.totalHunger = totalHunger;
 	}
 
-	public static int getNormalHunger() {
+	public int getNormalHunger() {
 		return normalHunger;
 	}
 
-	public static void setNormalHunger(int normalHunger) {
-		Farmer.normalHunger = normalHunger;
+	public void setNormalHunger(int normalHunger) {
+		this.normalHunger = normalHunger;
 	}
 
-	public static void addPop(int tooAdd) {
+	public void addPop(int tooAdd) {
 		fPop += tooAdd;
 		floatFPop += tooAdd;
 	}

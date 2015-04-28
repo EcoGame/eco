@@ -1,52 +1,49 @@
 package eco;
 
 /**
-* This class describes the international market for wheat,
-* it manages wheat reserve goals and sells or buys to
-* meet it.
-*
-* @Author phil
-*/
+ * This class describes the international market for wheat, it manages wheat
+ * reserve goals and sells or buys to meet it.
+ * 
+ * @Author phil
+ */
 
 public class Economy {
 
-	private static int treasury = 0;
+	private int treasury = 0;
 
 	private static int wheatPrice = 10;
 
-	public static int buyWheat(int ammount){
+	public int buyWheat(int ammount) {
 		int neededMoney = wheatPrice * ammount;
-		if (neededMoney <= treasury){
+		if (neededMoney <= treasury) {
 			treasury -= neededMoney;
 			return ammount;
-		}
-		else{
+		} else {
 			int canBuy = treasury / wheatPrice;
 			treasury = 0;
-			return canBuy;		
+			return canBuy;
 		}
 	}
 
-	public static int sellWheat(int ammount){
+	public int sellWheat(int ammount) {
 		treasury += wheatPrice * ammount;
 		return ammount;
 	}
 
-	public static void updateMarket(int time){
+	public void updateMarket(int time) {
 		wheatPrice += Util.randInt(-5, 5); // Biased to increase over time
 	}
 
-	public static int getTreasury(){
-		//System.out.println(treasury);
- 		return treasury;	
+	public int getTreasury() {
+		return treasury;
 	}
 
-	public static void setTreasury(int ammount){
-		treasury = ammount;	
+	public void setTreasury(int ammount) {
+		treasury = ammount;
 	}
 
-	public static int getPrice(){
+	public int getPrice() {
 		return wheatPrice;
-	}	
+	}
 
 }
