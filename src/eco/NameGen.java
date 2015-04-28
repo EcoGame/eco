@@ -95,8 +95,8 @@ public class NameGen {
 			num = randInt(1, 2);
 			if (num == 1) {
 				name = generateJapanese();
-				name = generateSyllables();
 			}
+            name = generateSyllables();
 		}
 		return name;
 	}
@@ -386,8 +386,7 @@ public class NameGen {
 		int length = randInt(1, 3);
 		String name = "";
 		for (int i = 0; i <= length; i++) {
-			name = name
-					+ japaneseKatakana[randInt(1, japaneseKatakana.length - 1)];
+			name = name + japaneseKatakana[randInt(1, japaneseKatakana.length - 1)];
 		}
 		name = name.substring(0, 1).toUpperCase() + name.substring(1);
 		return name;
