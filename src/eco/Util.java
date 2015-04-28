@@ -251,7 +251,12 @@ public class Util {
 		return min + random.nextInt((max + 1) - min);
 
 	}
-
+    
+    
+    public static float randFloat(float min, float max){
+        return random.nextFloat() * (max - min) + min;
+    }
+    
 	public static void takeScreenshot() {
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		int width = Display.getDisplayMode().getWidth();
@@ -373,6 +378,15 @@ public class Util {
 			for (String str : list) {
 				str = str.replace(System.getProperty("line.separator"), "");
 			}
+
+			// Information being loaded:
+			/*
+			 * if (currentSave == 1){ Main.saveName1 = list.get(0); } if
+			 * (currentSave == 2){ Main.saveName2 = list.get(0); } if
+			 * (currentSave == 3){ Main.saveName3 = list.get(0); } if
+			 * (currentSave == 4){ Main.saveName4 = list.get(0); } if
+			 * (currentSave == 5){ Main.saveName5 = list.get(0); }
+			 */
 			return list.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
