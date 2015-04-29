@@ -18,6 +18,7 @@ public class World {
 	public static short[][] map = new short[mapsize][mapsize];
 	public static float[][] noise = new float[mapsize][mapsize];
 	public static short[][] structures = new short[mapsize][mapsize];
+	public static short[][] decorations = new short[mapsize][mapsize];
 
 	public static short[][] popmap = new short[mapsize][mapsize];
 	public static short[][] popdensity = new short[mapsize][mapsize];
@@ -62,7 +63,7 @@ public class World {
 	}
 
 	public static void generate(int generator) {
-
+		decorations = new short[mapsize][mapsize];
 		mapseed = System.currentTimeMillis();
 		map = new short[mapsize][mapsize];
 		structures = new short[mapsize][mapsize];
@@ -107,9 +108,18 @@ public class World {
 					}
 				}
 			}
+			
+			for (int x = 0; x < mapsize; x++){
+				map[x][0] = 0;
+				map[x][mapsize - 1] = 0;
+			}
+			for (int y = 0; y < mapsize; y++){
+				map[0][y] = 0;
+				map[mapsize - 1][y] = 0;
+			}
 
 			NoiseSampler.initSimplexNoise((int) mapseed);
-			NoiseSampler.setNoiseScale(mapsize / 16);
+			NoiseSampler.setNoiseScale(mapsize / 32);
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (NoiseSampler.getNoise(x, y) >= forestHeight) {
@@ -191,6 +201,7 @@ public class World {
 			}
 		}
 
+		Random random = new Random();
 		if (generator == 2) {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
@@ -221,6 +232,9 @@ public class World {
 						map[x][y] = 0;
 					} else if (noise[x][y] < 75) {
 						map[x][y] = 1;
+						if (random.nextInt(60) == 0){
+							map[x][y] = 5;
+						}
 					} else {
 						map[x][y] = 3;
 					}
@@ -244,6 +258,63 @@ public class World {
 			for (int y = 0; y < mapsize; y++) {
 				if (map[x][y] != 0) {
 					totalAcres++;
+				}
+			}
+		}
+		
+
+		
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (map[x][y] == 0){
+					if (random.nextInt(2000) == 0){
+						decorations[x][y] = 1;
+						int size = random.nextInt(4);
+						Point loc = new Point(x, y);
+						try{
+							for (int i = 0; i < size; i++){
+								if (random.nextInt(2) == 0){
+									loc.setX(loc.getX() + 1);
+								}
+								else{
+									loc.setX(loc.getX() - 1);
+								}
+								if (random.nextInt(2) == 0){
+									loc.setY(loc.getY() + 1);
+								}
+								else{
+									loc.setY(loc.getY() - 1);
+								}
+								if (map[loc.getX()][loc.getY()] == 0){
+									decorations[loc.getX()][loc.getY()] = 1;
+								}
+							}
+						}
+						catch(Exception e){}
+					}
+				}
+				if (random.nextInt(100) == 0){
+					decorations[x][y] = 2;
+				}
+				if (random.nextInt(30) == 0){
+					if (map[x][y] != 0){
+						decorations[x][y] = 3;
+					}
+				}
+				if (random.nextInt(60) == 0){
+					if (map[x][y] != 0){
+						decorations[x][y] = 4;
+					}
+				}
+				if (random.nextInt(100) == 0){
+					if (map[x][y] != 0){
+						decorations[x][y] = 5;
+					}
+				}
+				if (random.nextInt(50) == 0){
+					if (map[x][y] == 1){
+						decorations[x][y] = 6;
+					}
 				}
 			}
 		}
@@ -696,6 +767,37 @@ public class World {
 		 * mapsize; k++){ if (map[i][k] == 2){ count++; } } }
 		 * System.out.println(count);
 		 */
+		
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (structures[x][y] != 0 && decorations[x][y] != 0){
+					decorations[x][y] = 0;
+				}
+			}
+		}
+		
+		for (int x = mapsize - 1; x >= 0; x--){
+			for (int y = 0; y < mapsize; y++){
+				if (x == mapsize - 1){
+					if (decorations[x][y] == 2){
+						decorations[x][y] = 0;
+					}
+				}
+				else{
+					if (decorations[x][y] == 2){
+						if (decorations[x + 1][y] == 0){
+							decorations[x + 1][y] = 2;
+						}
+						decorations[x][y] = 0;
+					}
+				}
+				if (x == 0){
+					if (random.nextInt(100) == 0){
+						decorations[x][y] = 2;
+					}
+				}
+			}
+		}
 
 	}
 

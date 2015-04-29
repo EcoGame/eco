@@ -71,7 +71,11 @@ public class DisplayLists {
 
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
-					drawTile(x, y, height, 1, 0);
+					if (World.decorations[x][y] == 5){
+						drawTile(x, y, height, 4, 0);
+					} else{
+						drawTile(x, y, height, 1, 0);
+					}
 
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
@@ -159,6 +163,36 @@ public class DisplayLists {
 								- World.getHeight(x, y - 1);
 						diff *= Render.heightConstant;
 						drawTileE(x, y, height, diff, 2, 0);
+					}
+				}
+				if (World.map[x][y] == 5) {
+					float height = World.getHeight(x, y)
+							* Render.heightConstant;
+					drawTile(x, y, height, 4, 0);
+
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 4, 0);
+					}
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 4, 0);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 4, 0);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 4, 0);
 					}
 				}
 			}

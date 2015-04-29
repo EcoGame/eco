@@ -1,11 +1,8 @@
 package eco;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.GL15;
 
 /**
  * This class is an implementation of <i>Runnable</i> and is used to
@@ -21,226 +18,315 @@ public class MeshTask implements Runnable {
 
 	private static float tilesize = Render.tilesize;
 	private static float heightConstant = Render.heightConstant;
+	
+	private static final float offset = Render.tilesize / 2f;
+	
+	private static float[] vertex = new float[0x2000000];
+	private static float[] texture = new float[0x2000000];
+	
+	private static int index = 0;
 
 	@Override
 	public void run() {
-
-		ArrayList<Float> vertex = new ArrayList<Float>();
-		ArrayList<Float> texture = new ArrayList<Float>();
-
-		ArrayList<Float> structureVertex = new ArrayList<Float>();
-		ArrayList<Float> structureTexture = new ArrayList<Float>();
+		index = 0;
 
 		for (int x = 0; x < World.mapsize; x++) {
 			for (int y = 0; y < World.mapsize; y++) {
+				float height = World.noise[x][y] * heightConstant;
 				if (World.map[x][y] == 0) {
-					vertex = addArrayToList(
-							buildTileVertex((-x) * tilesize,
-									48 * heightConstant, (-y) * tilesize, false),
-							vertex);
-					texture = addArrayToList(buildTexCoords(0, 0, false),
-							texture);
+					height = 48 * heightConstant;
+					drawTile(x, y, height, 0, 0);
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 0, 0);
+					}
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 0, 0);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 0, 0);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 0, 0);
+					}
 				}
 				if (World.map[x][y] == 1) {
-					vertex = addArrayToList(
-							buildTileVertex((-x) * tilesize, World.noise[x][y]
-									* heightConstant, (-y) * tilesize, true),
-							vertex);
-					texture = addArrayToList(buildTexCoords(1, 0, true),
-							texture);
+					drawTile(x, y, height, 1, 0);
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 1, 0);
+					}
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 1, 0);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 1, 0);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 1, 0);
+					}
 				}
 				if (World.map[x][y] == 2) {
-					vertex = addArrayToList(
-							buildTileVertex((-x) * tilesize, World.noise[x][y]
-									* heightConstant, (-y) * tilesize, true),
-							vertex);
-					texture = addArrayToList(buildTexCoords(3, 0, true),
-							texture);
+					drawTile(x, y, height, 3, 0);
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 3, 0);
+					}
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 3, 0);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 3, 0);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 3, 0);
+					}
 				}
 				if (World.map[x][y] == 3) {
-					vertex = addArrayToList(
-							buildTileVertex((-x) * tilesize, World.noise[x][y]
-									* heightConstant, (-y) * tilesize, true),
-							vertex);
-					texture = addArrayToList(buildTexCoords(2, 0, true),
-							texture);
-				}
-				if (Render.multiThreadStructures) {
-					if (World.structures[x][y] == 1) {
-						vertex = addArrayToList(
-								buildStructureVertex((-x) * tilesize,
-										World.noise[x][y] * heightConstant,
-										(-y) * tilesize), structureVertex);
-						texture = addArrayToList(buildTexCoords(0, 1, false),
-								structureTexture);
+					drawTile(x, y, height, 2, 0);
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 2, 0);
 					}
-					if (World.structures[x][y] == 2) {
-						vertex = addArrayToList(
-								buildStructureVertex((-x) * tilesize,
-										World.noise[x][y] * heightConstant,
-										(-y) * tilesize), structureVertex);
-						texture = addArrayToList(buildTexCoords(1, 1, false),
-								structureTexture);
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 2, 0);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 2, 0);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 2, 0);
 					}
 				}
 			}
 		}
 
-		int buffersize = vertex.size();
+		int buffersize = index;
 
 		FloatBuffer vertexData = BufferUtils.createFloatBuffer(buffersize);
+		FloatBuffer textureData = BufferUtils.createFloatBuffer(buffersize * 2 / 3);
 
-		for (int i = 0; i < buffersize; i++) {
-			vertexData.put((float) vertex.get(i));
-		}
-
-		buffersize = texture.size();
-		FloatBuffer textureData = BufferUtils.createFloatBuffer(buffersize);
-
-		for (int i = 0; i < buffersize; i++) {
-			textureData.put((float) texture.get(i));
-		}
-
-		if (Render.multiThreadStructures) {
-			buffersize = structureVertex.size();
-			FloatBuffer structureVertexData = BufferUtils
-					.createFloatBuffer(buffersize);
-
-			for (int i = 0; i < buffersize; i++) {
-				structureVertexData.put((float) vertex.get(i));
-			}
-			buffersize = structureTexture.size();
-
-			FloatBuffer structureTextureData = BufferUtils
-					.createFloatBuffer(buffersize);
-
-			for (int i = 0; i < buffersize; i++) {
-				structureTextureData.put((float) texture.get(i));
-			}
-		}
-
+		vertexData.put(vertex, 0, index);
+		textureData.put(texture, 0, index * 2 / 3);
+		
 		vertexData.flip();
 		textureData.flip();
 
-		synchronized (ThreadManager.drawable) {
-			try {
-				if (!ThreadManager.drawable.isCurrent()) {
-					ThreadManager.drawable.makeCurrent();
-				}
-			} catch (LWJGLException e1) {
-				e1.printStackTrace();
-			}
 
-			Render.shouldRender = false;
-			GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, Render.texture_handle);
-			GL15.glBufferData(GL15.GL_ARRAY_BUFFER, textureData,
-					GL15.GL_STATIC_DRAW);
-			GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-			GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, Render.vertex_handle);
-			GL15.glBufferData(GL15.GL_ARRAY_BUFFER, vertexData,
-					GL15.GL_STATIC_DRAW);
-
-			Render.buffersize = vertexData.capacity();
-			Render.shouldRender = true;
-			try {
-				ThreadManager.drawable.releaseContext();
-			} catch (LWJGLException e) {
-				e.printStackTrace();
-			}
+		synchronized(Render.lock){
+			Render.texture = textureData;
+			Render.vertex = vertexData;
+			Render.buffersize = index;
 		}
 
 	}
 
-	private float[] buildTileVertex(float x, float y, float z, boolean height) {
-		if (!height) {
-			return new float[] { x, y, z, x + tilesize, y, z, x + tilesize, y,
-					z + tilesize, x, y, z + tilesize, };
-		} else {
-			return new float[] { x, y, z, x + tilesize, y, z, x + tilesize, y,
-					z + tilesize, x, y, z + tilesize,
 
-					x, 0, z, x + tilesize, 0, z, x + tilesize, y, z, x, y, z,
 
-					x, 0, z + tilesize, x + tilesize, 0, z + tilesize,
-					x + tilesize, y, z + tilesize, x, y, z + tilesize,
-
-					x, 0, z, x, 0, z + tilesize, x, y, z + tilesize, x, y, z,
-
-					x + tilesize, 0, z, x + tilesize, 0, z + tilesize,
-					x + tilesize, y, z + tilesize, x + tilesize, y, z,
-
-			};
-		}
+	
+	private static void drawTile(float x, float y, float height, int tex,
+			int tey) {
+		
+		int texindex = index / 3 * 2;
+		
+		texture[texindex] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 3] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
+		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		vertex[index] = -x * tilesize - offset;
+		vertex[index + 1] = height;
+		vertex[index + 2] = -y * tilesize - offset;
+		
+		vertex[index + 3] = -x * tilesize + offset;
+		vertex[index + 4] = height;
+		vertex[index + 5] = -y * tilesize - offset;
+		
+		vertex[index + 6] = -x * tilesize + offset;
+		vertex[index + 7] = height;
+		vertex[index + 8] = -y * tilesize + offset;
+		
+		vertex[index + 9] = -x * tilesize - offset;
+		vertex[index + 10] = height;
+		vertex[index + 11] = -y * tilesize + offset;
+		
+		index += 12;
 	}
 
-	private float[] buildStructureVertex(float x, float y, float z) {
-		return new float[] { x, y, z, x + tilesize, y, z, x + tilesize,
-				y + tilesize, z, x, y + tilesize, z, };
+	private static void drawTileN(float x, float y, float height, float length,
+			int tex, int tey) {
+		int texindex = index / 3 * 2;
+		
+		texture[texindex] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 3] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
+		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		vertex[index] = -x * tilesize - offset;
+		vertex[index + 1] = height;
+		vertex[index + 2] = -y * tilesize - offset;
+		
+		vertex[index + 3] = -x * tilesize - offset;
+		vertex[index + 4] = height - length;
+		vertex[index + 5] = -y * tilesize - offset;
+		
+		vertex[index + 6] = -x * tilesize - offset;
+		vertex[index + 7] = height - length;
+		vertex[index + 8] = -y * tilesize + offset;
+		
+		vertex[index + 9] = -x * tilesize - offset;
+		vertex[index + 10] = height;
+		vertex[index + 11] = -y * tilesize + offset;
+		
+		index += 12;
 	}
 
-	private float[] buildTexCoords(int tex, int tey, boolean height) {
-		if (!height) {
-			return new float[] { Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false), };
-		} else {
-			return new float[] { Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false),
-
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false),
-
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false),
-
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false),
-
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, true),
-					Render.atlas.getCoord(tex, true),
-					Render.atlas.getCoord(tey, false),
-					Render.atlas.getCoord(tex, false),
-					Render.atlas.getCoord(tey, false), };
-		}
+	private static void drawTileW(float x, float y, float height, float length,
+			int tex, int tey) {
+		
+		int texindex = index / 3 * 2;
+		
+		texture[texindex] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 3] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
+		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		vertex[index] = -x * tilesize - offset;
+		vertex[index + 1] = height;
+		vertex[index + 2] = -y * tilesize - offset;
+		
+		vertex[index + 3] = -x * tilesize + offset;
+		vertex[index + 4] = height;
+		vertex[index + 5] = -y * tilesize - offset;
+		
+		vertex[index + 6] = -x * tilesize + offset;
+		vertex[index + 7] = height - length;
+		vertex[index + 8] = -y * tilesize - offset;
+		
+		vertex[index + 9] = -x * tilesize - offset;
+		vertex[index + 10] = height - length;
+		vertex[index + 11] = -y * tilesize - offset;
+		
+		index += 12;
 	}
 
-	private ArrayList<Float> addArrayToList(float[] array, ArrayList<Float> list) {
-		for (int i = 0; i < array.length; i++) {
-			list.add(array[i]);
-		}
-		return list;
+	private static void drawTileS(float x, float y, float height, float length,
+			int tex, int tey) {
+		
+		int texindex = index / 3 * 2;
+		
+		texture[texindex] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 3] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
+		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		vertex[index] = -x * tilesize + offset;
+		vertex[index + 1] = height;
+		vertex[index + 2] = -y * tilesize - offset;
+		
+		vertex[index + 3] = -x * tilesize + offset;
+		vertex[index + 4] = height - length;
+		vertex[index + 5] = -y * tilesize - offset;
+		
+		vertex[index + 6] = -x * tilesize + offset;
+		vertex[index + 7] = height - length;
+		vertex[index + 8] = -y * tilesize + offset;
+		
+		vertex[index + 9] = -x * tilesize + offset;
+		vertex[index + 10] = height;
+		vertex[index + 11] = -y * tilesize + offset;
+		
+		index += 12;
+	}
+
+	private static void drawTileE(float x, float y, float height, float length,
+			int tex, int tey) {
+		int texindex = index / 3 * 2;
+		
+		texture[texindex] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 3] = Render.atlas.getCoord(tey, false);
+		texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
+		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		vertex[index] = -x * tilesize - offset;
+		vertex[index + 1] = height;
+		vertex[index + 2] = -y * tilesize + offset;
+		
+		vertex[index + 3] = -x * tilesize + offset;
+		vertex[index + 4] = height;
+		vertex[index + 5] = -y * tilesize + offset;
+		
+		vertex[index + 6] = -x * tilesize + offset;
+		vertex[index + 7] = height - length;
+		vertex[index + 8] = -y * tilesize + offset;
+		
+		vertex[index + 9] = -x * tilesize - offset;
+		vertex[index + 10] = height - length;
+		vertex[index + 11] = -y * tilesize + offset;
+		
+		index += 12;
 	}
 
 }

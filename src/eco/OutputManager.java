@@ -13,7 +13,7 @@ public class OutputManager {
 
 		Render.initOrtho();
 		Render.drawString("FPS: " + String.valueOf(FPSCounter.getFPS()), 10, 10);
-		Render.drawString("Year: " + String.valueOf(Main.year), 10, 30);
+		Render.drawString("Year: " + String.valueOf(PlayerCountry.year), 10, 30);
 		if (Render.multithreading) {
 			Render.drawString("Multithreading On",
 					Main.width
@@ -34,9 +34,9 @@ public class OutputManager {
 			Render.drawString(
 					"Population: " + String.valueOf(Util.getTotalPop()), 10, 70);
 			Render.drawString(
-					"Farmers: " + String.valueOf(Main.farmer.getfPop()), 10, 90);
+					"Farmers: " + String.valueOf(PlayerCountry.farmer.getfPop()), 10, 90);
 			Render.drawString(
-					"Warriors: " + String.valueOf(Main.warrior.getwPop()), 10,
+					"Warriors: " + String.valueOf(PlayerCountry.warrior.getwPop()), 10,
 					110);
 			Render.drawString(
 					"Total Displaced: " + String.valueOf(World.displacedPeople),
@@ -48,16 +48,16 @@ public class OutputManager {
 					"Displaced Warriors: "
 							+ String.valueOf(World.displacedWarriors), 40, 170);
 			Render.drawString(
-					"Wheat Stored: " + String.valueOf(Main.wheat.gettWheat())
+					"Wheat Stored: " + String.valueOf(PlayerCountry.wheat.gettWheat())
 							+ " (" + Util.getWheatRateForDisplay() + ")", 10,
 					190);
 			Render.drawString(
 					"Farmer Wheat Quota: "
-							+ String.valueOf(Main.farmer.getTotalHunger()), 10,
+							+ String.valueOf(PlayerCountry.farmer.getTotalHunger()), 10,
 					210);
 			Render.drawString(
 					"Warrior Wheat Quota: "
-							+ String.valueOf(Main.warrior.getTotalHunger()),
+							+ String.valueOf(PlayerCountry.warrior.getTotalHunger()),
 					10, 230);
 
 		}

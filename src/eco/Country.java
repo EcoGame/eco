@@ -90,7 +90,7 @@ public class Country {
 
 		wheat.tWheat(farmer.getfPop(), farmer);
 
-		farmer.setTotalHunger(farmer.fHunger() * farmer.fPop());
+		farmer.setTotalHunger(farmer.fHunger() * farmer.getfPop());
 		warrior.setTotalHunger(warrior.wHunger() * warrior.getwPop());
 		int warriorWheat = warrior.getTotalHunger();
 		int farmerWheat = farmer.getTotalHunger();

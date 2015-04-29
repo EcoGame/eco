@@ -32,14 +32,13 @@ public class Farmer {
 
 	}
 
-	public int fPop() {
+	public float fPop() {
 
-		float rate = (1 + Main.fBirthRate - Main.fDeathRate);
-		floatFPop = (floatFPop * rate);
-		oldFPop = fPop;
-		fPop = (int) (floatFPop);
+		float rate = (1 + PlayerCountry.fBirthRate - PlayerCountry.fDeathRate);
+		float floatfPop = (this.floatFPop * rate);
+		int fpop = (int) (floatfPop);
 
-		return fPop;
+		return fpop - oldFPop;
 
 	}
 

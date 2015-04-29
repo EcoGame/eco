@@ -79,13 +79,11 @@ public class City {
 	}
 
 	public void updatePop(int newpop) {
-		// System.out.println("updating city");
 		Random random = new Random();
 		if (newpop - pop > 0) {
 			int buildings = (int) Math.ceil(newpop / 6f);
 			int oldbuildings = getSize();
 			int deltabuildings = buildings - oldbuildings;
-			// System.out.println(pop+","+oldbuildings+","+buildings);
 			while (deltabuildings > 0) {
 				Point rand = new Point(random.nextInt(4), random.nextInt(4));
 				while (map[rand.getX()][rand.getY()] == 2) {
@@ -96,7 +94,7 @@ public class City {
 			}
 			pop = newpop;
 		} else {
-			int buildings = (int) Math.floor(newpop / 6f);
+			int buildings = (int) Math.ceil(newpop / 6f);
 			int oldbuildings = getSize();
 			int deltabuildings = oldbuildings - buildings;
 
@@ -109,6 +107,9 @@ public class City {
 				deltabuildings--;
 			}
 			pop = newpop;
+		}
+		if (pop <= 0){
+			usename = false;
 		}
 	}
 

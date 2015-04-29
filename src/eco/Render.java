@@ -39,17 +39,16 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 import static org.lwjgl.opengl.GL11.glViewport;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
 
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.FloatBuffer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
 import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
@@ -81,12 +80,9 @@ public class Render {
 	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
 			-8f, World.mapsize / 2f * tilesize);
 
-	public static volatile int vertex_handle;
-	public static volatile int texture_handle;
-	public static volatile int structure_vertex_handle;
-	public static volatile int structure_texture_handle;
-	public static volatile int buffersize;
-	public static volatile int structure_buffersize;
+	public static FloatBuffer vertex = null;
+	public static FloatBuffer texture = null;
+	public static int buffersize;
 
 	public static boolean overhead = false;
 
@@ -94,6 +90,8 @@ public class Render {
 
 	public static boolean multithreading = false;
 	public static boolean multiThreadStructures = false;
+	
+	public static final Object lock = new Object();
 
 	/* Main draw function */
 	public static void draw() {
@@ -116,23 +114,30 @@ public class Render {
 		glRotatef(rot, 0.0f, 1.0f, 0.0f);
 		glTranslatef(offset, 0f, offset);
 
-		/* VBO rendering */
-		if (multithreading) {
-			if (vertex_handle == 0 || texture_handle == 0) {
-				return;
-			} else {
-				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vertex_handle);
-				GL11.glVertexPointer(3, GL11.GL_FLOAT, 0, 0L);
+		/* Array rendering */
+		synchronized(lock){
+			if (multithreading) {
+				if (vertex != null && texture != null){
 
-				GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, texture_handle);
-				GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 0, 0L);
+					GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
+					GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
+					
+					GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+					GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+					
+					GL11.glVertexPointer(3, 0, vertex);
+					GL11.glTexCoordPointer(2, 0, texture);
 
-				GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
+					GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
+					
+					GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+					GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+				}
 			}
 		}
 
 		/* DisplayList rendering */
-		if (!multithreading) {
+		if (!multithreading || true) {
 			/* Call the display list */
 			GL11.glCallList(DisplayLists.getIndex());
 			/* Render structures */
@@ -164,8 +169,29 @@ public class Render {
 					}
 					if (World.structures[x][y] == 3) {
 						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 6);
+								* heightConstant, (-y) * tilesize, 10);
 					}
+					if (World.decorations[x][y] == 1){
+						drawStructure((-x) * tilesize, 48
+								* heightConstant, (-y) * tilesize, 12);
+					}
+					if (World.decorations[x][y] == 2){
+						drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
+								* heightConstant, (-y) * tilesize, 13);
+					}
+					if (World.decorations[x][y] == 3){
+						drawStructure((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 14);
+					}
+					if (World.decorations[x][y] == 4){
+						drawStructure((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 15);
+					}
+					if (World.decorations[x][y] == 6 && false){
+						drawStructure((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 26);
+					}
+
 				}
 			}
 		}
@@ -277,29 +303,29 @@ public class Render {
 		UIManager.render();
 
 		/* Draw all the text */
-		drawString(String.valueOf(Main.warrior.getwPop()) + " Warriors", 85,
+		drawString(String.valueOf(PlayerCountry.warrior.getwPop()) + " Warriors", 85,
 				657);
-		drawString(String.valueOf(Main.farmer.getfPop()) + " Farmers", 85, 627);
-		drawString(String.valueOf(Main.wheat.gettWheat()), 85, 587);
+		drawString(String.valueOf(PlayerCountry.farmer.getfPop()) + " Farmers", 85, 627);
+		drawString(String.valueOf(PlayerCountry.wheat.gettWheat()), 85, 587);
 		if (Util.getWheatRate() > 0) {
 			font.drawString(
-					85 + font.getWidth(String.valueOf(Main.wheat.gettWheat()
+					85 + font.getWidth(String.valueOf(PlayerCountry.wheat.gettWheat()
 							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
 							+ ")", Color.green);
 		} else {
 			font.drawString(
-					85 + font.getWidth(String.valueOf(Main.wheat.gettWheat()
+					85 + font.getWidth(String.valueOf(PlayerCountry.wheat.gettWheat()
 							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
 							+ ")", Color.red);
 		}
 		drawString("Conscription Rate: "
-				+ ((int) (100 * Main.desiredWarriorRatio)) + "%", 285, 657);
+				+ ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285, 657);
 		drawString("Frames Per Tick: " + String.valueOf(Main.framesPerTick),
 				285, 627);
-		drawString("Feed Displaced: " + String.valueOf(Main.displacedEat), 585,
+		drawString("Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat), 585,
 				657);
 		drawString(
-				"Favor Warrior Rations: " + String.valueOf(!Main.favorFarmers),
+				"Favor Warrior Rations: " + String.valueOf(!PlayerCountry.favorFarmers),
 				585, 627);
 
 		/* Draw all the messages */
@@ -402,6 +428,8 @@ public class Render {
 		UIManager.renderMenu2();
 		drawString("Generation Settings", ((Main.width / 2) + 280), 224);
 
+		
+
 	}
 
 	/* Draw a structure that faces the camera */
@@ -410,8 +438,8 @@ public class Render {
 
 		float offset = (tilesize / 2);
 
-		int tex = texpos % 4;
-		int tey = texpos / 4;
+		int tex = texpos % 8;
+		int tey = texpos / 8;
 
 		glTranslatef(x, 0, z);
 		glRotatef(-rot, 0f, 1f, 0f);
@@ -443,7 +471,7 @@ public class Render {
 		}
 		if (type == 2) {
 			texpos = 9;
-			texpos2 = 12;
+			texpos2 = 25;
 		}
 
 		float offset = (tilesize / 8);
@@ -509,7 +537,9 @@ public class Render {
 		}
 		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		GL11.glDepthMask(false);
 		glPushMatrix();
 		int width = font.getWidth(city.getName());
@@ -546,6 +576,7 @@ public class Render {
 		glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		glPopMatrix();
 	}
 
@@ -704,14 +735,6 @@ public class Render {
 			e.printStackTrace();
 		}
 
-		GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-		GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-		GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-
-		texture_handle = glGenBuffers();
-		vertex_handle = glGenBuffers();
-		structure_texture_handle = glGenBuffers();
-		structure_vertex_handle = glGenBuffers();
 
 		DisplayLists.init();
 	}

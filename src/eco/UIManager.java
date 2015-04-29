@@ -74,19 +74,19 @@ public class UIManager {
 
 	public static void update() {
 		if (toggleFeedDisplaced.checkForClick()) {
-			Main.displacedEat ^= true;
+			PlayerCountry.displacedEat ^= true;
 		}
 		if (toggleFavorWarrior.checkForClick()) {
-			Main.favorFarmers ^= true;
+			PlayerCountry.favorFarmers ^= true;
 		}
 		if (increaseWarriorRatio.checkForClick()) {
-			if (Main.desiredWarriorRatio != 1.0f) {
-				Main.desiredWarriorRatio += 0.01f;
+			if (PlayerCountry.desiredWarriorRatio < 1.0f) {
+				PlayerCountry.desiredWarriorRatio += 0.01f;
 			}
 		}
 		if (decreaseWarriorRatio.checkForClick()) {
-			if (Main.desiredWarriorRatio != 0.0f) {
-				Main.desiredWarriorRatio -= 0.01f;
+			if (PlayerCountry.desiredWarriorRatio != 0.0f) {
+				PlayerCountry.desiredWarriorRatio -= 0.01f;
 			}
 		}
 		if (increaseTickRate.checkForClick()) {
@@ -139,8 +139,9 @@ public class UIManager {
             startSaveGame1.setText(Main.saveName1);
         }
         Main.currentSave = 1;
+        Main.shouldQuit = false;
         Main.initGame();
-        Main.gameLoop();
+        PlayerCountry.gameLoop();
     }
 
     if (startSaveGame2.checkForClick()) {
@@ -167,10 +168,9 @@ public class UIManager {
             startSaveGame2.setText(Main.saveName2);
         }
         Main.currentSave = 2;
-        Main.initGame();
-        Main.gameLoop();
-        Main.shouldBeInMenu = false;
         Main.shouldQuit = false;
+        Main.initGame();
+        PlayerCountry.gameLoop();
     }
         
     if (startSaveGame3.checkForClick()) {
@@ -197,10 +197,10 @@ public class UIManager {
             startSaveGame3.setText(Main.saveName3);
         }
         Main.currentSave = 3;
-        Main.initGame();
-        Main.gameLoop();
-        Main.shouldBeInMenu = false;
         Main.shouldQuit = false;
+        Main.initGame();
+        PlayerCountry.gameLoop();
+
     }
 	
     if (startSaveGame4.checkForClick()) {
@@ -227,10 +227,10 @@ public class UIManager {
             startSaveGame4.setText(Main.saveName4);
         }
         Main.currentSave = 4;
-        Main.initGame();
-        Main.gameLoop();
-        Main.shouldBeInMenu = false;
         Main.shouldQuit = false;
+        Main.initGame();
+        PlayerCountry.gameLoop();
+
     }
         
     if (startSaveGame5.checkForClick()) {
@@ -257,26 +257,26 @@ public class UIManager {
             startSaveGame5.setText(Main.saveName5);
         }
         Main.currentSave = 5;
-        Main.initGame();
-        Main.gameLoop();
-        Main.shouldBeInMenu = false;
         Main.shouldQuit = false;
+        Main.initGame();
+        PlayerCountry.gameLoop();
+
     }
         
 		if (generatorIsland.checkForClick()) {
-			Main.generatorToUse = 0;
+			PlayerCountry.generatorToUse = 0;
 			generatorArchipelago.setToggle(false);
 			generatorMountains.setToggle(false);
 		}
 
 		if (generatorArchipelago.checkForClick()) {
-			Main.generatorToUse = 1;
+			PlayerCountry.generatorToUse = 1;
 			generatorIsland.setToggle(false);
 			generatorMountains.setToggle(false);
 		}
 
 		if (generatorMountains.checkForClick()) {
-			Main.generatorToUse = 2;
+			PlayerCountry.generatorToUse = 2;
 			generatorIsland.setToggle(false);
 			generatorArchipelago.setToggle(false);
 		}

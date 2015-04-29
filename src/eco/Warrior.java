@@ -18,12 +18,11 @@ public class Warrior {
 	private int normalHunger = 10;
 	private int totalHunger;
 
-	public int wPop() {
-		float rate = (1 + Main.wBirthRate - Main.wDeathRate);
-		floatWPop = (floatWPop * rate);
-		oldWPop = wPop;
-		wPop = (int) (floatWPop);
-		return wPop;
+	public float wPop() {
+		float rate = (1 + PlayerCountry.wBirthRate - PlayerCountry.wDeathRate);
+		float floatWPop = (this.floatWPop * rate);
+		float wpop = floatWPop;
+		return wpop - oldWPop;
 	}
 
 	public int newPop() {

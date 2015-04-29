@@ -67,13 +67,13 @@ public class Util {
 				BW.newLine();
 			}
 
-			BW.write(Integer.toString(Main.year));
+			BW.write(Integer.toString(PlayerCountry.year));
 			BW.newLine();
-			BW.write(Integer.toString(Main.wheat.gettWheat()));
+			BW.write(Integer.toString(PlayerCountry.wheat.gettWheat()));
 			BW.newLine();
-			BW.write(Integer.toString(Main.farmer.fPop()));
+			BW.write(Integer.toString(PlayerCountry.farmer.getfPop()));
 			BW.newLine();
-			BW.write(Integer.toString(Main.warrior.wPop()));
+			BW.write(Integer.toString(PlayerCountry.warrior.getwPop()));
 			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
@@ -102,6 +102,12 @@ public class Util {
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Short.toString(World.popdensity[x][y]) + ",");
+				}
+				BW.newLine();
+			}
+			for (int x = 0; x < World.mapsize; x++) {
+				for (int y = 0; y < World.mapsize; y++) {
+					BW.write(Short.toString(World.decorations[x][y]) + ",");
 				}
 				BW.newLine();
 			}
@@ -165,10 +171,10 @@ public class Util {
 			if (Main.currentSave == 5) {
 				Main.saveName5 = list.get(0);
 			}
-			Main.year = Integer.valueOf(list.get(1));
-			Main.wheat.settWheat(Integer.valueOf(list.get(2)));
-			Main.farmer.setfPop(Integer.valueOf(list.get(3)));
-			Main.warrior.setwPop(Integer.valueOf(list.get(4)));
+			PlayerCountry.year = Integer.valueOf(list.get(1));
+			PlayerCountry.wheat.settWheat(Integer.valueOf(list.get(2)));
+			PlayerCountry.farmer.setfPop(Integer.valueOf(list.get(3)));
+			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
 			int line = 5;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
@@ -209,10 +215,18 @@ public class Util {
 				}
 				line++;
 			}
+			for (int x = 0; x < World.mapsize; x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				for (int y = 0; y < World.mapsize; y++) {
+					World.decorations[x][y] = Short.valueOf((parts[y]));
+				}
+				line++;
+			}
 			// Set the variable that the information will become
 			// To the end here.
 
-			readSuccess();
+			//readSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
 			readError();
@@ -293,15 +307,15 @@ public class Util {
 	}
 
 	public static int computeTotalHunger() {
-		return Main.farmer.getTotalHunger()
-				+ Main.warrior.getTotalHunger()
-				+ ((int) (Main.farmer.getfHunger() * World.displacedPeople / 2f));
+		return PlayerCountry.farmer.getTotalHunger()
+				+ PlayerCountry.warrior.getTotalHunger()
+				+ ((int) (PlayerCountry.farmer.getfHunger() * World.displacedPeople / 2f));
 	}
 
 	public static String getWheatRateForDisplay() {
 		int hunger = computeTotalHunger();
-		int input = Main.farmer.getWheatProductionRate()
-				* Main.farmer.getfPop();
+		int input = PlayerCountry.farmer.getWheatProductionRate()
+				* PlayerCountry.farmer.getfPop();
 		int total = input - hunger;
 		if (total < 0) {
 			return "dW/dT: " + String.valueOf(total) + " Bushels";
@@ -314,18 +328,18 @@ public class Util {
 
 	public static int getWheatRate() {
 		int hunger = computeTotalHunger();
-		int input = Main.farmer.getWheatProductionRate()
-				* Main.farmer.getfPop();
+		int input = PlayerCountry.farmer.getWheatProductionRate()
+				* PlayerCountry.farmer.getfPop();
 		int total = input - hunger;
 		return total;
 	}
 
 	public static float getTotalPopf() {
-		return Main.warrior.getFloatWPop() + Main.farmer.getFloatFPop();
+		return PlayerCountry.warrior.getFloatWPop() + PlayerCountry.farmer.getFloatFPop();
 	}
 
 	public static int getTotalPop() {
-		return Main.warrior.getwPop() + Main.farmer.getfPop();
+		return PlayerCountry.warrior.getwPop() + PlayerCountry.farmer.getfPop();
 	}
 
 	public static boolean doesSaveExist(int currentSave) {
