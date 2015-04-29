@@ -262,7 +262,9 @@ public class World {
 			}
 		}
 		
-
+        if (totalAcres < 100){
+            generate(generator);
+        }
 		
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
