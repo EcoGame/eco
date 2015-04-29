@@ -50,14 +50,14 @@ public class Country {
 			float desiredWarriorRatio, float desiredFarmerRatio) {
 		name = names[Util.randInt(0, names.length - 1)];
 
-		fBirthRate = 0.03f;
+		fBirthRate = Util.randFloat(0.01f, 0.07f);
 		fDeathRate = 0.02f;
 		fDefaultDeathRate = 0.02f;
-		wBirthRate = 0.008f;
+		wBirthRate = Util.randFloat(0.001f, 0.01f);
 		wDeathRate = 0.002f;
 		wDefaultDeathRate = 0.002f;
-		farmerDeathRatio = 0.75f;
-		warriorDeathRatio = 0.75f;
+		farmerDeathRatio = Util.randFloat(0.00f, 1f);
+		warriorDeathRatio = Util.randFloat(0.00f, 1f);
 	}
 
 	public void tick() {
