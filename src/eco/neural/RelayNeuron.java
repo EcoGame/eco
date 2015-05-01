@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 
 public class RelayNeuron{
 public int firevalue =1;

@@ -1,4 +1,5 @@
-package neural;
+package eco.neural;
+
 public class Main{
     public static RelayNeuron[] neuralArray = new RelayNeuron[10];
     public static InputNeuron[] inputNeuralArray = new InputNeuron[10];

@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 
 import java.util.Random;
 
