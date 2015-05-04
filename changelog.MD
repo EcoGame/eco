@@ -1,11 +1,15 @@
-# Version 0.6 - Phil
+# Version 0.7 - Eco Team
 
 ## General
- Encapsulated (almost) everything
- Added javadoc comments
- Fixed indentation
+ Saving
+ Loading saves
+ Typing
+ City Name Generation
+ Graphs
+ Castle Name Generation
+ Rubble, rocks, lakes, boats, clouds
+ Multicountry support
  
-## World
- Implemented the city model
- Implemented density
+## Neural
+ Neural code has been integrated
  
