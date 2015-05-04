@@ -1,7 +1,9 @@
 #!/bin/bash
 reset
 cd $(dirname "$0")
-mkdir bin
+if [ -d "$bin" ]; then
+  mkdir bin
+fi
 echo Compiling...
 javac -d bin -cp .:lib/* src/eco/game/*.java
 javac -d bin src/eco/neural/*.java
