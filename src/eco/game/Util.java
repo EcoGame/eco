@@ -34,6 +34,32 @@ public class Util {
 	private static Random random = new Random();
 
 	public static void createSave() {
+        
+        if (Main.currentSave == 1) {
+            if(Main.saveName1.contains(" ")) {
+                Main.saveName1 = Main.saveName1.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 2) {
+            if(Main.saveName2.contains(" ")) {
+                Main.saveName2 = Main.saveName2.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 3) {
+            if(Main.saveName3.contains(" ")) {
+                Main.saveName3 = Main.saveName3.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 4) {
+            if(Main.saveName4.contains(" ")) {
+                Main.saveName4 = Main.saveName4.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 5) {
+            if(Main.saveName5.contains(" ")) {
+                Main.saveName5 = Main.saveName5.replace(" ", "@");
+            }
+        }
 
 		String path = null;
 		try {
@@ -125,6 +151,32 @@ public class Util {
 	}
 
 	public static void readSave() {
+        
+        if (Main.currentSave == 1) {
+            if(Main.saveName1.contains("@")) {
+                Main.saveName1 = Main.saveName1.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 2) {
+            if(Main.saveName2.contains("@")) {
+                Main.saveName2 = Main.saveName1.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 3) {
+            if(Main.saveName3.contains("@")) {
+                Main.saveName3 = Main.saveName3.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 4) {
+            if(Main.saveName4.contains("@")) {
+                Main.saveName4 = Main.saveName4.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 5) {
+            if(Main.saveName5.contains("@")) {
+                Main.saveName5 = Main.saveName1.replace("@", " ");
+            }
+        }
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
@@ -143,7 +195,7 @@ public class Util {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			while (s.hasNext()) {
-				list.add(s.next());
+				list.add(s.nextLine());
 			}
 			s.close();
 		} catch (Exception e) {
