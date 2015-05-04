@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -80,9 +81,12 @@ public class Render {
 	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
 			-8f, World.mapsize / 2f * tilesize);
 
-	public static FloatBuffer vertex = null;
-	public static FloatBuffer texture = null;
-	public static int buffersize;
+	public static volatile float[] vertexes;
+	public static volatile float[] textures;
+	
+	public static volatile FloatBuffer vertex = null;
+	public static volatile FloatBuffer texture = null;
+	public static volatile int buffersize;
 
 	public static boolean overhead = false;
 
@@ -117,7 +121,13 @@ public class Render {
 		/* Array rendering */
 		synchronized(lock){
 			if (multithreading) {
-				if (vertex != null && texture != null){
+				if (vertexes != null && textures != null){
+					vertex = BufferUtils.createFloatBuffer(buffersize);
+					vertex.put(vertexes, 0, buffersize);
+					texture = BufferUtils.createFloatBuffer(buffersize * 2 / 3);
+					texture.put(textures, 0, buffersize * 2 / 3);
+					texture.flip();
+					vertex.flip();
 
 					GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
 					GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
@@ -167,6 +177,17 @@ public class Render {
 									new Point(x, y), true));
 						}
 					}
+					if (World.structures[x][y] == 4) {
+						try {
+							World.cities.get(new Point(x, y)).updatePop(0);
+							drawCity((-x) * tilesize, World.noise[x][y]
+									* heightConstant, (-y) * tilesize, 2,
+									World.cities.get(new Point(x, y)));
+						} catch (Exception e) {
+							World.cities.put(new Point(x, y), new City(
+									new Point(x, y), true));
+						}
+					}
 					if (World.structures[x][y] == 3) {
 						drawStructure((-x) * tilesize, World.noise[x][y]
 								* heightConstant, (-y) * tilesize, 10);
@@ -176,8 +197,8 @@ public class Render {
 								* heightConstant, (-y) * tilesize, 12);
 					}
 					if (World.decorations[x][y] == 2){
-						drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
-								* heightConstant, (-y) * tilesize, 13);
+						//drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
+							//	* heightConstant, (-y) * tilesize, 13); //Cloud drawing
 					}
 					if (World.decorations[x][y] == 3){
 						drawStructure((-x) * tilesize, World.noise[x][y]
@@ -186,10 +207,6 @@ public class Render {
 					if (World.decorations[x][y] == 4){
 						drawStructure((-x) * tilesize, World.noise[x][y]
 								* heightConstant, (-y) * tilesize, 15);
-					}
-					if (World.decorations[x][y] == 6 && false){
-						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 26);
 					}
 
 				}
@@ -480,6 +497,10 @@ public class Render {
 		int tey = texpos / 8;
 		int tex2 = texpos2 % 8;
 		int tey2 = texpos2 / 8;
+		
+		int texposr = 15;
+		int texr = texposr % 8;
+		int teyr = texposr / 8;
 
 		for (int i = 0; i < 4; i++) {
 			for (int k = 0; k < 4; k++) {
@@ -519,6 +540,22 @@ public class Render {
 					glVertex3f(tempx + offset, y, tempz);
 					glTexCoord2f(atlas.getCoord(tex2, false),
 							atlas.getCoord(tey2, true));
+					glVertex3f(tempx - offset, y, tempz);
+					glEnd();
+				}
+				else if (city.getBuilding(i, k) == -1){
+					glBegin(GL_QUADS);
+					glTexCoord2f(atlas.getCoord(texr, false),
+							atlas.getCoord(teyr, false));
+					glVertex3f(tempx - offset, y + offset * 4, tempz);
+					glTexCoord2f(atlas.getCoord(texr, true),
+							atlas.getCoord(teyr, false));
+					glVertex3f(tempx + offset, y + offset * 4, tempz);
+					glTexCoord2f(atlas.getCoord(texr, true),
+							atlas.getCoord(teyr, true));
+					glVertex3f(tempx + offset, y, tempz);
+					glTexCoord2f(atlas.getCoord(texr, false),
+							atlas.getCoord(teyr, true));
 					glVertex3f(tempx - offset, y, tempz);
 					glEnd();
 				}

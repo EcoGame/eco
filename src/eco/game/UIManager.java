@@ -140,7 +140,7 @@ public class UIManager {
         }
         Main.currentSave = 1;
         Main.shouldQuit = false;
-        Main.initGame();
+        PlayerCountry.initGame();
         PlayerCountry.gameLoop();
     }
 
@@ -169,7 +169,7 @@ public class UIManager {
         }
         Main.currentSave = 2;
         Main.shouldQuit = false;
-        Main.initGame();
+        PlayerCountry.initGame();
         PlayerCountry.gameLoop();
     }
         
@@ -198,7 +198,7 @@ public class UIManager {
         }
         Main.currentSave = 3;
         Main.shouldQuit = false;
-        Main.initGame();
+        PlayerCountry.initGame();
         PlayerCountry.gameLoop();
 
     }
@@ -228,7 +228,7 @@ public class UIManager {
         }
         Main.currentSave = 4;
         Main.shouldQuit = false;
-        Main.initGame();
+        PlayerCountry.initGame();
         PlayerCountry.gameLoop();
 
     }
@@ -258,7 +258,7 @@ public class UIManager {
         }
         Main.currentSave = 5;
         Main.shouldQuit = false;
-        Main.initGame();
+        PlayerCountry.initGame();
         PlayerCountry.gameLoop();
 
     }

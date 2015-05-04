@@ -25,6 +25,8 @@ public class City {
 	public static String capitalEpithet = "# ";
 
 	public boolean castle = false;
+	public boolean ruin = false;
+	
 
 	public City(Point key) {
 		new City(key, false);
@@ -72,6 +74,12 @@ public class City {
 			usename = false;
 		}
 		this.castle = isCastle;
+		if (usename){
+			Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
+		}
+		else{
+			Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
+		}
 	}
 
 	public City(String name) {
@@ -79,6 +87,9 @@ public class City {
 	}
 
 	public void updatePop(int newpop) {
+		if (ruin){
+			return;
+		}
 		Random random = new Random();
 		if (newpop - pop > 0) {
 			int buildings = (int) Math.ceil(newpop / 6f);
@@ -86,8 +97,13 @@ public class City {
 			int deltabuildings = buildings - oldbuildings;
 			while (deltabuildings > 0) {
 				Point rand = new Point(random.nextInt(4), random.nextInt(4));
+				int count = 0;
 				while (map[rand.getX()][rand.getY()] == 2) {
 					rand = new Point(random.nextInt(4), random.nextInt(4));
+					count++;
+					if (count > 1000){
+						break;
+					}
 				}
 				map[rand.getX()][rand.getY()] += 1;
 				deltabuildings--;
@@ -100,7 +116,7 @@ public class City {
 
 			while (deltabuildings > 0 && getSize() > 0) {
 				Point rand = new Point(random.nextInt(4), random.nextInt(4));
-				while (map[rand.getX()][rand.getY()] == 0) {
+				while (map[rand.getX()][rand.getY()] == -1) {
 					rand = new Point(random.nextInt(4), random.nextInt(4));
 				}
 				map[rand.getX()][rand.getY()] -= 1;
@@ -108,8 +124,17 @@ public class City {
 			}
 			pop = newpop;
 		}
-		if (pop <= 0){
+		if (newpop <= 0){
 			usename = false;
+			castle = false;
+			ruin = true;
+		}
+		for (int x = 0; x < 4; x++){
+			for (int y = 0; y < 4; y++){
+				if (map[x][y] == -1 && random.nextInt(10) == 0){
+					map[x][y] = 0;
+				}
+			}
 		}
 	}
 

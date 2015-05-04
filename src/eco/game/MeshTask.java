@@ -158,9 +158,11 @@ public class MeshTask implements Runnable {
 
 
 		synchronized(Render.lock){
-			Render.texture = textureData;
-			Render.vertex = vertexData;
+			Render.texture = textureData.duplicate();
+			Render.vertex = vertexData.duplicate();
 			Render.buffersize = index;
+			Render.textures = texture;
+			Render.vertexes = vertex;
 		}
 
 	}

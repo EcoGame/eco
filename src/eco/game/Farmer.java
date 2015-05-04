@@ -24,6 +24,17 @@ public class Farmer {
 
 	private int normalHunger = 10;
 
+	public Farmer(){
+		 fPop = 5;
+		 oldFPop = fPop;
+
+		floatFPop = fPop;
+
+		 wheatPerFarmer = 14;
+
+		 normalHunger = 10;
+	}
+	
 	public int fHunger() {
 
 		fHunger = 0;
@@ -32,11 +43,19 @@ public class Farmer {
 
 	}
 
-	public float fPop() {
-
-		float rate = (1 + PlayerCountry.fBirthRate - PlayerCountry.fDeathRate);
+	public float fPop(float fBirthRate, float fDeathRate) {
+		
+		if (fPop < 0){
+			fPop = 0;
+		}
+		if (floatFPop < 0){
+			floatFPop = 0;
+		}
+		
+		float rate = (1 + fBirthRate - fDeathRate);
 		float floatfPop = (this.floatFPop * rate);
 		int fpop = (int) (floatfPop);
+
 
 		return fpop - oldFPop;
 

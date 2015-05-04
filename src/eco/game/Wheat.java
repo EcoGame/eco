@@ -14,7 +14,9 @@ public class Wheat {
 	private static int wheatPrice;
 
 	private int maxwheat = 5000;
-	private int minwheat = 1000;
+	private int minwheat = 2000;
+	
+	public static int globalWheat = 0;
 
 	public int tWheat(int farmers, Farmer farmer) {
 		tWheat += farmers * farmer.getWheatProductionRate();
@@ -23,8 +25,10 @@ public class Wheat {
 
 	public int eatWheat(int request, Economy economy) {
 		if (tWheat < minwheat) {
-			int toBuy = minwheat - tWheat;
+			int toBuy = Math.min(minwheat - tWheat, globalWheat);
+			int oldtWheat = tWheat;
 			tWheat += economy.buyWheat(toBuy);
+			globalWheat -= (tWheat - oldtWheat);
 		}
 		if (request > tWheat) {
 			int diff = request - tWheat;
@@ -51,6 +55,7 @@ public class Wheat {
 	public void update(Economy economy) {
 		if (tWheat > maxwheat) {
 			economy.sellWheat(tWheat - maxwheat);
+			globalWheat += tWheat - maxwheat;
 			tWheat = maxwheat;
 		}
 	}
@@ -61,6 +66,14 @@ public class Wheat {
 
 	public void resetWheat() {
 		tWheat = 0;
+	}
+	
+	public void rot(float rate){
+		tWheat *= rate;
+	}
+	
+	public static void globalRot(float rate){
+		globalWheat *= rate;
 	}
 
 }

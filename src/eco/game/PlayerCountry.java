@@ -34,16 +34,22 @@ public class PlayerCountry {
 	public static final int ticks = 2000;
 
 	public static int generatorToUse = 0;
+	
+	public static float wheatRot = 0.9f;
 
 	public static ArrayList<Country> countries = new ArrayList<Country>();
+	
+	public static boolean forceConscription = true;
 
 	// ======================//
 	// Newly Instanced Stuff //
 	// ======================//
-	public static Wheat wheat = new Wheat();
-	public static Farmer farmer = new Farmer();
-	public static Warrior warrior = new Warrior();
-	public static Economy economy = new Economy();
+	public static final Wheat wheat = new Wheat();
+	public static final Farmer farmer = new Farmer();
+	public static final Warrior warrior = new Warrior();
+	public static final Economy economy = new Economy();
+	
+	public static String name = "Canada";
 
 	/* Game tick */
 	public static void tick() {
@@ -69,13 +75,23 @@ public class PlayerCountry {
 		World.displacedWarriors = 0;
 
 		if (World.displacedFarmers == 0 && World.displacedWarriors == 0){
-			float newPopulation = farmer.fPop() + warrior.wPop();
+			float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(fBirthRate, fDeathRate);
 			float newWarriors = newPopulation * desiredWarriorRatio;
 			newPopulation -= newWarriors;
 			farmer.addPop(newPopulation);
 			warrior.addPop(newWarriors);
 			warrior.setOldWPop(warrior.getwPop());
 			farmer.setOldFPop(farmer.getfPop());
+		}
+		
+		if (forceConscription){
+			float totalpop = farmer.getFloatFPop() + warrior.getFloatWPop();
+			float warriors = totalpop * desiredWarriorRatio;
+			float farmers = totalpop - warriors;
+			warrior.setwPop((int) warriors);
+			warrior.setFloatWPop(warriors);
+			farmer.setfHunger((int) farmers);
+			farmer.setFloatFPop(farmers);
 		}
 
 		// =================//
@@ -100,7 +116,11 @@ public class PlayerCountry {
 		if (farmerWheat != 0) {
 			int fDeath = (int) Math.round(((float) farmerWheat / (float) farmer
 					.getfHunger()) * farmerDeathRatio);
-			farmer.addPop(-fDeath);
+			farmer.addPop(fDeath);
+			fDeathRate = Math.min(1f, fDeathRate + 0.001f);
+		}
+		else{
+			fDeathRate = Math.max(0f, fDeathRate - 0.001f);	
 		}
 
 		if (warriorWheat != 0) {
@@ -108,6 +128,10 @@ public class PlayerCountry {
 					.round(((float) warriorWheat / (float) warrior.getwHunger())
 							* warriorDeathRatio);
 			warrior.addPop(-wDeath);
+			wDeathRate = Math.min(1f, wDeathRate + 0.001f);
+		}
+		else{
+			wDeathRate = Math.max(0f, wDeathRate - 0.001f);	
 		}
 
 		if (displacedEat) {
@@ -130,6 +154,8 @@ public class PlayerCountry {
 		}
 
 		wheat.update(economy);
+		wheat.rot(wheatRot);
+		Wheat.globalRot(wheatRot);
 
 		// ===========//
 		// Map Update //
@@ -151,7 +177,9 @@ public class PlayerCountry {
 		// Multicountry //
 		// =============//
 		for (Country country : countries) {
-			country.tick();
+			if (!country.dead){
+				country.tick();
+			}
 		}
 	}
 	
@@ -188,9 +216,9 @@ public class PlayerCountry {
 					Render.draw();
 					OutputManager.newDebug();
 					Graphs.draw(PlayerCountry.year,
-							PlayerCountry.economy.getPrice(),
 							PlayerCountry.farmer.getfPop()
 									+ PlayerCountry.warrior.getwPop(),
+									Wheat.globalWheat,
 							PlayerCountry.economy.getTreasury());
 				} else {
 					Main.skipFrame = false;
@@ -211,7 +239,28 @@ public class PlayerCountry {
 			}
 		}
 		Util.createSave();
-		Main.mainMenu();
+		Menu.mainMenu();
+	}
+
+
+	/* Starts a game */
+	public static void initGame() {
+		World.init(generatorToUse);
+		Main.paused = false;
+		farmer.setfPop(5);
+		warrior.setwPop(5);
+		economy.setTreasury(0);
+		wheat.resetWheat();
+		if (Util.doesSaveExist(Main.currentSave)) {
+			Util.readSave();
+		} else {
+		}
+		DisplayLists.mesh();
+		countries = new ArrayList<Country>();
+		int countriesToGenerate = 10;
+		for (int i = 0; i <= countriesToGenerate; i++) {
+			countries.add(new Country(true, true, 0.15f, 0.85f));
+		}
 	}
 
 

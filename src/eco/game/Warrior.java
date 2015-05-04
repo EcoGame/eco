@@ -17,9 +17,17 @@ public class Warrior {
 
 	private int normalHunger = 10;
 	private int totalHunger;
+	
+	public Warrior(){
+		 wPop = 5;
+		 oldWPop = wPop;
+		 floatWPop = wPop;
 
-	public float wPop() {
-		float rate = (1 + PlayerCountry.wBirthRate - PlayerCountry.wDeathRate);
+		 normalHunger = 10;
+	}
+
+	public float wPop(float wBirthRate, float wDeathRate) {
+		float rate = (1 + wBirthRate - wDeathRate);
 		float floatWPop = (this.floatWPop * rate);
 		float wpop = floatWPop;
 		return wpop - oldWPop;

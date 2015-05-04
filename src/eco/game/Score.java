@@ -1,6 +1,5 @@
 package eco.game;
 
-import java.util.Arrays;
 
 public class Score {
     

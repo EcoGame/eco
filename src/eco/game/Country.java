@@ -37,6 +37,10 @@ public class Country {
 	public float wDefaultDeathRate = 0.002f;
 	public float farmerDeathRatio = 0.75f;
 	public float warriorDeathRatio = 0.75f;
+	
+	public static float wheatRot = PlayerCountry.wheatRot;
+	
+	public boolean dead = false;
 
 	// ================//
 	// Other Variables //
@@ -64,8 +68,7 @@ public class Country {
 		// ==================//
 		// Population growth //
 		// ==================//
-		farmer.fPop();
-		warrior.wPop();
+
 		if (farmer.getfPop() + warrior.getwPop() > maxpop) {
 			int overflow = farmer.getfPop() + warrior.getwPop() - maxpop;
 			int kfarmer = (int) (overflow * desiredFarmerRatio);
@@ -78,11 +81,13 @@ public class Country {
 		// ==============//
 		// Conscription //
 		// =============//
-		float newPopulation = farmer.newPop() + warrior.newPop();
+		float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(wBirthRate, wDeathRate);
 		float newWarriors = newPopulation * desiredWarriorRatio;
 		newPopulation -= newWarriors;
 		farmer.addPop(newPopulation);
 		warrior.addPop(newWarriors);
+		warrior.setOldWPop(warrior.getwPop());
+		farmer.setOldFPop(farmer.getfPop());
 
 		// ====================//
 		// Hunger Calculations //
@@ -106,7 +111,11 @@ public class Country {
 		if (farmerWheat != 0) {
 			int fDeath = (int) Math.round(((float) farmerWheat / (float) farmer
 					.getfHunger()) * farmerDeathRatio);
-			farmer.addPop(-fDeath);
+			farmer.addPop(fDeath);
+			fDeathRate = Math.min(1f, fDeathRate + 0.001f);
+		}
+		else{
+			fDeathRate = Math.max(0f, fDeathRate - 0.001f);	
 		}
 
 		if (warriorWheat != 0) {
@@ -114,6 +123,10 @@ public class Country {
 					.round(((float) warriorWheat / (float) warrior.getwHunger())
 							* warriorDeathRatio);
 			warrior.addPop(-wDeath);
+			wDeathRate = Math.min(1f, wDeathRate + 0.001f);
+		}
+		else{
+			wDeathRate = Math.max(0f, wDeathRate - 0.001f);	
 		}
 
 		if (displacedEat) {
@@ -134,11 +147,16 @@ public class Country {
 				displaced -= displacedDeath;
 			}
 		}
+		
+		if (farmer.getfPop() <= 0 && warrior.getwPop() <= 0){
+			dead = true;
+		}
 
 		// =================//
 		// Economic Updates //
 		// =================//
 		wheat.update(economy);
+		wheat.rot(wheatRot);
 	}
 
 }
