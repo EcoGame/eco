@@ -20,9 +20,9 @@ public class OutputNeuron {
     public void addToCurrent(int x) {
 
         currentvalue = x + currentvalue;
-
+    
     }
-
+    
     public int firecheck() {
         if (currentvalue > firevalue) {
             fired = 1;
@@ -32,11 +32,11 @@ public class OutputNeuron {
         }
         return fired;
     }
-
+    
     public void reset() {
         currentvalue = 0;
         fired = 0;
         alreadyfired = false;
     }
-
+    
 }

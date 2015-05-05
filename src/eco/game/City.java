@@ -136,6 +136,17 @@ public class City {
 				}
 			}
 		}
+		for (int x = 0; x < 4; x++){
+			for (int y = 0; y < 4; y++){
+				if (map[x][y] != 0){
+					return;
+				}
+			}
+		}
+		World.popdensity[loc.getX()][loc.getY()] = 0;
+		World.popmap[loc.getX()][loc.getY()] = 0;
+		World.structures[loc.getX()][loc.getY()] = 0;
+		World.cities.remove(loc);
 	}
 
 	public int getBuilding(int x, int y) {
@@ -144,9 +155,9 @@ public class City {
 
 	public String getName() {
 		if (usename) {
-			return name;
+			return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
 		}
-		return "";
+		return "["+World.popdensity[loc.getX()][loc.getY()]+"] ";
 	}
 
 	public int getSize() {

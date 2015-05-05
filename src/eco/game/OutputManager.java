@@ -34,9 +34,9 @@ public class OutputManager {
 			Render.drawString(
 					"Population: " + String.valueOf(Util.getTotalPop()), 10, 70);
 			Render.drawString(
-					"Farmers: " + String.valueOf(PlayerCountry.farmer.getfPop()), 10, 90);
+					"Farmers: " + String.valueOf(World.oldFarmers), 10, 90);
 			Render.drawString(
-					"Warriors: " + String.valueOf(PlayerCountry.warrior.getwPop()), 10,
+					"Warriors: " + String.valueOf(World.oldWarriors), 10,
 					110);
 			Render.drawString(
 					"Total Displaced: " + String.valueOf(World.displacedPeople),

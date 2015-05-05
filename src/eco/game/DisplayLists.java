@@ -36,6 +36,14 @@ public class DisplayLists {
 		GL11.glNewList(index, GL11.GL_COMPILE_AND_EXECUTE);
 		for (int x = 0; x < World.mapsize; x++) {
 			for (int y = 0; y < World.mapsize; y++) {
+				if (Main.renderPopMap){
+					if (World.popdensity[x][y] != 0){
+						GL11.glColor3f(World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f);
+					}
+					else{
+						GL11.glColor3f(1f, 1f, 1f);
+					}
+				}
 				if (World.map[x][y] == 0) {
 
 					float height = 48 * Render.heightConstant;

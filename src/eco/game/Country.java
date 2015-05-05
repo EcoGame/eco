@@ -40,6 +40,8 @@ public class Country {
 	
 	public static float wheatRot = PlayerCountry.wheatRot;
 	
+	public int landsize;
+	
 	public boolean dead = false;
 
 	// ================//
@@ -47,12 +49,11 @@ public class Country {
 	// ================//
 	public int maxpop = 10000;
 	public int displaced = 0;
-	public static String[] names = new String[] { "Tumblr", "Yahoo",
-			"PiedPiper", "Baidu", "Xiaomi" };
 
 	public Country(boolean favorFarmers, boolean displacedEat,
 			float desiredWarriorRatio, float desiredFarmerRatio) {
-		name = names[Util.randInt(0, names.length - 1)];
+
+		name = NameGen.generateRandom();
 
 		fBirthRate = Util.randFloat(0.01f, 0.07f);
 		fDeathRate = 0.02f;
@@ -62,6 +63,9 @@ public class Country {
 		wDefaultDeathRate = 0.002f;
 		farmerDeathRatio = Util.randFloat(0.00f, 1f);
 		warriorDeathRatio = Util.randFloat(0.00f, 1f);
+		
+		landsize = World.random.nextInt(10000) + 1000;
+		maxpop = World.random.nextInt(10000) + 1000;
 	}
 
 	public void tick() {

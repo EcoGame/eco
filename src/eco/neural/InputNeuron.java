@@ -11,12 +11,12 @@ public int currentvalue;
 public boolean highorlow = true; // true = high false = low
 
 public void checkinput(){
-
+    
 fired = 0;
     if(highorlow == true){
         if(input > firevalue){
         fired = 1;
-
+            
         }
     } else{
         if(input < firevalue){

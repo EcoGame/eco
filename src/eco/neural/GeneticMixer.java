@@ -1,4 +1,5 @@
 package eco.neural;
+
 import java.util.Random;
 public class GeneticMixer{
 
@@ -6,12 +7,12 @@ public class GeneticMixer{
  * @param parentOne the chromosome of the first parent
  * @param parentTwo the chromosome of the second parent
  * @return a new semirandom child chromosome
-
-
+ 
+ 
  */
 
 public static Random random = new Random();
-
+ 
  public static void start(){
  int one = randInt(1,5);
  int two = randInt(1,5);
@@ -23,13 +24,13 @@ public static Random random = new Random();
  System.out.println("Two: " + Integer.toBinaryString(two));
  System.out.println("Child: " + Integer.toBinaryString(child));
  }
-
+ 
  public static int randInt(int min, int max) { //Returns a random number between min and max.
-
+ 
  return min + random.nextInt((max + 1)- min);
-
+ 
  }
-
+ 
  public static int spawnChildChromosome(int parentOne, int parentTwo) {
  int base = parentOne & parentTwo;
  Random rand = new Random();
@@ -50,7 +51,7 @@ public static Random random = new Random();
  if (((parentOne^parentTwo)&n) == 0){
  base |= rand.nextInt(2)<<n; // 0001; 0010; 0100; 1000;
  }
-
+ 
  }
  return base;
  }

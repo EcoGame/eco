@@ -28,6 +28,8 @@ public class Main {
 
 	public static int framesPerTick = 8;
 	public static int frame = 0;
+	
+	public static boolean renderPopMap = false;
 
 	// =============//
 	// IO Variables //

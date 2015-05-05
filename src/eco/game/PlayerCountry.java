@@ -2,6 +2,7 @@ package eco.game;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 public class PlayerCountry {
@@ -40,6 +41,8 @@ public class PlayerCountry {
 	public static ArrayList<Country> countries = new ArrayList<Country>();
 	
 	public static boolean forceConscription = true;
+	
+	public static int territories = 0;
 
 	// ======================//
 	// Newly Instanced Stuff //
@@ -58,9 +61,7 @@ public class PlayerCountry {
 		// ==================//
 		// Population growth //
 		// ==================//
-		farmer.addPop(-World.displacedFarmers);
-		warrior.addPop(-World.displacedWarriors);
-
+		
 		if (World.displacedFarmers != 0) {
 			farmer.setOldFPop(farmer.getfPop());
 		}
@@ -69,10 +70,7 @@ public class PlayerCountry {
 			warrior.setOldWPop(warrior.getwPop());
 		}
 
-		World.displacedPeople += World.displacedFarmers
-				+ World.displacedWarriors;
-		World.displacedFarmers = 0;
-		World.displacedWarriors = 0;
+
 
 		if (World.displacedFarmers == 0 && World.displacedWarriors == 0){
 			float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(fBirthRate, fDeathRate);
@@ -162,6 +160,12 @@ public class PlayerCountry {
 		// ===========//
 		World.updateMap(farmer.getfPop(), warrior.getwPop());
 		World.freeAcres = World.calcAcres();
+		farmer.addPop(-World.displacedFarmers);
+		warrior.addPop(-World.displacedWarriors);
+		World.displacedPeople += World.displacedFarmers
+				+ World.displacedWarriors;
+		World.displacedFarmers = 0;
+		World.displacedWarriors = 0;
 
 		// ===============//
 		// Render Updates //
@@ -179,6 +183,9 @@ public class PlayerCountry {
 		for (Country country : countries) {
 			if (!country.dead){
 				country.tick();
+				if (World.random.nextInt(10) == 0 && Keyboard.isKeyDown(Keyboard.KEY_U)){
+					War.warWith(country);
+				}
 			}
 		}
 	}
