@@ -34,6 +34,32 @@ public class Util {
 	private static Random random = new Random();
 
 	public static void createSave() {
+        
+        if (Main.currentSave == 1) {
+            if(Main.saveName1.contains(" ")) {
+                Main.saveName1 = Main.saveName1.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 2) {
+            if(Main.saveName2.contains(" ")) {
+                Main.saveName2 = Main.saveName2.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 3) {
+            if(Main.saveName3.contains(" ")) {
+                Main.saveName3 = Main.saveName3.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 4) {
+            if(Main.saveName4.contains(" ")) {
+                Main.saveName4 = Main.saveName4.replace(" ", "@");
+            }
+        }
+        if (Main.currentSave == 5) {
+            if(Main.saveName5.contains(" ")) {
+                Main.saveName5 = Main.saveName5.replace(" ", "@");
+            }
+        }
 
 		String path = null;
 		try {
@@ -47,28 +73,23 @@ public class Util {
 
 			// Data Being Saved:
 			if (Main.currentSave == 1) {
-				Main.saveName1 = Main.saveName1.replace("\\s", "^");
-                BW.write(Main.saveName1);
+				BW.write(Main.saveName1);
 				BW.newLine();
 			}
 			if (Main.currentSave == 2) {
-                Main.saveName2 =  Main.saveName2.replace("\\s", "^");
 				BW.write(Main.saveName2);
 				BW.newLine();
 			}
 			if (Main.currentSave == 3) {
-                Main.saveName3 = Main.saveName3.replace("\\s", "^");
-                BW.write(Main.saveName3);
+				BW.write(Main.saveName3);
 				BW.newLine();
 			}
 			if (Main.currentSave == 4) {
-                Main.saveName4 = Main.saveName4.replace("\\s", "^");
-                BW.write(Main.saveName4);
+				BW.write(Main.saveName4);
 				BW.newLine();
 			}
 			if (Main.currentSave == 5) {
-                Main.saveName5 = Main.saveName5.replace("\\s", "^");
-                BW.write(Main.saveName5);
+				BW.write(Main.saveName5);
 				BW.newLine();
 			}
 
@@ -130,6 +151,32 @@ public class Util {
 	}
 
 	public static void readSave() {
+        
+        if (Main.currentSave == 1) {
+            if(Main.saveName1.contains("@")) {
+                Main.saveName1 = Main.saveName1.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 2) {
+            if(Main.saveName2.contains("@")) {
+                Main.saveName2 = Main.saveName1.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 3) {
+            if(Main.saveName3.contains("@")) {
+                Main.saveName3 = Main.saveName3.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 4) {
+            if(Main.saveName4.contains("@")) {
+                Main.saveName4 = Main.saveName4.replace("@", " ");
+            }
+        }
+        if (Main.currentSave == 5) {
+            if(Main.saveName5.contains("@")) {
+                Main.saveName5 = Main.saveName1.replace("@", " ");
+            }
+        }
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
@@ -158,7 +205,6 @@ public class Util {
 		try {
 			for (String str : list) {
 				str = str.replace(System.getProperty("line.separator"), "");
-                str.replace("^", "");
 			}
 
 			// Information being loaded:
