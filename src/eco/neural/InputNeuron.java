@@ -1,4 +1,4 @@
-package eco.neural;
+package neural;
 
 public class InputNeuron{
 public int input;

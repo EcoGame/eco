@@ -1,5 +1,4 @@
-package eco.neural;
-
+package neural;
 import java.util.Random;
 public class GeneticMixer{
 

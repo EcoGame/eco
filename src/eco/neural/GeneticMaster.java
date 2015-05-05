@@ -1,9 +1,9 @@
-package eco.neural;
+package neural;
 
 public class GeneticMaster{
 
     public static void genemaster(){
-        
+        scoreaggregator();
         
         
         
@@ -11,7 +11,7 @@ public class GeneticMaster{
     }
  
     
-    public static void attributebreeder(){
+    public static void attributebreeder(int network1, int network2){
         
         
         
@@ -19,7 +19,7 @@ public class GeneticMaster{
         
     }
     
-    public static void connectionbreeder(){
+    public static void connectionbreeder(int network1, int network2){
         
         
         
@@ -29,18 +29,14 @@ public class GeneticMaster{
         
     }
     
-    public static int calcfitness(){
-        
-        
-        
-        return 0;
-    }
     
     public static void selectparents(){
-        
-        
+        for(int x =0; x < Main.workingnetworks.length;  x++){
+            //pull score for specific network
+            
+        }
+        // use some way to determine bestway to choose for
         
     }
-
-
+    
 }
