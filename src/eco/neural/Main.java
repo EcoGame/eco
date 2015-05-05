@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 public class Main{
     public static RelayNeuron[][] neuralArray = new RelayNeuron[10][10];
     public static InputNeuron[][] inputNeuralArray = new InputNeuron[10][10];
@@ -30,15 +30,15 @@ public static void main(String [] args) {
             neuralArray[x][i] = new RelayNeuron();
 
             neuralArray[x][i].id = i;
-         
-        }   
+
+        }
     }
     for(int f=0; f<inputNeuralArray.length; f++){
         for(int q=0; q < inputNeuralArray[f].length; q++){
             inputNeuralArray[f][q] = new InputNeuron();
 
             inputNeuralArray[f][q].id = q;
-          
+
         }
     }
     for (int z = 0; z < outputNeuralArray.length; z++){
@@ -46,7 +46,7 @@ public static void main(String [] args) {
             outputNeuralArray[z][w] = new OutputNeuron();
 
             outputNeuralArray[z][w].id = w;
-           
+
          }}
     for(int m =0; m < axonArray.length; m++){
         for(int i =0; i < axonArray[m].length; i++){

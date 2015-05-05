@@ -1,15 +1,15 @@
-package neural;
+package eco.neural;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 public class KingManager{
     public static int currentnetwork =0 ;
-    
+
     public static void topmanager(){
-        
+
     }
-    
+
     public static void gamemanager(){
         statusreader();
         boolean gamecomplete = false;
@@ -19,11 +19,11 @@ public class KingManager{
             if(Main.workingnetworks[x] == true){
                 periodicinit(x);
             }
-            
+
         }
         iscomplete1 = false;
 
-        for(int x = 0; (x< Main.workingnetworks.length) && (iscomplete0 == false); x++){  
+        for(int x = 0; (x< Main.workingnetworks.length) && (iscomplete0 == false); x++){
             if(Main.workingnetworks[x] == true){
                 currentnetwork = x;
                 Main.workingnetworks[x] = false;
@@ -32,33 +32,33 @@ public class KingManager{
         }
         iscomplete0 = false;
         while(gamecomplete == false){
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
         }
-              
-        
-        
-        
-        
+
+
+
+
+
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
     public static void statusreader(){
         char code;
         int x;
@@ -73,11 +73,11 @@ public class KingManager{
 			String line;
 			while ((line = bufferedReader.readLine()) != null) {
 				code = line.charAt(0);
-                
+
 				String[] tokenSpace = line.split(" ");
- 				
+
                 switch(code){
-                        
+
                     case 'g':
                     generation= Integer.parseInt(tokenSpace[1]);
                         break;
@@ -95,14 +95,14 @@ public class KingManager{
                 }
 			}
 			fileReader.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
-        
-        
-        
+
+
+
+
     }
 
 

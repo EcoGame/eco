@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 
 /**
  * This class does something

@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 
 public class Axon{
     int currentnetwork;
@@ -16,38 +16,38 @@ boolean isused = false;
 
             case 0:
                 int q = 0;
-                
+
                 for(int r = 0; r < Main.axonArraytofill[typebondedto][pairedneuronid- Main.INPUTIDOFFSET].length; r++){
                     q= connections[r][0];
-                  
+
                     transfervalue = transfervalue + (connections[r][1] * Main.inputNeuralArray[currentnetwork][q].fired);
-                    
+
                 }
 
                 break;
 
             case 1:
                 int e = 0;
-              
+
                 for(int r = 0; r < Main.axonArraytofill[typebondedto][pairedneuronid- Main.OUTPUTIDOFFSET].length; r++){
-                  
+
 
                     e=connections[r][0];
-                    
+
                     transfervalue = transfervalue + (connections[r][1] * Main.axonArray[currentnetwork][e].fired);
-             
+
                 }
                 break;
 
             case 2:
                 int k = 0;
-               
+
                 for(int r = 0; r < Main.axonArraytofill[typebondedto][pairedneuronid- Main.RELAYIDOFFSET].length; r++){
-                 
+
                     k=connections[r][0];
-                   
+
                     transfervalue = transfervalue + (connections[r][1] * Main.axonArray[currentnetwork][k].fired);
-                   
+
                 }
                 break;
 
@@ -62,19 +62,19 @@ boolean isused = false;
                 case 0:
                     k = pairedneuronid - Main.INPUTIDOFFSET;
                     fired = Main.inputNeuralArray[currentnetwork][k].fired;
-                    
+
                     break;
 
                 case 1:
                     k = pairedneuronid - Main.OUTPUTIDOFFSET;
                     fired = Main.outputNeuralArray[currentnetwork][k].fired;
-                   
+
                     break;
 
                 case 2:
                      k = pairedneuronid - Main.RELAYIDOFFSET;
                     fired = Main.neuralArray[currentnetwork][k].fired;
-                   
+
                     break;
 
             }

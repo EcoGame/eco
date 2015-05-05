@@ -1,4 +1,4 @@
-package neural;
+package eco.neural;
 
 import java.util.Random;
 
@@ -71,7 +71,7 @@ int id= 0;
        for(int i =0; i < Main.inputNeuralArray[currentnetwork].length; i++){
 
                        idtotrans= Main.inputNeuralArray[currentnetwork][i].id;
-         
+
 	    Main.inputNeuralArray[currentnetwork][i].pairedaxon = id;
             Main.axonArray[currentnetwork][id].pairedneuronid = idtotrans + Main.INPUTIDOFFSET;
 
@@ -80,7 +80,7 @@ int id= 0;
             Main.axonArray[currentnetwork][id].id= id;
 
            id++;
-      
+
 
         }
       type++;
@@ -88,17 +88,17 @@ int id= 0;
       break;
       case 1:
        for(int i =0; i < Main.outputNeuralArray[currentnetwork].length; i++){
-      
+
             idtotrans= Main.outputNeuralArray[currentnetwork][i].id;
-          
+
 		Main.outputNeuralArray[currentnetwork][i].pairedaxon = id;
              Main.axonArray[currentnetwork][id].pairedneuronid = idtotrans+ Main.OUTPUTIDOFFSET;
-           
+
            Main.axonArray[currentnetwork][id].typebondedto =1;
 
 
             Main.axonArray[currentnetwork][id].id= id;
-           
+
              id++;
 
 
@@ -110,14 +110,14 @@ int id= 0;
 
 		Main.neuralArray[currentnetwork][i].pairedaxon = id;
             idtotrans= Main.neuralArray[currentnetwork][i].id;
-          
+
             Main.axonArray[currentnetwork][id].pairedneuronid = idtotrans + Main.RELAYIDOFFSET;
                     Main.axonArray[currentnetwork][id].typebondedto =2;
 
 
 
             Main.axonArray[currentnetwork][id].id= id;
-         
+
            id++;
 
 
@@ -145,7 +145,7 @@ while(iscomplete == false){
 	for(int x= 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++){
 
        		Main.inputNeuralArray[currentnetwork][x].firevalue = Main.neuronArrayfill[currentnetwork][type][x][0];
-          
+
 		}
       type++;
       break;
@@ -155,8 +155,8 @@ while(iscomplete == false){
 
        		Main.outputNeuralArray[currentnetwork][x].firevalue = Main.neuronArrayfill[currentnetwork][type][x][0];
 		Main.outputNeuralArray[currentnetwork][x].action = Main.neuronArrayfill[currentnetwork][type][x][1];
-               
-                
+
+
 
 		}
       type++;
@@ -166,13 +166,13 @@ while(iscomplete == false){
 
 
        		Main.neuralArray[currentnetwork][x].firevalue = Main.neuronArrayfill[currentnetwork][type][x][0];
-         
+
 
 		}
       type++;
       break;
       default:
-            
+
         iscomplete = true;
         break;
     }
@@ -202,7 +202,7 @@ while(iscomplete == false){
 
 
                 Main.outputNeuralArray[currentnetwork][k].reset();
-                
+
                 eur= Main.outputNeuralArray[currentnetwork][k].pairedaxon;
                 Main.axonArray[currentnetwork][eur].reset();
 
@@ -259,10 +259,10 @@ while(iscomplete == false){
                 case 2:
                     for(int e = 0; e < Main.neuralArray[currentnetwork].length; e++){
                         eur = Main.neuralArray[currentnetwork][e].pairedaxon;
-                      
+
                         Main.axonArray[currentnetwork][eur].pullfires(currentnetwork);
                         Main.neuralArray[currentnetwork][e].currentvalue = Main.axonArray[currentnetwork][eur].transfervalue;
-                
+
                       //  Main.outputneuralArray[e].firecheck();
                       //  Main.axonArray[eur].neuroncheck();
 
@@ -285,7 +285,7 @@ while(iscomplete == false){
             switch(type){
 
                 case 0:
-                
+
                     for(int i = 0; i < Main.inputNeuralArray[currentnetwork].length; i++){
                         if(Main.inputNeuralArray[currentnetwork][i].alreadyfired == false){
                         Main.inputNeuralArray[currentnetwork][i].checkinput();
@@ -294,7 +294,7 @@ while(iscomplete == false){
                         eur= Main.inputNeuralArray[currentnetwork][i].pairedaxon;
                       //  Main.axonArray[eur].neuroncheck();
                         Main.axonArray[currentnetwork][eur].fired = Main.inputNeuralArray[currentnetwork][i].fired;
-                       
+
                             nofires++;
                         }
                     }
@@ -326,12 +326,12 @@ while(iscomplete == false){
                       iscomplete = true;
 
                     }
-             
+
 
           }
-            
+
         }
-   
+
         public static void neuraltick(int currentnetwork){
           int iteration= 0;
           boolean iscomplete =false;
@@ -346,7 +346,7 @@ while(iscomplete == false){
             fireallneurons(currentnetwork);
               }
               resetallneurons(currentnetwork);
-              
+
             iteration++;
 
           }
