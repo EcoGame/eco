@@ -116,5 +116,9 @@ public class Score {
         
     }
     
+    public int scoreAt(int tick){
+        return scores[tick];
+    }
+    
     
 }
