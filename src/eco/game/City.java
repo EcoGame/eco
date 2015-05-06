@@ -14,7 +14,7 @@ public class City {
 
 	private int[][] map = new int[4][4];
 
-	private String name;
+	private final String name;
 
 	private boolean usename = true;
 
@@ -28,11 +28,9 @@ public class City {
 	public boolean ruin = false;
 	
 
-	public City(Point key) {
-		new City(key, false);
-	}
 
 	public City(Point key, boolean isCastle) {
+		String name = "";
 		name = NameGen.generateRandom();
 		if (isCastle) {
 			name = NameGen.generateCastle();
@@ -80,6 +78,7 @@ public class City {
 		else{
 			Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
 		}
+		this.name = name;
 	}
 
 	public City(String name) {
@@ -154,6 +153,9 @@ public class City {
 	}
 
 	public String getName() {
+		if (name == null){
+			Log.log(-1, "NAME IS NULL");
+		}
 		if (usename) {
 			return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
 		}

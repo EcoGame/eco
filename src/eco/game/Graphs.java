@@ -18,11 +18,11 @@ public class Graphs {
 	private static float[] moneys = new float[size];
 
 	public static void draw(int year, int population, int wheat, float money) {
-		int y = 740;
-		int x = 1225;
-		int shift = 100;
-		int perGraphShift = 80;
-		int labelDistance = 60;
+		int y = 790;
+		int x = 130;
+		int shift = -100;
+		int perGraphShift = 100;
+		int labelDistance = -60;
 		int num = 0;
 		int height = 90;
 		int maxOne = 0;
@@ -56,6 +56,25 @@ public class Graphs {
 		Render.font.drawString(
 				(x - (perGraphShift * num) - shift + size - 270), y - height
 						- 5, "0", new Color(41, 152, 104));
+		
+		GL11.glBegin(GL11.GL_LINES);
+		GL11.glVertex2f((x - (perGraphShift * num) - shift + size - 270), y - height
+				- 5);
+		GL11.glVertex2f((x - (perGraphShift * num) - shift + size - 270), y - height
+				- 105);
+		GL11.glEnd();
+		
+		Render.font.drawString(
+				(x - (perGraphShift * num) - shift + size - 125), y - height
+						- 105, String.valueOf(maxTwo),
+						new Color(238, 187, 66));
+		Render.font.drawString(
+				(x - (perGraphShift * num) - shift + size - 125), y - height
+						- 55, String.valueOf(maxTwo / 2), new Color(238, 187, 66));
+		Render.font.drawString(
+				(x - (perGraphShift * num) - shift + size - 125), y - height
+						- 5, "0", new Color(238, 187, 66));
+		
 
 		Render.font.drawString((x - (perGraphShift * num) - shift + size + 20),
 				y - height - 105, String.valueOf(maxOne),
@@ -79,7 +98,7 @@ public class Graphs {
 			// (y - shift) - (int) (pops[i] * ((float) height / maxOne)),
 			// "\u25A0 .", new Color(1, 169, 212));
 			GL11.glVertex2f((float) (x - (perGraphShift * num) - shift) + i,
-					(y - shift) - (pops[i] * ((float) height / maxOne)));
+					(y + shift) - (pops[i] * ((float) height / maxOne)));
 			// System.out.println((x - (perGraphShift * num) - shift) + i);
 		}
 		GL11.glEnd();
@@ -97,9 +116,9 @@ public class Graphs {
 			// ((float)height/maxTwo)), 1));
 			GL11.glBegin(GL11.GL_LINES);
 			GL11.glVertex2f((x - (perGraphShift * num) - shift) + i,
-					(y - shift) - (wheats[i] * ((float) height / maxTwo)));
+					(y + shift) - (wheats[i] * ((float) height / maxTwo)));
 			GL11.glVertex2f((x - (perGraphShift * num) - shift) + i + 1,
-					(y - shift) - (wheats[i + 1] * ((float) height / maxTwo)));
+					(y + shift) - (wheats[i + 1] * ((float) height / maxTwo)));
 			GL11.glEnd();
 
 		}
@@ -118,9 +137,9 @@ public class Graphs {
 
 			GL11.glBegin(GL11.GL_LINES);
 			GL11.glVertex2f((x - (perGraphShift * num) - shift) + i,
-					(y - shift) - (moneys[i] * ((float) height / maxThree)));
+					(y + shift) - (moneys[i] * ((float) height / maxThree)));
 			GL11.glVertex2f((x - (perGraphShift * num) - shift) + i + 1,
-					(y - shift) - (moneys[i + 1] * ((float) height / maxThree)));
+					(y + shift) - (moneys[i + 1] * ((float) height / maxThree)));
 			GL11.glEnd();
 
 		}

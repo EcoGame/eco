@@ -222,11 +222,6 @@ public class PlayerCountry {
 				if (!Main.skipFrame) {
 					Render.draw();
 					OutputManager.newDebug();
-					Graphs.draw(PlayerCountry.year,
-							PlayerCountry.farmer.getfPop()
-									+ PlayerCountry.warrior.getwPop(),
-									Wheat.globalWheat,
-							PlayerCountry.economy.getTreasury());
 				} else {
 					Main.skipFrame = false;
 				}

@@ -27,6 +27,11 @@ public class Button {
 	private int texselected;
 
 	private int teyselected;
+	
+	private int overtex;
+	private int overtey;
+	
+	private int oversize;
 
 	public Button(float x, float y, float size, int tex, int tey,
 			int texselected, int teyselected) {
@@ -86,6 +91,25 @@ public class Button {
 			GL11.glTexCoord2f(atlas.getCoord(tex, false),
 					atlas.getCoord(tey, true));
 			GL11.glVertex2f(x, y + size);
+			GL11.glEnd();
+		}
+		if (oversize == 24 || true){
+
+			float offx = (size - oversize) / 2;
+			float offy = (size - oversize) / 2;
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(atlas.getCoord(overtex, false),
+					atlas.getCoord(overtey, false));
+			GL11.glVertex2f(x + offx, y + offy);
+			GL11.glTexCoord2f(atlas.getCoord(overtex, true),
+					atlas.getCoord(overtey, false));
+			GL11.glVertex2f(x + offx + oversize, y + offy);
+			GL11.glTexCoord2f(atlas.getCoord(overtex, true),
+					atlas.getCoord(overtey, true));
+			GL11.glVertex2f(x + oversize + offx, y + offy + oversize);
+			GL11.glTexCoord2f(atlas.getCoord(overtex, false),
+					atlas.getCoord(overtey, true));
+			GL11.glVertex2f(x + offx, y + offy + oversize);
 			GL11.glEnd();
 		}
 
@@ -158,5 +182,37 @@ public class Button {
 	public void render2() {
 
 	}
+	
+	public void addOverlay(int tex, int tey, int size){
+		overtex = tex;
+		overtey = tey;
+		this.oversize = size;
+	}
+
+	public int getOvertex() {
+		return overtex;
+	}
+
+	public void setOvertex(int overtex) {
+		this.overtex = overtex;
+	}
+
+	public int getOvertey() {
+		return overtey;
+	}
+
+	public void setOvertey(int overtey) {
+		this.overtey = overtey;
+	}
+
+	public int getOversize() {
+		return oversize;
+	}
+
+	public void setOversize(int oversize) {
+		this.oversize = oversize;
+	}
+	
+	
 
 }

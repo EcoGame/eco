@@ -461,4 +461,18 @@ public class Util {
 		return "";
 	}
 
+	public static void deleteSave(int save){
+		String path = "";
+		File name = null;
+		path = "saves/" + save + ".txt";
+		if (!Main.isInEclipse) {
+			path = "../" + path;
+		}
+		name = new File(path);
+		if (name.exists()){
+			name.delete();
+			Menu.initMenu();
+		}
+	}
+	
 }

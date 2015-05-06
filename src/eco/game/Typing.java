@@ -117,6 +117,9 @@ public class Typing {
 					case Keyboard.KEY_RETURN:
 						word = "@";
 						break;
+					case Keyboard.KEY_ESCAPE:
+						word = "^";
+						break;
 					case Keyboard.KEY_BACK:
 						if (word.length() > 1) {
 							if (word.contains("|")) {

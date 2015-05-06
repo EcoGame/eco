@@ -9,6 +9,7 @@ public class Menu {
 	/* Main menu loop */
 	/* returns if the display was closed */
 	public static void mainMenu() {
+		initMenu();
 		while (Main.shouldBeInMenu) {
 			if (Display.isCloseRequested()) {
 				Main.shouldQuit = true;

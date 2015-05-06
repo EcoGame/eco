@@ -71,7 +71,29 @@ public class ToggleButton extends Button {
 			GL11.glVertex2f(x, y + size);
 			GL11.glEnd();
 		}
+		if (getOversize() == 24 || true){
 
+			float offx = (size - getOversize()) / 2;
+			float offy = (size - getOversize()) / 2;
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glTexCoord2f(atlas.getCoord(getOvertex(), false),
+					atlas.getCoord(getOvertey(), false));
+			GL11.glVertex2f(x + offx, y + offy);
+			GL11.glTexCoord2f(atlas.getCoord(getOvertex(), true),
+					atlas.getCoord(getOvertey(), false));
+			GL11.glVertex2f(x + offx + getOversize(), y + offy);
+			GL11.glTexCoord2f(atlas.getCoord(getOvertex(), true),
+					atlas.getCoord(getOvertey(), true));
+			GL11.glVertex2f(x + getOversize() + offx, y + offy + getOversize());
+			GL11.glTexCoord2f(atlas.getCoord(getOvertex(), false),
+					atlas.getCoord(getOvertey(), true));
+			GL11.glVertex2f(x + offx, y + offy + getOversize());
+			GL11.glEnd();
+		}
+	}
+	
+	public void setToggle(boolean toggle){
+		this.toggle = toggle;
 	}
 
 }

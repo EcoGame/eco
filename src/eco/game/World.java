@@ -554,8 +554,8 @@ public class World {
 					}
 				}
 			}
-			oldFarmers = farmers - Math.max(newfarmland, newhouses);
-			displacedFarmers = Math.max(newfarmland, newhouses);
+			oldFarmers = farmers - Math.min(newfarmland, newhouses);
+			displacedFarmers = Math.min(newfarmland, newhouses);
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {

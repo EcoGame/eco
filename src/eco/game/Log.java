@@ -6,14 +6,31 @@ public class Log {
 	
 	private static ArrayList<String> log = new ArrayList<String>();
 	
-	private static boolean instant = true;
-	
+	private static int mode = 2;
+
 	public static void log(int year, String message){
-		message = "["+year+"] "+message;
-		if (instant){
-			System.out.println(message);
+		if (mode == 0){
+			message = "["+year+"] "+message;
+				log.add(message);
+		} if (mode == 1){
+			if (year == -1){
+				message = "[Debug] "+message;
+				log.add(message);
+			}
+			else{
+				message = "["+year+"] "+message;
+				log.add(message);
+			}
+		} else if (mode == 2){
+			if (year == -1){
+				message = "[Debug] "+message;
+				log.add(message);
+			}
 		}
-			log.add(message);
+	}
+	
+	public static ArrayList<String> getAll(){
+		return log;
 	}
 	
 	public static void dump(){

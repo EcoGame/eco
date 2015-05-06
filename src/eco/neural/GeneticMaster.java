@@ -3,7 +3,6 @@ package eco.neural;
 public class GeneticMaster{
 
     public static void genemaster(){
-        scoreaggregator();
 
 
 

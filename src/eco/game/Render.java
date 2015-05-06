@@ -64,7 +64,7 @@ import org.newdawn.slick.util.ResourceLoader;
  * 
  */
 
-public class Render {
+public class Render{
 
 	public static float rot;
 	public static final float rotSpeed = 0.05f;
@@ -162,7 +162,7 @@ public class Render {
 									World.cities.get(new Point(x, y)));
 						} catch (Exception e) {
 							World.cities.put(new Point(x, y), new City(
-									new Point(x, y)));
+									new Point(x, y), false));
 						}
 					}
 					if (World.structures[x][y] == 2) {
@@ -276,78 +276,11 @@ public class Render {
 		glColor3f(1f, 1f, 1f);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-		/* Draw wheat icon */
-		atlas.getTexture().bind();
-		glBegin(GL_QUADS);
-		glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
-		glVertex2f(50, 575);
-		glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
-		glVertex2f(75, 575);
-		glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
-		glVertex2f(75, 600);
-		glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
-		glVertex2f(50, 600);
-		glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f);
-
-		/* Draw house icon */
-		glBegin(GL_QUADS);
-		glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(1, false));
-		glVertex2f(50, 610);
-		glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(1, false));
-		glVertex2f(75, 610);
-		glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(1, true));
-		glVertex2f(75, 635);
-		glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(1, true));
-		glVertex2f(50, 635);
-		glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f);
-
-		/* Draw castle icon */
-		glBegin(GL_QUADS);
-		glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(1, false));
-		glVertex2f(50, 645);
-		glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(1, false));
-		glVertex2f(75, 645);
-		glTexCoord2f(atlas.getCoord(1, true), atlas.getCoord(1, true));
-		glVertex2f(75, 670);
-		glTexCoord2f(atlas.getCoord(1, false), atlas.getCoord(1, true));
-		glVertex2f(50, 670);
-		glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f);
-
-		/* Render the buttons */
 		UIManager.render();
-
-		/* Draw all the text */
-		drawString(String.valueOf(PlayerCountry.warrior.getwPop()) + " Warriors", 85,
-				657);
-		drawString(String.valueOf(PlayerCountry.farmer.getfPop()) + " Farmers", 85, 627);
-		drawString(String.valueOf(PlayerCountry.wheat.gettWheat()), 85, 587);
-		if (Util.getWheatRate() > 0) {
-			font.drawString(
-					85 + font.getWidth(String.valueOf(PlayerCountry.wheat.gettWheat()
-							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
-							+ ")", Color.green);
-		} else {
-			font.drawString(
-					85 + font.getWidth(String.valueOf(PlayerCountry.wheat.gettWheat()
-							+ " ")), 587, " (" + Util.getWheatRateForDisplay()
-							+ ")", Color.red);
-		}
-		drawString("Conscription Rate: "
-				+ ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285, 657);
-		drawString("Frames Per Tick: " + String.valueOf(Main.framesPerTick),
-				285, 627);
-		drawString("Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat), 585,
-				657);
-		drawString(
-				"Favor Warrior Rations: " + String.valueOf(!PlayerCountry.favorFarmers),
-				585, 627);
-
+		
 		/* Draw all the messages */
 		for (Message message : Message.getMessages()) {
-			drawString(message.getMessage(), message.getX(), message.getY());
+			Render.drawString(message.getMessage(), message.getX(), message.getY());
 		}
 	}
 
@@ -445,7 +378,10 @@ public class Render {
 		UIManager.renderMenu2();
 		drawString("Generation Settings", ((Main.width / 2) + 280), 224);
 
-		
+		/* Draw all the messages */
+		for (Message message : Message.getMessages()) {
+			Render.drawString(message.getMessage(), message.getX(), message.getY());
+		}
 
 	}
 
