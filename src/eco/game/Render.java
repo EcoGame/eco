@@ -277,6 +277,7 @@ public class Render{
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 
 		UIManager.render();
+		UIManager.render2();
 		
 		/* Draw all the messages */
 		for (Message message : Message.getMessages()) {
@@ -373,6 +374,7 @@ public class Render{
 
 		/* Draw the buttons */
 		UIManager.renderMenu();
+		
 
 		/* Draw all the text */
 		UIManager.renderMenu2();
