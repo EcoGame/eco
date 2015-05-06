@@ -10,7 +10,6 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 
 public class MenuBar {
@@ -72,6 +71,16 @@ public class MenuBar {
 	private static ArrayList<Button> pane2Buttons = new ArrayList<Button>();
 	
 	private static TextureAtlas atlas = Render.atlas;
+	
+	// =======//
+	// Graphs //
+	// =======//
+	
+	private static Graph popGraph = new Graph(75, 710, "Population", new Treble<>(0f, 153f / 255f, 204f / 255f));
+	private static Graph globalWheatGraph = new Graph(75 + (150 * 1) + 75, 710, "World Wheat", new Treble<>(208f / 255f, 194f / 255f, 109f / 255f));
+	private static Graph moneyGraph = new Graph(75 + (150 * 2) + (75 * 2) , 710, "Treasury", new Treble<>(100f / 255f, 191f / 255f, 115f / 255f));
+
+	private static ArrayList<Graph> graphs = new ArrayList<Graph>();
 
 	static {
 		buttons.add(statsPane);
@@ -88,6 +97,10 @@ public class MenuBar {
 		
 		pane2Buttons.add(logUp);
 		pane2Buttons.add(logDown);
+		
+		graphs.add(popGraph);
+		graphs.add(globalWheatGraph);
+		graphs.add(moneyGraph);
 
 		statsPane.addOverlay(0, 1, 24);
 		warPane.addOverlay(1, 1, 24);
@@ -172,6 +185,11 @@ public class MenuBar {
 				logPos = 0;
 			}
 		}
+		
+		popGraph.tick(PlayerCountry.farmer.getfPop() + PlayerCountry.warrior.getwPop());
+		globalWheatGraph.tick(PlayerCountry.wheat.gettWheat());
+		moneyGraph.tick(PlayerCountry.economy.getTreasury());
+		
 	}
 
 	public static void click(float x, float y) {
@@ -207,16 +225,25 @@ public class MenuBar {
 	}
 
 	public static void render2(float x, float y) {
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+		Render.initOrtho();
 		for (Button b : buttons) {
 			b.render2();
+		}
+		if (pane == 3){
+		    renderGraphs2();
 		}
 	}
 
 	public static void renderGraphs() {
-		Graphs.draw(PlayerCountry.year, PlayerCountry.farmer.getfPop()
-				+ PlayerCountry.warrior.getwPop(), Wheat.globalWheat,
-				PlayerCountry.economy.getTreasury());
+		for (Graph g : graphs){
+			g.render();
+		}
+	}
+	
+	public static void renderGraphs2(){
+		for (Graph g : graphs){
+			g.render2();
+		}
 	}
 	
 	public static void renderLog(){
