@@ -100,6 +100,8 @@ public class Render{
 	public static final RandTexture treeTexture = new RandTexture();
 	public static final RandTexture smallHouseTexture = new RandTexture();
 	public static final RandTexture bigHouseTexture = new RandTexture();
+    public static final RandTexture smallCastleTexture = new RandTexture();
+    public static final RandTexture bigCastleTexture = new RandTexture();
 
 	/* Main draw function */
 	public static void draw() {
@@ -443,13 +445,6 @@ public class Render{
 		
 		Point smalltex = new Point(0, 0);
 		Point bigtex = new Point(0, 1);
-		
-		if (type == 1){
-			//smalltex = smallHouseTexture.sample((int) x * 1000, (int) z * 1000);
-		}
-		if (type == 2){
-			return;
-		}
 
 		int tex = smalltex.getX();
 		int tey = smalltex.getY();
@@ -469,6 +464,14 @@ public class Render{
 				if (type == 1){
 					smalltex = smallHouseTexture.sample((int) tempx * 1, (int) tempz * 1);
 					bigtex = bigHouseTexture.sample((int) tempx * 1, (int) tempz * 1);
+					tex = smalltex.getX();
+					tey = smalltex.getY();
+					tex2 = bigtex.getX();
+					tey2 = bigtex.getY();
+				}
+                if (type == 2){
+					smalltex = smallCastleTexture.sample((int) tempx * 1, (int) tempz * 1);
+					bigtex = bigCastleTexture.sample((int) tempx * 1, (int) tempz * 1);
 					tex = smalltex.getX();
 					tey = smalltex.getY();
 					tex2 = bigtex.getX();
@@ -765,6 +768,12 @@ public class Render{
 		bigHouseTexture.addTexture(new Point(0, 7));
 		bigHouseTexture.addTexture(new Point(2, 7));
 		bigHouseTexture.addTexture(new Point(3, 7));
+        
+        smallCastleTexture.addTexture(new Point(1, 1));
+        smallCastleTexture.addTexture(new Point(4, 4));
+        
+        bigCastleTexture.addTexture(new Point(1, 3));
+        bigCastleTexture.addTexture(new Point(3, 4));
 		
 		DisplayLists.init();
 	}
