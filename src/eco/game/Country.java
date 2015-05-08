@@ -25,6 +25,7 @@ public class Country {
 	// ====================//
 	// Simulation Settings //
 	// ====================//
+	public Score score = Score();
 	public boolean favorFarmers = true;
 	public boolean displacedEat = true;
 	public float desiredWarriorRatio = 0.15f;
@@ -69,6 +70,13 @@ public class Country {
 	}
 
 	public void tick() {
+		int tick = PlayerCountry.year;
+		score.calculateTickScore(tick, farmer.getfPop, warrior.getwPop, wheat.gettWheat, money.getTreasury);
+		score.calculateAvgScore(tick);
+		score.calculateTickGrowth(tick);
+		score.calculateAvgGrowth(tick);
+		score.calculatePeakScore(tick);
+		score.calculateTotalScore(tick);
 		// ==================//
 		// Population growth //
 		// ==================//
@@ -161,6 +169,7 @@ public class Country {
 		// =================//
 		wheat.update(economy);
 		wheat.rot(wheatRot);
+		
 	}
 
 }
