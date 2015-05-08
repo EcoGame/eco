@@ -25,7 +25,7 @@ public class Country {
 	// ====================//
 	// Simulation Settings //
 	// ====================//
-	public Score score = Score();
+	public Score score = new Score();
 	public boolean favorFarmers = true;
 	public boolean displacedEat = true;
 	public float desiredWarriorRatio = 0.15f;
@@ -71,7 +71,7 @@ public class Country {
 
 	public void tick() {
 		int tick = PlayerCountry.year;
-		score.calculateTickScore(tick, farmer.getfPop, warrior.getwPop, wheat.gettWheat, money.getTreasury);
+		score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
 		score.calculateAvgScore(tick);
 		score.calculateTickGrowth(tick);
 		score.calculateAvgGrowth(tick);
