@@ -8,6 +8,10 @@ public class Score {
     public int[] growths = new int[PlayerCountry.ticks];
     public int tickGrowth = 0;
     public int tickScore = 0;
+    public int avgScore = 0;
+    public int avgGrowth = 0;
+    public int peakScore = 0;
+    public int totalScore = 0;
     
     public Score(){
         
@@ -66,6 +70,7 @@ public class Score {
         }
         //System.out.println("scores[" + (i - 1) + "] == " + scores[(i - 1)]);
         int score = total / count;
+        avgScore = score;
         return score;
         
     }
@@ -85,11 +90,11 @@ public class Score {
             }
         }
         if(count != 0){
-            int avgGrowth = total / count;
+            avgGrowth = total / count;
             return avgGrowth;
         }
         else{
-            int avgGrowth = 0;
+            avgGrowth = 0;
             return avgGrowth;
         }
     }
@@ -102,6 +107,7 @@ public class Score {
                 peak = scores[i];
             }
         }
+        peakScore = peak;
         return peak;
         
     }
@@ -111,6 +117,7 @@ public class Score {
         for (int i = 1; i < scores.length - 1; i++){
             total = total + scores[i];
         }
+        totalScore = total;
         return total;
         
         
