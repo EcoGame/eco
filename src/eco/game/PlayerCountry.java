@@ -53,7 +53,7 @@ public class PlayerCountry {
 	public static final Warrior warrior = new Warrior();
 	public static final Economy economy = new Economy();
 	
-	public static String name = "Canada";
+	public static String name = NameGen.generateCountry();
 
 	/* Game tick */
 	public static void tick() {
