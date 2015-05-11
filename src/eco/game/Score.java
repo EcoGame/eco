@@ -1,6 +1,5 @@
 package eco.game;
 
-import java.util.Arrays;
 
 public class Score {
     
@@ -39,8 +38,13 @@ public class Score {
             }
         }
         if(tick > 1){
-            int tickGrowth = scores[i - 1] - scores[i - 2];
-            growths[tick - 1] = tickGrowth;
+            try{
+	        	int tickGrowth = scores[i - 1] - scores[i - 2];
+	            growths[tick - 1] = tickGrowth;
+            }
+            catch(Exception e){
+            	
+            }
             return tickGrowth;
         }
         else{
@@ -69,9 +73,14 @@ public class Score {
             }
         }
         //System.out.println("scores[" + (i - 1) + "] == " + scores[(i - 1)]);
+        try{
         int score = total / count;
         avgScore = score;
-        return score;
+        	return score;
+        }
+        catch(Exception e){
+        	return 0;
+        }
         
     }
     

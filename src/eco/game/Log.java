@@ -6,7 +6,7 @@ public class Log {
 	
 	private static ArrayList<String> log = new ArrayList<String>();
 	
-	private static int mode = 2;
+	private static int mode = 0;
 
 	public static void log(int year, String message){
 		if (mode == 0){

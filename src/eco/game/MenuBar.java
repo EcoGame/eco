@@ -27,9 +27,6 @@ public class MenuBar {
 	// ===============//
 	private static int pane = 0;
 
-	private static int logOff = 0;
-	private static int logPos;
-
 	private static ToggleButton statsPane = new ToggleButton(0,
 			10 + (6f * Main.height / 8f), 32, 6, 2, 7, 2, true);
 	private static ToggleButton warPane = new ToggleButton(0,
@@ -40,6 +37,7 @@ public class MenuBar {
 			10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, false);
 
 	private static ArrayList<Button> buttons = new ArrayList<Button>();
+	private static TextureAtlas atlas = Render.atlas;
 
 	
 	// =============//
@@ -62,7 +60,34 @@ public class MenuBar {
 
 	private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
 	
-	// =============//
+	// =========//
+	// War Pane //
+	// =========//
+	private static Button warUp = new Button(40, 575, 48, 0, 2, 1, 2);
+	private static Button warDown = new Button(40, 645, 48, 2, 2, 3, 2);
+    
+    private static TextButton warOne = new TextButton(100, (Main.height / 8f * 6f) + 16, 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warTwo = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 1), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warThree = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 2), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warFour = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 3), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warFive = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 4), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warSix = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 5), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warSeven = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 6), 176, 20, 6, 2, 7, 2, "Declare War");
+    private static TextButton warEight = new TextButton(100, (Main.height / 8f * 6f) + 16 + (20 * 7), 176, 20, 6, 2, 7, 2, "Declare War");
+	
+	private static ArrayList<Button> pane1Buttons = new ArrayList<Button>();
+	
+    
+    private static int warOff = 0;
+	private static int warPos;
+	
+	private static int warState = 0;
+	private static String warName = "";
+	private static int gold;
+	private static int land;
+	private static int wheat;
+    
+    // =============//
 	// Logging Pane //
 	// =============//
 	private static Button logUp = new Button(40, 575, 48, 0, 2, 1, 2);
@@ -70,7 +95,9 @@ public class MenuBar {
 	
 	private static ArrayList<Button> pane2Buttons = new ArrayList<Button>();
 	
-	private static TextureAtlas atlas = Render.atlas;
+	private static int logOff = 0;
+	private static int logPos;
+	
 	
 	// =======//
 	// Graphs //
@@ -94,6 +121,17 @@ public class MenuBar {
 		pane0Buttons.add(decreaseWarriorRatio);
 		pane0Buttons.add(increaseTickRate);
 		pane0Buttons.add(decreaseTickRate);
+        
+        pane1Buttons.add(warUp);
+        pane1Buttons.add(warDown);
+        pane1Buttons.add(warOne);
+        pane1Buttons.add(warTwo);
+        pane1Buttons.add(warThree);
+        pane1Buttons.add(warFour);
+        pane1Buttons.add(warFive);
+        pane1Buttons.add(warSix);
+        pane1Buttons.add(warSeven);
+        pane1Buttons.add(warEight);
 		
 		pane2Buttons.add(logUp);
 		pane2Buttons.add(logDown);
@@ -166,6 +204,84 @@ public class MenuBar {
 				}
 			}
 		}
+        if (pane == 1){
+			if (warDown.checkForClick()){
+				warOff++;
+				warOff = Math.min(warOff, PlayerCountry.countries.size());
+			}
+			if (warUp.checkForClick()){
+				warOff--;
+				if (warOff < 0){
+					warOff = 0;
+				}
+			}
+			if (warOff != 0 && warPos == 0){
+				warPos = PlayerCountry.countries.size();
+			}
+			else if (warOff == 0){
+				warPos = 0;
+			}
+			try{
+				if (warOne.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 1);
+					if (c != null){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warTwo.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 2);
+					if (c != null){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warThree.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 3);
+					if (c != null){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warFour.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 4);
+					if (c != null){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warFive.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 5);
+					if (c != null){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+			}
+			catch(Exception e){
+				
+			}
+		}
 		
 		if (pane == 2){
 			if (logDown.checkForClick()){
@@ -201,6 +317,11 @@ public class MenuBar {
 				b.click(x, y);
 			}
 		}
+        if (pane == 1) {
+			for (Button b : pane1Buttons) {
+				b.click(x, y);
+			}
+		}
 		if (pane == 2) {
 			for (Button b : pane2Buttons) {
 				b.click(x, y);
@@ -216,7 +337,7 @@ public class MenuBar {
 		if (pane == 0) {
 			renderStats();
 		} else if (pane == 1){
-			
+			renderWar();
 		} else if (pane == 2){
 			renderLog();
 		} else if (pane == 3){
@@ -233,6 +354,58 @@ public class MenuBar {
 		    renderGraphs2();
 		}
 	}
+    
+    public static void renderWar(){
+        for (Button b : pane1Buttons) {
+			b.render(Mouse.getX(), Main.height - Mouse.getY());
+		}
+        
+        if (warState != 0){
+	        /* Draw wheat icon */
+			glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glVertex2f(750, 575);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glVertex2f(775, 575);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glVertex2f(775, 600);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glVertex2f(750, 600);
+			glEnd();
+			glColor3f(1.0f, 1.0f, 1.0f);
+			
+	        /* Draw wheat icon */
+			glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glVertex2f(750, 610);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glVertex2f(775, 610);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glVertex2f(775, 635);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glVertex2f(750, 635);
+			glEnd();
+			glColor3f(1.0f, 1.0f, 1.0f);
+			
+	        /* Draw wheat icon */
+			glBegin(GL_QUADS);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glVertex2f(750, 645);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glVertex2f(775, 645);
+			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glVertex2f(775, 670);
+			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glVertex2f(750, 670);
+			glEnd();
+			glColor3f(1.0f, 1.0f, 1.0f);
+        }
+		
+
+        
+        renderWar2();
+    }
+    
 
 	public static void renderGraphs() {
 		for (Graph g : graphs){
@@ -277,6 +450,63 @@ public class MenuBar {
 			}
 		}
 	}
+    
+    public static void renderWar2(){
+        for (Button b : pane1Buttons) {
+			b.render2();
+		}
+        
+        int offx = 300;
+		int offy = Main.height / 8 * 6;
+		offy += 20;
+		
+        int logstart = warOff;
+        
+        for (int i = logstart; i < 8 + logstart; i++){
+			try{
+                String name = "";
+                Country country = null;
+                if (warOff == 0){
+                   name = PlayerCountry.countries.get(PlayerCountry.countries.size() - 1 - i).name;
+                    country = PlayerCountry.countries.get(PlayerCountry.countries.size() - 1 - i);
+                }
+                else{
+                    name = PlayerCountry.countries.get(warPos - 1 - i).name;
+                    country = PlayerCountry.countries.get(warPos - 1 - i);
+                }
+                Render.font.drawString(offx, offy, name);
+                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
+                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
+                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
+                Render.font.drawString(tempoff, offy, "["+Integer.toString(country.getScore())+"]", 
+                		new Color(43,158,255));
+                offy += 20;
+			}
+			catch (Exception e){
+				break;
+			}
+		}
+        
+        if (warState == 0){
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, "No Recent Wars");
+        } else if (warState == 1){
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+        	int off = Render.font.getWidth(warName) + 10;
+        	Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12, "- Victory!", new Color(0.25f, 0.75f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "+wheat, new Color(0.25f, 0.75f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "+gold, new Color(0.25f, 0.75f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "+land, new Color(0.25f, 0.75f, 0.25f));
+        } else if (warState == -1){
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+        	int off = Render.font.getWidth(warName) + 10;
+        	Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12, "- Defeat!", new Color(0.75f, 0.25f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "+wheat, new Color(0.75f, 0.25f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "+gold, new Color(0.75f, 0.25f, 0.25f));
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "+land, new Color(0.75f, 0.25f, 0.25f));
+        }
+        
+        
+    }
 
 	public static void renderStats() {
 

@@ -2,6 +2,11 @@ package eco.game;
 
 public class War {
 	
+	public static int winLose = 0;
+	public static int wheatLoss = 0;
+	public static int landLoss = 0;
+	public static int moneyLoss = 0;
+	
 	public static void warWith(Country c){
 		
 		Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "+c.name+"!");
@@ -38,8 +43,10 @@ public class War {
 		// Reparations
 		if (result == 0){
 			Log.log(PlayerCountry.year, "The war with "+c.name+" ends in stalemate!");
+			winLose = 0;
 			return;
 		} else if (result > 0){
+			winLose = 1;
 			int wheat = Math.min(c.wheat.gettWheat(), result * 4);
 			int money = Math.min(c.economy.getTreasury(), result * 16);
 			int land = Math.min(c.landsize, result * 2);
@@ -50,7 +57,11 @@ public class War {
 			c.economy.setTreasury(c.economy.getTreasury() - money);
 			c.landsize -= land;
 			Log.log(PlayerCountry.year, PlayerCountry.name + " wins the war with "+c.name+"!");
+			wheatLoss = wheat;
+			landLoss = land;
+			moneyLoss = money;
 		} else {
+			winLose = -1;
 			int wheat = Math.min(PlayerCountry.wheat.gettWheat(), -result * 4);
 			int money = Math.min(PlayerCountry.economy.getTreasury(), -result * 16);
 			int land = -result * 2;
@@ -59,11 +70,13 @@ public class War {
 			c.wheat.settWheat(c.wheat.gettWheat() + wheat);
 			c.economy.setTreasury(c.economy.getTreasury() + money);
 			Log.log(PlayerCountry.year, PlayerCountry.name + " loses the war with "+c.name+"!");
-			System.out.println(land);
-			if (land > 10){
+			if (land > 100){
 				Main.gameOver = true;
 				Main.reason = "You've been annexed by "+c.name+"!";
 			}
+			wheatLoss = -wheat;
+			landLoss = -land;
+			moneyLoss = -money;
 		}
 	}
 

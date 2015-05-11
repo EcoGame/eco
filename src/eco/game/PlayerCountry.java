@@ -2,7 +2,6 @@ package eco.game;
 
 import java.util.ArrayList;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 public class PlayerCountry {
@@ -43,6 +42,8 @@ public class PlayerCountry {
 	public static boolean forceConscription = true;
 	
 	public static int territories = 0;
+	
+	public int aggression = 0;
 
 	// ======================//
 	// Newly Instanced Stuff //
@@ -183,9 +184,6 @@ public class PlayerCountry {
 		for (Country country : countries) {
 			if (!country.dead){
 				country.tick();
-				if (World.random.nextInt(10) == 0 && Keyboard.isKeyDown(Keyboard.KEY_U)){
-					War.warWith(country);
-				}
 			}
 		}
 	}

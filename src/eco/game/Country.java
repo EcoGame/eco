@@ -44,6 +44,8 @@ public class Country {
 	public int landsize;
 	
 	public boolean dead = false;
+	
+	public int aggression = 0;
 
 	// ================//
 	// Other Variables //
@@ -67,16 +69,11 @@ public class Country {
 		
 		landsize = World.random.nextInt(10000) + 1000;
 		maxpop = World.random.nextInt(10000) + 1000;
+		
+		aggression = World.random.nextInt(100);
 	}
 
 	public void tick() {
-		int tick = PlayerCountry.year;
-		score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
-		score.calculateAvgScore(tick);
-		score.calculateTickGrowth(tick);
-		score.calculateAvgGrowth(tick);
-		score.calculatePeakScore(tick);
-		score.calculateTotalScore(tick);
 		// ==================//
 		// Population growth //
 		// ==================//
@@ -170,6 +167,26 @@ public class Country {
 		wheat.update(economy);
 		wheat.rot(wheatRot);
 		
+		// ======//
+		// Score //
+		// ======//
+		int tick = PlayerCountry.year;
+		score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
+		score.calculateAvgScore(tick);
+		score.calculateTickGrowth(tick);
+		score.calculateAvgGrowth(tick);
+		score.calculatePeakScore(tick);
+		score.calculateTotalScore(tick);
+		
+	}
+	
+	public int getScore(){
+		try{
+			return score.scoreAt(PlayerCountry.year - 1);
+		}
+		catch(Exception e){
+			return 0;
+		}
 	}
 
 }

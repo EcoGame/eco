@@ -67,7 +67,7 @@ public class TextButton extends Button {
 		int centX = (int) getX();
 		centX += (width - Render.font.getWidth(text)) / 2;
 		Render.drawString(text, centX,
-				(int) getY() + ((height - Render.font.getHeight(text)) / 2));
+				(int) getY() + 2 + ((height - Render.font.getHeight(text)) / 2));
 	}
 
 	public void setText(String text) {
