@@ -23,7 +23,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
 /**
- * A class that contains various utilities and convenience methods
+ * A class that allows neural to save data
  * 
  * @author connor
  * 
