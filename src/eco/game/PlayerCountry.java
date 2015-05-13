@@ -258,7 +258,7 @@ public class PlayerCountry {
 		DisplayLists.mesh();
 		countries = new ArrayList<Country>();
 		int countriesToGenerate = 10;
-		for (int i = 0; i <= countriesToGenerate; i++) {
+		for (int i = 0; i < countriesToGenerate; i++) {
 			countries.add(new Country(true, true, 0.15f, 0.85f));
 		}
 	}
