@@ -474,5 +474,16 @@ public class Util {
 			Menu.initMenu();
 		}
 	}
+    
+    public static Country[] getCountries(){
+        return PlayerCountry.countries.toArray(new Country[PlayerCountry.countries.size()]);
+    }
+    
+    public static void putCountries(Country[] toPut){
+        PlayerCountry.countries.clear();
+        for (Country c : toPut){
+            PlayerCountry.countries.add(c);
+        }
+    }
 	
 }
