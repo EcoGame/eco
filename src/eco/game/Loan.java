@@ -20,18 +20,40 @@ public class Loan {
         
     }
     
-    public void payInterest(){
+    public void payInterest(Country borrower, Country lender){
+        int interestPayment;
         for(int i = 0; i < maxLoans; i++){
             if(coupons[i] != 0){
+               interestPayment = (int)(principals[i] * coupons[i]);
+                if(borrower.economy.getTreasury() - interestPayment <= 0){
+                    bankruptcy(borrower);
+                }
                 
             }
         }
         
     }
     
-    public float calculateInterest(){
-        return 4.4f;
+    public void payInterest(PlayerCountry borrower, Country lender){
         
+    }
+    
+    public void payInterest(Country borrower, PlayerCountry lender){
+        
+        
+    }
+    
+    public double calculateInterest(){
+        return 4.4;
+        
+        
+    }
+    
+    public void bankruptcy(Country insolvent){
+        
+    }
+    
+    public void bankruptcy(PlayerCountry insolvent){
         
     }
     
