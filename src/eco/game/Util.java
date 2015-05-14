@@ -101,6 +101,10 @@ public class Util {
 			BW.newLine();
 			BW.write(Integer.toString(PlayerCountry.warrior.getwPop()));
 			BW.newLine();
+			BW.write(Integer.toString(PlayerCountry.land.getLand()));
+			BW.newLine();
+			BW.write(Integer.toString(PlayerCountry.land.getPop()));
+			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Short.toString(World.map[x][y]));
@@ -227,7 +231,9 @@ public class Util {
 			PlayerCountry.wheat.settWheat(Integer.valueOf(list.get(2)));
 			PlayerCountry.farmer.setfPop(Integer.valueOf(list.get(3)));
 			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
-			int line = 5;
+			PlayerCountry.land.setLand(Integer.valueOf(list.get(5)));
+			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
+			int line = 7;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
 				for (int y = 0; y < World.mapsize; y++) {
@@ -368,6 +374,7 @@ public class Util {
 		int hunger = computeTotalHunger();
 		int input = PlayerCountry.farmer.getWheatProductionRate()
 				* PlayerCountry.farmer.getfPop();
+		input += PlayerCountry.land.getWheatRate();
 		int total = input - hunger;
 		if (total < 0) {
 			return "dW/dT: " + String.valueOf(total) + " Bushels";
@@ -382,6 +389,7 @@ public class Util {
 		int hunger = computeTotalHunger();
 		int input = PlayerCountry.farmer.getWheatProductionRate()
 				* PlayerCountry.farmer.getfPop();
+		input += PlayerCountry.land.getWheatRate();
 		int total = input - hunger;
 		return total;
 	}

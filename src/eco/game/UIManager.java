@@ -1,5 +1,9 @@
 package eco.game;
 
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+
 import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
@@ -34,11 +38,15 @@ public class UIManager {
 	private static ToggleTextButton generatorArchipelago = new ToggleTextButton((Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, "Archipelago", false);
 	private static ToggleTextButton generatorMountains = new ToggleTextButton((Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, "Mountains", false);
 
-	private static TextButton exitToMenu = new TextButton((Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, "Exit Game");
+	private static TextButton exitToMenu = new TextButton((Main.width / 2) - 128, Main.height / 2f, 256, 32, 6, 2, 7, 2, "Exit Game");
+	
+	private static TextButton exitToMenuGameOver = new TextButton((Main.width / 2) - 128, (Main.height / 2f) + 42, 256, 32, 6, 2, 7, 2, "Exit Game");
+	private static TextButton loadLastSave = new TextButton((Main.width / 2) - 128, (Main.height / 2f) + 82, 256, 32, 6, 2, 7, 2, "Load Last Save");
 
 	private static ArrayList<Button> buttons = new ArrayList<Button>();
 	private static ArrayList<Button> menuButtons = new ArrayList<Button>();
 	private static ArrayList<Button> pauseButtons = new ArrayList<Button>();
+	private static ArrayList<Button> gameOverButtons = new ArrayList<Button>();
 	
 	private static final String emptyWorldName = "Untitled";
 
@@ -63,6 +71,9 @@ public class UIManager {
 		menuButtons.add(delete5);
 
 		pauseButtons.add(exitToMenu);
+		
+		gameOverButtons.add(exitToMenuGameOver);
+		gameOverButtons.add(loadLastSave);
 	}
 
 	/*
@@ -82,11 +93,17 @@ public class UIManager {
 		}
 	}
 
-	/*
-	 * Write main menu button logic in this method, it should be in the form: if
-	 * (myMenuButton.checkForClick()){ myMenuAction() }
-	 */
-
+	public static void updateGameOver(){
+		if (exitToMenuGameOver.checkForClick()) {
+			Main.shouldBeInMenu = true;
+			Main.shouldQuit = true;
+		}
+		if (loadLastSave.checkForClick()) {
+			Main.gameOver = false;
+			Util.readSave();
+		}
+	}
+	
 	public static void updateMenu() {
     if (delete1.checkForClick()){
     	Util.deleteSave(1);
@@ -335,6 +352,12 @@ public class UIManager {
 			b.click(x, y);
 		}
 	}
+	
+	public static void clickGameOver(float x, float y){
+		for (Button b : gameOverButtons) {
+			b.click(x, y);
+		}
+	}
 
 	public static void renderMenu() {
 		for (Button b : menuButtons) {
@@ -344,6 +367,12 @@ public class UIManager {
 
 	public static void renderPause() {
 		for (Button b : pauseButtons) {
+			b.render(Mouse.getX(), Main.height - Mouse.getY());
+		}
+	}
+	
+	public static void renderGameOver(){
+		for (Button b : gameOverButtons) {
 			b.render(Mouse.getX(), Main.height - Mouse.getY());
 		}
 	}
@@ -361,10 +390,38 @@ public class UIManager {
 		}
 	}
 
+	public static void renderGameOver2() {
+		for (Button b : gameOverButtons) {
+			b.render2();
+		}
+		
+
+		float centerX = Display.getWidth() / 2f;
+		float centerY = Display.getHeight() / 2f;
+
+		float textWidth = Render.font.getWidth("Game Over") / 2f;
+		float textHeight = Render.font.getHeight("Game Over") / 2f;
+		float textWidth2 = Render.font.getWidth(Main.reason) / 2f;
+
+
+		glDisable(GL_DEPTH_TEST);
+		Render.font.drawString(centerX - textWidth, centerY - textHeight, "Game Over");
+		Render.font.drawString(centerX - textWidth2, centerY - textHeight + 30, Main.reason);
+		glEnable(GL_DEPTH_TEST);
+	}
+	
 	public static void renderPause2() {
 		for (Button b : pauseButtons) {
 			b.render2();
 		}
+
+		float centerX = Display.getWidth() / 2f;
+		float centerY = 256 + 64;
+
+		float textWidth = Render.font.getWidth("Paused") / 2f;
+		float textHeight = Render.font.getHeight("Paused") / 2f;
+		
+		Render.font.drawString(centerX - textWidth, centerY - textHeight, "Paused");
 	}
 
 	public static void render2() {

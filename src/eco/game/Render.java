@@ -596,12 +596,6 @@ public class Render{
 		glLoadIdentity();
 		initOrtho();
 
-		float centerX = Display.getWidth() / 2f;
-		float centerY = Display.getHeight() / 2f;
-
-		float textWidth = font.getWidth("Paused") / 2f;
-		float textHeight = font.getHeight("Paused") / 2f;
-
 		Treble<Float, Float, Float> pauseColor = Util
 				.convertColor(new Treble<Float, Float, Float>(186f, 179f, 178f));
 
@@ -617,22 +611,16 @@ public class Render{
 		glColor4f(1f, 1f, 1f, 1f);
 		glEnable(GL11.GL_TEXTURE_2D);
 
+		atlas.bind();
+		
 		glDisable(GL_DEPTH_TEST);
-		font.drawString(centerX - textWidth, centerY - textHeight, "Paused");
+
 		glEnable(GL_DEPTH_TEST);
 
 	}
 
 	/* Draw the gameover overlay */
-	public static void drawGameOver(String reason) {
-
-		float centerX = Display.getWidth() / 2f;
-		float centerY = Display.getHeight() / 2f;
-
-		float textWidth = font.getWidth("Game Over") / 2f;
-		float textHeight = font.getHeight("Game Over") / 2f;
-		float textWidth2 = font.getWidth(reason) / 2f;
-
+	public static void drawGameOver() {
 		Treble<Float, Float, Float> pauseColor = Util
 				.convertColor(new Treble<Float, Float, Float>(168f, 78f, 78f));
 
@@ -647,11 +635,8 @@ public class Render{
 		glEnd();
 		glColor4f(1f, 1f, 1f, 1f);
 		glEnable(GL11.GL_TEXTURE_2D);
-
-		glDisable(GL_DEPTH_TEST);
-		font.drawString(centerX - textWidth, centerY - textHeight, "Game Over");
-		font.drawString(centerX - textWidth2, centerY - textHeight + 30, reason);
-		glEnable(GL_DEPTH_TEST);
+		
+		atlas.bind();
 
 	}
 

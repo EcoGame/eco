@@ -75,5 +75,9 @@ public class Wheat {
 	public static void globalRot(float rate){
 		globalWheat *= rate;
 	}
+	
+	public void addWheat(int toAdd){
+		tWheat += toAdd;
+	}
 
 }

@@ -64,6 +64,9 @@ public class InputManager {
 					break;
 				case Keyboard.KEY_ESCAPE:
 					Main.paused ^= true;
+					if (Main.paused == true){
+						ThreadManager.addJob(new SaveTask());
+					}
 					break;
 				case Keyboard.KEY_F10:
 					Util.takeScreenshot();
@@ -123,6 +126,27 @@ public class InputManager {
 			if (Mouse.getEventButton() > -1) {
 				if (Mouse.getEventButtonState()) {
 					UIManager.clickPause(Mouse.getX(), Display.getHeight()
+							- Mouse.getY());
+				} else {
+				}
+			}
+		}
+	}
+	
+	public static void updateGameOver(){
+		while (Keyboard.next()) {
+			if (Keyboard.getEventKeyState()) {
+				switch (Keyboard.getEventKey()) {
+				case Keyboard.KEY_F10:
+					Util.takeScreenshot();
+					break;
+				}
+			}
+		}
+		while (Mouse.next()) {
+			if (Mouse.getEventButton() > -1) {
+				if (Mouse.getEventButtonState()) {
+					UIManager.clickGameOver(Mouse.getX(), Display.getHeight()
 							- Mouse.getY());
 				} else {
 				}

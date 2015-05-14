@@ -59,6 +59,10 @@ public class OutputManager {
 					"Warrior Wheat Quota: "
 							+ String.valueOf(PlayerCountry.warrior.getTotalHunger()),
 					10, 230);
+			Render.drawString(
+					"Land Wheat: "
+							+ String.valueOf(PlayerCountry.land.getWheatRate()),
+					10, 250);
 
 		}
 	}

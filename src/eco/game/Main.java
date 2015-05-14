@@ -34,7 +34,7 @@ public class Main {
 	// =============//
 	// IO Variables //
 	// =============//
-	public static final boolean isInEclipse = false;
+	public static final boolean isInEclipse = true;
 	public static boolean paused = false;
 	public static boolean debug;
 	public static boolean fullDebug = false;
@@ -55,6 +55,8 @@ public class Main {
 	public static boolean shouldBeInMenu = true;
 	public static boolean shouldQuit = false;
 
+	public static final int autoSaveInterval = 100;
+	
 	/* Main method */
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");

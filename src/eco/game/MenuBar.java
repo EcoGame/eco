@@ -356,9 +356,21 @@ public class MenuBar {
 	}
     
     public static void renderWar(){
-        for (Button b : pane1Buttons) {
-			b.render(Mouse.getX(), Main.height - Mouse.getY());
-		}
+        for (int i = 0; i < pane1Buttons.size(); i++){
+        	if (i < 2){
+        		pane1Buttons.get(i).render(Mouse.getX(), Main.height - Mouse.getY());
+        		continue;
+        	}
+        	try{
+        		Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - (i - 2) - 1);
+        		if (c == null){
+        			continue;
+        		}
+        	} catch(Exception e){
+        		continue;
+        	}
+    		pane1Buttons.get(i).render(Mouse.getX(), Main.height - Mouse.getY());
+        }
         
         if (warState != 0){
 	        /* Draw wheat icon */
@@ -452,9 +464,21 @@ public class MenuBar {
 	}
     
     public static void renderWar2(){
-        for (Button b : pane1Buttons) {
-			b.render2();
-		}
+        for (int i = 0; i < pane1Buttons.size(); i++){
+        	if (i < 2){
+        		pane1Buttons.get(i).render2();
+        		continue;
+        	}
+        	try{
+        		Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - (i - 2) - 1);
+        		if (c == null){
+        			continue;
+        		}
+        	} catch(Exception e){
+        		continue;
+        	}
+    		pane1Buttons.get(i).render2();
+        }
         
         int offx = 300;
 		int offy = Main.height / 8 * 6;
@@ -585,6 +609,12 @@ public class MenuBar {
 		Render.drawString(
 				"Favor Warrior Rations: "
 						+ String.valueOf(!PlayerCountry.favorFarmers), 585, 627);
+		Render.drawString(
+				"Occupied Territories: "
+						+ String.valueOf(PlayerCountry.land.getLand()), 955, 627);
+		Render.drawString(
+				"Money: "
+						+ String.valueOf(PlayerCountry.economy.getTreasury()), 955, 657);
 
 	}
 

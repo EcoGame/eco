@@ -41,7 +41,7 @@ public class PlayerCountry {
 	
 	public static boolean forceConscription = true;
 	
-	public static int territories = 0;
+	public static int balanceCooldown = 0;
 	
 	public int aggression = 0;
 
@@ -52,6 +52,7 @@ public class PlayerCountry {
 	public static final Farmer farmer = new Farmer();
 	public static final Warrior warrior = new Warrior();
 	public static final Economy economy = new Economy();
+	public static final Land land = new Land();
 	
 	public static String name = NameGen.generateCountry();
 
@@ -71,8 +72,6 @@ public class PlayerCountry {
 			warrior.setOldWPop(warrior.getwPop());
 		}
 
-
-
 		if (World.displacedFarmers == 0 && World.displacedWarriors == 0){
 			float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(fBirthRate, fDeathRate);
 			float newWarriors = newPopulation * desiredWarriorRatio;
@@ -83,7 +82,7 @@ public class PlayerCountry {
 			farmer.setOldFPop(farmer.getfPop());
 		}
 		
-		if (forceConscription){
+		if (forceConscription && balanceCooldown == 0){
 			float totalpop = farmer.getFloatFPop() + warrior.getFloatWPop();
 			float warriors = totalpop * desiredWarriorRatio;
 			float farmers = totalpop - warriors;
@@ -91,12 +90,15 @@ public class PlayerCountry {
 			warrior.setFloatWPop(warriors);
 			farmer.setfHunger((int) farmers);
 			farmer.setFloatFPop(farmers);
+		} else if (balanceCooldown != 0){
+			balanceCooldown--;
 		}
 
 		// =================//
 		// Wheat Production //
 		// =================//
 		wheat.tWheat(farmer.getfPop(), farmer);
+		land.updateWheat(wheat);
 
 		farmer.setTotalHunger(farmer.fHunger() * farmer.getfPop());
 		warrior.setTotalHunger(warrior.wHunger() * warrior.getwPop());
@@ -152,6 +154,8 @@ public class PlayerCountry {
 			}
 		}
 
+		//World.displacedPeople = land.addPop(World.displacedPeople);
+		
 		wheat.update(economy);
 		wheat.rot(wheatRot);
 		Wheat.globalRot(wheatRot);
@@ -186,6 +190,13 @@ public class PlayerCountry {
 				country.tick();
 			}
 		}
+		
+		// =========//
+		// Autosave //
+		// =========//
+		if (year % Main.autoSaveInterval == 0){
+			ThreadManager.addJob(new SaveTask());
+		}
 	}
 	
 
@@ -199,8 +210,12 @@ public class PlayerCountry {
 				System.exit(0);
 			}
 			if (Main.gameOver) {
-				Render.drawGameOver(Main.reason);
+				Render.drawGameOver();
 				FPSCounter.tick();
+				InputManager.updateGameOver();
+				UIManager.updateGameOver();
+				UIManager.renderGameOver();
+				UIManager.renderGameOver2();
 				Display.update();
 				Display.sync(60);
 			} else if (!Main.paused) {
@@ -251,6 +266,8 @@ public class PlayerCountry {
 		warrior.setwPop(5);
 		economy.setTreasury(0);
 		wheat.resetWheat();
+		land.setLand(0);
+		land.setPop(0);
 		if (Util.doesSaveExist(Main.currentSave)) {
 			Util.readSave();
 		} else {

@@ -809,6 +809,15 @@ public class World {
 				}
 			}
 		}
+		
+		for (City c : new ArrayList<City>(cities.values())){
+			if (c.getPop() <= -5000000){
+				cities.remove(c.getLoc());
+				popmap[c.getLoc().getX()][c.getLoc().getY()] = 0;
+				popdensity[c.getLoc().getX()][c.getLoc().getY()] = 0;
+				structures[c.getLoc().getX()][c.getLoc().getY()] = 0;
+			}
+		}
 	}
 
 	public static int calcAcres() {

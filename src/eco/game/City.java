@@ -25,7 +25,6 @@ public class City {
 	public static String capitalEpithet = "# ";
 
 	public boolean castle = false;
-	public boolean ruin = false;
 	
 
 
@@ -86,9 +85,6 @@ public class City {
 	}
 
 	public void updatePop(int newpop) {
-		if (ruin){
-			return;
-		}
 		Random random = new Random();
 		if (newpop - pop > 0) {
 			int buildings = (int) Math.ceil(newpop / 6f);
@@ -100,7 +96,7 @@ public class City {
 				while (map[rand.getX()][rand.getY()] == 2) {
 					rand = new Point(random.nextInt(4), random.nextInt(4));
 					count++;
-					if (count > 1000){
+					if (count > 1000000000){
 						break;
 					}
 				}
@@ -124,9 +120,8 @@ public class City {
 			pop = newpop;
 		}
 		if (newpop <= 0){
-			usename = false;
+			usename = true;
 			castle = false;
-			ruin = true;
 		}
 		for (int x = 0; x < 4; x++){
 			for (int y = 0; y < 4; y++){
@@ -153,13 +148,33 @@ public class City {
 	}
 
 	public String getName() {
-		if (name == null){
+		if (name == ""){
 			Log.log(-1, "NAME IS NULL");
+		}
+		if (World.cities.get(new Point(loc.getX() + 1, loc.getY())) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY())).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY())) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY())).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX(), loc.getY() + 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX(), loc.getY() + 1)).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX(), loc.getY() - 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX(), loc.getY() - 1)).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)).getPop() != 0);
+		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)) != null) {
+			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)).getPop() != 0);
+		} else{
+			usename = true;
 		}
 		if (usename) {
 			return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
 		}
-		return "["+World.popdensity[loc.getX()][loc.getY()]+"] ";
+		//return "["+World.popdensity[loc.getX()][loc.getY()]+"] ";
+		return "";
 	}
 
 	public int getSize() {
@@ -175,6 +190,14 @@ public class City {
 			}
 		}
 		return size;
+	}
+	
+	public Point getLoc(){
+		return loc;
+	}
+	
+	public int getPop(){
+		return pop;
 	}
 
 }

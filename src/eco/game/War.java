@@ -7,9 +7,13 @@ public class War {
 	public static int landLoss = 0;
 	public static int moneyLoss = 0;
 	
+	private static final int minLand = 0;
+	
 	public static void warWith(Country c){
-		
+		//Book-keeping stuff
 		Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "+c.name+"!");
+		PlayerCountry.balanceCooldown = 5;
+		
 		// Get army sizes
 		int playerArmy = PlayerCountry.warrior.getwPop();
 		int otherArmy = c.warrior.getwPop();
@@ -52,7 +56,7 @@ public class War {
 			int land = Math.min(c.landsize, result * 2);
 			PlayerCountry.wheat.settWheat(PlayerCountry.wheat.gettWheat() + wheat);
 			PlayerCountry.economy.setTreasury(PlayerCountry.economy.getTreasury() + money);
-			PlayerCountry.territories += land;
+			PlayerCountry.land.addLand(land);
 			c.wheat.settWheat(c.wheat.gettWheat() - wheat);
 			c.economy.setTreasury(c.economy.getTreasury() - money);
 			c.landsize -= land;
@@ -67,10 +71,11 @@ public class War {
 			int land = -result * 2;
 			PlayerCountry.wheat.settWheat(PlayerCountry.wheat.gettWheat() - wheat);
 			PlayerCountry.economy.setTreasury(PlayerCountry.economy.getTreasury() - money);
+			PlayerCountry.land.addLand(-land);
 			c.wheat.settWheat(c.wheat.gettWheat() + wheat);
 			c.economy.setTreasury(c.economy.getTreasury() + money);
 			Log.log(PlayerCountry.year, PlayerCountry.name + " loses the war with "+c.name+"!");
-			if (land > 100){
+			if (PlayerCountry.land.getLand() < minLand){
 				Main.gameOver = true;
 				Main.reason = "You've been annexed by "+c.name+"!";
 			}

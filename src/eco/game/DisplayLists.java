@@ -37,7 +37,7 @@ public class DisplayLists {
 		for (int x = 0; x < World.mapsize; x++) {
 			for (int y = 0; y < World.mapsize; y++) {
 				if (Main.renderPopMap){
-					if (World.popdensity[x][y] != 0){
+					if (World.cities.get(new Point(x, y)) != null){
 						GL11.glColor3f(World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f);
 					}
 					else{
@@ -114,8 +114,11 @@ public class DisplayLists {
 
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
-
-					drawTile(x, y, height, 3, 0);
+					if (World.decorations[x][y] == 5){
+						drawTile(x, y, height, 6, 4);
+					} else{
+						drawTile(x, y, height, 3, 0);
+					}
 
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
