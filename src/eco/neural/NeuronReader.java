@@ -1,8 +1,17 @@
 package eco.neural;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+/**
+ * A class that handles reading the neurons
+ *
+ * @author will
+ *
+ */
+
 public class NeuronReader {
 	 //public static int[][][][] axonArraytofill = new int[10][3][10][5][2];
 	//public static int[][][] neuronArrayfill = new int[10][3][10][2];
