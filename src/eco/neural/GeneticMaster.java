@@ -1,10 +1,15 @@
 package eco.neural;
 
+/**
+ * A class that controls gene breeding
+ *
+ * @author will
+ *
+ */
+
 public class GeneticMaster{
 
     public static void genemaster(){
-
-
 
 
     }
@@ -13,21 +18,12 @@ public class GeneticMaster{
     public static void attributebreeder(int network1, int network2){
 
 
-
-
-
     }
 
     public static void connectionbreeder(int network1, int network2){
 
 
-
-
-
-
-
     }
-
 
     public static void selectparents(){
         for(int x =0; x < Main.workingnetworks.length;  x++){
@@ -35,7 +31,5 @@ public class GeneticMaster{
 
         }
         // use some way to determine bestway to choose for
-
     }
-
 }
