@@ -1,5 +1,4 @@
 package eco.neural;
-
 /**
  * A class that handles connections
  *
