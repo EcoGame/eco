@@ -1,34 +1,47 @@
 package eco.neural;
+import java.util.Random;
+
 /**
- * A class that controls gene breeding
+ * A class that handles the genetic mixing
  *
  * @author will
+ * @param parentOne the chromosome of the first parent
+ * @param parentTwo the chromosome of the second parent
+ * @return a new semirandom child chromosome
  *
  */
 
-public class GeneticMaster{
+public class GeneticMixer{
 
-    public static void genemaster(){
+    public static Random random = new Random();
 
-
-    }
-
-
-    public static void attributebreeder(int network1, int network2){
-
-
-    }
-
-    public static void connectionbreeder(int network1, int network2){
-
-
-    }
-
-    public static void selectparents(){
-        for(int x =0; x < Main.workingnetworks.length;  x++){
-            //pull score for specific network
+    
+    public static int spawnChildChromosome(int parentOne, int parentTwo) {
+        
+        int base = parentOne & parentTwo;
+        Random rand = new Random();
+        int powers2[] = {0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000};
+        int exponents[] = {1, 2, 4, 8, 16};
+        int max = Math.max(parentOne, parentTwo);
+        int result = 0;
+        System.out.println(max);
+        
+        for (int m = 4; m >= 0; m--) {
+            if ((max & powers2[m])!=0) {
+                max >>= exponents[m];
+                result |= exponents[m];
+            }
+        }
+        
+        result+=1;
+        System.out.println(result);
+        
+        for (int n = 0; n < result; n ++){
+            if (((parentOne^parentTwo)&n) == 0){
+                base |= rand.nextInt(2)<<n; // 0001; 0010; 0100; 1000;
+            }
 
         }
-        // use some way to determine bestway to choose for
+        return base;
     }
 }
