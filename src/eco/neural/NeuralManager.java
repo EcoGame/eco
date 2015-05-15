@@ -1,5 +1,5 @@
 package eco.neural;
-
+import eco.game.*;
 import java.util.Random;
 
 /**
@@ -279,7 +279,7 @@ public class NeuralManager{
         int iteration= 0;
         boolean iscomplete =false;
         int brainlength = 4;
-        
+        Country[] countrys =  game.Util.getCountries();
         while(iscomplete == false) {
             if(iteration > 3) {
               iscomplete = true;
@@ -299,4 +299,9 @@ public class NeuralManager{
         Main.inputNeuralArray[currentnetwork][1].input = 10101;
 
     }
+    // Get Countries
+    // Util.getCountries
+    // Country[] countires =
+    // Put them back when your done
+    // Util.putCountries(countries[]); 
 }
