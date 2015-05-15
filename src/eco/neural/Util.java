@@ -1,4 +1,4 @@
-package eco.game;
+package eco.neural;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,99 +18,121 @@ import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 
-import org.lwjgl.BufferUtils;
+/*import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11;*/
 
 /**
- * A class that allows neural to save data
- * 
+ * A class that contains various utilities and convenience methods
+ *
  * @author connor
- * 
+ *
  */
 
-public class FileManager {
-
-	public static void createFile() {
-
+public class Util {
+    
+	public static void createconnectionsFile(int currentnetwork) {
+        int type = 0;
+        boolean iscomplete = false;
 		String path = null;
 		try {
-			path = "txt/" + FILENAME + ".txt";
-			if (!Main.isInEclipse) {
+			path = "newtxt/connnections" + currentnetwork + ".txt";
+			/*if (!Main.isInEclipse) {
 				System.out.println("PROBABLE ERROR WITH NEURAL FILES");
-			}
+			}*/
 			File fOut = new File(path);
 			FileOutputStream FOS = new FileOutputStream(fOut);
 			BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
-
-            //For Single bits of data:
-            BW.write(STUFF TO BE SAVED HERE); BW.newLine();
-            
-            //For arraysof data set up a loop form:
-			for (int x = 0; x < SIZE; x++) {
-				for (int y = 0; y < SIZE; y++) {
-					BW.write(Short.toString(ARRAY[x][y]));
-				}
-				BW.newLine();
-			}
-
+            while(iscomplete == false){
+                switch(type){
+                        
+                    case 1:
+                        for(int r =0; r < 10; r++ ){
+                            BW.write("a " + r + " 0 0 0 0 0 0 0 0 0 0 0 0 0");
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                        
+                    case 2:
+                        for(int k = 0; k < 10; k++){
+                            BW.write("b "+ k + " " +Main.axonArraytoprint[currentnetwork][type][k][0][0] + " "+ Main.axonArraytoprint[currentnetwork][type][k][0][1]+ " "+ Main.axonArraytoprint[currentnetwork][type][k][1][0] + " " + Main.axonArraytoprint[currentnetwork][type][k][1][1] + " " + Main.axonArraytoprint[currentnetwork][type][k][2][0]+ " " + Main.axonArraytoprint[currentnetwork][type][k][2][1] + " "+ Main.axonArraytoprint[currentnetwork][type][k][3][0]+ " "+ Main.axonArraytoprint[currentnetwork][type][k][3][1]+ " " +Main.axonArraytoprint[currentnetwork][type][k][4][0]+" "+ Main.axonArraytoprint[currentnetwork][type][k][4][1]);
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                    case 3:
+                        for(int k = 0; k < 10; k++){
+                            BW.write("b "+ k + " " +Main.axonArraytoprint[currentnetwork][type][k][0][0] + " "+ Main.axonArraytoprint[currentnetwork][type][k][0][1]+ " "+ Main.axonArraytoprint[currentnetwork][type][k][1][0] + " " + Main.axonArraytoprint[currentnetwork][type][k][1][1] + " " + Main.axonArraytoprint[currentnetwork][type][k][2][0]+ " " + Main.axonArraytoprint[currentnetwork][type][k][2][1] + " "+ Main.axonArraytoprint[currentnetwork][type][k][3][0]+ " "+ Main.axonArraytoprint[currentnetwork][type][k][3][1]+ " " +Main.axonArraytoprint[currentnetwork][type][k][4][0]+" "+ Main.axonArraytoprint[currentnetwork][type][k][4][1]);
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                    case 4:
+                        iscomplete = true;
+                        break;
+                        
+                        
+                        
+                }
+            }
 			BW.close();
 		} catch (IOException ex) {
 			System.out.println("IOException");
 		}
-
-	}
-
-	public static void readSave() {
         
-		String path = null;
-		File name = null;
-		path = "saves/" + FILENAME + ".txt";
-		name = new File(FILENAME + ".txt");
-		if (!Main.isInEclipse) {
-			System.out.println("PROBABLE ERROR IN LOADING NEURAL FILES");
-		}
-		Scanner s = null;
-		try {
-			s = new Scanner(new File(path));
-		} catch (FileNotFoundException e) {
-			System.out.println("File Not Found");
-			return;
-		}
-		ArrayList<String> list = new ArrayList<String>();
-		try {
-			while (s.hasNext()) {
-				list.add(s.nextLine());
-			}
-			s.close();
-		} catch (Exception e) {
-			readError();
-			return;
-		}
-		try {
-			for (String str : list) {
-				str = str.replace(System.getProperty("line.separator"), "");
-			}
-
-            Main.saveName1 = list.get(0);
-
-			PlayerCountry.year = Integer.valueOf(list.get(1));
-			PlayerCountry.wheat.settWheat(Integer.valueOf(list.get(2)));
-			PlayerCountry.farmer.setfPop(Integer.valueOf(list.get(3)));
-			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
-			int line = 5;
-			for (int x = 0; x < World.mapsize; x++) {
-				String values = list.get(line);
-				for (int y = 0; y < World.mapsize; y++) {
-					World.map[x][y] = Short.valueOf(values.substring(y, y + 1));
-				}
-				line++;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			readError();
-		}
-		return;
 	}
+    public static void createneuralFile(int currentnetwork) {
+        int type = 0;
+        boolean iscomplete = false;
+		String path = null;
+		try {
+			path = "newtxt/neuron" + currentnetwork + ".txt";
+			/*if (!Main.isInEclipse) {
+				System.out.println("PROBABLE ERROR WITH NEURAL FILES");
+			}*/
+			File fOut = new File(path);
+			FileOutputStream FOS = new FileOutputStream(fOut);
+			BufferedWriter BW = new BufferedWriter(new OutputStreamWriter(FOS));
+            while(iscomplete == false){
+                switch(type){
+                        
+                    case 1:
+                        for(int r =0; r < 10; r++ ){
+                            BW.write("a " + r + " " +Main.neuronArrayprint[currentnetwork][type][r][0]+ " "+ Main.neuronArrayprint[currentnetwork][type][r][1]);
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                        
+                    case 2:
+                        for(int k = 0; k < 10; k++){
+                            BW.write("b "+ (k+Main.OUTPUTIDOFFSET) + " " + Main.neuronArrayprint[currentnetwork][type][k][0] + " " + Main.neuronArrayprint[currentnetwork][type][k][1]);
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                    case 3:
+                        for(int k = 0; k < 10; k++){
+                            BW.write("c "+ (k+Main.RELAYIDOFFSET) + " " + Main.neuronArrayprint[currentnetwork][type][k][0] + " " + Main.neuronArrayprint[currentnetwork][type][k][1]);
+                            BW.newLine();
+                        }
+                        type++;
+                        break;
+                    case 4:
+                        iscomplete = true;
+                        break;
+                        
+                        
+                        
+                }
+            }
+			BW.close();
+		} catch (IOException ex) {
+			System.out.println("IOException");
+		}
+        
+	}
+    
+	
 }
