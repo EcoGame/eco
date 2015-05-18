@@ -189,8 +189,11 @@ public class MenuBar {
 				}
 			}
 			if (decreaseWarriorRatio.checkForClick()) {
-				if (PlayerCountry.desiredWarriorRatio != 0.0f) {
+				if (PlayerCountry.desiredWarriorRatio > 0.0f) {
 					PlayerCountry.desiredWarriorRatio -= 0.01f;
+				}
+				else{
+					PlayerCountry.desiredWarriorRatio = 0.0f;
 				}
 			}
 			if (increaseTickRate.checkForClick()) {
