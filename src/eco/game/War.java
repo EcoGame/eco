@@ -60,7 +60,7 @@ public class War {
 			c.wheat.settWheat(c.wheat.gettWheat() - wheat);
 			c.economy.setTreasury(c.economy.getTreasury() - money);
 			c.landsize -= land;
-			Log.log(PlayerCountry.year, PlayerCountry.name + " wins the war with "+c.name+"!");
+			Log.log(PlayerCountry.year, PlayerCountry.name + " " + NameGen.generateWarWin() + " " +c.name+"!");
 			wheatLoss = wheat;
 			landLoss = land;
 			moneyLoss = money;
@@ -74,7 +74,7 @@ public class War {
 			PlayerCountry.land.addLand(-land);
 			c.wheat.settWheat(c.wheat.gettWheat() + wheat);
 			c.economy.setTreasury(c.economy.getTreasury() + money);
-			Log.log(PlayerCountry.year, PlayerCountry.name + " loses the war with "+c.name+"!");
+			Log.log(PlayerCountry.year, PlayerCountry.name + " " + NameGen.generateWarLoss() + " " +c.name+"!");
 			if (PlayerCountry.land.getLand() < minLand){
 				Main.gameOver = true;
 				Main.reason = "You've been annexed by "+c.name+"!";
