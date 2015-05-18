@@ -18,8 +18,8 @@ public class GeneticMixer{
 
     public static void start() {
         
-        int one = eco.Util.randInt(1,5);
-        int two = eco.Util.randInt(1,5);
+        int one = eco.game.Util.randInt(1,5);
+        int two = eco.game.Util.randInt(1,5);
         int child = spawnChildChromosome(one, two);
         System.out.println("One: " + one);
         System.out.println("Two: " + two);

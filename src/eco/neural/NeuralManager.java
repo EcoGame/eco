@@ -279,7 +279,7 @@ public class NeuralManager{
         int iteration= 0;
         boolean iscomplete =false;
         int brainlength = 4;
-        Country[] countrys =  game.Util.getCountries();
+        Country[] countrys =  eco.game.Util.getCountries();
         while(iscomplete == false) {
             if(iteration > 3) {
               iscomplete = true;
