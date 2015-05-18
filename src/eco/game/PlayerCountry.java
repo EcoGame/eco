@@ -197,6 +197,19 @@ public class PlayerCountry {
 		if (year % Main.autoSaveInterval == 0){
 			ThreadManager.addJob(new SaveTask());
 		}
+		
+		// ======//
+		// Score //
+		// ======//
+		int tick = year;
+        	score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury()));
+        	economy.getTreasury());
+		score.calculateAvgScore(tick);
+		score.calculateTickGrowth(tick);
+		score.calculateAvgGrowth(tick);
+		score.calculatePeakScore(tick);
+		score.calculateTotalScore(tick);
+	}
 	}
 	
 
