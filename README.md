@@ -1,9 +1,9 @@
 # Eco
-A basic simulation of an island nation
+The simulation game of nations
 
 # Usage
-On *nix systems, simply run compi.sh
-On windows, either run compi.sh through something like cygwin, or compile it from source
+On *nix systems (Mac OSX, Linux), simply run compi.sh (./compi.sh)
+On Windows systems, either run compi.sh through something like cygwin, or compile it from source
 
 ## Controls
 
@@ -16,5 +16,3 @@ Left Shift - Move the camera downwards
 Q - Re-align the camera back to the default position
 
 R and F - Rotate the camera
-
-
