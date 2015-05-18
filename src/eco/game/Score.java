@@ -17,7 +17,10 @@ public class Score {
     }
     
     public int calculateTickScore(int tick, int fPop, int wPop, int tWheat, int tMoney){
-        int tickScore = fPop + wPop + tWheat + tMoney;
+        double unroundedScore = fPop + (wPop * 1.25) + (tWheat / 14)  + (tMoney / 10000);
+        System.out.println("Unrounded: " + unroundedScore);
+        int tickScore = (int) Math.round(unroundedScore);
+        //14 is the amount of wheat each farmer can make
         //System.out.println("Tick: " + tick);
         
         scores[tick - 1] = tickScore;
@@ -27,7 +30,6 @@ public class Score {
         
         
     }
-    
     public int calculateTickGrowth(int tick){
         int i = 0;
         for (i = 0; i < scores.length - 1; i++)
