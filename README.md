@@ -13,6 +13,8 @@ Space Bar - Move the camera upwards
 
 Left Shift - Move the camera downwards
 
+O - Toggle camera mode between overhead and horizontal 
+
 Q - Re-align the camera back to the default position
 
 R and F - Rotate the camera
