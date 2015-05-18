@@ -22,6 +22,9 @@ public class PlayerCountry {
 	public static float wDeathRate = 0.002f;
 
 	public static int year = 0;
+	
+	public static Score score = new Score();
+
 
 	public static float farmerDeathRatio = 0.75f;
 	public static float warriorDeathRatio = 0.75f;
@@ -202,13 +205,12 @@ public class PlayerCountry {
 		// Score //
 		// ======//
 		int tick = year;
-        	score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury()));
+        	score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
 		score.calculateAvgScore(tick);
 		score.calculateTickGrowth(tick);
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
-	}
 	}
 	
 
