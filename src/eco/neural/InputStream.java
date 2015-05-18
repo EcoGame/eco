@@ -1,6 +1,6 @@
 package eco.neural;
 
-public class inputstreams{
+public class InputStream{
 
 public static int readinput(int currentnetwork,int id){
 
