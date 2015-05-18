@@ -329,6 +329,7 @@ public class Util {
         return random.nextFloat() * (max - min) + min;
     }
     
+	    
 	public static void takeScreenshot() {
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		int width = Display.getDisplayMode().getWidth();
@@ -338,7 +339,7 @@ public class Util {
 		GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA,
 				GL11.GL_UNSIGNED_BYTE, buffer);
 
-		DateFormat dateFormat = new SimpleDateFormat("H:mm:ss yyyy-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
 		File file = new File("../screenshots/" + dateFormat.format(date));
 		file.mkdirs();
