@@ -16,6 +16,7 @@ public class Country {
 	public Warrior warrior = new Warrior();
 	public Economy economy = new Economy();
 	public Wheat wheat = new Wheat();
+	public Land land = new Land();
 
 	// ==================//
 	// Country Variables //
@@ -67,8 +68,8 @@ public class Country {
 		farmerDeathRatio = Util.randFloat(0.00f, 1f);
 		warriorDeathRatio = Util.randFloat(0.00f, 1f);
 		
-		landsize = World.random.nextInt(10000) + 1000;
-		maxpop = World.random.nextInt(10000) + 1000;
+		landsize = World.random.nextInt(4000) + 100;
+		maxpop = World.random.nextInt(4000) + 100;
 		
 		aggression = World.random.nextInt(100);
 	}
@@ -159,6 +160,16 @@ public class Country {
 		
 		if (farmer.getfPop() <= 0 && warrior.getwPop() <= 0){
 			dead = true;
+			farmer.setfPop(0);
+			warrior.setwPop(0);
+			wheat.settWheat(0);
+			economy.setTreasury(0);
+		} else if (landsize <= 0){
+			dead = true;
+			farmer.setfPop(0);
+			warrior.setwPop(0);
+			wheat.settWheat(0);
+			economy.setTreasury(0);
 		}
 
 		// =================//
@@ -189,4 +200,14 @@ public class Country {
 		}
 	}
 
+	public void takeLand(int toTake){
+		if (toTake >= land.getLand()){
+			toTake -= land.getLand();
+			land.setLand(0);
+			landsize -= toTake;
+		} else{
+			land.setLand(land.getLand() - toTake);
+		}
+	}
+	
 }

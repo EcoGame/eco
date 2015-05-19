@@ -53,6 +53,12 @@ public class MenuBar {
 	private static Button decreaseWarriorRatio = new Button(525, 672, 20, 2, 2,
 			3, 2);
 
+	private static ToggleButton toggleCutTrees = new ToggleButton(900,
+			597, 25, 4, 2, 5, 2, false);
+	
+	private static ToggleButton toggleForceConscription = new ToggleButton(900,
+			567, 25, 4, 2, 5, 2, true);
+	
 	private static Button increaseTickRate = new Button(495, 606, 20, 0, 2, 1,
 			2);
 	private static Button decreaseTickRate = new Button(495, 636, 20, 2, 2, 3,
@@ -106,7 +112,11 @@ public class MenuBar {
 	private static Graph popGraph = new Graph(75, 710, "Population", new Treble<>(0f, 153f / 255f, 204f / 255f));
 	private static Graph globalWheatGraph = new Graph(75 + (150 * 1) + 75, 710, "World Wheat", new Treble<>(208f / 255f, 194f / 255f, 109f / 255f));
 	private static Graph moneyGraph = new Graph(75 + (150 * 2) + (75 * 2) , 710, "Treasury", new Treble<>(100f / 255f, 191f / 255f, 115f / 255f));
+	private static Graph scoreGraph = new Graph(75 + (150 * 3) + (75 * 3) , 710, "Score", new Treble<>(167 / 255f, 76 / 255f, 76 / 255f));
+	private static Graph scoreGraphOther = new Graph(75 + (150 * 3) + (75 * 3) , 710, "Score (Other)", new Treble<>(129 / 255f, 87 / 255f, 87 / 255f));
 
+
+	
 	private static ArrayList<Graph> graphs = new ArrayList<Graph>();
 
 	static {
@@ -121,6 +131,8 @@ public class MenuBar {
 		pane0Buttons.add(decreaseWarriorRatio);
 		pane0Buttons.add(increaseTickRate);
 		pane0Buttons.add(decreaseTickRate);
+		pane0Buttons.add(toggleCutTrees);
+		pane0Buttons.add(toggleForceConscription);
         
         pane1Buttons.add(warUp);
         pane1Buttons.add(warDown);
@@ -139,6 +151,9 @@ public class MenuBar {
 		graphs.add(popGraph);
 		graphs.add(globalWheatGraph);
 		graphs.add(moneyGraph);
+		graphs.add(scoreGraph);
+		graphs.add(scoreGraphOther);
+		scoreGraphOther.hideStats();
 
 		statsPane.addOverlay(0, 1, 24);
 		warPane.addOverlay(1, 1, 24);
@@ -182,6 +197,12 @@ public class MenuBar {
 			}
 			if (toggleFavorWarrior.checkForClick()) {
 				PlayerCountry.favorFarmers ^= true;
+			}
+			if (toggleCutTrees.checkForClick()){
+				World.cutForests ^= true;
+			}
+			if (toggleForceConscription.checkForClick()){
+				PlayerCountry.forceConscription ^= true;
 			}
 			if (increaseWarriorRatio.checkForClick()) {
 				if (PlayerCountry.desiredWarriorRatio < 1.0f) {
@@ -227,7 +248,7 @@ public class MenuBar {
 			try{
 				if (warOne.checkForClick()){
 					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 1);
-					if (c != null){
+					if (c != null && !c.dead){
 						War.warWith(c);
 						warState = War.winLose;
 						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
@@ -238,7 +259,7 @@ public class MenuBar {
 				}
 				if (warTwo.checkForClick()){
 					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 2);
-					if (c != null){
+					if (c != null && !c.dead){
 						War.warWith(c);
 						warState = War.winLose;
 						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
@@ -249,7 +270,7 @@ public class MenuBar {
 				}
 				if (warThree.checkForClick()){
 					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 3);
-					if (c != null){
+					if (c != null && !c.dead){
 						War.warWith(c);
 						warState = War.winLose;
 						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
@@ -260,7 +281,7 @@ public class MenuBar {
 				}
 				if (warFour.checkForClick()){
 					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 4);
-					if (c != null){
+					if (c != null && !c.dead){
 						War.warWith(c);
 						warState = War.winLose;
 						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
@@ -271,7 +292,40 @@ public class MenuBar {
 				}
 				if (warFive.checkForClick()){
 					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 5);
-					if (c != null){
+					if (c != null && !c.dead){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warSix.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 6);
+					if (c != null && !c.dead){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warSeven.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 7);
+					if (c != null && !c.dead){
+						War.warWith(c);
+						warState = War.winLose;
+						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
+						wheat = War.wheatLoss;
+						gold = War.moneyLoss;
+						land = War.landLoss;
+					}
+				}
+				if (warEight.checkForClick()){
+					Country c = PlayerCountry.countries.get(PlayerCountry.countries.size() - warOff - 8);
+					if (c != null && !c.dead){
 						War.warWith(c);
 						warState = War.winLose;
 						warName = "The "+PlayerCountry.name+"-"+c.name+" war";
@@ -308,6 +362,8 @@ public class MenuBar {
 		popGraph.tick(PlayerCountry.farmer.getfPop() + PlayerCountry.warrior.getwPop());
 		globalWheatGraph.tick(PlayerCountry.wheat.gettWheat());
 		moneyGraph.tick(PlayerCountry.economy.getTreasury());
+		scoreGraph.tick(PlayerCountry.score.scoreAt(Math.max(0, PlayerCountry.year - 1)));
+		scoreGraphOther.tick(Util.calcAverageCountryScore());
 		
 	}
 
@@ -501,13 +557,23 @@ public class MenuBar {
                     name = PlayerCountry.countries.get(warPos - 1 - i).name;
                     country = PlayerCountry.countries.get(warPos - 1 - i);
                 }
-                Render.font.drawString(offx, offy, name);
-                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
-                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
-                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
-                Render.font.drawString(tempoff, offy, "["+Integer.toString(country.getScore())+"]", 
-                		new Color(43,158,255));
-                offy += 20;
+                if (!country.dead){
+	                Render.font.drawString(offx, offy, name);
+	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
+	                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
+	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
+	                Render.font.drawString(tempoff, offy, "["+Integer.toString(country.getScore())+"]", 
+	                		new Color(43,158,255));
+	                offy += 20;
+                } else{
+	                Render.font.drawString(offx, offy, name);
+	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
+	                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
+	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
+	                Render.font.drawString(tempoff, offy, "[In Exile]", 
+	                		new Color(195,65,65));
+	                offy += 20;
+                }
 			}
 			catch (Exception e){
 				break;
@@ -612,6 +678,12 @@ public class MenuBar {
 		Render.drawString(
 				"Favor Warrior Rations: "
 						+ String.valueOf(!PlayerCountry.favorFarmers), 585, 627);
+		Render.drawString(
+				"Cut Forests: "
+						+ String.valueOf(World.cutForests), 585, 597);
+		Render.drawString(
+				"Force Conscription: "
+						+ String.valueOf(PlayerCountry.forceConscription), 585, 567);
 		Render.drawString(
 				"Occupied Territories: "
 						+ String.valueOf(PlayerCountry.land.getLand()), 955, 627);

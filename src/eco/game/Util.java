@@ -494,5 +494,21 @@ public class Util {
             PlayerCountry.countries.add(c);
         }
     }
+    
+    
+    public static void applyRandomColorNoise(int x, int y){
+		NoiseSampler.initSimplexNoise((int) World.mapseed);
+		NoiseSampler.setNoiseScale(World.mapsize / 32);
+    	float noise = NoiseSampler.getNoise(x, y) / 6f;
+    	GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
+    }
+    
+	public static float calcAverageCountryScore(){
+		float total = 0;
+		for (Country c : PlayerCountry.countries){
+			total += c.score.scoreAt(Math.max(0, PlayerCountry.year - 1));
+		}
+		return total / PlayerCountry.countries.size();
+	}
 	
 }

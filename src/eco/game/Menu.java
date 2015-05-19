@@ -27,6 +27,7 @@ public class Menu {
 	/* Starts the menu */
 	public static void initMenu() {
 		Main.paused = false;
+		Main.gameOver = false;
 		if (Main.isInEclipse) {
 			File saves = new File("saves");
 			saves.mkdirs();

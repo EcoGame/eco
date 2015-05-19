@@ -53,13 +53,13 @@ public class War {
 			winLose = 1;
 			int wheat = Math.min(c.wheat.gettWheat(), result * 4);
 			int money = Math.min(c.economy.getTreasury(), result * 16);
-			int land = Math.min(c.landsize, result * 2);
+			int land = Math.min(c.landsize + c.land.getLand(), result * 2);
 			PlayerCountry.wheat.settWheat(PlayerCountry.wheat.gettWheat() + wheat);
 			PlayerCountry.economy.setTreasury(PlayerCountry.economy.getTreasury() + money);
 			PlayerCountry.land.addLand(land);
 			c.wheat.settWheat(c.wheat.gettWheat() - wheat);
 			c.economy.setTreasury(c.economy.getTreasury() - money);
-			c.landsize -= land;
+			c.takeLand(land);
 			Log.log(PlayerCountry.year, PlayerCountry.name + " " + NameGen.generateWarWin() + " " +c.name+"!");
 			wheatLoss = wheat;
 			landLoss = land;

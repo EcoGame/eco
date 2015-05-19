@@ -152,28 +152,27 @@ public class City {
 			Log.log(-1, "NAME IS NULL");
 		}
 		if (World.cities.get(new Point(loc.getX() + 1, loc.getY())) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY())).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY())));
 		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY())) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY())).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY())));
 		} else if (World.cities.get(new Point(loc.getX(), loc.getY() + 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX(), loc.getY() + 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() + 1)));
 		} else if (World.cities.get(new Point(loc.getX(), loc.getY() - 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX(), loc.getY() - 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() - 1)));
 		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)));
 		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)));
 		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)));
 		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)) != null) {
-			usename = !(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)).getPop() != 0);
+			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)));
 		} else{
 			usename = true;
 		}
 		if (usename) {
 			return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
 		}
-		//return "["+World.popdensity[loc.getX()][loc.getY()]+"] ";
 		return "";
 	}
 
@@ -198,6 +197,15 @@ public class City {
 	
 	public int getPop(){
 		return pop;
+	}
+	
+	public static boolean shouldUseName(City city){
+		if (city.name == "" || city.name == null){
+			return true;
+		} else if (city.usename || city.pop < 5){
+			return false;
+		}
+		return true;
 	}
 
 }

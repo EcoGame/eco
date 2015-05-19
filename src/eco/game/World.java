@@ -55,7 +55,7 @@ public class World {
 	public static float forestHeight = 0.25f; // The lower this is (can go down
 												// to -1), the more forests
 												// there will be
-	private static boolean cutForests = false; // Will forests be removed to
+	public static boolean cutForests = false; // Will forests be removed to
 												// build things
 	
 	public static Random random;
@@ -404,7 +404,7 @@ public class World {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (map[x][y] == 1
-							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3)) || structures[x][y] == 4) {
+							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3 && random.nextInt(3) == 0)) || structures[x][y] == 4) {
 						validLocs.add(new Point(x, y));
 					}
 				}
@@ -438,6 +438,7 @@ public class World {
 								random.nextInt(mapsize));
 					}
 					map[rand.getX()][rand.getY()] = 2;
+					structures[rand.getX()][rand.getY()] = 0;
 					popmap[rand.getX()][rand.getY()] = 1;
 					if (newfarmland >= farmsPerTile) {
 						popdensity[rand.getX()][rand.getY()] += farmsPerTile;
@@ -449,6 +450,7 @@ public class World {
 				} else {
 					Point loc = validLocs.get(random.nextInt(validLocs.size()));
 					map[loc.getX()][loc.getY()] = 2;
+					structures[loc.getX()][loc.getY()] = 0;
 					popmap[loc.getX()][loc.getY()] = 1;
 					validLocs.remove(loc);
 					if (newfarmland >= farmsPerTile) {
@@ -783,6 +785,18 @@ public class World {
 			for (int y = 0; y < mapsize; y++){
 				if (structures[x][y] != 0 && decorations[x][y] != 0){
 					decorations[x][y] = 0;
+				}
+			}
+		}
+		
+		NoiseSampler.initSimplexNoise((int) mapseed);
+		NoiseSampler.setNoiseScale(mapsize / 32);
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (structures[x][y] == 0 && map[x][y] == 1){
+					if (random.nextInt(5) == 0 && NoiseSampler.getNoise(x, y) >= forestHeight) {
+							structures[x][y] = 3;
+					}
 				}
 			}
 		}

@@ -52,9 +52,15 @@ public class Camera {
 	}
 
 	public void look() {
-		GL11.glRotatef(yaw, 0f, 0f, 1f);
-		GL11.glRotatef(pitch, 1f, 0f, 0f);
-		GL11.glTranslatef(-position.x, position.y, -position.z);
+		if (!Render.overhead){
+			GL11.glRotatef(yaw, 0f, 0f, 1f);
+			GL11.glRotatef(pitch, 1f, 0f, 0f);
+			GL11.glTranslatef(-position.x, position.y, -position.z);
+		} else{
+			GL11.glRotatef(yaw, 0f, 0f, 1f);
+			GL11.glRotatef(0, 1f, 0f, 0f);
+			GL11.glTranslatef(-position.x, -1.7f, -position.z);
+		}
 	}
 
 }

@@ -45,6 +45,8 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 0) {
+					
+					GL11.glColor4f(1f, 1f, 1f, 0.75f);
 
 					float height = 48 * Render.heightConstant;
 
@@ -74,9 +76,12 @@ public class DisplayLists {
 						diff *= Render.heightConstant;
 						drawTileE(x, y, height, diff, 0, 0);
 					}
+					
+					GL11.glColor4f(1f, 1f, 1f, 1f);
 				}
 				if (World.map[x][y] == 1) {
-
+					Util.applyRandomColorNoise(x, y);
+					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
 					if (World.decorations[x][y] == 5){
@@ -111,7 +116,8 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 2) {
-
+					Util.applyRandomColorNoise(x, y);
+					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
 					if (World.decorations[x][y] == 5){
@@ -146,7 +152,8 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 3) {
-
+					Util.applyRandomColorNoise(x, y);
+					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
 					drawTile(x, y, height, 2, 0);
@@ -177,6 +184,8 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 5) {
+					Util.applyRandomColorNoise(x, y);
+					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
 					drawTile(x, y, height, 4, 0);

@@ -205,7 +205,7 @@ public class PlayerCountry {
 		// Score //
 		// ======//
 		int tick = year;
-        	score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
+        score.calculateTickScore(tick, farmer.getfPop(), warrior.getwPop(), wheat.gettWheat(), economy.getTreasury());
 		score.calculateAvgScore(tick);
 		score.calculateTickGrowth(tick);
 		score.calculateAvgGrowth(tick);
