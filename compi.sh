@@ -1,7 +1,7 @@
 #!/bin/bash
 reset
 cd $(dirname "$0")
-if ! [ -d "$bin" ]; then
+if ! [ -d "bin" ]; then
   mkdir bin
 fi
 echo Compiling...
