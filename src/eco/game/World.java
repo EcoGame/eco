@@ -58,7 +58,11 @@ public class World {
 	public static boolean cutForests = false; // Will forests be removed to
 												// build things
 	
+	public static int woodPerHouse = 2;
+	
 	public static Random random;
+	
+	public static int woodRate = 1;
 
 	public static void init(int generator) {
 		World.generate(generator);
@@ -470,6 +474,7 @@ public class World {
 				//popToResettle = random.nextInt(newhouses) / 2;
 				//newhouses -= popToResettle;
 			}
+			int woodused = 0;
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (popmap[x][y] == 2 && newhouses > 0) {
@@ -477,9 +482,11 @@ public class World {
 							int canFit = housesPerTile - popdensity[x][y];
 							if (canFit >= newhouses) {
 								popdensity[x][y] += newhouses;
+								woodused += newhouses * woodPerHouse;
 								newhouses = 0;
 							} else {
 								popdensity[x][y] += canFit;
+								woodused += canFit * woodPerHouse;
 								newhouses -= canFit;
 							}
 						}
@@ -534,9 +541,11 @@ public class World {
 					// map[rand.getX()][rand.getY()] = 3;
 					if (newhouses >= housesPerTile) {
 						popdensity[rand.getX()][rand.getY()] += housesPerTile;
+						woodused += housesPerTile * woodPerHouse;
 						newhouses -= housesPerTile;
 					} else {
 						popdensity[rand.getX()][rand.getY()] += newhouses;
+						woodused += newhouses * woodPerHouse;
 						newhouses = 0;
 					}
 				} else {
@@ -549,15 +558,19 @@ public class World {
 					validLocs.remove(loc);
 					if (newhouses >= housesPerTile) {
 						popdensity[loc.getX()][loc.getY()] += housesPerTile;
+						woodused += housesPerTile * woodPerHouse;
 						newhouses -= housesPerTile;
 					} else {
 						popdensity[loc.getX()][loc.getY()] += newhouses;
+						woodused += newhouses * woodPerHouse;
 						newhouses = 0;
 					}
 				}
 			}
-			oldFarmers = farmers - Math.min(newfarmland, newhouses);
-			displacedFarmers = Math.min(newfarmland, newhouses);
+			int realWoodUsed = PlayerCountry.wood.takeWood(woodused, PlayerCountry.economy);
+			int woodDiff = woodused - realWoodUsed;
+			oldFarmers = farmers - Math.min(newfarmland, newhouses + (woodDiff / woodPerHouse));
+			displacedFarmers = Math.min(newfarmland, newhouses + (woodDiff / woodPerHouse));
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
@@ -824,14 +837,33 @@ public class World {
 			}
 		}
 		
+		boolean needscapital = true;
+		
 		for (City c : new ArrayList<City>(cities.values())){
-			if (c.getPop() <= -5000000){
-				cities.remove(c.getLoc());
-				popmap[c.getLoc().getX()][c.getLoc().getY()] = 0;
-				popdensity[c.getLoc().getX()][c.getLoc().getY()] = 0;
-				structures[c.getLoc().getX()][c.getLoc().getY()] = 0;
+			if (c.getName().contains(City.capitalEpithet) && c.isUsingName()){
+				needscapital = false;
 			}
 		}
+		
+		
+		try{
+			if (needscapital){
+				ArrayList<City> possible = new ArrayList<City>(cities.values());
+				ArrayList<City> real = new ArrayList<City>();
+				for (City c : possible){
+					if (c.isUsingName()){
+						real.add(c);
+					}
+				}
+				int size = real.size();
+				City c = real.get(random.nextInt(size));
+				c.makeCapital();
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+			
 	}
 
 	public static int calcAcres() {
@@ -878,6 +910,21 @@ public class World {
 			}
 		}
 		return count;
+	}
+	
+	public static void updateWood(){
+		
+		int toAdd = 0;
+		
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (structures[x][y] == 3){
+					toAdd += woodRate;
+				}
+			}
+		}
+		
+		PlayerCountry.wood.addWood(toAdd);
 	}
 
 }

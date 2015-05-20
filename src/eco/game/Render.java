@@ -121,6 +121,10 @@ public class Render{
 		} else if (preferMultiThreading && Main.framesPerTick > minTPS && !multithreading){
 			multithreading = true;
 		}
+		
+		if (!preferMultiThreading){
+			multithreading = false;
+		}
 
 		/* Look through the camera */
 		camera.look();

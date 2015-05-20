@@ -30,6 +30,16 @@ public class Economy {
 		return ammount;
 	}
 
+	public int takeMoney(int request){
+		if (request > treasury){
+			request = treasury;
+			treasury = 0;
+			return request;
+		}
+		treasury -= request;
+		return request;
+	}
+	
 	public void updateMarket(int time) {
 		wheatPrice += Util.randInt(-5, 5);
 	}

@@ -14,7 +14,7 @@ public class City {
 
 	private int[][] map = new int[4][4];
 
-	private final String name;
+	private String name;
 
 	private boolean usename = true;
 
@@ -206,6 +206,15 @@ public class City {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean isUsingName(){
+		return usename;
+	}
+	
+	public void makeCapital(){
+		usename = true;
+		name = capitalEpithet + name;
 	}
 
 }

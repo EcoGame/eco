@@ -87,7 +87,7 @@ public class MenuBar {
     private static int warOff = 0;
 	private static int warPos;
 	
-	private static int warState = 0;
+	private static int warState = 2;
 	private static String warName = "";
 	private static int gold;
 	private static int land;
@@ -431,7 +431,7 @@ public class MenuBar {
     		pane1Buttons.get(i).render(Mouse.getX(), Main.height - Mouse.getY());
         }
         
-        if (warState != 0){
+        if (warState != 0 && warState != 2){
 	        /* Draw wheat icon */
 			glBegin(GL_QUADS);
 			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
@@ -581,7 +581,9 @@ public class MenuBar {
 		}
         
         if (warState == 0){
-        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, "No Recent Wars");
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+        	int off = Render.font.getWidth(warName) + 10;
+        	Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12, "- Stalemate!", new Color(0.75f, 0.75f, 0.25f));
         } else if (warState == 1){
         	Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
         	int off = Render.font.getWidth(warName) + 10;
@@ -596,6 +598,8 @@ public class MenuBar {
         	Render.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "+wheat, new Color(0.75f, 0.25f, 0.25f));
         	Render.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "+gold, new Color(0.75f, 0.25f, 0.25f));
         	Render.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "+land, new Color(0.75f, 0.25f, 0.25f));
+        } else if (warState == 2){
+        	Render.font.drawString(800, (Main.height / 8 * 6) + 12, "No Recent Wars");
         }
         
         
@@ -645,6 +649,47 @@ public class MenuBar {
 		glVertex2f(50, 670);
 		glEnd();
 		glColor3f(1.0f, 1.0f, 1.0f);
+		
+		
+		/* Draw log icon */
+		glBegin(GL_QUADS);
+		glTexCoord2f(atlas.getCoord(7, false), atlas.getCoord(4, false));
+		glVertex2f(950, 593);
+		glTexCoord2f(atlas.getCoord(7, true), atlas.getCoord(4, false));
+		glVertex2f(975, 593);
+		glTexCoord2f(atlas.getCoord(7, true), atlas.getCoord(4, true));
+		glVertex2f(975, 617);
+		glTexCoord2f(atlas.getCoord(7, false), atlas.getCoord(4, true));
+		glVertex2f(950, 617);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		
+		
+		/* Draw coin icon */
+		glBegin(GL_QUADS);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(0, false));
+		glVertex2f(950, 653);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(0, false));
+		glVertex2f(975, 653);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(0, true));
+		glVertex2f(975, 677);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(0, true));
+		glVertex2f(950, 677);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		
+		/* Draw land icon */
+		glBegin(GL_QUADS);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(1, false));
+		glVertex2f(950, 623);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(1, false));
+		glVertex2f(975, 623);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(1, true));
+		glVertex2f(975, 647);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(1, true));
+		glVertex2f(950, 647);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
 
 		renderStats2();
 
@@ -686,10 +731,13 @@ public class MenuBar {
 						+ String.valueOf(PlayerCountry.forceConscription), 585, 567);
 		Render.drawString(
 				"Occupied Territories: "
-						+ String.valueOf(PlayerCountry.land.getLand()), 955, 627);
+						+ String.valueOf(PlayerCountry.land.getLand()), 985, 627);
 		Render.drawString(
 				"Money: "
-						+ String.valueOf(PlayerCountry.economy.getTreasury()), 955, 657);
+						+ String.valueOf(PlayerCountry.economy.getTreasury()), 985, 657);
+		Render.drawString(
+				"Wood: "
+						+ String.valueOf(PlayerCountry.wood.getWood()), 985, 597);
 
 	}
 
@@ -697,4 +745,14 @@ public class MenuBar {
 		return pane == 3;
 	}
 
+	public static void reset(){
+		warState = 2;
+		wheat = 0;
+		gold = 0;
+		land = 0;
+		for (Graph g : graphs){
+			g.reset();
+		}
+	}
+	
 }

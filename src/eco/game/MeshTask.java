@@ -76,7 +76,11 @@ public class MeshTask implements Runnable {
 					}
 				}
 				if (World.map[x][y] == 1) {
-					drawTile(x, y, height, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+					if (World.decorations[x][y] == 5){
+						drawTile(x, y, height, 4, 0, Util.getRandomColorNoise(x, y), 1f);
+					} else{
+						drawTile(x, y, height, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
@@ -103,7 +107,11 @@ public class MeshTask implements Runnable {
 					}
 				}
 				if (World.map[x][y] == 2) {
-					drawTile(x, y, height, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+					if (World.decorations[x][y] == 5){
+						drawTile(x, y, height, 6, 4, Util.getRandomColorNoise(x, y), 1f);
+					} else{
+						drawTile(x, y, height, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
@@ -191,6 +199,7 @@ public class MeshTask implements Runnable {
 
 
 	
+	@SuppressWarnings("unused")
 	private static void drawTile(float x, float y, float height,
 			int tex, int tey) {
 		drawTile(x, y, height, tex, tey, 1.0f, 1.0f);
@@ -247,6 +256,7 @@ public class MeshTask implements Runnable {
 		index += 12;
 	}
 
+	@SuppressWarnings("unused")
 	private static void drawTileN(float x, float y, float height, float length,
 			int tex, int tey) {
 		drawTileN(x, y, height, length, tex, tey, 1.0f, 1.0f);
@@ -302,6 +312,7 @@ public class MeshTask implements Runnable {
 		index += 12;
 	}
 
+	@SuppressWarnings("unused")
 	private static void drawTileW(float x, float y, float height, float length,
 			int tex, int tey) {
 		drawTileW(x, y, height, length, tex, tey, 1.0f, 1.0f);
@@ -358,6 +369,7 @@ public class MeshTask implements Runnable {
 		index += 12;
 	}
 	
+	@SuppressWarnings("unused")
 	private static void drawTileS(float x, float y, float height, float length,
 			int tex, int tey) {
 		drawTileS(x, y, height, length, tex, tey, 1.0f, 1.0f);
@@ -414,6 +426,7 @@ public class MeshTask implements Runnable {
 		index += 12;
 	}
 	
+	@SuppressWarnings("unused")
 	private static void drawTileE(float x, float y, float height, float length,
 			int tex, int tey) {
 		drawTileE(x, y, height, length, tex, tey, 1.0f, 1.0f);

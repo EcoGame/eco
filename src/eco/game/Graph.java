@@ -103,4 +103,8 @@ public class Graph {
 		justGraph = true;
 	}
 	
+	public void reset(){
+		contents = new float[size];
+	}
+	
 }

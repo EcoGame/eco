@@ -51,11 +51,12 @@ public class PlayerCountry {
 	// ======================//
 	// Newly Instanced Stuff //
 	// ======================//
-	public static final Wheat wheat = new Wheat();
-	public static final Farmer farmer = new Farmer();
-	public static final Warrior warrior = new Warrior();
-	public static final Economy economy = new Economy();
-	public static final Land land = new Land();
+	public static  Wheat wheat = new Wheat();
+	public static  Farmer farmer = new Farmer();
+	public static  Warrior warrior = new Warrior();
+	public static  Economy economy = new Economy();
+	public static  Land land = new Land();
+	public static Wood wood = new Wood();
 	
 	public static String name = NameGen.generateCountry();
 
@@ -174,6 +175,12 @@ public class PlayerCountry {
 				+ World.displacedWarriors;
 		World.displacedFarmers = 0;
 		World.displacedWarriors = 0;
+		
+		// ==============//
+		// Other Updates //
+		// ==============//
+		World.updateWood();
+		wood.update();
 
 		// ===============//
 		// Render Updates //
@@ -276,12 +283,18 @@ public class PlayerCountry {
 	public static void initGame() {
 		World.init(generatorToUse);
 		Main.paused = false;
-		farmer.setfPop(5);
-		warrior.setwPop(5);
-		economy.setTreasury(0);
-		wheat.resetWheat();
-		land.setLand(0);
-		land.setPop(0);
+		wheat = new Wheat();
+		farmer = new Farmer();
+		warrior = new Warrior();
+		economy = new Economy();
+		land = new Land();
+		wood = new Wood();
+		year = 0;
+		farmerDeathRatio = 0.75f;
+		warriorDeathRatio = 0.75f;
+		desiredWarriorRatio = 0.15f;
+		desiredFarmerRatio = 1f - desiredWarriorRatio;
+		MenuBar.reset();
 		if (Util.doesSaveExist(Main.currentSave)) {
 			Util.readSave();
 		} else {
