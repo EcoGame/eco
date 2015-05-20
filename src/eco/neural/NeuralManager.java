@@ -292,7 +292,7 @@ public class NeuralManager{
                 resetallneurons(currentnetwork);
                 iteration++;
         }
-        Eco.game.Util.putCountries(Countries);
+        eco.game.Util.putCountries(Countries);
     }
 
     public static void testinputs(int currentnetwork) {
