@@ -45,7 +45,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -80,19 +79,17 @@ public class Render{
 
 	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
 			-8f, World.mapsize / 2f * tilesize);
-
-	public static volatile float[] vertexes;
-	public static volatile float[] textures;
 	
 	public static volatile FloatBuffer vertex = null;
 	public static volatile FloatBuffer texture = null;
+	public static volatile FloatBuffer colors = null;
 	public static volatile int buffersize;
 
 	public static boolean overhead = false;
 
-	public static float heightConstant = 0.025f;
+	public static float heightConstant = 0.025f * (World.mapsize / 64);
 
-	public static boolean multithreading = false;
+	public static boolean multithreading = true;
 	public static boolean multiThreadStructures = false;
 	
 	public static final Object lock = new Object();
@@ -127,84 +124,80 @@ public class Render{
 		/* Array rendering */
 		synchronized(lock){
 			if (multithreading) {
-				if (vertexes != null && textures != null){
-					vertex = BufferUtils.createFloatBuffer(buffersize);
-					vertex.put(vertexes, 0, buffersize);
-					texture = BufferUtils.createFloatBuffer(buffersize * 2 / 3);
-					texture.put(textures, 0, buffersize * 2 / 3);
-					texture.flip();
-					vertex.flip();
-
+				if (vertex != null && texture != null && colors != null){
 					GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-					GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 					
+					GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
 					GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 					GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 					
 					GL11.glVertexPointer(3, 0, vertex);
 					GL11.glTexCoordPointer(2, 0, texture);
+					GL11.glColorPointer(4, 0, colors);
 
 					GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
 					
 					GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+					GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 					GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
 				}
 			}
 		}
 
 		/* DisplayList rendering */
-		if (!multithreading || true) {
+		if (!multithreading) {
 			/* Call the display list */
 			GL11.glCallList(DisplayLists.getIndex());
-			/* Render structures */
-			for (int x = 0; x < mapsize; x++) {
-				for (int y = 0; y < mapsize; y++) {
-					if (World.structures[x][y] == 1) {
-						try {
-							World.cities.get(new Point(x, y)).updatePop(
-									(int) World.popdensity[x][y]);
-							drawCity((-x) * tilesize, World.noise[x][y]
-									* heightConstant, (-y) * tilesize, 1,
-									World.cities.get(new Point(x, y)));
-						} catch (Exception e) {
-							World.cities.put(new Point(x, y), new City(
-									new Point(x, y), false));
-						}
+		}
+		
+		/* Render structures */
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (World.structures[x][y] == 1) {
+					try {
+						World.cities.get(new Point(x, y)).updatePop(
+								(int) World.popdensity[x][y]);
+						drawCity((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 1,
+								World.cities.get(new Point(x, y)));
+					} catch (Exception e) {
+						World.cities.put(new Point(x, y), new City(
+								new Point(x, y), false));
 					}
-					if (World.structures[x][y] == 2) {
-						try {
-							World.cities.get(new Point(x, y)).updatePop(
-									(int) World.popdensity[x][y]);
-							drawCity((-x) * tilesize, World.noise[x][y]
-									* heightConstant, (-y) * tilesize, 2,
-									World.cities.get(new Point(x, y)));
-						} catch (Exception e) {
-							World.cities.put(new Point(x, y), new City(
-									new Point(x, y), true));
-						}
-					}
-					if (World.structures[x][y] == 3) {
-						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, treeTexture.sample(x, y));
-					}
-					if (World.decorations[x][y] == 1){
-						drawStructure((-x) * tilesize, 48
-								* heightConstant, (-y) * tilesize, 12);
-					}
-					if (World.decorations[x][y] == 2){
-						//drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
-							//	* heightConstant, (-y) * tilesize, 13); //Cloud drawing
-					}
-					if (World.decorations[x][y] == 3){
-						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 14);
-					}
-					if (World.decorations[x][y] == 4){
-						drawStructure((-x) * tilesize, World.noise[x][y]
-								* heightConstant, (-y) * tilesize, 15);
-					}
-
 				}
+				if (World.structures[x][y] == 2) {
+					try {
+						World.cities.get(new Point(x, y)).updatePop(
+								(int) World.popdensity[x][y]);
+						drawCity((-x) * tilesize, World.noise[x][y]
+								* heightConstant, (-y) * tilesize, 2,
+								World.cities.get(new Point(x, y)));
+					} catch (Exception e) {
+						World.cities.put(new Point(x, y), new City(
+								new Point(x, y), true));
+					}
+				}
+				if (World.structures[x][y] == 3) {
+					drawStructure((-x) * tilesize, World.noise[x][y]
+							* heightConstant, (-y) * tilesize, treeTexture.sample(x, y));
+				}
+				if (World.decorations[x][y] == 1){
+					drawStructure((-x) * tilesize, 48
+							* heightConstant, (-y) * tilesize, 12);
+				}
+				if (World.decorations[x][y] == 2){
+					//drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
+						//	* heightConstant, (-y) * tilesize, 13); //Cloud drawing
+				}
+				if (World.decorations[x][y] == 3){
+					drawStructure((-x) * tilesize, World.noise[x][y]
+							* heightConstant, (-y) * tilesize, 14);
+				}
+				if (World.decorations[x][y] == 4){
+					drawStructure((-x) * tilesize, World.noise[x][y]
+							* heightConstant, (-y) * tilesize, 15);
+				}
+
 			}
 		}
 
@@ -772,9 +765,12 @@ public class Render{
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_ALPHA_TEST);
 		glDepthFunc(GL_LEQUAL);
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glEnable(GL_BLEND);
+		glDisable(GL11.GL_CULL_FACE);
+		glDepthFunc(GL_LEQUAL);
 	}
 
 	/* Creates an orthogonal projection */

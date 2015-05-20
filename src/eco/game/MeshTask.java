@@ -23,11 +23,16 @@ public class MeshTask implements Runnable {
 	
 	private static float[] vertex = new float[0x2000000];
 	private static float[] texture = new float[0x2000000];
+	private static float[] colors = new float[0x2000000];
 	
 	private static int index = 0;
 
 	@Override
 	public void run() {
+
+		@SuppressWarnings("unused")
+		long start = System.nanoTime();
+		
 		index = 0;
 
 		for (int x = 0; x < World.mapsize; x++) {
@@ -35,111 +40,111 @@ public class MeshTask implements Runnable {
 				float height = World.noise[x][y] * heightConstant;
 				if (World.map[x][y] == 0) {
 					height = 48 * heightConstant;
-					drawTile(x, y, height, 0, 0);
+					drawTile(x, y, height, 0, 0, 1f, 0.9f);
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
 						diff *= Render.heightConstant;
-						drawTileN(x, y, height, diff, 0, 0);
+						drawTileN(x, y, height, diff, 0, 0, 1f, 0.9f);
 					}
 					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x - 1, y);
 						diff *= Render.heightConstant;
-						drawTileS(x, y, height, diff, 0, 0);
+						drawTileS(x, y, height, diff, 0, 0, 1f, 0.9f);
 					}
 					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y + 1);
 						diff *= Render.heightConstant;
-						drawTileW(x, y, height, diff, 0, 0);
+						drawTileW(x, y, height, diff, 0, 0, 1f, 0.9f);
 					}
 					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y - 1);
 						diff *= Render.heightConstant;
-						drawTileE(x, y, height, diff, 0, 0);
+						drawTileE(x, y, height, diff, 0, 0, 1f, 0.9f);
 					}
 				}
 				if (World.map[x][y] == 1) {
-					drawTile(x, y, height, 1, 0);
+					drawTile(x, y, height, 1, 0, Util.getRandomColorNoise(x, y), 1f);
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
 						diff *= Render.heightConstant;
-						drawTileN(x, y, height, diff, 1, 0);
+						drawTileN(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x - 1, y);
 						diff *= Render.heightConstant;
-						drawTileS(x, y, height, diff, 1, 0);
+						drawTileS(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y + 1);
 						diff *= Render.heightConstant;
-						drawTileW(x, y, height, diff, 1, 0);
+						drawTileW(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y - 1);
 						diff *= Render.heightConstant;
-						drawTileE(x, y, height, diff, 1, 0);
+						drawTileE(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 				}
 				if (World.map[x][y] == 2) {
-					drawTile(x, y, height, 3, 0);
+					drawTile(x, y, height, 3, 0, Util.getRandomColorNoise(x, y), 1f);
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
 						diff *= Render.heightConstant;
-						drawTileN(x, y, height, diff, 3, 0);
+						drawTileN(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x - 1, y);
 						diff *= Render.heightConstant;
-						drawTileS(x, y, height, diff, 3, 0);
+						drawTileS(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y + 1);
 						diff *= Render.heightConstant;
-						drawTileW(x, y, height, diff, 3, 0);
+						drawTileW(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y - 1);
 						diff *= Render.heightConstant;
-						drawTileE(x, y, height, diff, 3, 0);
+						drawTileE(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 				}
 				if (World.map[x][y] == 3) {
-					drawTile(x, y, height, 2, 0);
+					drawTile(x, y, height, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x + 1, y);
 						diff *= Render.heightConstant;
-						drawTileN(x, y, height, diff, 2, 0);
+						drawTileN(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x - 1, y);
 						diff *= Render.heightConstant;
-						drawTileS(x, y, height, diff, 2, 0);
+						drawTileS(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y + 1);
 						diff *= Render.heightConstant;
-						drawTileW(x, y, height, diff, 2, 0);
+						drawTileW(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
 						float diff = World.getHeight(x, y)
 								- World.getHeight(x, y - 1);
 						diff *= Render.heightConstant;
-						drawTileE(x, y, height, diff, 2, 0);
+						drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 				}
 			}
@@ -149,29 +154,38 @@ public class MeshTask implements Runnable {
 
 		FloatBuffer vertexData = BufferUtils.createFloatBuffer(buffersize);
 		FloatBuffer textureData = BufferUtils.createFloatBuffer(buffersize * 2 / 3);
+		FloatBuffer colorData = BufferUtils.createFloatBuffer(buffersize / 3 * 4);
 
 		vertexData.put(vertex, 0, index);
 		textureData.put(texture, 0, index * 2 / 3);
-		
-		vertexData.flip();
-		textureData.flip();
-
+		colorData.put(colors, 0, index / 3 * 4);
 
 		synchronized(Render.lock){
-			Render.texture = textureData.duplicate();
-			Render.vertex = vertexData.duplicate();
+			Render.texture = textureData;
+			Render.vertex = vertexData;
+			Render.colors = colorData;
+			Render.texture.flip();
+			Render.vertex.flip();
+			Render.colors.flip();
 			Render.buffersize = index;
-			Render.textures = texture;
-			Render.vertexes = vertex;
 		}
-
+		
+		@SuppressWarnings("unused")
+		long end = System.nanoTime();
+		
+		//System.out.println((end - start) / 1000000);
 	}
 
 
 
 	
+	private static void drawTile(float x, float y, float height,
+			int tex, int tey) {
+		drawTile(x, y, height, tex, tey, 1.0f, 1.0f);
+	}
+	
 	private static void drawTile(float x, float y, float height, int tex,
-			int tey) {
+			int tey, float color, float alpha) {
 		
 		int texindex = index / 3 * 2;
 		
@@ -184,6 +198,24 @@ public class MeshTask implements Runnable {
 		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
 		
+		int colorindex = index / 3 * 4;
+		colors[colorindex] = color;
+		colors[colorindex + 1] = color;
+		colors[colorindex + 2] = color;
+		colors[colorindex + 3] = alpha;
+		colors[colorindex + 4] = color;
+		colors[colorindex + 5] = color;
+		colors[colorindex + 6] = color;
+		colors[colorindex + 7] = alpha;
+		colors[colorindex + 8] = color;
+		colors[colorindex + 9] = color;
+		colors[colorindex + 10] = color;
+		colors[colorindex + 11] = alpha;
+		colors[colorindex + 12] = color;
+		colors[colorindex + 13] = color;
+		colors[colorindex + 14] = color;
+		colors[colorindex + 15] = alpha;
+
 		vertex[index] = -x * tilesize - offset;
 		vertex[index + 1] = height;
 		vertex[index + 2] = -y * tilesize - offset;
@@ -205,6 +237,11 @@ public class MeshTask implements Runnable {
 
 	private static void drawTileN(float x, float y, float height, float length,
 			int tex, int tey) {
+		drawTileN(x, y, height, length, tex, tey, 1.0f, 1.0f);
+	}
+	
+	private static void drawTileN(float x, float y, float height, float length,
+			int tex, int tey, float color, float alpha) {
 		int texindex = index / 3 * 2;
 		
 		texture[texindex] = Render.atlas.getCoord(tex, false);
@@ -215,6 +252,24 @@ public class MeshTask implements Runnable {
 		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
 		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		int colorindex = index / 3 * 4;
+		colors[colorindex] = color;
+		colors[colorindex + 1] = color;
+		colors[colorindex + 2] = color;
+		colors[colorindex + 3] = alpha;
+		colors[colorindex + 4] = color;
+		colors[colorindex + 5] = color;
+		colors[colorindex + 6] = color;
+		colors[colorindex + 7] = alpha;
+		colors[colorindex + 8] = color;
+		colors[colorindex + 9] = color;
+		colors[colorindex + 10] = color;
+		colors[colorindex + 11] = alpha;
+		colors[colorindex + 12] = color;
+		colors[colorindex + 13] = color;
+		colors[colorindex + 14] = color;
+		colors[colorindex + 15] = alpha;
 		
 		vertex[index] = -x * tilesize - offset;
 		vertex[index + 1] = height;
@@ -237,6 +292,11 @@ public class MeshTask implements Runnable {
 
 	private static void drawTileW(float x, float y, float height, float length,
 			int tex, int tey) {
+		drawTileW(x, y, height, length, tex, tey, 1.0f, 1.0f);
+	}
+	
+	private static void drawTileW(float x, float y, float height, float length,
+			int tex, int tey, float color, float alpha) {
 		
 		int texindex = index / 3 * 2;
 		
@@ -248,6 +308,25 @@ public class MeshTask implements Runnable {
 		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
 		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		int colorindex = index / 3 * 4;
+		colors[colorindex] = color;
+		colors[colorindex + 1] = color;
+		colors[colorindex + 2] = color;
+		colors[colorindex + 3] = alpha;
+		colors[colorindex + 4] = color;
+		colors[colorindex + 5] = color;
+		colors[colorindex + 6] = color;
+		colors[colorindex + 7] = alpha;
+		colors[colorindex + 8] = color;
+		colors[colorindex + 9] = color;
+		colors[colorindex + 10] = color;
+		colors[colorindex + 11] = alpha;
+		colors[colorindex + 12] = color;
+		colors[colorindex + 13] = color;
+		colors[colorindex + 14] = color;
+		colors[colorindex + 15] = alpha;
+		
 		vertex[index] = -x * tilesize - offset;
 		vertex[index + 1] = height;
 		vertex[index + 2] = -y * tilesize - offset;
@@ -266,9 +345,14 @@ public class MeshTask implements Runnable {
 		
 		index += 12;
 	}
-
+	
 	private static void drawTileS(float x, float y, float height, float length,
 			int tex, int tey) {
+		drawTileS(x, y, height, length, tex, tey, 1.0f, 1.0f);
+	}
+
+	private static void drawTileS(float x, float y, float height, float length,
+			int tex, int tey, float color, float alpha) {
 		
 		int texindex = index / 3 * 2;
 		
@@ -280,6 +364,24 @@ public class MeshTask implements Runnable {
 		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
 		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		int colorindex = index / 3 * 4;
+		colors[colorindex] = color;
+		colors[colorindex + 1] = color;
+		colors[colorindex + 2] = color;
+		colors[colorindex + 3] = alpha;
+		colors[colorindex + 4] = color;
+		colors[colorindex + 5] = color;
+		colors[colorindex + 6] = color;
+		colors[colorindex + 7] = alpha;
+		colors[colorindex + 8] = color;
+		colors[colorindex + 9] = color;
+		colors[colorindex + 10] = color;
+		colors[colorindex + 11] = alpha;
+		colors[colorindex + 12] = color;
+		colors[colorindex + 13] = color;
+		colors[colorindex + 14] = color;
+		colors[colorindex + 15] = alpha;
 		
 		vertex[index] = -x * tilesize + offset;
 		vertex[index + 1] = height;
@@ -299,9 +401,14 @@ public class MeshTask implements Runnable {
 		
 		index += 12;
 	}
-
+	
 	private static void drawTileE(float x, float y, float height, float length,
 			int tex, int tey) {
+		drawTileE(x, y, height, length, tex, tey, 1.0f, 1.0f);
+	}
+
+	private static void drawTileE(float x, float y, float height, float length,
+			int tex, int tey, float color, float alpha) {
 		int texindex = index / 3 * 2;
 		
 		texture[texindex] = Render.atlas.getCoord(tex, false);
@@ -312,6 +419,25 @@ public class MeshTask implements Runnable {
 		texture[texindex + 5] = Render.atlas.getCoord(tey, true);
 		texture[texindex + 6] = Render.atlas.getCoord(tex, false);
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
+		
+		int colorindex = index / 3 * 4;
+		colors[colorindex] = color;
+		colors[colorindex + 1] = color;
+		colors[colorindex + 2] = color;
+		colors[colorindex + 3] = alpha;
+		colors[colorindex + 4] = color;
+		colors[colorindex + 5] = color;
+		colors[colorindex + 6] = color;
+		colors[colorindex + 7] = alpha;
+		colors[colorindex + 8] = color;
+		colors[colorindex + 9] = color;
+		colors[colorindex + 10] = color;
+		colors[colorindex + 11] = alpha;
+		colors[colorindex + 12] = color;
+		colors[colorindex + 13] = color;
+		colors[colorindex + 14] = color;
+		colors[colorindex + 15] = alpha;
+		
 		vertex[index] = -x * tilesize - offset;
 		vertex[index + 1] = height;
 		vertex[index + 2] = -y * tilesize + offset;

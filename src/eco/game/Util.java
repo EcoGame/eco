@@ -503,6 +503,13 @@ public class Util {
     	GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
     }
     
+    public static float getRandomColorNoise(int x, int y){
+		NoiseSampler.initSimplexNoise((int) World.mapseed);
+		NoiseSampler.setNoiseScale(World.mapsize / 32);
+    	float noise = NoiseSampler.getNoise(x, y) / 6f;
+    	return 1f - noise;
+    }
+    
 	public static float calcAverageCountryScore(){
 		float total = 0;
 		for (Country c : PlayerCountry.countries){

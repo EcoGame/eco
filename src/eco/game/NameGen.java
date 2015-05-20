@@ -405,7 +405,7 @@ public class NameGen {
     
     public static String generateCountry(){
         String[] fictionalPlaces = new String[] {"Atlantis", "Arstotzka", "Narnia", "Babar's Kingdom", "Elbonia", "Hundred Acre Wood", "The Shire", "Grand Fenwick", "Hyrule", "Kyrat", "Loompa Land", "Mushroom Kingdom", "Oceania", "Oz", "Panem", "Rook Island", "Shangri-La", "Smallville", "Gotham", "Mos Eisley", "Emerald City", "Springfield", "South Park", "Los Santos", "El Dorado", "Essos", "Westeros", "King's Landing", "Hogwarts", "Whoville", "Neverland", "Bikini Bottom", "Pandora", "Wonderland", "Mister Roger's Neighborhood", "Camelot", "Utopia"};
-        return fictionalPlaces[randInt(0, fictionalPlaces.length)];
+        return fictionalPlaces[randInt(0, fictionalPlaces.length - 1)];
             
     }
     
