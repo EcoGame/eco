@@ -12,7 +12,6 @@ package eco.game;
 public class Stone {
 	
 	private int stone;
-	private float rotRate;
 	
 	public boolean buyStone = true;
 	

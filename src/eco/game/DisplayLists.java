@@ -37,16 +37,17 @@ public class DisplayLists {
 		for (int x = 0; x < World.mapsize; x++) {
 			for (int y = 0; y < World.mapsize; y++) {
 				if (Main.renderPopMap){
-					if (World.cities.get(new Point(x, y)) != null){
+					//GL11.glColor3f(World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f);
+					if (World.cities.get(new Point(x , y)) != null){
+						//GL11.glColor3f(1f, 1f, 1f);
 						GL11.glColor3f(World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f, World.popdensity[x][y] / 128f);
 					}
 					else{
 						GL11.glColor3f(1f, 1f, 1f);
 					}
+
 				}
 				if (World.map[x][y] == 0) {
-					
-					GL11.glColor4f(1f, 1f, 1f, 0.75f);
 
 					float height = 48 * Render.heightConstant;
 
@@ -76,11 +77,8 @@ public class DisplayLists {
 						diff *= Render.heightConstant;
 						drawTileE(x, y, height, diff, 0, 0);
 					}
-					
-					GL11.glColor4f(1f, 1f, 1f, 1f);
 				}
 				if (World.map[x][y] == 1) {
-					Util.applyRandomColorNoise(x, y);
 					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
@@ -116,7 +114,6 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 2) {
-					Util.applyRandomColorNoise(x, y);
 					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
@@ -152,7 +149,6 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 3) {
-					Util.applyRandomColorNoise(x, y);
 					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;
@@ -184,7 +180,6 @@ public class DisplayLists {
 					}
 				}
 				if (World.map[x][y] == 5) {
-					Util.applyRandomColorNoise(x, y);
 					
 					float height = World.getHeight(x, y)
 							* Render.heightConstant;

@@ -59,6 +59,7 @@ public class World {
 												// build things
 	
 	public static int woodPerHouse = 2;
+	public static int stonePerCastle = 2;
     public static int stoneRate = 2;
 	
 	public static Random random;
@@ -567,7 +568,7 @@ public class World {
 				}
 			}
 			int realWoodUsed = PlayerCountry.wood.takeWood(woodused, PlayerCountry.economy);
-			int woodDiff = woodused - realWoodUsed;
+			int woodDiff = woodused * 0 - realWoodUsed * 0;
 			oldFarmers = farmers - Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
 			displacedFarmers = Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
 		} else {
@@ -649,7 +650,7 @@ public class World {
 					}
 				}
 			}
-
+			int stoneUsed = 0;
 			int newcastles = deltawarriors;
 			int popToResettle = 0;
 			if (random.nextInt(100) == 0) {
@@ -664,9 +665,11 @@ public class World {
 							int canFit = castlesPerTile - popdensity[x][y];
 							if (canFit >= newcastles) {
 								popdensity[x][y] += newcastles;
+								stoneUsed += newcastles * stonePerCastle;
 								newcastles = 0;
 							} else {
 								popdensity[x][y] += canFit;
+								stoneUsed += canFit * stonePerCastle;
 								newcastles -= canFit;
 							}
 						}
@@ -721,9 +724,11 @@ public class World {
 					// map[rand.getX()][rand.getY()] = 3;
 					if (newcastles >= castlesPerTile) {
 						popdensity[rand.getX()][rand.getY()] += castlesPerTile;
+						stoneUsed += castlesPerTile * stonePerCastle;
 						newcastles -= castlesPerTile;
 					} else {
 						popdensity[rand.getX()][rand.getY()] += newcastles;
+						stoneUsed += newcastles * stonePerCastle;
 						newcastles = 0;
 					}
 				} else {
@@ -736,15 +741,19 @@ public class World {
 					validLocs.remove(loc);
 					if (newcastles >= castlesPerTile) {
 						popdensity[loc.getX()][loc.getY()] += castlesPerTile;
+						stoneUsed += castlesPerTile * stonePerCastle;
 						newcastles -= castlesPerTile;
 					} else {
 						popdensity[loc.getX()][loc.getY()] += newcastles;
+						stoneUsed += newcastles * stonePerCastle;
 						newcastles = 0;
 					}
 				}
 			}
-			oldWarriors = warriors - newcastles;
-			displacedWarriors = newcastles;
+			int realStoneUsed = PlayerCountry.wood.takeWood(stoneUsed, PlayerCountry.economy);
+			int stoneDiff = stoneUsed * 0 - realStoneUsed * 0;
+			oldWarriors = Math.max(0, warriors - newcastles - stoneDiff);
+			displacedWarriors = newcastles - stoneDiff;
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
@@ -835,6 +844,19 @@ public class World {
 			}
 		}
 		
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				City c = cities.get(new Point(x, y));
+				if (c != null){
+					if (popdensity[x][y] <= 0){
+						cities.remove(new Point(x, y));
+						popmap[x][y] = 0;
+						structures[x][y] = 0;
+					}
+				}
+			}
+		}
+		
 		boolean needscapital = true;
 		
 		for (City c : new ArrayList<City>(cities.values())){
@@ -859,7 +881,7 @@ public class World {
 			}
 		}
 		catch (Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 			
 	}
@@ -947,7 +969,6 @@ public class World {
 			}
 		}
 		
-		PlayerCountry.wood.addWood(toAdd);
+		PlayerCountry.stone.addStone(toAdd);
 	}
-
 }

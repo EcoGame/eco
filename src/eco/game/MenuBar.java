@@ -690,6 +690,19 @@ public class MenuBar {
 		glVertex2f(950, 647);
 		glEnd();
 		glColor3f(1.0f, 1.0f, 1.0f);
+		
+		/* Draw stone icon */
+		glBegin(GL_QUADS);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(2, false));
+		glVertex2f(950, 683);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(2, false));
+		glVertex2f(975, 683);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(2, true));
+		glVertex2f(975, 707);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(2, true));
+		glVertex2f(950, 707);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
 
 		renderStats2();
 

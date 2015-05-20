@@ -148,8 +148,19 @@ public class City {
 	}
 
 	public String getName() {
-		if (name == ""){
+		if (name == "" || name == null){
 			Log.log(-1, "NAME IS NULL");
+			return "";
+		}
+		for (City c : World.cities.values()){
+			if (c.name.equals(name)){
+				if (!c.getLoc().equals(getLoc())){
+					if (c.usename){
+						//System.out.println(getLoc() +" == "+c.getLoc());
+						usename = false;
+					}
+				}
+			}
 		}
 		if (World.cities.get(new Point(loc.getX() + 1, loc.getY())) != null) {
 			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY())));
@@ -157,7 +168,7 @@ public class City {
 			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY())));
 		} else if (World.cities.get(new Point(loc.getX(), loc.getY() + 1)) != null) {
 			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() + 1)));
-		} else if (World.cities.get(new Point(loc.getX(), loc.getY() - 1)) != null) {
+		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
 			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() - 1)));
 		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)) != null) {
 			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)));
