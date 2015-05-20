@@ -522,9 +522,7 @@ public class Util {
     	float noise = NoiseSampler.getNoise(x, y) / 6f;
     	GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
     }
-<<<<<<< HEAD
 
-=======
     
     public static float getRandomColorNoise(int x, int y){
 		NoiseSampler.initSimplexNoise((int) World.mapseed);
@@ -532,8 +530,7 @@ public class Util {
     	float noise = NoiseSampler.getNoise(x, y) / 6f;
     	return 1f - noise;
     }
-    
->>>>>>> origin/master
+
 	public static float calcAverageCountryScore(){
 		float total = 0;
 		for (Country c : PlayerCountry.countries){
