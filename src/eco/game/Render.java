@@ -385,6 +385,14 @@ public class Render{
 		/* Draw all the text */
 		UIManager.renderMenu2();
 		drawString("Generation Settings", ((Main.width / 2) + 280), 224);
+		
+		/* Splash Text */
+		font.drawString(15, 15, "Version "+Main.vn, new Color(200, 200, 200));
+
+		String splash = SplashText.getSplash();
+		centx = (Main.width - font.getWidth(splash)) / 2f;
+		
+		font.drawString(centx, 690, splash, new Color(147,206,239));
 
 		/* Draw all the messages */
 		for (Message message : Message.getMessages()) {
