@@ -395,16 +395,16 @@ public class NameGen {
     public static String generateWarWin(){
        String[] victorySlang = new String[] { "annihilated",
 			"slaughetered", "exterminated", "obliterate", "butchered", "executed", "t-bagged", "massacred", "killed off", "stamped out", "won the war against", "won the fight against", "destroy", "eradicated", "neutralized", "erased", "abolished", "strangled every citizen of", "wasted", "wiped out"};
-        return victorySlang[randInt(0, victorySlang.length - 1)];
+        return victorySlang[randInt(0, victorySlang.length)];
     }
     
     public static String generateWarLoss(){
         String[] lossSlang = new String[] {"perished by the sword of", "expired during the war with", "succumbed to", "met its demise in the war with", "was ruined by", "is now in ruins after war with", "lost the war with", "was unsuccessful in the war with", "failed in the war with", "crumbled in the war with", "fell in the war with"};
-        return lossSlang[randInt(0, lossSlang.length - 1)];
+        return lossSlang[randInt(0, lossSlang.length)];
     }
     
     public static String generateCountry(){
-        String[] fictionalPlaces = new String[] {"Atlantis", "Arstotzka", "Narnia", "Babar's Kingdom", "Elbonia", "Hundred Acre Wood", "The Shire", "Grand Fenwick", "Hyrule", "Kyrat", "Loompa Land", "Mushroom Kingdom", "Oceania", "Oz", "Panem", "Rook Island", "Shangri-La", "Smallville", "Gotham", "Mos Eisley", "Emerald City", "Springfield", "South Park", "Los Santos", "El Dorado", "Essos", "Westeros", "King's Landing", "Hogwarts", "Whoville", "Neverland", "Bikini Bottom", "Pandora", "Wonderland", "Mister Roger's Neighborhood", "Camelot", "Utopia", "Asgard", "Vulcan"};
+        String[] fictionalPlaces = new String[] {"Atlantis", "Arstotzka", "Narnia", "Babar's Kingdom", "Elbonia", "Hundred Acre Wood", "The Shire", "Grand Fenwick", "Hyrule", "Kyrat", "Loompa Land", "Mushroom Kingdom", "Oceania", "Oz", "Panem", "Rook Island", "Shangri-La", "Smallville", "Gotham", "Mos Eisley", "Emerald City", "Springfield", "South Park", "Los Santos", "El Dorado", "Essos", "Westeros", "King's Landing", "Hogwarts", "Whoville", "Neverland", "Bikini Bottom", "Pandora", "Wonderland", "Mister Roger's Neighborhood", "Camelot", "Utopia"};
         return fictionalPlaces[randInt(0, fictionalPlaces.length - 1)];
             
     }

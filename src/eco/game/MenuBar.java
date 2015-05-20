@@ -738,6 +738,9 @@ public class MenuBar {
 		Render.drawString(
 				"Wood: "
 						+ String.valueOf(PlayerCountry.wood.getWood()), 985, 597);
+		Render.drawString(
+				"Stone: "
+						+ String.valueOf(PlayerCountry.stone.getStone()), 985, 687);
 
 	}
 

@@ -19,8 +19,8 @@ public class Wood {
 	private int woodPrice = 100;
 	
 	public Wood(){
-		wood = 0;
-		rotRate = 0.99f;
+		wood = 100;
+		rotRate = 0.90f;
 	}
 	
 	public int takeWood(int request, Economy economy){

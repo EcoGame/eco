@@ -59,6 +59,7 @@ public class World {
 												// build things
 	
 	public static int woodPerHouse = 2;
+    public static int stoneRate = 2;
 	
 	public static Random random;
 	
@@ -408,7 +409,7 @@ public class World {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if (map[x][y] == 1
-							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3 && random.nextInt(3) == 0)) || structures[x][y] == 4) {
+							&& (structures[x][y] == 0 || structures[x][y] == 4)) {
 						validLocs.add(new Point(x, y));
 					}
 				}
@@ -436,8 +437,7 @@ public class World {
 						random.nextInt(mapsize));
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while (map[rand.getX()][rand.getY()] != 1
-							&& (structures[rand.getX()][rand.getY()] == 0 || (cutForests && structures[rand
-									.getX()][rand.getY()] == 3) || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -499,7 +499,7 @@ public class World {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if ((map[x][y] == 1 || map[x][y] == 1)
-							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3) || structures[x][y] == 4)) {
+							&& (structures[x][y] == 0 || structures[x][y] == 4)) {
 						validLocs.add(new Point(x, y));
 						if (popmap[x][y + 1] == 2) {
 							for (int i = 0; i < nearCityBias; i++) {
@@ -529,8 +529,7 @@ public class World {
 						random.nextInt(mapsize));
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while (map[rand.getX()][rand.getY()] != 1
-							&& (structures[rand.getX()][rand.getY()] == 0 || (cutForests && structures[rand
-									.getX()][rand.getY()] == 3) || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -569,8 +568,8 @@ public class World {
 			}
 			int realWoodUsed = PlayerCountry.wood.takeWood(woodused, PlayerCountry.economy);
 			int woodDiff = woodused - realWoodUsed;
-			oldFarmers = farmers - Math.min(newfarmland, newhouses + (woodDiff / woodPerHouse));
-			displacedFarmers = Math.min(newfarmland, newhouses + (woodDiff / woodPerHouse));
+			oldFarmers = farmers - Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
+			displacedFarmers = Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
@@ -645,7 +644,7 @@ public class World {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if ((map[x][y] == 1 || map[x][y] == 1)
-							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3) || structures[x][y] == 4)) {
+							&& (structures[x][y] == 0) || structures[x][y] == 4) {
 						validLocs.add(new Point(x, y));
 					}
 				}
@@ -680,7 +679,7 @@ public class World {
 			for (int x = 0; x < mapsize; x++) {
 				for (int y = 0; y < mapsize; y++) {
 					if ((map[x][y] == 1 || map[x][y] == 3)
-							&& (structures[x][y] == 0 || (cutForests && structures[x][y] == 3) || structures[x][y] == 4)) {
+							&& (structures[x][y] == 0 || structures[x][y] == 4)) {
 						validLocs.add(new Point(x, y));
 						if (popmap[x][y + 1] == 3) {
 							for (int i = 0; i < nearCityBias; i++) {
@@ -711,8 +710,7 @@ public class World {
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while ((map[rand.getX()][rand.getY()] != 1 && map[rand
 							.getX()][rand.getY()] != 3)
-							&& (structures[rand.getX()][rand.getY()] == 0 || (cutForests && structures[rand
-									.getX()][rand.getY()] == 3) || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -803,11 +801,11 @@ public class World {
 		}
 		
 		NoiseSampler.initSimplexNoise((int) mapseed);
-		NoiseSampler.setNoiseScale(mapsize / 32);
+		NoiseSampler.setNoiseScale(mapsize * 32);
 		for (int x = 0; x < mapsize; x++){
 			for (int y = 0; y < mapsize; y++){
 				if (structures[x][y] == 0 && map[x][y] == 1){
-					if (random.nextInt(5) == 0 && NoiseSampler.getNoise(x, y) >= forestHeight) {
+					if (random.nextInt(500) == 0 && NoiseSampler.getNoise(x, y) >= forestHeight) {
 							structures[x][y] = 3;
 					}
 				}
@@ -916,11 +914,36 @@ public class World {
 		
 		int toAdd = 0;
 		
+		if (!cutForests){
+			return;
+		}
+		
 		for (int x = 0; x < mapsize; x++){
 			for (int y = 0; y < mapsize; y++){
 				if (structures[x][y] == 3){
 					toAdd += woodRate;
+                    if (random.nextInt(100) == 0){
+                        structures[x][y] = 0;
+                    }
 				}
+			}
+		}
+		
+		PlayerCountry.wood.addWood(toAdd);
+	}
+    
+    public static void updateStone(){
+		
+		int toAdd = 0;
+		
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (decorations[x][y] == 14){
+					toAdd += stoneRate / 2;
+				}
+                if (map[x][y] == 3){
+                    toAdd += stoneRate;
+                }
 			}
 		}
 		

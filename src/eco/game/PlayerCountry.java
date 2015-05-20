@@ -51,12 +51,13 @@ public class PlayerCountry {
 	// ======================//
 	// Newly Instanced Stuff //
 	// ======================//
-	public static  Wheat wheat = new Wheat();
-	public static  Farmer farmer = new Farmer();
-	public static  Warrior warrior = new Warrior();
-	public static  Economy economy = new Economy();
-	public static  Land land = new Land();
+	public static Wheat wheat = new Wheat();
+	public static Farmer farmer = new Farmer();
+	public static Warrior warrior = new Warrior();
+	public static Economy economy = new Economy();
+	public static Land land = new Land();
 	public static Wood wood = new Wood();
+    public static Stone stone = new Stone();
 	
 	public static String name = NameGen.generateCountry();
 
@@ -181,6 +182,7 @@ public class PlayerCountry {
 		// ==============//
 		World.updateWood();
 		wood.update();
+        World.updateStone();
 
 		// ===============//
 		// Render Updates //
@@ -287,6 +289,7 @@ public class PlayerCountry {
 		farmer = new Farmer();
 		warrior = new Warrior();
 		economy = new Economy();
+        stone = new Stone();
 		land = new Land();
 		wood = new Wood();
 		year = 0;

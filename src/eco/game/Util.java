@@ -105,6 +105,10 @@ public class Util {
 			BW.newLine();
 			BW.write(Integer.toString(PlayerCountry.land.getPop()));
 			BW.newLine();
+            BW.write(Integer.toString(PlayerCountry.wood.getWood()));
+            BW.newLine();
+            BW.write(Integer.toString(PlayerCountry.stone.getStone()));
+			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Short.toString(World.map[x][y]));
@@ -241,7 +245,9 @@ public class Util {
 			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
 			PlayerCountry.land.setLand(Integer.valueOf(list.get(5)));
 			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
-			int line = 7;
+            PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
+            PlayerCountry.stone.setStone(Integer.valueOf(list.get(8)));
+			int line = 9;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
 				for (int y = 0; y < World.mapsize; y++) {
