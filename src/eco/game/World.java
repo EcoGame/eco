@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class World {
 
-	public static int mapscale = 7;
+	public static int mapscale = 6;
 	public static int mapsize = (int) Math.pow(2, mapscale);
 	public static volatile short[][] map = new short[mapsize][mapsize];
 	public static float[][] noise = new float[mapsize][mapsize];

@@ -33,7 +33,6 @@ public class InputManager {
 			Render.camera.moveBack(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			;
 			Render.camera.moveLeft(moveSpeed);
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
@@ -73,6 +72,9 @@ public class InputManager {
 					break;
 				case Keyboard.KEY_O:
 					Render.overhead ^= true;
+					break;
+				case Keyboard.KEY_B:
+					Render.preferMultiThreading ^= true;
 					break;
 				}
 			}

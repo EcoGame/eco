@@ -89,6 +89,7 @@ public class Render{
 
 	public static float heightConstant = 0.025f * (World.mapsize / 64);
 
+	public static boolean preferMultiThreading = true;
 	public static boolean multithreading = true;
 	public static boolean multiThreadStructures = false;
 	
@@ -99,6 +100,8 @@ public class Render{
 	public static final RandTexture bigHouseTexture = new RandTexture();
     public static final RandTexture smallCastleTexture = new RandTexture();
     public static final RandTexture bigCastleTexture = new RandTexture();
+    
+    private static final int minTPS = 2;
 
 	/* Main draw function */
 	public static void draw() {
@@ -107,6 +110,17 @@ public class Render{
 		glLoadIdentity();
 		initFrustrum();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		
+		if (preferMultiThreading && Main.framesPerTick <= minTPS && multithreading){
+			System.out.println("###########");
+			System.out.println("# WARNING #");
+			System.out.println("###########");
+			System.out.println("TPS is too low for safe multithreading!");
+			System.out.println("Switching to display lists.....");
+			multithreading = false;
+		} else if (preferMultiThreading && Main.framesPerTick > minTPS && !multithreading){
+			multithreading = true;
+		}
 
 		/* Look through the camera */
 		camera.look();

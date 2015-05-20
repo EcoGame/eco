@@ -26,9 +26,18 @@ public class MeshTask implements Runnable {
 	private static float[] colors = new float[0x2000000];
 	
 	private static int index = 0;
+	
+	private static long newTime;
+	
+	private long time;
 
 	@Override
 	public void run() {
+		
+		time = System.currentTimeMillis();
+		if (time > newTime){
+			newTime = time;
+		}
 
 		@SuppressWarnings("unused")
 		long start = System.nanoTime();
@@ -147,6 +156,9 @@ public class MeshTask implements Runnable {
 						drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 				}
+			}
+			if (time < newTime){
+				return;
 			}
 		}
 
