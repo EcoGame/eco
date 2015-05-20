@@ -65,39 +65,38 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class Render{
 
-	public static float rot;
-	public static final float rotSpeed = 0.05f;
+    public static float rot;
+    public static final float rotSpeed = 0.05f;
 
-	public static volatile boolean shouldRender = true;
+    public static volatile boolean shouldRender = true;
 
-	static TextureAtlas atlas;
-	static TrueTypeFont font;
+    static TextureAtlas atlas;
+    static TrueTypeFont font;
 
-	public static final float tilesize = 0.2f;
+    public static final float tilesize = 0.2f;
 
-	public static volatile boolean mesh = false;
+    public static volatile boolean mesh = false;
 
-	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
-			-8f, World.mapsize / 2f * tilesize);
+    public static Camera camera = new Camera(-World.mapsize / 2f * tilesize, -8f, World.mapsize / 2f * tilesize);
 	
-	public static volatile FloatBuffer vertex = null;
-	public static volatile FloatBuffer texture = null;
-	public static volatile FloatBuffer colors = null;
-	public static volatile int buffersize;
+    public static volatile FloatBuffer vertex = null;
+    public static volatile FloatBuffer texture = null; 
+    public static volatile FloatBuffer colors = null;
+    public static volatile int buffersize;
 
-	public static boolean overhead = false;
+    public static boolean overhead = false;
+ 
+    public static float heightConstant = 0.025f * (World.mapsize / 64);
 
-	public static float heightConstant = 0.025f * (World.mapsize / 64);
-
-	public static boolean preferMultiThreading = true;
-	public static boolean multithreading = true;
-	public static boolean multiThreadStructures = false;
+    public static boolean preferMultiThreading = true;
+    public static boolean multithreading = true;
+    public static boolean multiThreadStructures = false;
 	
-	public static final Object lock = new Object();
+    public static final Object lock = new Object();
 	
-	public static final RandTexture treeTexture = new RandTexture();
-	public static final RandTexture smallHouseTexture = new RandTexture();
-	public static final RandTexture bigHouseTexture = new RandTexture();
+    public static final RandTexture treeTexture = new RandTexture();
+    public static final RandTexture smallHouseTexture = new RandTexture();
+    public static final RandTexture bigHouseTexture = new RandTexture();
     public static final RandTexture smallCastleTexture = new RandTexture();
     public static final RandTexture bigCastleTexture = new RandTexture();
     
