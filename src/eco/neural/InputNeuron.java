@@ -13,12 +13,13 @@ public class InputNeuron {
     public int fired;
     public int id;
     public int pairedaxon;
+    public int stream;
     public int currentvalue;
     public boolean alreadyfired = false;
     public boolean highorlow = true; // true = high false = low
 
     public void checkinput(){
-
+		input = InputStream.readinput(stream);
         fired = 0;
         if(highorlow == true) {
             if(input > firevalue) {

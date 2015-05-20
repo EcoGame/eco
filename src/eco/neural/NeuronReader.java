@@ -85,6 +85,7 @@ public class NeuronReader {
         char code;
 		int type;
 		int neuronid;
+		int stream;
 		int filler;
 		try {
 			File file = new File("./eco/txt/neuron"+ num+".txt");
@@ -104,7 +105,7 @@ public class NeuronReader {
 			type = 0;
 
  			neuronid= Integer.parseInt(tokenSpace[1])- Main.INPUTIDOFFSET;
-
+			
 			for( int x = 0; Main.neuronArrayfill[num][type][neuronid].length > x; x++){
 			Main.neuronArrayfill[num][type][neuronid][x]= Integer.parseInt(tokenSpace[2+x]);
 			}

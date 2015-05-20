@@ -1,6 +1,6 @@
 package eco.neural;
-import eco.game.*;
 import java.util.Random;
+import eco.game.*;
 
 /**
  * A class that manages the neural network
@@ -11,7 +11,7 @@ import java.util.Random;
  * @return a new semirandom child chromosome
  *
  */
-
+public Country[] eco.game.Country = new Countrys;
 public class NeuralManager{
 
     /*public static Random random = new Random();
@@ -124,6 +124,7 @@ public class NeuralManager{
                 case 0:
                     for(int x= 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++){
                         Main.inputNeuralArray[currentnetwork][x].firevalue = Main.neuronArrayfill[currentnetwork][type][x][0];
+                        Main.inputNeuralArray[currentnetwork][x].stream = Main.neuronArrayfill[currentnetwork][type][x][1];
                     }
                     type++;
                     break;
@@ -279,7 +280,7 @@ public class NeuralManager{
         int iteration= 0;
         boolean iscomplete =false;
         int brainlength = 4;
-        Country[] countrys =  eco.game.Util.getCountries();
+        Country[] =  eco.game.Util.getCountries();
         while(iscomplete == false) {
             if(iteration > 3) {
               iscomplete = true;
