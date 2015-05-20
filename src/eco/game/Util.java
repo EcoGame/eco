@@ -24,9 +24,9 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * A class that contains various utilities and convenience methods
- * 
+ *
  * @author phil, nate, connor, will
- * 
+ *
  */
 
 public class Util {
@@ -34,7 +34,7 @@ public class Util {
 	private static Random random = new Random();
 
 	public static void createSave() {
-        
+
         if (Main.currentSave == 1) {
             if(Main.saveName1.contains(" ")) {
                 Main.saveName1 = Main.saveName1.replace(" ", "@");
@@ -105,8 +105,6 @@ public class Util {
 			BW.newLine();
 			BW.write(Integer.toString(PlayerCountry.land.getPop()));
 			BW.newLine();
-			BW.write(Integer.toString(PlayerCountry.wood.getWood()));
-			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Short.toString(World.map[x][y]));
@@ -143,9 +141,17 @@ public class Util {
 				}
 				BW.newLine();
 			}
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+      	BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer.getfPop()) + ",");
+      }
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).warrior.getwPop()) + ",");
+			}
+			BW.newLine();
 			/*
 			 * Use: BW.write(STUFF TO BE SAVED HERE); BW.newLine();
-			 * 
+			 *
 			 * Unless it needs to use loops in which case see the loops above.
 			 */
 
@@ -157,7 +163,7 @@ public class Util {
 	}
 
 	public static void readSave() {
-        
+
         if (Main.currentSave == 1) {
             if(Main.saveName1.contains("@")) {
                 Main.saveName1 = Main.saveName1.replace("@", " ");
@@ -235,8 +241,7 @@ public class Util {
 			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
 			PlayerCountry.land.setLand(Integer.valueOf(list.get(5)));
 			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
-			PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
-			int line = 8;
+			int line = 7;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
 				for (int y = 0; y < World.mapsize; y++) {
@@ -284,6 +289,18 @@ public class Util {
 				}
 				line++;
 			}
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).farmer.setfPop(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).warrior.setwPop(Integer.valueOf(parts[x]));
+			}
+			line++;
 			// Set the variable that the information will become
 			// To the end here.
 
@@ -326,13 +343,13 @@ public class Util {
 		return min + random.nextInt((max + 1) - min);
 
 	}
-    
-    
+
+
     public static float randFloat(float min, float max){
         return random.nextFloat() * (max - min) + min;
     }
-    
-	    
+
+
 	public static void takeScreenshot() {
 		GL11.glReadBuffer(GL11.GL_FRONT);
 		int width = Display.getDisplayMode().getWidth();
@@ -486,25 +503,28 @@ public class Util {
 			Menu.initMenu();
 		}
 	}
-    
+
     public static Country[] getCountries(){
         return PlayerCountry.countries.toArray(new Country[PlayerCountry.countries.size()]);
     }
-    
+
     public static void putCountries(Country[] toPut){
         PlayerCountry.countries.clear();
         for (Country c : toPut){
             PlayerCountry.countries.add(c);
         }
     }
-    
-    
+
+
     public static void applyRandomColorNoise(int x, int y){
 		NoiseSampler.initSimplexNoise((int) World.mapseed);
 		NoiseSampler.setNoiseScale(World.mapsize / 32);
     	float noise = NoiseSampler.getNoise(x, y) / 6f;
     	GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
     }
+<<<<<<< HEAD
+
+=======
     
     public static float getRandomColorNoise(int x, int y){
 		NoiseSampler.initSimplexNoise((int) World.mapseed);
@@ -513,6 +533,7 @@ public class Util {
     	return 1f - noise;
     }
     
+>>>>>>> origin/master
 	public static float calcAverageCountryScore(){
 		float total = 0;
 		for (Country c : PlayerCountry.countries){
@@ -520,5 +541,5 @@ public class Util {
 		}
 		return total / PlayerCountry.countries.size();
 	}
-	
+
 }
