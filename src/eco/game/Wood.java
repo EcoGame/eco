@@ -1,5 +1,14 @@
 package eco.game;
 
+/**
+ * 
+ * This class represents a countries wood stockpile,
+ * and handles adding, removing, buying, and rotting the wood
+ * 
+ * @author phil
+ *
+ */
+
 public class Wood {
 	
 	private int wood;
