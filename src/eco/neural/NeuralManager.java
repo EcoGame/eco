@@ -11,13 +11,13 @@ import eco.game.*;
  * @return a new semirandom child chromosome
  *
  */
-public Country[] eco.game.Country = new Countrys;
 public class NeuralManager{
+  public static eco.game.Country Countries[] = new eco.game.Country[10];
 
     /*public static Random random = new Random();
 
      public int start(){
-     
+
         int one = randInt(1,5);
         int two = randInt(1,5);
         int child = spawnChildChromosome(one, two);
@@ -27,17 +27,17 @@ public class NeuralManager{
         System.out.println("One: " + Integer.toBinaryString(one));
         System.out.println("Two: " + Integer.toBinaryString(two));
         System.out.println("Child: " + Integer.toBinaryString(child));
-     
+
      }
 
      public static int randInt(int min, int max) { //Returns a random number between min and max.
 
         return min + Main.random.nextInt((max + 1)- min);
-     
+
      }
 
      public int spawnChildChromosome(int parentOne, int parentTwo) {
-     
+
         int base = parentOne & parentTwo;
         Random rand = new Random();
         int powers2[] = {0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000};
@@ -45,28 +45,28 @@ public class NeuralManager{
         int max = Math.max(parentOne, parentTwo);
         int result = 0;
         System.out.println(max);
-     
+
         for (int m = 4; m >= 0; m--) {
             if ((max & powers2[m])!=0) {
                 max >>= exponents[m];
                 result |= exponents[m];
             }
         }
-     
+
         result+=1;
         System.out.println(result);
-     
+
         for (int n = 0; n < result; n ++){
             if (((parentOne^parentTwo)&n) == 0){
             base |= rand.nextInt(2)<<n; // 0001; 0010; 0100; 1000;
             }
         }
-     
+
         return base;
      }*/
 
     public static void axonpairing(int currentnetwork) {
-        
+
         boolean iscomplete = false;
         int type = 0;
         int idtotrans = 0;
@@ -111,7 +111,7 @@ public class NeuralManager{
                     iscomplete = true;
                     break;
             }
-            
+
         }
     }
 
@@ -119,7 +119,7 @@ public class NeuralManager{
         boolean iscomplete = false;
         int type = 0;
         while(iscomplete == false){
-            
+
             switch(type){
                 case 0:
                     for(int x= 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++){
@@ -147,9 +147,9 @@ public class NeuralManager{
             }
         }
     }
-    
+
     public static void resetallneurons(int currentnetwork) {
-        
+
         boolean iscomplete = false;
         int eur;
         int type = 0;
@@ -183,20 +183,20 @@ public class NeuralManager{
             }
         }
     }
-    
+
     public static void neuronaddcheck(int currentnetwork) {
-        
+
         boolean iscomplete = false;
         int propagation= 0;
         int type = 1;
         int eur = 0;
-        
+
         while(iscomplete == false){
-            
+
             switch(type){
                 case 0:
                     for(int i = 0; i < Main.inputNeuralArray[currentnetwork].length; i++) {
-                        Main.inputNeuralArray[currentnetwork][i].checkinput();
+                        Main.inputNeuralArray[currentnetwork][i].checkinput(currentnetwork);
                         eur= Main.inputNeuralArray[currentnetwork][i].pairedaxon;
                         Main.axonArray[currentnetwork][eur].fired = Main.inputNeuralArray[currentnetwork][i].fired;
                     }
@@ -224,22 +224,22 @@ public class NeuralManager{
             }
         }
     }
-    
+
     public static void fireallneurons(int currentnetwork) {
-        
+
         boolean iscomplete = false;
         int nofires = 0;
         int iteration =0;
         int propagation= 0;
         int type = 0;
         int eur= 0;
-        
+
         while(iscomplete == false) {
             switch(type){
                 case 0:
                     for(int i = 0; i < Main.inputNeuralArray[currentnetwork].length; i++) {
                         if(Main.inputNeuralArray[currentnetwork][i].alreadyfired == false) {
-                            Main.inputNeuralArray[currentnetwork][i].checkinput();
+                            Main.inputNeuralArray[currentnetwork][i].checkinput(currentnetwork);
                             propagation = Main.inputNeuralArray[currentnetwork][i].fired;
                             eur= Main.inputNeuralArray[currentnetwork][i].pairedaxon;
                             // Main.axonArray[eur].neuroncheck();
@@ -276,11 +276,11 @@ public class NeuralManager{
     }
 
     public static void neuraltick(int currentnetwork) {
-        
+
         int iteration= 0;
         boolean iscomplete =false;
         int brainlength = 4;
-        Country[] =  eco.game.Util.getCountries();
+        Countries =  eco.game.Util.getCountries();
         while(iscomplete == false) {
             if(iteration > 3) {
               iscomplete = true;
@@ -293,9 +293,9 @@ public class NeuralManager{
                 iteration++;
         }
     }
-    
+
     public static void testinputs(int currentnetwork) {
-    
+
         Main.inputNeuralArray[currentnetwork][0].input = 1010;
         Main.inputNeuralArray[currentnetwork][1].input = 10101;
 
@@ -304,5 +304,5 @@ public class NeuralManager{
     // Util.getCountries
     // Country[] countires =
     // Put them back when your done
-    // Util.putCountries(countries[]); 
+    // Util.putCountries(countries[]);
 }

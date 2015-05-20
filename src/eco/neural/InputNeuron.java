@@ -7,7 +7,7 @@ package eco.neural;
  */
 
 public class InputNeuron {
-    
+
     public int input;
     public int firevalue;
     public int fired;
@@ -18,8 +18,8 @@ public class InputNeuron {
     public boolean alreadyfired = false;
     public boolean highorlow = true; // true = high false = low
 
-    public void checkinput(){
-		input = InputStream.readinput(stream);
+    public void checkinput( int currentnetwork){
+		input = InputStream.readinput(stream, currentnetwork);
         fired = 0;
         if(highorlow == true) {
             if(input > firevalue) {
@@ -31,15 +31,15 @@ public class InputNeuron {
                 fired = 0;
             }
         }
-    
+
         alreadyfired = true;
     }
-    
+
     public void reset() {
-        
+
         currentvalue = 0;
         fired = 0;
         alreadyfired = false;
-        
+
     }
 }
