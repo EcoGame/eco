@@ -39,12 +39,12 @@ public class Main {
 	public static boolean debug;
 	public static boolean fullDebug = false;
 
+	public static int currentSave;
 	public static String saveName1 = "save";
 	public static String saveName2 = "save2";
 	public static String saveName3 = "save3";
 	public static String saveName4 = "save4";
 	public static String saveName5 = "save5";
-	public static int currentSave;
 
 	// ================//
 	// Other Variables //
