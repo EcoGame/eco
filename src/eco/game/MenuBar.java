@@ -44,32 +44,7 @@ public class MenuBar {
 	// =============//
 	// Control Pane //
 	// =============//
-	private static ToggleButton toggleFeedDisplaced = new ToggleButton(900,
-			657, 25, 4, 2, 5, 2, true);
-	private static ToggleButton toggleFavorWarrior = new ToggleButton(900, 627,
-			25, 4, 2, 5, 2, false);
 
-	private static Button increaseWarriorRatio = new Button(525, 642, 20, 0, 2,
-			1, 2);
-	private static Button decreaseWarriorRatio = new Button(525, 672, 20, 2, 2,
-			3, 2);
-
-	private static ToggleButton toggleCutTrees = new ToggleButton(900, 597, 25,
-			4, 2, 5, 2, true);
-
-	private static ToggleButton toggleForceConscription = new ToggleButton(900,
-			567, 25, 4, 2, 5, 2, true);
-
-	private static ToggleButton toggleVeryFast = new ToggleButton(35, 595, 25, 8, 5, 9, 5,
-			 false);
-	private static ToggleButton toggleFast = new ToggleButton(70, 595, 25, 8, 5, 9, 5,
-	 false);
-	private static ToggleButton toggleNormal = new ToggleButton(105, 595, 25, 8, 6, 9, 6,
-	 true);
-	private static ToggleButton toggleSlow = new ToggleButton(140, 595, 25, 8, 6, 9, 6,
-	 false);
-	private static ToggleButton togglePaused = new ToggleButton(175, 595, 25, 8, 4, 8, 4,
-			 false);
 
 	private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
 
@@ -146,6 +121,32 @@ public class MenuBar {
 	// =============//
 	// Economy Pane //
 	// =============//
+	private static ToggleButton toggleFeedDisplaced = new ToggleButton(900,
+			657, 25, 4, 2, 5, 2, true);
+	private static ToggleButton toggleFavorWarrior = new ToggleButton(900, 627,
+			25, 4, 2, 5, 2, false);
+
+	private static Button increaseWarriorRatio = new Button(525, 642, 20, 0, 2,
+			1, 2);
+	private static Button decreaseWarriorRatio = new Button(525, 672, 20, 2, 2,
+			3, 2);
+
+	private static ToggleButton toggleCutTrees = new ToggleButton(900, 597, 25,
+			4, 2, 5, 2, true);
+
+	private static ToggleButton toggleForceConscription = new ToggleButton(900,
+			567, 25, 4, 2, 5, 2, true);
+
+	private static ToggleButton toggleVeryFast = new ToggleButton(35, 595, 25, 8, 5, 9, 5,
+			 false);
+	private static ToggleButton toggleFast = new ToggleButton(70, 595, 25, 8, 5, 9, 5,
+	 false);
+	private static ToggleButton toggleNormal = new ToggleButton(105, 595, 25, 8, 6, 9, 6,
+	 true);
+	private static ToggleButton toggleSlow = new ToggleButton(140, 595, 25, 8, 6, 9, 6,
+	 false);
+	private static ToggleButton togglePaused = new ToggleButton(175, 595, 25, 8, 4, 9, 4,
+			 false);
 	
 	private static ArrayList<Button> pane4Buttons = new ArrayList<Button>();
 
