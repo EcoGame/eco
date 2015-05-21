@@ -15,7 +15,7 @@ import java.io.IOException;
 public class NeuronReader {
 
 	@SuppressWarnings("unused")
-	public static void connectionreader(int num) {
+	public static void connectionReader(int num) {
 		char code;
 		int type;
 		int axonId;
@@ -83,7 +83,7 @@ public class NeuronReader {
 	}
 
 	@SuppressWarnings("unused")
-	public static void attributereader(int num) {
+	public static void attributeReader(int num) {
 		char code;
 		int type;
 		int neuronid;

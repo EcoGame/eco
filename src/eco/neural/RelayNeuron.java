@@ -21,7 +21,7 @@ public class RelayNeuron {
 		currentValue = currentValue + x;
 	}
 
-	public int firecheck() {
+	public int fireCheck() {
 
 		if (currentValue > fireValue) {
 			fired = 1;

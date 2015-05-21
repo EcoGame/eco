@@ -206,7 +206,7 @@ public class Country {
         // ================//
 		//  Neural Network //
 		// ================//
-        eco.neural.NeuralManager.neuraltick(PlayerCountry.countries.indexOf(this));
+        eco.neural.NeuralManager.neuralTick(PlayerCountry.countries.indexOf(this));
 
 	}
 

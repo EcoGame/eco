@@ -23,7 +23,7 @@ public class OutputNeuron {
 
 	}
 
-	public int firecheck(int currentnetwork) {
+	public int fireCheck(int currentnetwork) {
 		fired = 0;
 		if (currentValue > fireValue) {
 			fired = 1;

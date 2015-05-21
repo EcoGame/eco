@@ -19,7 +19,7 @@ import java.io.OutputStreamWriter;
 
 public class Util {
 
-	public static void createconnectionsFile(int currentnetwork) {
+	public static void createConnectionsFile(int currentnetwork) {
 		int type = 0;
 		boolean iscomplete = false;
 		String path = null;
@@ -112,7 +112,7 @@ public class Util {
 
 	}
 
-	public static void createneuralFile(int currentnetwork) {
+	public static void createNeuralFile(int currentnetwork) {
 		int type = 0;
 		boolean iscomplete = false;
 		String path = null;

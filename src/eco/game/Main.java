@@ -34,7 +34,7 @@ public class Main {
 	// =============//
 	// IO Variables //
 	// =============//
-	public static final boolean isInEclipse = true;
+	public static final boolean isInEclipse = false;
 	public static boolean paused = false;
 	public static boolean debug;
 	public static boolean fullDebug = false;

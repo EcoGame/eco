@@ -2,7 +2,7 @@ package eco.neural;
 
 public class InputStream {
 
-	public static int readinput(int currentnetwork, int id) {
+	public static int readInput(int currentnetwork, int id) {
 		int k = 0;
 		switch (id) {
 

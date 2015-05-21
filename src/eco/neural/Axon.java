@@ -20,7 +20,7 @@ public class Axon {
 
 	boolean isUsed = false;
 
-	public void pullfires(int currentnetwork) {
+	public void pullFires(int currentnetwork) {
 
 		switch (typeBondedTo) {
 		case 0:
@@ -53,7 +53,7 @@ public class Axon {
 
 	}
 
-	public void neuroncheck(int currentnetwork) {
+	public void neuronCheck(int currentnetwork) {
 
 		int k = 0;
 		switch (typeBondedTo) {

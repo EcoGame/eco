@@ -16,13 +16,13 @@ public class KingManager {
 
 	public static int currentnetwork = 0;
 
-	public static void topmanager() {
+	public static void topManager() {
 
 	}
 
-	public static void gamemanager() {
+	public static void gameManager() {
 
-		statusreader();
+		statusReader();
 		boolean gamecomplete = false;
 		boolean iscomplete0 = false;
 		boolean iscomplete1 = false;
@@ -30,7 +30,7 @@ public class KingManager {
 		for (int x = 0; (x < Main.workingnetworks.length)
 				&& (iscomplete1 == false); x++) {
 			if (Main.workingnetworks[x] == true) {
-				periodicinit(x);
+				periodicInit(x);
 			}
 
 		}
@@ -53,7 +53,7 @@ public class KingManager {
 	}
 
 	@SuppressWarnings("unused")
-	public static void statusreader() {
+	public static void statusReader() {
 
 		char code;
 		int x;
@@ -100,15 +100,15 @@ public class KingManager {
 		}
 	}
 
-	public static void periodicinit(int currentnetwork) {
+	public static void periodicInit(int currentnetwork) {
 
-		NeuronReader.connectionreader(currentnetwork);
-		NeuronReader.attributereader(currentnetwork);
+		NeuronReader.connectionReader(currentnetwork);
+		NeuronReader.attributeReader(currentnetwork);
 		NeuralManager.axonPairing(currentnetwork);
-		NeuralManager.neuromaker(currentnetwork);
+		NeuralManager.neuroMaker(currentnetwork);
 
 		for (int k = 0; Main.axonArray.length > k; k++) {
-			ConnectionHandler.connectionmaker(k,
+			ConnectionHandler.connectionMaker(k,
 					Main.axonArray[currentnetwork][k].typeBondedTo,
 					currentnetwork);
 		}

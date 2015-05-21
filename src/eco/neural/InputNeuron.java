@@ -19,8 +19,8 @@ public class InputNeuron {
 	public boolean alreadyFired = false;
 	public boolean highOrLow = true; // true = high false = low
 
-	public void checkinput(int currentnetwork) {
-		input = InputStream.readinput(stream, currentnetwork);
+	public void checkInput(int currentnetwork) {
+		input = InputStream.readInput(stream, currentnetwork);
 		fired = 0;
 		if (highOrLow == true) {
 			if (input > fireValue) {

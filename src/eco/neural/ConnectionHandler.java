@@ -9,7 +9,7 @@ package eco.neural;
 
 public class ConnectionHandler {
 
-	public static void connectionmaker(int k, int type, int currentnetwork) {
+	public static void connectionMaker(int k, int type, int currentnetwork) {
 
 		switch (type) {
 
