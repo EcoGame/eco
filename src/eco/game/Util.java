@@ -159,6 +159,26 @@ public class Util {
 				BW.write(String.valueOf(PlayerCountry.countries.get(x).name) + ",");
 			}
 			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).wheat.gettWheat()) + ",");
+			}
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).economy.getTreasury()) + ",");
+			}
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).land.getLand()) + ",");
+			}
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).land.getPop()) + ",");
+			}
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).landsize) + ",");
+			}
+			BW.newLine();
 			/*
 			 * Use: BW.write(STUFF TO BE SAVED HERE); BW.newLine();
 			 *
@@ -318,6 +338,36 @@ public class Util {
 				String values = list.get(line);
 				String[] parts = values.split(",");
 				PlayerCountry.countries.get(x).name = (parts[x]);
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).wheat.settWheat(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).economy.setTreasury(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).land.setLand(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).land.setPop(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).landsize = (Integer.valueOf(parts[x]));
 			}
 			line++;
 			// Set the variable that the information will become
