@@ -24,9 +24,9 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * A class that contains various utilities and convenience methods
- * 
+ *
  * @author phil, nate, connor, will
- * 
+ *
  */
 
 public class Util {
@@ -109,7 +109,7 @@ public class Util {
 			BW.newLine();
 			BW.write(Integer.toString(PlayerCountry.stone.getStone()));
 			BW.newLine();
-			BW.write(Integer.toString(PlayerCountry.aggression.value));
+			BW.write(Integer.toString(PlayerCountry.aggression.aggressionScore));
 			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
@@ -189,7 +189,7 @@ public class Util {
 			BW.newLine();
 			/*
 			 * Use: BW.write(STUFF TO BE SAVED HERE); BW.newLine();
-			 * 
+			 *
 			 * Unless it needs to use loops in which case see the loops above.
 			 */
 
@@ -281,7 +281,7 @@ public class Util {
 			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
 			PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
 			PlayerCountry.stone.setStone(Integer.valueOf(list.get(8)));
-			PlayerCountry.aggression.value = Integer.valueOf(list.get(9));
+			PlayerCountry.aggression.aggressionScore = Integer.valueOf(list.get(9));
 			int line = 10;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
