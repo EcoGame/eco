@@ -18,6 +18,7 @@ public class SplashText {
 				"Just like Minecraft",
 				"Your turn to be a conquistador!",
 				"How many of these are there?",
+				"Font schmont! Who cares if you can read it?",
 				"Multicultural!"
 		};
 	}
