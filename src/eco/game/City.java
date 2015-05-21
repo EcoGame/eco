@@ -157,8 +157,8 @@ public class City {
 				if (c.name.equals(name)){
 					if (!c.getLoc().equals(getLoc())){
 						if (c.usename){
-							//System.out.println(getLoc() +" == "+c.getLoc());
 							usename = false;
+							return "";
 						}
 					}
 				}
@@ -183,6 +183,16 @@ public class City {
 				usename = true;
 			}
 			if (usename) {
+				for (City c : World.cities.values()){
+					if (c.name.equals(name)){
+						if (!c.getLoc().equals(getLoc())){
+							if (c.usename){
+								usename = false;
+								return "";
+							}
+						}
+					}
+				}
 				return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
 			}
 			return "";
