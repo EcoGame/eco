@@ -10,13 +10,21 @@ public class SplashText {
 	
 	static{
 		splashes = new String[]{
+				//======//
+				// Phil //
+				//======//
 				"95% Stable",
 				"Thousands of bugs!",
 				"Artifical but not intelligent",
 				"java.lang.nullPointerException: splash not found. At: SplashText.java(15)",
 				"10,000 lines!",
 				"Multicultural!",
-				"Go inject your bubby somewhere else"
+				"Wait wait wait, is it a simulation or a game?",
+				
+				//======//
+				// Nate //
+				//======//
+				"Go inject your bubby somewhere else",
 				"Your turn to be a conquistador!",
 				"How many of these are there?",
 				"Font schmont! Who cares if you can read it?",
@@ -43,7 +51,8 @@ public class SplashText {
 				"Never trust an operating system you don't have sources for.",
 				"Windows - The best $89 solitaire game you can buy",
 				"This is a P. Heikompf production",
-				"Did you hear about the Italian chef that died? Yeah, he pasta way."
+				"Did you hear about the Italian chef that died? Yeah, he pasta way.",
+				
 		};
 	}
 	

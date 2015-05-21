@@ -2,41 +2,43 @@ package eco.neural;
 
 /**
  * This class does something
- *
+ * 
  * @author will
- *
+ * 
  */
 
 public class OutputNeuron {
 
-    public int firevalue = 2;
-    public int currentvalue;
-    public int fired;
-    public int id;
-    public int pairedaxon;
-    public int action = 0;
-    public boolean alreadyfired = false;
+	public int fireValue = 2;
+	public int currentValue;
+	public int fired;
+	public int id;
+	public int pairedAxon;
+	public int action = 0;
+	public boolean alreadyFired = false;
 
-    public void addToCurrent(int x) {
+	public void addToCurrent(int x) {
 
-        currentvalue = x + currentvalue;
+		currentValue = x + currentValue;
 
-    }
+	}
 
-    public int firecheck(int currentnetwork) {
-        if (currentvalue > firevalue) {
-            fired = 1;
-            //System.out.println("outputneuron " + id + " pairedaxon "+ pairedaxon + " current value "+ currentvalue);
-            alreadyfired = true;
-            OutputActions.actions(action, currentnetwork);
-        }
-        return fired;
-    }
+	public int firecheck(int currentnetwork) {
+		fired = 0;
+		if (currentValue > fireValue) {
+			fired = 1;
+			// System.out.println("outputneuron " + id + " pairedaxon "+
+			// pairedaxon + " current value "+ currentvalue);
+			alreadyFired = true;
+			OutputActions.actions(action, currentnetwork);
+		}
+		return fired;
+	}
 
-    public void reset() {
-        currentvalue = 0;
-        fired = 0;
-        alreadyfired = false;
-    }
+	public void reset() {
+		currentValue = 0;
+		fired = 0;
+		alreadyFired = false;
+	}
 
 }

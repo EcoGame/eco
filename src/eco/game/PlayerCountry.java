@@ -1,6 +1,7 @@
 package eco.game;
 
 import java.util.ArrayList;
+
 import org.lwjgl.opengl.Display;
 
 /**
@@ -195,7 +196,7 @@ public class PlayerCountry {
 		// =============//
 		// Multicountry //
 		// =============//
-		for (Country country : countries) {
+		for (Country country : new ArrayList<Country>(countries)) {
 			if (!country.dead){
 				country.tick();
 			}
@@ -286,6 +287,7 @@ public class PlayerCountry {
 
 	/* Starts a game */
 	public static void initGame() {
+        eco.neural.Main.init();
 		World.init(generatorToUse);
 		Main.paused = false;
 		wheat = new Wheat();

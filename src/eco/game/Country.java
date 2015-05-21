@@ -1,5 +1,6 @@
 package eco.game;
 
+
 public class Country {
 
 	/**
@@ -200,6 +201,12 @@ public class Country {
 		if (World.random.nextInt(diff * warMul) == 0){
 			War.attackPlayer(this);
 		}
+        
+        
+        // ================//
+		//  Neural Network //
+		// ================//
+        eco.neural.NeuralManager.neuraltick(PlayerCountry.countries.indexOf(this));
 
 	}
 

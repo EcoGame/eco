@@ -1,39 +1,33 @@
 package eco.neural;
-import  eco.game.*;
-public class InputStream{
 
-public static int readinput(int currentnetwork,int id){
-int k = 0;
-switch(id){
+public class InputStream {
 
-    case 0:
-        k = NeuralManager.Countries[currentnetwork].farmer.getfPop();
+	public static int readinput(int currentnetwork, int id) {
+		int k = 0;
+		switch (id) {
 
-    break;
+		case 0:
+			k = NeuralManager.Countries[currentnetwork].farmer.getfPop();
 
-    case 1:
-        k = NeuralManager.Countries[currentnetwork].warrior.getwPop();
+			break;
 
-        break;
-    case 2:
-        k = NeuralManager.Countries[currentnetwork].wheat.gettWheat();
+		case 1:
+			k = NeuralManager.Countries[currentnetwork].warrior.getwPop();
 
-        break;
+			break;
+		case 2:
+			k = NeuralManager.Countries[currentnetwork].wheat.gettWheat();
 
-        case 3:
-      k =  NeuralManager.Countries[currentnetwork].economy.getTreasury();
-        break;
+			break;
 
-    case 4:
-}
+		case 3:
+			k = NeuralManager.Countries[currentnetwork].economy.getTreasury();
+			break;
 
-return k;
-}
+		case 4:
+		}
 
-
-
-
-
-
+		return k;
+	}
 
 }
