@@ -1,14 +1,14 @@
 package eco.game;
 
 public class War {
-	
+
 	/**
-	 * 
+	 *
 	 * This class does war between the player and other countries
 	 * It figures out who wins, and what reparations are paid
-	 * 
+	 *
 	 * @author phil
-	 * 
+	 *
 	 */
 
 	public static int winLose = 0;
@@ -22,25 +22,25 @@ public class War {
 
 	public static void attackPlayer(Country c){
 		// Book-keeping stuff
-		int diff = c.aggression.value - PlayerCountry.aggression.value;
+		int diff = c.aggression.aggressionScore - PlayerCountry.aggression.aggressionScore;
 		diff = (int) Math.ceil(diff / (float) aggressionConstant);
-		c.aggression.value += diff;
+		c.aggression.aggressionScore += diff;
 		warWith(c);
 		String warName = "The " + PlayerCountry.name + "-" + c.name
 				+ " war";
 		MenuBar.updateWar(warName);
 		MenuBar.setPane(1);
 	}
-	
+
 	public static void warWith(Country c) {
 		// Book-keeping stuff
 		Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "
 				+ c.name + "!");
 		PlayerCountry.balanceCooldown = 5;
 
-		int diff = PlayerCountry.aggression.value - c.aggression.value;
+		int diff = PlayerCountry.aggression.aggressionScore - c.aggression.aggressionScore;
 		diff = (int) Math.ceil(diff / (float) aggressionConstant);
-		PlayerCountry.aggression.value += diff;
+		PlayerCountry.aggression.aggressionScore += diff;
 
 		// Get army sizes
 		int playerArmy = PlayerCountry.warrior.getwPop();
