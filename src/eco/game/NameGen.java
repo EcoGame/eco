@@ -395,12 +395,12 @@ public class NameGen {
     public static String generateWarWin(){
        String[] victorySlang = new String[] { "annihilated",
 			"slaughetered", "exterminated", "obliterate", "butchered", "executed", "t-bagged", "massacred", "killed off", "stamped out", "won the war against", "won the fight against", "destroy", "eradicated", "neutralized", "erased", "abolished", "strangled every citizen of", "wasted", "wiped out"};
-        return victorySlang[randInt(0, victorySlang.length)];
+        return victorySlang[randInt(0, victorySlang.length - 1)];
     }
     
     public static String generateWarLoss(){
         String[] lossSlang = new String[] {"perished by the sword of", "expired during the war with", "succumbed to", "met its demise in the war with", "was ruined by", "is now in ruins after war with", "lost the war with", "was unsuccessful in the war with", "failed in the war with", "crumbled in the war with", "fell in the war with"};
-        return lossSlang[randInt(0, lossSlang.length)];
+        return lossSlang[randInt(0, lossSlang.length - 1)];
     }
     
     public static String generateCountry(){
