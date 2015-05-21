@@ -29,13 +29,13 @@ public class MenuBar {
 
 	private static ToggleButton statsPane = new ToggleButton(0,
 			10 + (6f * Main.height / 8f), 32, 6, 2, 7, 2, true);
-	private static ToggleButton warPane = new ToggleButton(0,
-			10 + (6f * Main.height / 8f) + 32, 32, 6, 2, 7, 2, false);
-	private static ToggleButton logPane = new ToggleButton(0,
-			10 + (6f * Main.height / 8f) + 64, 32, 6, 2, 7, 2, false);
-	private static ToggleButton graphsPane = new ToggleButton(0,
-			10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, false);
 	private static ToggleButton econPane = new ToggleButton(0,
+			10 + (6f * Main.height / 8f) + 32, 32, 6, 2, 7, 2, false);
+	private static ToggleButton warPane = new ToggleButton(0,
+			10 + (6f * Main.height / 8f) + 64, 32, 6, 2, 7, 2, false);
+	private static ToggleButton logPane = new ToggleButton(0,
+			10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, false);
+	private static ToggleButton graphsPane = new ToggleButton(0,
 			10 + (6f * Main.height / 8f) + 128, 32, 6, 2, 7, 2, false);
 
 	private static ArrayList<Button> buttons = new ArrayList<Button>();
