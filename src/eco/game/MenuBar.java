@@ -58,10 +58,12 @@ public class MenuBar {
 	private static ToggleButton toggleForceConscription = new ToggleButton(900,
 			567, 25, 4, 2, 5, 2, true);
 
-	private static Button increaseTickRate = new Button(495, 606, 20, 0, 2, 1,
-			2);
-	private static Button decreaseTickRate = new Button(495, 636, 20, 2, 2, 3,
-			2);
+	private static ToggleButton toggleFast = new ToggleButton(495, 606, 25, 4, 2, 5, 2,
+	 false);
+	private static ToggleButton toggleSlow = new ToggleButton(495, 636, 25, 4, 2, 5, 2,
+	 false);
+	private static ToggleButton toggleNormal = new ToggleButton(495, 666, 25, 4, 2, 5, 2,
+	 true);
 
 	private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
 
@@ -145,8 +147,9 @@ public class MenuBar {
 		pane0Buttons.add(toggleFavorWarrior);
 		pane0Buttons.add(increaseWarriorRatio);
 		pane0Buttons.add(decreaseWarriorRatio);
-		pane0Buttons.add(increaseTickRate);
-		pane0Buttons.add(decreaseTickRate);
+		pane0Buttons.add(toggleFast);
+		pane0Buttons.add(toggleSlow);
+		pane0Buttons.add(toggleNormal);
 		pane0Buttons.add(toggleCutTrees);
 		pane0Buttons.add(toggleForceConscription);
 
@@ -232,15 +235,23 @@ public class MenuBar {
 					PlayerCountry.desiredWarriorRatio = 0.0f;
 				}
 			}
-			if (increaseTickRate.checkForClick()) {
-				if (Main.framesPerTick != 100) {
-					Main.framesPerTick++;
-				}
+			if (toggleFast.checkForClick()) {
+				Main.framesPerTick = 3;
+				toggleFast.setToggle(true);
+				toggleSlow.setToggle(false);
+				toggleNormal.setToggle(false);
 			}
-			if (decreaseTickRate.checkForClick()) {
-				if (Main.framesPerTick != 2) {
-					Main.framesPerTick--;
-				}
+			if (toggleSlow.checkForClick()) {
+				Main.framesPerTick = 13;
+				toggleFast.setToggle(false);
+				toggleSlow.setToggle(true);
+				toggleNormal.setToggle(false);
+			}
+			if (toggleNormal.checkForClick()) {
+				Main.framesPerTick = 8;
+				toggleFast.setToggle(false);
+				toggleSlow.setToggle(false);
+				toggleNormal.setToggle(true);
 			}
 		}
 		if (pane == 1) {
