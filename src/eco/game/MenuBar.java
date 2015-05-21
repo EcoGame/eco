@@ -18,7 +18,7 @@ public class MenuBar {
 	 *
 	 * This class manages the rendering and logic for the menu bar
 	 *
-	 * @author phil
+	 * @author phil, connor
 	 *
 	 */
 
@@ -676,17 +676,17 @@ public class MenuBar {
 					Render.font.drawString(offx, offy, name);
 					Render.font.drawString(offx + Render.font.getWidth(name)
 							+ 10, offy,
-							"[" + Integer.toString(country.aggression.value)
+							"[" + Integer.toString(country.aggression.aggressionScore)
 									+ "]", new Color(
-									(country.aggression.value * 2) / 255f,
-									1 - (country.aggression.value * 2 / 255f),
+									(country.aggression.aggressionScore * 2) / 255f,
+									1 - (country.aggression.aggressionScore * 2 / 255f),
 									20 / 255f));
 					int tempoff = offx
 							+ Render.font.getWidth(name)
 							+ 20
 							+ Render.font.getWidth("["
 									+ Integer
-											.toString(country.aggression.value)
+											.toString(country.aggression.aggressionScore)
 									+ "]");
 					Render.font.drawString(tempoff, offy,
 							"[" + Integer.toString(country.getScore()) + "]",
@@ -696,17 +696,17 @@ public class MenuBar {
 					Render.font.drawString(offx, offy, name);
 					Render.font.drawString(offx + Render.font.getWidth(name)
 							+ 10, offy,
-							"[" + Integer.toString(country.aggression.value)
+							"[" + Integer.toString(country.aggression.aggressionScore)
 									+ "]", new Color(
-									(country.aggression.value * 2) / 255f,
-									1 - (country.aggression.value * 2 / 255f),
+									(country.aggression.aggressionScore * 2) / 255f,
+									1 - (country.aggression.aggressionScore * 2 / 255f),
 									20 / 255f));
 					int tempoff = offx
 							+ Render.font.getWidth(name)
 							+ 20
 							+ Render.font.getWidth("["
 									+ Integer
-											.toString(country.aggression.value)
+											.toString(country.aggression.aggressionScore)
 									+ "]");
 					Render.font.drawString(tempoff, offy, "[In Exile]",
 							new Color(195, 65, 65));
@@ -892,9 +892,9 @@ public class MenuBar {
 				"Wood: " + String.valueOf(PlayerCountry.wood.getWood()), 985,
 				597);
 		Render.drawString("Aggression: ", 985, 567);
-		int value = PlayerCountry.aggression.value;
+		int value = PlayerCountry.aggression.aggressionScore;
 		Render.font.drawString(985 + 15 + Render.font.getWidth("Aggression"),
-				567, String.valueOf(PlayerCountry.aggression.value), new Color(
+				567, String.valueOf(PlayerCountry.aggression.aggressionScore), new Color(
 						(value * 2) / 255f, 1 - (value * 2 / 255f), 20 / 255f));
 		Render.drawString(
 				"Stone: " + String.valueOf(PlayerCountry.stone.getStone()),
