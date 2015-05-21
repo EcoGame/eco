@@ -40,7 +40,7 @@ public class SplashText {
 				"'Lemme just draw it on the board.'",
 				"Never trust an operating system you don't have sources for.",
 				"Windows - The best $89 solitaire game you can buy",
-				"A P. Heikompf production",
+				"This is a P. Heikompf production",
 				"Did you hear about the Italian chef that died? Yeah, he pasta way."
 		};
 	}
