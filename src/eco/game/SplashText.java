@@ -16,7 +16,6 @@ public class SplashText {
 				"java.lang.nullPointerException: splash not found. At: SplashText.java(15)",
 				"10,000 lines!",
 				"Multicultural!",
-				"Just like Minecraft",
 				"Go inject your bubby somewhere else"
 				"Your turn to be a conquistador!",
 				"How many of these are there?",
