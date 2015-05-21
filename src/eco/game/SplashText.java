@@ -10,7 +10,7 @@ public class SplashText {
 	
 	static{
 		splashes = new String[]{
-				"95% Stabe",
+				"95% Stable",
 				"Thousands of bugs!",
 				"Artifical but not intelligent",
 				"java.lang.nullPointerException: splash not found. At: SplashText.java(15)",
