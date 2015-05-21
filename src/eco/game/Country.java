@@ -189,6 +189,18 @@ public class Country {
 		score.calculateTotalScore(tick);
 		aggression.update();
 		
+		// ====//
+		// War //
+		// ====//
+		int diff = (Math.abs(aggression.value - PlayerCountry.aggression.value)) + 1;
+		int warMul = 100;
+		if (PlayerCountry.year < 250){
+			warMul = 1000;
+		}
+		if (World.random.nextInt(diff * warMul) == 0){
+			War.attackPlayer(this);
+		}
+		
 	}
 	
 	public int getScore(){

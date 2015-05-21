@@ -24,9 +24,9 @@ import org.lwjgl.opengl.GL11;
 
 /**
  * A class that contains various utilities and convenience methods
- *
+ * 
  * @author phil, nate, connor, will
- *
+ * 
  */
 
 public class Util {
@@ -35,31 +35,31 @@ public class Util {
 
 	public static void createSave() {
 
-        if (Main.currentSave == 1) {
-            if(Main.saveName1.contains(" ")) {
-                Main.saveName1 = Main.saveName1.replace(" ", "@");
-            }
-        }
-        if (Main.currentSave == 2) {
-            if(Main.saveName2.contains(" ")) {
-                Main.saveName2 = Main.saveName2.replace(" ", "@");
-            }
-        }
-        if (Main.currentSave == 3) {
-            if(Main.saveName3.contains(" ")) {
-                Main.saveName3 = Main.saveName3.replace(" ", "@");
-            }
-        }
-        if (Main.currentSave == 4) {
-            if(Main.saveName4.contains(" ")) {
-                Main.saveName4 = Main.saveName4.replace(" ", "@");
-            }
-        }
-        if (Main.currentSave == 5) {
-            if(Main.saveName5.contains(" ")) {
-                Main.saveName5 = Main.saveName5.replace(" ", "@");
-            }
-        }
+		if (Main.currentSave == 1) {
+			if (Main.saveName1.contains(" ")) {
+				Main.saveName1 = Main.saveName1.replace(" ", "@");
+			}
+		}
+		if (Main.currentSave == 2) {
+			if (Main.saveName2.contains(" ")) {
+				Main.saveName2 = Main.saveName2.replace(" ", "@");
+			}
+		}
+		if (Main.currentSave == 3) {
+			if (Main.saveName3.contains(" ")) {
+				Main.saveName3 = Main.saveName3.replace(" ", "@");
+			}
+		}
+		if (Main.currentSave == 4) {
+			if (Main.saveName4.contains(" ")) {
+				Main.saveName4 = Main.saveName4.replace(" ", "@");
+			}
+		}
+		if (Main.currentSave == 5) {
+			if (Main.saveName5.contains(" ")) {
+				Main.saveName5 = Main.saveName5.replace(" ", "@");
+			}
+		}
 
 		String path = null;
 		try {
@@ -105,11 +105,11 @@ public class Util {
 			BW.newLine();
 			BW.write(Integer.toString(PlayerCountry.land.getPop()));
 			BW.newLine();
-            BW.write(Integer.toString(PlayerCountry.wood.getWood()));
-            BW.newLine();
-            BW.write(Integer.toString(PlayerCountry.stone.getStone()));
+			BW.write(Integer.toString(PlayerCountry.wood.getWood()));
 			BW.newLine();
-            BW.write(Integer.toString(PlayerCountry.aggression.value));
+			BW.write(Integer.toString(PlayerCountry.stone.getStone()));
+			BW.newLine();
+			BW.write(Integer.toString(PlayerCountry.aggression.value));
 			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
@@ -148,40 +148,48 @@ public class Util {
 				BW.newLine();
 			}
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer.getfPop()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer
+						.getfPop()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).warrior.getwPop()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).warrior
+						.getwPop()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).name) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).name)
+						+ ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).wheat.gettWheat()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).wheat
+						.gettWheat()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).economy.getTreasury()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).economy
+						.getTreasury()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).land.getLand()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).land
+						.getLand()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).land.getPop()) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).land
+						.getPop()) + ",");
 			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-				BW.write(String.valueOf(PlayerCountry.countries.get(x).landsize) + ",");
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).landsize)
+						+ ",");
 			}
 			BW.newLine();
 			/*
 			 * Use: BW.write(STUFF TO BE SAVED HERE); BW.newLine();
-			 *
+			 * 
 			 * Unless it needs to use loops in which case see the loops above.
 			 */
 
@@ -194,31 +202,31 @@ public class Util {
 
 	public static void readSave() {
 
-        if (Main.currentSave == 1) {
-            if(Main.saveName1.contains("@")) {
-                Main.saveName1 = Main.saveName1.replace("@", " ");
-            }
-        }
-        if (Main.currentSave == 2) {
-            if(Main.saveName2.contains("@")) {
-                Main.saveName2 = Main.saveName1.replace("@", " ");
-            }
-        }
-        if (Main.currentSave == 3) {
-            if(Main.saveName3.contains("@")) {
-                Main.saveName3 = Main.saveName3.replace("@", " ");
-            }
-        }
-        if (Main.currentSave == 4) {
-            if(Main.saveName4.contains("@")) {
-                Main.saveName4 = Main.saveName4.replace("@", " ");
-            }
-        }
-        if (Main.currentSave == 5) {
-            if(Main.saveName5.contains("@")) {
-                Main.saveName5 = Main.saveName1.replace("@", " ");
-            }
-        }
+		if (Main.currentSave == 1) {
+			if (Main.saveName1.contains("@")) {
+				Main.saveName1 = Main.saveName1.replace("@", " ");
+			}
+		}
+		if (Main.currentSave == 2) {
+			if (Main.saveName2.contains("@")) {
+				Main.saveName2 = Main.saveName1.replace("@", " ");
+			}
+		}
+		if (Main.currentSave == 3) {
+			if (Main.saveName3.contains("@")) {
+				Main.saveName3 = Main.saveName3.replace("@", " ");
+			}
+		}
+		if (Main.currentSave == 4) {
+			if (Main.saveName4.contains("@")) {
+				Main.saveName4 = Main.saveName4.replace("@", " ");
+			}
+		}
+		if (Main.currentSave == 5) {
+			if (Main.saveName5.contains("@")) {
+				Main.saveName5 = Main.saveName1.replace("@", " ");
+			}
+		}
 		String path = "";
 		@SuppressWarnings("unused")
 		File name = null;
@@ -271,9 +279,9 @@ public class Util {
 			PlayerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
 			PlayerCountry.land.setLand(Integer.valueOf(list.get(5)));
 			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
-            PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
-            PlayerCountry.stone.setStone(Integer.valueOf(list.get(8)));
-            PlayerCountry.aggression.value = Integer.valueOf(list.get(9));
+			PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
+			PlayerCountry.stone.setStone(Integer.valueOf(list.get(8)));
+			PlayerCountry.aggression.value = Integer.valueOf(list.get(9));
 			int line = 10;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
@@ -325,13 +333,15 @@ public class Util {
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).farmer.setfPop(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).farmer.setfPop(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).warrior.setwPop(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).warrior.setwPop(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
@@ -343,37 +353,42 @@ public class Util {
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).wheat.settWheat(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).wheat.settWheat(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).economy.setTreasury(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).economy.setTreasury(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).land.setLand(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).land.setLand(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).land.setPop(Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).land.setPop(Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				String values = list.get(line);
 				String[] parts = values.split(",");
-				PlayerCountry.countries.get(x).landsize = (Integer.valueOf(parts[x]));
+				PlayerCountry.countries.get(x).landsize = (Integer
+						.valueOf(parts[x]));
 			}
 			line++;
 			// Set the variable that the information will become
 			// To the end here.
 
-			//readSuccess();
+			// readSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
 			readError();
@@ -413,11 +428,9 @@ public class Util {
 
 	}
 
-
-    public static float randFloat(float min, float max){
-        return random.nextFloat() * (max - min) + min;
-    }
-
+	public static float randFloat(float min, float max) {
+		return random.nextFloat() * (max - min) + min;
+	}
 
 	public static void takeScreenshot() {
 		GL11.glReadBuffer(GL11.GL_FRONT);
@@ -457,7 +470,8 @@ public class Util {
 	public static int computeTotalHunger() {
 		return PlayerCountry.farmer.getTotalHunger()
 				+ PlayerCountry.warrior.getTotalHunger()
-				+ ((int) (PlayerCountry.farmer.getfHunger() * World.displacedPeople / 2f));
+				+ ((int) (PlayerCountry.farmer.getfHunger()
+						* World.displacedPeople / 2f));
 	}
 
 	public static String getWheatRateForDisplay() {
@@ -485,7 +499,8 @@ public class Util {
 	}
 
 	public static float getTotalPopf() {
-		return PlayerCountry.warrior.getFloatWPop() + PlayerCountry.farmer.getFloatFPop();
+		return PlayerCountry.warrior.getFloatWPop()
+				+ PlayerCountry.farmer.getFloatFPop();
 	}
 
 	public static int getTotalPop() {
@@ -559,7 +574,7 @@ public class Util {
 		return "";
 	}
 
-	public static void deleteSave(int save){
+	public static void deleteSave(int save) {
 		String path = "";
 		File name = null;
 		path = "saves/" + save + ".txt";
@@ -567,42 +582,41 @@ public class Util {
 			path = "../" + path;
 		}
 		name = new File(path);
-		if (name.exists()){
+		if (name.exists()) {
 			name.delete();
 			Menu.initMenu();
 		}
 	}
 
-    public static Country[] getCountries(){
-        return PlayerCountry.countries.toArray(new Country[PlayerCountry.countries.size()]);
-    }
+	public static Country[] getCountries() {
+		return PlayerCountry.countries
+				.toArray(new Country[PlayerCountry.countries.size()]);
+	}
 
-    public static void putCountries(Country[] toPut){
-        PlayerCountry.countries.clear();
-        for (Country c : toPut){
-            PlayerCountry.countries.add(c);
-        }
-    }
+	public static void putCountries(Country[] toPut) {
+		PlayerCountry.countries.clear();
+		for (Country c : toPut) {
+			PlayerCountry.countries.add(c);
+		}
+	}
 
-
-    public static void applyRandomColorNoise(int x, int y){
+	public static void applyRandomColorNoise(int x, int y) {
 		NoiseSampler.initSimplexNoise((int) World.mapseed);
 		NoiseSampler.setNoiseScale(World.mapsize / 32);
-    	float noise = NoiseSampler.getNoise(x, y) / 6f;
-    	GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
-    }
+		float noise = NoiseSampler.getNoise(x, y) / 6f;
+		GL11.glColor3f(1f - noise, 1f - noise, 1f - noise);
+	}
 
-    
-    public static float getRandomColorNoise(int x, int y){
+	public static float getRandomColorNoise(int x, int y) {
 		NoiseSampler.initSimplexNoise((int) World.mapseed);
 		NoiseSampler.setNoiseScale(World.mapsize / 32);
-    	float noise = NoiseSampler.getNoise(x, y) / 6f;
-    	return 1f - noise;
-    }
+		float noise = NoiseSampler.getNoise(x, y) / 6f;
+		return 1f - noise;
+	}
 
-	public static float calcAverageCountryScore(){
+	public static float calcAverageCountryScore() {
 		float total = 0;
-		for (Country c : PlayerCountry.countries){
+		for (Country c : PlayerCountry.countries) {
 			total += c.score.scoreAt(Math.max(0, PlayerCountry.year - 1));
 		}
 		return total / PlayerCountry.countries.size();

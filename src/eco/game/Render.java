@@ -63,7 +63,7 @@ import org.newdawn.slick.util.ResourceLoader;
  * 
  */
 
-public class Render{
+public class Render {
 
 	public static float rot;
 	public static final float rotSpeed = 0.05f;
@@ -79,7 +79,7 @@ public class Render{
 
 	public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
 			-8f, World.mapsize / 2f * tilesize);
-	
+
 	public static volatile FloatBuffer vertex = null;
 	public static volatile FloatBuffer texture = null;
 	public static volatile FloatBuffer colors = null;
@@ -92,16 +92,16 @@ public class Render{
 	public static boolean preferMultiThreading = true;
 	public static boolean multithreading = true;
 	public static boolean multiThreadStructures = false;
-	
+
 	public static final Object lock = new Object();
-	
+
 	public static final RandTexture treeTexture = new RandTexture();
 	public static final RandTexture smallHouseTexture = new RandTexture();
 	public static final RandTexture bigHouseTexture = new RandTexture();
-    public static final RandTexture smallCastleTexture = new RandTexture();
-    public static final RandTexture bigCastleTexture = new RandTexture();
-    
-    private static final int minTPS = 1;
+	public static final RandTexture smallCastleTexture = new RandTexture();
+	public static final RandTexture bigCastleTexture = new RandTexture();
+
+	private static final int minTPS = 1;
 
 	/* Main draw function */
 	public static void draw() {
@@ -110,19 +110,21 @@ public class Render{
 		glLoadIdentity();
 		initFrustrum();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		
-		if (preferMultiThreading && Main.framesPerTick <= minTPS && multithreading){
+
+		if (preferMultiThreading && Main.framesPerTick <= minTPS
+				&& multithreading) {
 			System.out.println("###########");
 			System.out.println("# WARNING #");
 			System.out.println("###########");
 			System.out.println("TPS is too low for safe multithreading!");
 			System.out.println("Switching to display lists.....");
 			multithreading = false;
-		} else if (preferMultiThreading && Main.framesPerTick > minTPS && !multithreading){
+		} else if (preferMultiThreading && Main.framesPerTick > minTPS
+				&& !multithreading) {
 			multithreading = true;
 		}
-		
-		if (!preferMultiThreading){
+
+		if (!preferMultiThreading) {
 			multithreading = false;
 		}
 
@@ -140,21 +142,21 @@ public class Render{
 		glTranslatef(offset, 0f, offset);
 
 		/* Array rendering */
-		synchronized(lock){
+		synchronized (lock) {
 			if (multithreading) {
-				if (vertex != null && texture != null && colors != null){
+				if (vertex != null && texture != null && colors != null) {
 					GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-					
+
 					GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
 					GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
 					GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-					
+
 					GL11.glVertexPointer(3, 0, vertex);
 					GL11.glTexCoordPointer(2, 0, texture);
 					GL11.glColorPointer(4, 0, colors);
 
 					GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
-					
+
 					GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
 					GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
 					GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
@@ -167,7 +169,7 @@ public class Render{
 			/* Call the display list */
 			GL11.glCallList(DisplayLists.getIndex());
 		}
-		
+
 		/* Render structures */
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
@@ -179,8 +181,8 @@ public class Render{
 								* heightConstant, (-y) * tilesize, 1,
 								World.cities.get(new Point(x, y)));
 					} catch (Exception e) {
-						World.cities.put(new Point(x, y), new City(
-								new Point(x, y), false));
+						World.cities.put(new Point(x, y), new City(new Point(x,
+								y), false));
 					}
 				}
 				if (World.structures[x][y] == 2) {
@@ -191,27 +193,29 @@ public class Render{
 								* heightConstant, (-y) * tilesize, 2,
 								World.cities.get(new Point(x, y)));
 					} catch (Exception e) {
-						World.cities.put(new Point(x, y), new City(
-								new Point(x, y), true));
+						World.cities.put(new Point(x, y), new City(new Point(x,
+								y), true));
 					}
 				}
 				if (World.structures[x][y] == 3) {
 					drawStructure((-x) * tilesize, World.noise[x][y]
-							* heightConstant, (-y) * tilesize, treeTexture.sample(x, y));
+							* heightConstant, (-y) * tilesize,
+							treeTexture.sample(x, y));
 				}
-				if (World.decorations[x][y] == 1){
-					drawStructure((-x) * tilesize, 48
-							* heightConstant, (-y) * tilesize, 12);
+				if (World.decorations[x][y] == 1) {
+					drawStructure((-x) * tilesize, 48 * heightConstant, (-y)
+							* tilesize, 12);
 				}
-				if (World.decorations[x][y] == 2){
-					//drawStructure((-x) * tilesize, (Math.max(48,World.noise[x][y] + 20))
-						//	* heightConstant, (-y) * tilesize, 13); //Cloud drawing
+				if (World.decorations[x][y] == 2) {
+					// drawStructure((-x) * tilesize,
+					// (Math.max(48,World.noise[x][y] + 20))
+					// * heightConstant, (-y) * tilesize, 13); //Cloud drawing
 				}
-				if (World.decorations[x][y] == 3){
+				if (World.decorations[x][y] == 3) {
 					drawStructure((-x) * tilesize, World.noise[x][y]
 							* heightConstant, (-y) * tilesize, 14);
 				}
-				if (World.decorations[x][y] == 4){
+				if (World.decorations[x][y] == 4) {
 					drawStructure((-x) * tilesize, World.noise[x][y]
 							* heightConstant, (-y) * tilesize, 15);
 				}
@@ -284,10 +288,11 @@ public class Render{
 
 		UIManager.render();
 		UIManager.render2();
-		
+
 		/* Draw all the messages */
 		for (Message message : Message.getMessages()) {
-			Render.drawString(message.getMessage(), message.getX(), message.getY());
+			Render.drawString(message.getMessage(), message.getX(),
+					message.getY());
 		}
 	}
 
@@ -380,23 +385,23 @@ public class Render{
 
 		/* Draw the buttons */
 		UIManager.renderMenu();
-		
 
 		/* Draw all the text */
 		UIManager.renderMenu2();
 		drawString("Generation Settings", ((Main.width / 2) + 280), 224);
-		
+
 		/* Splash Text */
-		font.drawString(15, 15, "Version "+Main.vn, new Color(200, 200, 200));
+		font.drawString(15, 15, "Version " + Main.vn, new Color(200, 200, 200));
 
 		String splash = SplashText.getSplash();
 		centx = (Main.width - font.getWidth(splash)) / 2f;
-		
-		font.drawString(centx, 690, splash, new Color(147,206,239));
+
+		font.drawString(centx, 690, splash, new Color(147, 206, 239));
 
 		/* Draw all the messages */
 		for (Message message : Message.getMessages()) {
-			Render.drawString(message.getMessage(), message.getX(), message.getY());
+			Render.drawString(message.getMessage(), message.getX(),
+					message.getY());
 		}
 
 	}
@@ -427,7 +432,7 @@ public class Render{
 
 		glPopMatrix();
 	}
-	
+
 	/* Draw a structure that faces the camera */
 	public static void drawStructure(float x, float y, float z, Point texture) {
 		glPushMatrix();
@@ -459,9 +464,8 @@ public class Render{
 	public static void drawCity(float x, float y, float z, int type, City city) {
 		glPushMatrix();
 
-
 		float offset = (tilesize / 8);
-		
+
 		Point smalltex = new Point(0, 0);
 		Point bigtex = new Point(0, 1);
 
@@ -469,7 +473,7 @@ public class Render{
 		int tey = smalltex.getY();
 		int tex2 = bigtex.getX();
 		int tey2 = bigtex.getY();
-		
+
 		int texposr = 15;
 		int texr = texposr % 8;
 		int teyr = texposr / 8;
@@ -480,17 +484,21 @@ public class Render{
 				float tempz = z + ((k * offset) * 2.0f) - (offset * 3.0f);
 				float centx = x + ((i * offset) * 2.0f) - (offset * 3.0f);
 				float centz = z + ((k * offset) * 2.0f) - (offset * 3.0f);
-				if (type == 1){
-					smalltex = smallHouseTexture.sample((int) tempx * 1, (int) tempz * 1);
-					bigtex = bigHouseTexture.sample((int) tempx * 1, (int) tempz * 1);
+				if (type == 1) {
+					smalltex = smallHouseTexture.sample((int) tempx * 1,
+							(int) tempz * 1);
+					bigtex = bigHouseTexture.sample((int) tempx * 1,
+							(int) tempz * 1);
 					tex = smalltex.getX();
 					tey = smalltex.getY();
 					tex2 = bigtex.getX();
 					tey2 = bigtex.getY();
 				}
-                if (type == 2){
-					smalltex = smallCastleTexture.sample((int) tempx * 1, (int) tempz * 1);
-					bigtex = bigCastleTexture.sample((int) tempx * 1, (int) tempz * 1);
+				if (type == 2) {
+					smalltex = smallCastleTexture.sample((int) tempx * 1,
+							(int) tempz * 1);
+					bigtex = bigCastleTexture.sample((int) tempx * 1,
+							(int) tempz * 1);
 					tex = smalltex.getX();
 					tey = smalltex.getY();
 					tex2 = bigtex.getX();
@@ -530,8 +538,7 @@ public class Render{
 							atlas.getCoord(tey2, true));
 					glVertex3f(tempx - offset, y, tempz);
 					glEnd();
-				}
-				else if (city.getBuilding(i, k) == -1){
+				} else if (city.getBuilding(i, k) == -1) {
 					glBegin(GL_QUADS);
 					glTexCoord2f(atlas.getCoord(texr, false),
 							atlas.getCoord(teyr, false));
@@ -551,7 +558,7 @@ public class Render{
 			}
 		}
 
-		//glPopMatrix();
+		// glPopMatrix();
 	}
 
 	/* Draw a city nameplate */
@@ -631,7 +638,7 @@ public class Render{
 		glEnable(GL11.GL_TEXTURE_2D);
 
 		atlas.bind();
-		
+
 		glDisable(GL_DEPTH_TEST);
 
 		glEnable(GL_DEPTH_TEST);
@@ -654,7 +661,7 @@ public class Render{
 		glEnd();
 		glColor4f(1f, 1f, 1f, 1f);
 		glEnable(GL11.GL_TEXTURE_2D);
-		
+
 		atlas.bind();
 
 	}
@@ -745,10 +752,9 @@ public class Render{
 			e.printStackTrace();
 		}
 
-
 		treeTexture.addTexture(new Point(2, 1));
 		treeTexture.addTexture(new Point(5, 4));
-		
+
 		smallHouseTexture.addTexture(new Point(0, 1));
 		smallHouseTexture.addTexture(new Point(1, 6));
 		smallHouseTexture.addTexture(new Point(4, 6));
@@ -760,7 +766,7 @@ public class Render{
 		smallHouseTexture.addTexture(new Point(5, 7));
 		smallHouseTexture.addTexture(new Point(6, 7));
 		smallHouseTexture.addTexture(new Point(7, 7));
-		
+
 		bigHouseTexture.addTexture(new Point(3, 1));
 		bigHouseTexture.addTexture(new Point(4, 3));
 		bigHouseTexture.addTexture(new Point(5, 3));
@@ -772,13 +778,13 @@ public class Render{
 		bigHouseTexture.addTexture(new Point(0, 7));
 		bigHouseTexture.addTexture(new Point(2, 7));
 		bigHouseTexture.addTexture(new Point(3, 7));
-        
-        smallCastleTexture.addTexture(new Point(1, 1));
-        smallCastleTexture.addTexture(new Point(4, 4));
-        
-        bigCastleTexture.addTexture(new Point(1, 3));
-        bigCastleTexture.addTexture(new Point(3, 4));
-		
+
+		smallCastleTexture.addTexture(new Point(1, 1));
+		smallCastleTexture.addTexture(new Point(4, 4));
+
+		bigCastleTexture.addTexture(new Point(1, 3));
+		bigCastleTexture.addTexture(new Point(3, 4));
+
 		DisplayLists.init();
 	}
 

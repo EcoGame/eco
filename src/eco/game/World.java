@@ -57,13 +57,13 @@ public class World {
 												// there will be
 	public static boolean cutForests = false; // Will forests be removed to
 												// build things
-	
+
 	public static int woodPerHouse = 2;
 	public static int stonePerCastle = 2;
-    public static int stoneRate = 2;
-	
+	public static int stoneRate = 2;
+
 	public static Random random;
-	
+
 	public static int woodRate = 1;
 
 	public static void init(int generator) {
@@ -80,7 +80,7 @@ public class World {
 
 		int centx = (mapsize / 2) - 1;
 		int centy = (mapsize / 2) - 1;
-		
+
 		random = new Random(mapseed);
 
 		if (generator == 0) {
@@ -118,12 +118,12 @@ public class World {
 					}
 				}
 			}
-			
-			for (int x = 0; x < mapsize; x++){
+
+			for (int x = 0; x < mapsize; x++) {
 				map[x][0] = 0;
 				map[x][mapsize - 1] = 0;
 			}
-			for (int y = 0; y < mapsize; y++){
+			for (int y = 0; y < mapsize; y++) {
 				map[0][y] = 0;
 				map[mapsize - 1][y] = 0;
 			}
@@ -242,7 +242,7 @@ public class World {
 						map[x][y] = 0;
 					} else if (noise[x][y] < 75) {
 						map[x][y] = 1;
-						if (random.nextInt(60) == 0){
+						if (random.nextInt(60) == 0) {
 							map[x][y] = 5;
 						}
 					} else {
@@ -271,60 +271,58 @@ public class World {
 				}
 			}
 		}
-		
-        if (totalAcres < 100){
-            generate(generator);
-        }
-		
+
+		if (totalAcres < 100) {
+			generate(generator);
+		}
+
 		for (int x = 0; x < mapsize; x++) {
 			for (int y = 0; y < mapsize; y++) {
-				if (map[x][y] == 0){
-					if (random.nextInt(2000) == 0){
+				if (map[x][y] == 0) {
+					if (random.nextInt(2000) == 0) {
 						decorations[x][y] = 1;
 						int size = random.nextInt(4);
 						Point loc = new Point(x, y);
-						try{
-							for (int i = 0; i < size; i++){
-								if (random.nextInt(2) == 0){
+						try {
+							for (int i = 0; i < size; i++) {
+								if (random.nextInt(2) == 0) {
 									loc.setX(loc.getX() + 1);
-								}
-								else{
+								} else {
 									loc.setX(loc.getX() - 1);
 								}
-								if (random.nextInt(2) == 0){
+								if (random.nextInt(2) == 0) {
 									loc.setY(loc.getY() + 1);
-								}
-								else{
+								} else {
 									loc.setY(loc.getY() - 1);
 								}
-								if (map[loc.getX()][loc.getY()] == 0){
+								if (map[loc.getX()][loc.getY()] == 0) {
 									decorations[loc.getX()][loc.getY()] = 1;
 								}
 							}
+						} catch (Exception e) {
 						}
-						catch(Exception e){}
 					}
 				}
-				if (random.nextInt(100) == 0){
+				if (random.nextInt(100) == 0) {
 					decorations[x][y] = 2;
 				}
-				if (random.nextInt(30) == 0){
-					if (map[x][y] != 0){
+				if (random.nextInt(30) == 0) {
+					if (map[x][y] != 0) {
 						decorations[x][y] = 3;
 					}
 				}
-				if (random.nextInt(60) == 0){
-					if (map[x][y] != 0){
+				if (random.nextInt(60) == 0) {
+					if (map[x][y] != 0) {
 						decorations[x][y] = 4;
 					}
 				}
-				if (random.nextInt(100) == 0){
-					if (map[x][y] != 0){
+				if (random.nextInt(100) == 0) {
+					if (map[x][y] != 0) {
 						decorations[x][y] = 5;
 					}
 				}
-				if (random.nextInt(50) == 0){
-					if (map[x][y] == 1){
+				if (random.nextInt(50) == 0) {
+					if (map[x][y] == 1) {
 						decorations[x][y] = 6;
 					}
 				}
@@ -438,7 +436,8 @@ public class World {
 						random.nextInt(mapsize));
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while (map[rand.getX()][rand.getY()] != 1
-							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
+									.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -468,12 +467,11 @@ public class World {
 				}
 			}
 
-
 			int newhouses = deltafarmers;
 			int popToResettle = 0;
 			if (random.nextInt(100) == 0) {
-				//popToResettle = random.nextInt(newhouses) / 2;
-				//newhouses -= popToResettle;
+				// popToResettle = random.nextInt(newhouses) / 2;
+				// newhouses -= popToResettle;
 			}
 			int woodused = 0;
 			for (int x = 0; x < mapsize; x++) {
@@ -530,7 +528,8 @@ public class World {
 						random.nextInt(mapsize));
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while (map[rand.getX()][rand.getY()] != 1
-							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
+									.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -567,10 +566,14 @@ public class World {
 					}
 				}
 			}
-			int realWoodUsed = PlayerCountry.wood.takeWood(woodused, PlayerCountry.economy);
+			int realWoodUsed = PlayerCountry.wood.takeWood(woodused,
+					PlayerCountry.economy);
 			int woodDiff = woodused * 0 - realWoodUsed * 0;
-			oldFarmers = farmers - Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
-			displacedFarmers = Math.max(newfarmland, newhouses + (woodDiff / woodPerHouse));
+			oldFarmers = farmers
+					- Math.max(newfarmland, newhouses
+							+ (woodDiff / woodPerHouse));
+			displacedFarmers = Math.max(newfarmland, newhouses
+					+ (woodDiff / woodPerHouse));
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {
@@ -615,7 +618,7 @@ public class World {
 			int housestoremove = -deltafarmers;
 			while (housestoremove > 0 && validLocs.size() > 0) {
 				int popthispass = housestoremove;
-				if (housestoremove > 10){
+				if (housestoremove > 10) {
 					popthispass = random.nextInt(housestoremove);
 				}
 				Point loc = validLocs.get(random.nextInt(validLocs.size()));
@@ -654,8 +657,8 @@ public class World {
 			int newcastles = deltawarriors;
 			int popToResettle = 0;
 			if (random.nextInt(100) == 0) {
-				//popToResettle = random.nextInt(newcastles) / 2;
-				//newcastles -= popToResettle;
+				// popToResettle = random.nextInt(newcastles) / 2;
+				// newcastles -= popToResettle;
 			}
 
 			for (int x = 0; x < mapsize; x++) {
@@ -713,7 +716,8 @@ public class World {
 				if (calcAcres() / (float) totalAcres >= 0.5f) {
 					while ((map[rand.getX()][rand.getY()] != 1 && map[rand
 							.getX()][rand.getY()] != 3)
-							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand.getX()][rand.getY()] == 4)) {
+							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
+									.getX()][rand.getY()] == 4)) {
 						rand = new Point(random.nextInt(mapsize),
 								random.nextInt(mapsize));
 					}
@@ -750,7 +754,8 @@ public class World {
 					}
 				}
 			}
-			int realStoneUsed = PlayerCountry.wood.takeWood(stoneUsed, PlayerCountry.economy);
+			int realStoneUsed = PlayerCountry.wood.takeWood(stoneUsed,
+					PlayerCountry.economy);
 			int stoneDiff = stoneUsed * 0 - realStoneUsed * 0;
 			oldWarriors = Math.max(0, warriors - newcastles - stoneDiff);
 			displacedWarriors = newcastles - stoneDiff;
@@ -765,8 +770,8 @@ public class World {
 			}
 			int castlestoremove = -deltawarriors;
 			while (castlestoremove > 0 && validLocs.size() > 0) {
-				int popthispass =  castlestoremove;
-				if (castlestoremove > 10){
+				int popthispass = castlestoremove;
+				if (castlestoremove > 10) {
 					popthispass = random.nextInt(castlestoremove);
 				}
 				Point loc = validLocs.get(random.nextInt(validLocs.size()));
@@ -775,8 +780,8 @@ public class World {
 					popdensity[loc.getX()][loc.getY()] = 0;
 					popmap[loc.getX()][loc.getY()] = 0;
 					cities.remove(loc);
-					//cities.get(loc).updatePop(0);
-					//structures[loc.getX()][loc.getY()] = 4;
+					// cities.get(loc).updatePop(0);
+					// structures[loc.getX()][loc.getY()] = 4;
 					castlestoremove -= pop;
 					validLocs.remove(loc);
 				} else {
@@ -785,8 +790,8 @@ public class World {
 						popdensity[loc.getX()][loc.getY()] = 0;
 						popmap[loc.getX()][loc.getY()] = 0;
 						cities.remove(loc);
-						//cities.get(loc).updatePop(0);
-						//structures[loc.getX()][loc.getY()] = 4;
+						// cities.get(loc).updatePop(0);
+						// structures[loc.getX()][loc.getY()] = 4;
 						validLocs.remove(loc);
 					}
 					castlestoremove -= popthispass;
@@ -800,55 +805,55 @@ public class World {
 		 * mapsize; k++){ if (map[i][k] == 2){ count++; } } }
 		 * System.out.println(count);
 		 */
-		
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (structures[x][y] != 0 && decorations[x][y] != 0){
+
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (structures[x][y] != 0 && decorations[x][y] != 0) {
 					decorations[x][y] = 0;
 				}
 			}
 		}
-		
+
 		NoiseSampler.initSimplexNoise((int) mapseed);
 		NoiseSampler.setNoiseScale(mapsize * 32);
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (structures[x][y] == 0 && map[x][y] == 1){
-					if (random.nextInt(500) == 0 && NoiseSampler.getNoise(x, y) >= forestHeight) {
-							structures[x][y] = 3;
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (structures[x][y] == 0 && map[x][y] == 1) {
+					if (random.nextInt(500) == 0
+							&& NoiseSampler.getNoise(x, y) >= forestHeight) {
+						structures[x][y] = 3;
 					}
 				}
 			}
 		}
-		
-		for (int x = mapsize - 1; x >= 0; x--){
-			for (int y = 0; y < mapsize; y++){
-				if (x == mapsize - 1){
-					if (decorations[x][y] == 2){
+
+		for (int x = mapsize - 1; x >= 0; x--) {
+			for (int y = 0; y < mapsize; y++) {
+				if (x == mapsize - 1) {
+					if (decorations[x][y] == 2) {
 						decorations[x][y] = 0;
 					}
-				}
-				else{
-					if (decorations[x][y] == 2){
-						if (decorations[x + 1][y] == 0){
+				} else {
+					if (decorations[x][y] == 2) {
+						if (decorations[x + 1][y] == 0) {
 							decorations[x + 1][y] = 2;
 						}
 						decorations[x][y] = 0;
 					}
 				}
-				if (x == 0){
-					if (random.nextInt(100) == 0){
+				if (x == 0) {
+					if (random.nextInt(100) == 0) {
 						decorations[x][y] = 2;
 					}
 				}
 			}
 		}
-		
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
+
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
 				City c = cities.get(new Point(x, y));
-				if (c != null){
-					if (popdensity[x][y] <= 0){
+				if (c != null) {
+					if (popdensity[x][y] <= 0) {
 						cities.remove(new Point(x, y));
 						popmap[x][y] = 0;
 						structures[x][y] = 0;
@@ -856,22 +861,21 @@ public class World {
 				}
 			}
 		}
-		
+
 		boolean needscapital = true;
-		
-		for (City c : new ArrayList<City>(cities.values())){
-			if (c.getName().contains(City.capitalEpithet) && c.isUsingName()){
+
+		for (City c : new ArrayList<City>(cities.values())) {
+			if (c.getName().contains(City.capitalEpithet) && c.isUsingName()) {
 				needscapital = false;
 			}
 		}
-		
-		
-		try{
-			if (needscapital){
+
+		try {
+			if (needscapital) {
 				ArrayList<City> possible = new ArrayList<City>(cities.values());
 				ArrayList<City> real = new ArrayList<City>();
-				for (City c : possible){
-					if (c.isUsingName()){
+				for (City c : possible) {
+					if (c.isUsingName()) {
 						real.add(c);
 					}
 				}
@@ -879,19 +883,18 @@ public class World {
 				City c = real.get(random.nextInt(size));
 				c.makeCapital();
 			}
+		} catch (Exception e) {
+			// e.printStackTrace();
 		}
-		catch (Exception e){
-			//e.printStackTrace();
-		}
-		
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (map[x][y] != 0 && noise[x][y] <= 48){
+
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (map[x][y] != 0 && noise[x][y] <= 48) {
 					noise[x][y] = 49;
 				}
 			}
 		}
-			
+
 	}
 
 	public static int calcAcres() {
@@ -927,56 +930,56 @@ public class World {
 			}
 		}
 	}
-	
-	public static int calcTilePop(){
+
+	public static int calcTilePop() {
 		int count = 0;
-		for (int x = 0;x < mapsize;x ++){
-			for (int y= 0; y < mapsize; y++){
-				if (structures[x][y] != 1){
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (structures[x][y] != 1) {
 					count += popdensity[x][y];
 				}
 			}
 		}
 		return count;
 	}
-	
-	public static void updateWood(){
-		
+
+	public static void updateWood() {
+
 		int toAdd = 0;
-		
-		if (!cutForests){
+
+		if (!cutForests) {
 			return;
 		}
-		
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (structures[x][y] == 3){
+
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (structures[x][y] == 3) {
 					toAdd += woodRate;
-                    if (random.nextInt(100) == 0){
-                        structures[x][y] = 0;
-                    }
+					if (random.nextInt(100) == 0) {
+						structures[x][y] = 0;
+					}
 				}
 			}
 		}
-		
+
 		PlayerCountry.wood.addWood(toAdd);
 	}
-    
-    public static void updateStone(){
-		
+
+	public static void updateStone() {
+
 		int toAdd = 0;
-		
-		for (int x = 0; x < mapsize; x++){
-			for (int y = 0; y < mapsize; y++){
-				if (decorations[x][y] == 14){
+
+		for (int x = 0; x < mapsize; x++) {
+			for (int y = 0; y < mapsize; y++) {
+				if (decorations[x][y] == 14) {
 					toAdd += stoneRate / 2;
 				}
-                if (map[x][y] == 3){
-                    toAdd += stoneRate;
-                }
+				if (map[x][y] == 3) {
+					toAdd += stoneRate;
+				}
 			}
 		}
-		
+
 		PlayerCountry.stone.addStone(toAdd);
 	}
 }
