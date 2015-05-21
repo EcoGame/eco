@@ -883,6 +883,14 @@ public class World {
 		catch (Exception e){
 			//e.printStackTrace();
 		}
+		
+		for (int x = 0; x < mapsize; x++){
+			for (int y = 0; y < mapsize; y++){
+				if (map[x][y] != 0 && noise[x][y] <= 48){
+					noise[x][y] = 49;
+				}
+			}
+		}
 			
 	}
 

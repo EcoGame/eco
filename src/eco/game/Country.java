@@ -46,7 +46,7 @@ public class Country {
 	
 	public boolean dead = false;
 	
-	public int aggression = 0;
+    public AggressionScore aggression = new AggressionScore();
 
 	// ================//
 	// Other Variables //
@@ -70,8 +70,7 @@ public class Country {
 		
 		landsize = World.random.nextInt(4000) + 100;
 		maxpop = World.random.nextInt(4000) + 100;
-		
-		aggression = World.random.nextInt(100);
+
 	}
 
 	public void tick() {
@@ -188,6 +187,7 @@ public class Country {
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
+		aggression.update();
 		
 	}
 	

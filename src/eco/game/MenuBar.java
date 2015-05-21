@@ -559,17 +559,17 @@ public class MenuBar {
                 }
                 if (!country.dead){
 	                Render.font.drawString(offx, offy, name);
-	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
-	                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
-	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
+	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression.value)+"]", 
+	                		new Color((country.aggression.value * 2) / 255f, 1 - (country.aggression.value * 2 / 255f), 20 / 255f));
+	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression.value)+"]");
 	                Render.font.drawString(tempoff, offy, "["+Integer.toString(country.getScore())+"]", 
-	                		new Color(43,158,255));
+	                		new Color(102,186,233));
 	                offy += 20;
                 } else{
 	                Render.font.drawString(offx, offy, name);
-	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression)+"]", 
-	                		new Color((country.aggression * 2) / 255f, 1 - (country.aggression * 2 / 255f), 20 / 255f));
-	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression)+"]");
+	                Render.font.drawString(offx + Render.font.getWidth(name) + 10, offy, "["+Integer.toString(country.aggression.value)+"]", 
+	                		new Color((country.aggression.value * 2) / 255f, 1 - (country.aggression.value * 2 / 255f), 20 / 255f));
+	                int tempoff = offx + Render.font.getWidth(name) + 20 + Render.font.getWidth("["+Integer.toString(country.aggression.value)+"]");
 	                Render.font.drawString(tempoff, offy, "[In Exile]", 
 	                		new Color(195,65,65));
 	                offy += 20;
@@ -664,6 +664,19 @@ public class MenuBar {
 		glEnd();
 		glColor3f(1.0f, 1.0f, 1.0f);
 		
+		/* Draw sword icon */
+		glBegin(GL_QUADS);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(3, false));
+		glVertex2f(950, 563);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(3, false));
+		glVertex2f(975, 563);
+		glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(3, true));
+		glVertex2f(975, 587);
+		glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(3, true));
+		glVertex2f(950, 587);
+		glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		
 		
 		/* Draw coin icon */
 		glBegin(GL_QUADS);
@@ -752,9 +765,15 @@ public class MenuBar {
 				"Wood: "
 						+ String.valueOf(PlayerCountry.wood.getWood()), 985, 597);
 		Render.drawString(
+				"Aggression: ", 985, 567);
+		int value = PlayerCountry.aggression.value;
+		Render.font.drawString( 
+				985 + 15 + Render.font.getWidth("Aggression"), 567,
+				String.valueOf(PlayerCountry.aggression.value),
+				new Color((value * 2) / 255f, 1 - (value * 2 / 255f), 20 / 255f));
+		Render.drawString(
 				"Stone: "
 						+ String.valueOf(PlayerCountry.stone.getStone()), 985, 687);
-
 	}
 
 	public static boolean shouldRenderGraphs() {

@@ -9,10 +9,16 @@ public class War {
 	
 	private static final int minLand = 0;
 	
+	private static int aggressionConstant = 4;
+	
 	public static void warWith(Country c){
 		//Book-keeping stuff
 		Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "+c.name+"!");
 		PlayerCountry.balanceCooldown = 5;
+		
+		int diff = PlayerCountry.aggression.value - c.aggression.value;
+		diff = (int) Math.ceil(diff / (float) aggressionConstant);
+		PlayerCountry.aggression.value += diff;
 		
 		// Get army sizes
 		int playerArmy = PlayerCountry.warrior.getwPop();

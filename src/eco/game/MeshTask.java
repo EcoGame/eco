@@ -164,6 +164,33 @@ public class MeshTask implements Runnable {
 						drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
 					}
 				}
+				if (World.map[x][y] == 5) {
+					drawTile(x, y, height, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+					if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x + 1, y);
+						diff *= Render.heightConstant;
+						drawTileN(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
+					if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x - 1, y);
+						diff *= Render.heightConstant;
+						drawTileS(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
+					if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y + 1);
+						diff *= Render.heightConstant;
+						drawTileW(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
+					if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
+						float diff = World.getHeight(x, y)
+								- World.getHeight(x, y - 1);
+						diff *= Render.heightConstant;
+						drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+					}
+				}
 			}
 			if (time < newTime){
 				return;

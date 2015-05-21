@@ -109,6 +109,8 @@ public class Util {
             BW.newLine();
             BW.write(Integer.toString(PlayerCountry.stone.getStone()));
 			BW.newLine();
+            BW.write(Integer.toString(PlayerCountry.aggression.value));
+			BW.newLine();
 			for (int x = 0; x < World.mapsize; x++) {
 				for (int y = 0; y < World.mapsize; y++) {
 					BW.write(Short.toString(World.map[x][y]));
@@ -146,11 +148,15 @@ public class Util {
 				BW.newLine();
 			}
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
-      	BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer.getfPop()) + ",");
-      }
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer.getfPop()) + ",");
+			}
 			BW.newLine();
 			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
 				BW.write(String.valueOf(PlayerCountry.countries.get(x).warrior.getwPop()) + ",");
+			}
+			BW.newLine();
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				BW.write(String.valueOf(PlayerCountry.countries.get(x).name) + ",");
 			}
 			BW.newLine();
 			/*
@@ -247,7 +253,8 @@ public class Util {
 			PlayerCountry.land.setPop(Integer.valueOf(list.get(6)));
             PlayerCountry.wood.setWood(Integer.valueOf(list.get(7)));
             PlayerCountry.stone.setStone(Integer.valueOf(list.get(8)));
-			int line = 9;
+            PlayerCountry.aggression.value = Integer.valueOf(list.get(9));
+			int line = 10;
 			for (int x = 0; x < World.mapsize; x++) {
 				String values = list.get(line);
 				for (int y = 0; y < World.mapsize; y++) {
@@ -305,6 +312,12 @@ public class Util {
 				String values = list.get(line);
 				String[] parts = values.split(",");
 				PlayerCountry.countries.get(x).warrior.setwPop(Integer.valueOf(parts[x]));
+			}
+			line++;
+			for (int x = 0; x < PlayerCountry.countries.size(); x++) {
+				String values = list.get(line);
+				String[] parts = values.split(",");
+				PlayerCountry.countries.get(x).name = (parts[x]);
 			}
 			line++;
 			// Set the variable that the information will become

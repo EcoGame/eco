@@ -148,41 +148,49 @@ public class City {
 	}
 
 	public String getName() {
-		if (name == "" || name == null){
-			Log.log(-1, "NAME IS NULL");
-			return "";
-		}
-		for (City c : World.cities.values()){
-			if (c.name.equals(name)){
-				if (!c.getLoc().equals(getLoc())){
-					if (c.usename){
-						//System.out.println(getLoc() +" == "+c.getLoc());
-						usename = false;
+		try{
+			if (name == "" || name == null){
+				Log.log(-1, "NAME IS NULL");
+				return "";
+			}
+			for (City c : World.cities.values()){
+				if (c.name.equals(name)){
+					if (!c.getLoc().equals(getLoc())){
+						if (c.usename){
+							//System.out.println(getLoc() +" == "+c.getLoc());
+							usename = false;
+						}
 					}
 				}
 			}
+			if (World.cities.get(new Point(loc.getX() + 1, loc.getY())) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY())));
+			} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY())) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY())));
+			} else if (World.cities.get(new Point(loc.getX(), loc.getY() + 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() + 1)));
+			} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() - 1)));
+			} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)));
+			} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)));
+			} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)));
+			} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)) != null) {
+				usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)));
+			} else{
+				usename = true;
+			}
+			if (usename) {
+				return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
+			}
+			return "";
 		}
-		if (World.cities.get(new Point(loc.getX() + 1, loc.getY())) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY())));
-		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY())) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY())));
-		} else if (World.cities.get(new Point(loc.getX(), loc.getY() + 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() + 1)));
-		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX(), loc.getY() - 1)));
-		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() + 1)));
-		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() + 1)));
-		} else if (World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)));
-		} else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)) != null) {
-			usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)));
-		} else{
-			usename = true;
-		}
-		if (usename) {
-			return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
+		catch(Exception e){
+			if (Main.isInEclipse){
+				e.printStackTrace();
+			}
 		}
 		return "";
 	}
@@ -211,7 +219,7 @@ public class City {
 	}
 	
 	public static boolean shouldUseName(City city){
-		if (city.name == "" || city.name == null){
+		if (city == null || city.name == "" || city.name == null){
 			return true;
 		} else if (city.usename || city.pop < 5){
 			return false;

@@ -25,7 +25,6 @@ public class PlayerCountry {
 	
 	public static Score score = new Score();
 
-
 	public static float farmerDeathRatio = 0.75f;
 	public static float warriorDeathRatio = 0.75f;
 	public static float desiredWarriorRatio = 0.15f;
@@ -45,8 +44,6 @@ public class PlayerCountry {
 	public static boolean forceConscription = true;
 	
 	public static int balanceCooldown = 0;
-	
-	public int aggression = 0;
 
 	// ======================//
 	// Newly Instanced Stuff //
@@ -58,6 +55,7 @@ public class PlayerCountry {
 	public static Land land = new Land();
 	public static Wood wood = new Wood();
     public static Stone stone = new Stone();
+    public static AggressionScore aggression = new AggressionScore();
 	
 	public static String name = NameGen.generateCountry();
 
@@ -220,6 +218,7 @@ public class PlayerCountry {
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
+		aggression.update();
 	}
 	
 
@@ -292,22 +291,23 @@ public class PlayerCountry {
         stone = new Stone();
 		land = new Land();
 		wood = new Wood();
+		aggression = new AggressionScore();
 		year = 0;
 		farmerDeathRatio = 0.75f;
 		warriorDeathRatio = 0.75f;
 		desiredWarriorRatio = 0.15f;
 		desiredFarmerRatio = 1f - desiredWarriorRatio;
+		countries = new ArrayList<Country>();
+		int countriesToGenerate = 10;
+		for (int i = 0; i < countriesToGenerate; i++) {
+			countries.add(new Country(true, true, 0.15f, 0.85f));
+		}
 		MenuBar.reset();
 		if (Util.doesSaveExist(Main.currentSave)) {
 			Util.readSave();
 		} else {
 		}
 		DisplayLists.mesh();
-		countries = new ArrayList<Country>();
-		int countriesToGenerate = 10;
-		for (int i = 0; i < countriesToGenerate; i++) {
-			countries.add(new Country(true, true, 0.15f, 0.85f));
-		}
 	}
 
 
