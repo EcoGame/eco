@@ -34,6 +34,8 @@ public class SplashText {
 				"Connecting to the NSA...",
 				"Persistent pain is something that conflicted with his cosy picture of the world.",
 				"Does fuzzy logic tickle?",
+				"Be the change you want to see in the world",
+				"I fear fear itself",
 				"Relax, it's only ones and zeros",
 				"You're lucky if I can read my own code",
 				"Computers are like air conditioners, they stop working properly if you open Windows.",
