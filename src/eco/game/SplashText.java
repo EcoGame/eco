@@ -17,6 +17,7 @@ public class SplashText {
 				"10,000 lines!",
 				"Multicultural!",
 				"Just like Minecraft",
+				"Go inject your bubby somewhere else"
 				"Your turn to be a conquistador!",
 				"How many of these are there?",
 				"Font schmont! Who cares if you can read it?",
