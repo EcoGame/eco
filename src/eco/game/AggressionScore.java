@@ -1,22 +1,23 @@
 package eco.game;
 
 public class AggressionScore {
-	
-	public int value;
-	
+
+	public int aggressionScore;
+
 	private static int min = 0;
 	private static int max = 100;
-	
+
 	public AggressionScore(){
-		value = Util.randInt(0, max / 10);
+
+		aggressionScore = 0;
+
 	}
-	
-	public void update(){
-		
-		
-		value = Math.max(min, value);
-		value = Math.min(max, value);
+
+	public int calculateAggressionScore(int wPop) {
+
+		aggressionScore = wPop;
+		return aggressionScore;
+
 	}
-			
 
 }
