@@ -95,5 +95,8 @@ public class ToggleButton extends Button {
 	public void setToggle(boolean toggle){
 		this.toggle = toggle;
 	}
+	public boolean getToggle(){
+		return this.toggle;
+	}
 
 }
