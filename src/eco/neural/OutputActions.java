@@ -9,7 +9,7 @@ package eco.neural;
 
 public class OutputActions{
 
-    public static void actions(int k){
+    public static void actions(int k, int currentnetwork){
         switch(k){
             case 0:
                 System.out.println("notta");

@@ -23,12 +23,12 @@ public class OutputNeuron {
 
     }
 
-    public int firecheck() {
+    public int firecheck(int currentnetwork) {
         if (currentvalue > firevalue) {
             fired = 1;
             //System.out.println("outputneuron " + id + " pairedaxon "+ pairedaxon + " current value "+ currentvalue);
             alreadyfired = true;
-            OutputActions.actions(action);
+            OutputActions.actions(action, currentnetwork);
         }
         return fired;
     }
