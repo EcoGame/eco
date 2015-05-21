@@ -3,9 +3,9 @@ package eco.game;
 public class Country {
 
 	/**
-	 * 
+	 *
 	 * This class represents and simulates another country
-	 * 
+	 *
 	 * @author phil, nate
 	 */
 
@@ -39,13 +39,13 @@ public class Country {
 	public float wDefaultDeathRate = 0.002f;
 	public float farmerDeathRatio = 0.75f;
 	public float warriorDeathRatio = 0.75f;
-	
+
 	public static float wheatRot = PlayerCountry.wheatRot;
-	
+
 	public int landsize;
-	
+
 	public boolean dead = false;
-	
+
     public AggressionScore aggression = new AggressionScore();
 
 	// ================//
@@ -67,7 +67,7 @@ public class Country {
 		wDefaultDeathRate = 0.002f;
 		farmerDeathRatio = Util.randFloat(0.00f, 1f);
 		warriorDeathRatio = Util.randFloat(0.00f, 1f);
-		
+
 		landsize = World.random.nextInt(4000) + 100;
 		maxpop = World.random.nextInt(4000) + 100;
 
@@ -124,7 +124,7 @@ public class Country {
 			fDeathRate = Math.min(1f, fDeathRate + 0.001f);
 		}
 		else{
-			fDeathRate = Math.max(0f, fDeathRate - 0.001f);	
+			fDeathRate = Math.max(0f, fDeathRate - 0.001f);
 		}
 
 		if (warriorWheat != 0) {
@@ -135,7 +135,7 @@ public class Country {
 			wDeathRate = Math.min(1f, wDeathRate + 0.001f);
 		}
 		else{
-			wDeathRate = Math.max(0f, wDeathRate - 0.001f);	
+			wDeathRate = Math.max(0f, wDeathRate - 0.001f);
 		}
 
 		if (displacedEat) {
@@ -156,7 +156,7 @@ public class Country {
 				displaced -= displacedDeath;
 			}
 		}
-		
+
 		if (farmer.getfPop() <= 0 && warrior.getwPop() <= 0){
 			dead = true;
 			farmer.setfPop(0);
@@ -176,7 +176,7 @@ public class Country {
 		// =================//
 		wheat.update(economy);
 		wheat.rot(wheatRot);
-		
+
 		// ======//
 		// Score //
 		// ======//
@@ -187,12 +187,12 @@ public class Country {
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
-		aggression.update();
-		
+		aggression.calculateAggressionScore(warrior.getwPop());
+
 		// ====//
 		// War //
 		// ====//
-		int diff = (Math.abs(aggression.value - PlayerCountry.aggression.value)) + 1;
+		int diff = (Math.abs(aggression.aggressionScore - PlayerCountry.aggression.aggressionScore)) + 1;
 		int warMul = 100;
 		if (PlayerCountry.year < 250){
 			warMul = 1000;
@@ -200,9 +200,9 @@ public class Country {
 		if (World.random.nextInt(diff * warMul) == 0){
 			War.attackPlayer(this);
 		}
-		
+
 	}
-	
+
 	public int getScore(){
 		try{
 			return score.scoreAt(PlayerCountry.year - 1);
@@ -221,5 +221,5 @@ public class Country {
 			land.setLand(land.getLand() - toTake);
 		}
 	}
-	
+
 }
