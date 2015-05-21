@@ -15,11 +15,11 @@ import org.newdawn.slick.Color;
 public class MenuBar {
 
 	/**
-	 * 
+	 *
 	 * This class manages the rendering and logic for the menu bar
-	 * 
+	 *
 	 * @author phil
-	 * 
+	 *
 	 */
 
 	// ===============//
@@ -60,9 +60,9 @@ public class MenuBar {
 
 	private static ToggleButton toggleFast = new ToggleButton(495, 606, 25, 4, 2, 5, 2,
 	 false);
-	private static ToggleButton toggleSlow = new ToggleButton(495, 636, 25, 4, 2, 5, 2,
+	private static ToggleButton toggleNormal = new ToggleButton(495, 636, 25, 4, 2, 5, 2,
 	 false);
-	private static ToggleButton toggleNormal = new ToggleButton(495, 666, 25, 4, 2, 5, 2,
+	private static ToggleButton toggleSlow = new ToggleButton(495, 666, 25, 4, 2, 5, 2,
 	 true);
 
 	private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
@@ -786,9 +786,15 @@ public class MenuBar {
 		Render.drawString("Conscription Rate: "
 				+ ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285,
 				657);
-		Render.drawString(
-				"Frames Per Tick: " + String.valueOf(Main.framesPerTick), 285,
-				627);
+		if(toggleFast.getToggle() == true) {
+			Render.drawString("Game Speed: Fast", 285, 627);
+		}
+		if(toggleSlow.getToggle() == true) {
+			Render.drawString("Game Speed: Slow", 285, 627);
+		}
+		if(toggleNormal.getToggle() == true) {
+			Render.drawString("Game Speed: Normal", 285, 627);
+		}
 		Render.drawString(
 				"Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat),
 				585, 657);
@@ -838,7 +844,7 @@ public class MenuBar {
 	public static void setPane(int newPane){
 		pane = newPane;
 	}
-	
+
 	public static void updateWar(String name){
 		warState = War.winLose;
 		warName = name;
@@ -846,5 +852,5 @@ public class MenuBar {
 		gold = War.moneyLoss;
 		land = War.landLoss;
 	}
-	
+
 }
