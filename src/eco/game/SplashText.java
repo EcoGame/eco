@@ -10,11 +10,14 @@ public class SplashText {
 	
 	static{
 		splashes = new String[]{
-				"95% Stable!",
+				"95% Stable",
 				"Thousands of bugs!",
-				"Artifical but not intelligent!",
+				"Artifical but not intelligent",
 				"java.lang.nullPointerException: splash not found. At: SplashText.java(15)",
 				"10,000 lines!",
+				"Just like Minecraft",
+				"Your turn to be a conquistador!",
+				"How many of these are there?",
 				"Multicultural!"
 		};
 	}
