@@ -35,6 +35,8 @@ public class MenuBar {
 			10 + (6f * Main.height / 8f) + 64, 32, 6, 2, 7, 2, false);
 	private static ToggleButton graphsPane = new ToggleButton(0,
 			10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, false);
+	private static ToggleButton econPane = new ToggleButton(0,
+			10 + (6f * Main.height / 8f) + 128, 32, 6, 2, 7, 2, false);
 
 	private static ArrayList<Button> buttons = new ArrayList<Button>();
 	private static TextureAtlas atlas = Render.atlas;
@@ -58,12 +60,16 @@ public class MenuBar {
 	private static ToggleButton toggleForceConscription = new ToggleButton(900,
 			567, 25, 4, 2, 5, 2, true);
 
-	private static ToggleButton toggleFast = new ToggleButton(495, 606, 25, 4, 2, 5, 2,
+	private static ToggleButton toggleVeryFast = new ToggleButton(35, 595, 25, 4, 2, 5, 2,
+			 false);
+	private static ToggleButton toggleFast = new ToggleButton(70, 595, 25, 4, 2, 5, 2,
 	 false);
-	private static ToggleButton toggleNormal = new ToggleButton(495, 636, 25, 4, 2, 5, 2,
-	 false);
-	private static ToggleButton toggleSlow = new ToggleButton(495, 666, 25, 4, 2, 5, 2,
+	private static ToggleButton toggleNormal = new ToggleButton(105, 595, 25, 4, 2, 5, 2,
 	 true);
+	private static ToggleButton toggleSlow = new ToggleButton(140, 595, 25, 4, 2, 5, 2,
+	 false);
+	private static ToggleButton togglePaused = new ToggleButton(175, 595, 25, 4, 2, 5, 2,
+			 false);
 
 	private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
 
@@ -136,22 +142,31 @@ public class MenuBar {
 			new Treble<>(129 / 255f, 87 / 255f, 87 / 255f));
 
 	private static ArrayList<Graph> graphs = new ArrayList<Graph>();
+	
+	// =============//
+	// Economy Pane //
+	// =============//
+	
+	private static ArrayList<Button> pane4Buttons = new ArrayList<Button>();
 
 	static {
 		buttons.add(statsPane);
 		buttons.add(warPane);
 		buttons.add(graphsPane);
 		buttons.add(logPane);
+		buttons.add(econPane);
 
-		pane0Buttons.add(toggleFeedDisplaced);
-		pane0Buttons.add(toggleFavorWarrior);
-		pane0Buttons.add(increaseWarriorRatio);
-		pane0Buttons.add(decreaseWarriorRatio);
-		pane0Buttons.add(toggleFast);
-		pane0Buttons.add(toggleSlow);
-		pane0Buttons.add(toggleNormal);
-		pane0Buttons.add(toggleCutTrees);
-		pane0Buttons.add(toggleForceConscription);
+		pane4Buttons.add(toggleFeedDisplaced);
+		pane4Buttons.add(toggleFavorWarrior);
+		pane4Buttons.add(increaseWarriorRatio);
+		pane4Buttons.add(decreaseWarriorRatio);
+		pane4Buttons.add(toggleFast);
+		pane4Buttons.add(toggleSlow);
+		pane4Buttons.add(toggleNormal);
+		pane4Buttons.add(toggleVeryFast);
+		pane4Buttons.add(togglePaused);
+		pane4Buttons.add(toggleCutTrees);
+		pane4Buttons.add(toggleForceConscription);
 
 		pane1Buttons.add(warUp);
 		pane1Buttons.add(warDown);
@@ -178,6 +193,7 @@ public class MenuBar {
 		warPane.addOverlay(1, 1, 24);
 		logPane.addOverlay(1, 5, 24);
 		graphsPane.addOverlay(0, 5, 24);
+		econPane.addOverlay(8, 0, 24);
 	}
 
 	public static void update() {
@@ -186,6 +202,7 @@ public class MenuBar {
 			graphsPane.setToggle(false);
 			logPane.setToggle(false);
 			statsPane.setToggle(true);
+			econPane.setToggle(false);
 			pane = 0;
 		}
 		if (warPane.checkForClick()) {
@@ -193,6 +210,7 @@ public class MenuBar {
 			graphsPane.setToggle(false);
 			logPane.setToggle(false);
 			warPane.setToggle(true);
+			econPane.setToggle(false);
 			pane = 1;
 		}
 		if (logPane.checkForClick()) {
@@ -200,6 +218,7 @@ public class MenuBar {
 			graphsPane.setToggle(false);
 			warPane.setToggle(false);
 			logPane.setToggle(true);
+			econPane.setToggle(false);
 			pane = 2;
 		}
 		if (graphsPane.checkForClick()) {
@@ -207,10 +226,19 @@ public class MenuBar {
 			logPane.setToggle(false);
 			warPane.setToggle(false);
 			graphsPane.setToggle(true);
+			econPane.setToggle(false);
 			pane = 3;
 		}
+		if (econPane.checkForClick()) {
+			statsPane.setToggle(false);
+			logPane.setToggle(false);
+			warPane.setToggle(false);
+			graphsPane.setToggle(false);
+			econPane.setToggle(true);
+			pane = 4;
+		}
 
-		if (pane == 0) {
+		if (pane == 4) {
 			if (toggleFeedDisplaced.checkForClick()) {
 				PlayerCountry.displacedEat ^= true;
 			}
@@ -240,18 +268,40 @@ public class MenuBar {
 				toggleFast.setToggle(true);
 				toggleSlow.setToggle(false);
 				toggleNormal.setToggle(false);
+				togglePaused.setToggle(false);
+				toggleVeryFast.setToggle(false);
 			}
 			if (toggleSlow.checkForClick()) {
 				Main.framesPerTick = 13;
 				toggleFast.setToggle(false);
 				toggleSlow.setToggle(true);
 				toggleNormal.setToggle(false);
+				togglePaused.setToggle(false);
+				toggleVeryFast.setToggle(false);
 			}
 			if (toggleNormal.checkForClick()) {
 				Main.framesPerTick = 8;
 				toggleFast.setToggle(false);
 				toggleSlow.setToggle(false);
 				toggleNormal.setToggle(true);
+				togglePaused.setToggle(false);
+				toggleVeryFast.setToggle(false);
+			}
+			if (toggleVeryFast.checkForClick()) {
+				Main.framesPerTick = 1;
+				toggleFast.setToggle(false);
+				toggleSlow.setToggle(false);
+				toggleNormal.setToggle(false);
+				togglePaused.setToggle(false);
+				toggleVeryFast.setToggle(true);
+			}
+			if (togglePaused.checkForClick()) {
+				Main.framesPerTick = 0x2000000;
+				toggleFast.setToggle(false);
+				toggleSlow.setToggle(false);
+				toggleNormal.setToggle(false);
+				togglePaused.setToggle(true);
+				toggleVeryFast.setToggle(false);
 			}
 		}
 		if (pane == 1) {
@@ -403,6 +453,11 @@ public class MenuBar {
 				b.click(x, y);
 			}
 		}
+		if (pane == 4) {
+			for (Button b : pane4Buttons) {
+				b.click(x, y);
+			}
+		}
 	}
 
 	public static void render(float x, float y) {
@@ -418,6 +473,8 @@ public class MenuBar {
 			renderLog();
 		} else if (pane == 3) {
 			renderGraphs();
+		} else if (pane == 4){
+			renderEcon();
 		}
 	}
 
@@ -429,6 +486,47 @@ public class MenuBar {
 		if (pane == 3) {
 			renderGraphs2();
 		}
+	}
+	
+	public static void renderEcon(){
+		for (Button b : pane4Buttons){
+			b.render(Mouse.getX(), Main.height - Mouse.getY());
+		}
+		
+		renderEcon2();
+	}
+	
+	public static void renderEcon2(){
+		for (Button b : pane4Buttons){
+			b.render2();
+		}
+		
+		Render.drawString("Conscription Rate: "
+				+ ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285,
+				657);
+		if(toggleFast.getToggle() == true) {
+			Render.drawString("Game Speed: Fast", 35, 567);
+		} else if(toggleSlow.getToggle() == true) {
+			Render.drawString("Game Speed: Slow", 35, 567);
+		} else if(toggleNormal.getToggle() == true) {
+			Render.drawString("Game Speed: Normal", 35, 567);
+		} else if(toggleVeryFast.getToggle() == true) {
+			Render.drawString("Game Speed: Very Fast", 35, 567);
+		} else if(togglePaused.getToggle() == true) {
+			Render.drawString("Game Speed: Paused", 35, 567);
+		}
+		Render.drawString(
+				"Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat),
+				585, 657);
+		Render.drawString(
+				"Favor Warrior Rations: "
+						+ String.valueOf(!PlayerCountry.favorFarmers), 585, 627);
+		Render.drawString("Cut Forests: " + String.valueOf(World.cutForests),
+				585, 597);
+		Render.drawString(
+				"Force Conscription: "
+						+ String.valueOf(PlayerCountry.forceConscription), 585,
+				567);
 	}
 
 	public static void renderWar() {
@@ -783,30 +881,6 @@ public class MenuBar {
 					.valueOf(PlayerCountry.wheat.gettWheat() + " ")), 587, " ("
 					+ Util.getWheatRateForDisplay() + ")", Color.red);
 		}
-		Render.drawString("Conscription Rate: "
-				+ ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285,
-				657);
-		if(toggleFast.getToggle() == true) {
-			Render.drawString("Game Speed: Fast", 285, 627);
-		}
-		if(toggleSlow.getToggle() == true) {
-			Render.drawString("Game Speed: Slow", 285, 627);
-		}
-		if(toggleNormal.getToggle() == true) {
-			Render.drawString("Game Speed: Normal", 285, 627);
-		}
-		Render.drawString(
-				"Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat),
-				585, 657);
-		Render.drawString(
-				"Favor Warrior Rations: "
-						+ String.valueOf(!PlayerCountry.favorFarmers), 585, 627);
-		Render.drawString("Cut Forests: " + String.valueOf(World.cutForests),
-				585, 597);
-		Render.drawString(
-				"Force Conscription: "
-						+ String.valueOf(PlayerCountry.forceConscription), 585,
-				567);
 		Render.drawString(
 				"Occupied Territories: "
 						+ String.valueOf(PlayerCountry.land.getLand()), 985,

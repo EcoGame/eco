@@ -434,7 +434,7 @@ public class World {
 			while (newfarmland > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.5f) {
+				if (calcAcres() / (float) totalAcres >= 0.75f) {
 					while (map[rand.getX()][rand.getY()] != 1
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
 									.getX()][rand.getY()] == 4)) {
@@ -526,7 +526,7 @@ public class World {
 			while (newhouses > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.5f) {
+				if (calcAcres() / (float) totalAcres >= 0.75f) {
 					while (map[rand.getX()][rand.getY()] != 1
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
 									.getX()][rand.getY()] == 4)) {
@@ -713,7 +713,7 @@ public class World {
 			while (newcastles > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.5f) {
+				if (calcAcres() / (float) totalAcres >= 0.75f) {
 					while ((map[rand.getX()][rand.getY()] != 1 && map[rand
 							.getX()][rand.getY()] != 3)
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
@@ -757,8 +757,8 @@ public class World {
 			int realStoneUsed = PlayerCountry.stone.takeStone(stoneUsed,
 					PlayerCountry.economy);
 			int stoneDiff = stoneUsed - realStoneUsed;
-			oldWarriors = Math.max(0, warriors - newcastles - stoneDiff);
-			displacedWarriors = newcastles - stoneDiff;
+			oldWarriors = Math.max(0, warriors - (newcastles + (stoneDiff / stonePerCastle)));
+			displacedWarriors = newcastles + (stoneDiff / stonePerCastle);
 		} else {
 			ArrayList<Point> validLocs = new ArrayList<Point>();
 			for (int x = 0; x < mapsize; x++) {

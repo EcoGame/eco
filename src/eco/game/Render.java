@@ -101,7 +101,7 @@ public class Render {
 	public static final RandTexture smallCastleTexture = new RandTexture();
 	public static final RandTexture bigCastleTexture = new RandTexture();
 
-	private static final int minTPS = 1;
+	private static final int minTPS = -1;
 
 	/* Main draw function */
 	public static void draw() {

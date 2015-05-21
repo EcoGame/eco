@@ -228,7 +228,9 @@ public class PlayerCountry {
 		Main.shouldBeInMenu = true;
 		while (!Main.shouldQuit) {
 			if (Display.isCloseRequested()) {
-				Util.createSave();
+				if (!Main.gameOver){
+					Util.createSave();
+				}
 				System.exit(0);
 			}
 			if (Main.gameOver) {
@@ -275,7 +277,9 @@ public class PlayerCountry {
 				Display.sync(60);
 			}
 		}
-		Util.createSave();
+		if (!Main.gameOver){
+			Util.createSave();
+		}
 		Menu.mainMenu();
 	}
 
@@ -298,6 +302,7 @@ public class PlayerCountry {
 		desiredWarriorRatio = 0.15f;
 		desiredFarmerRatio = 1f - desiredWarriorRatio;
 		countries = new ArrayList<Country>();
+		Main.gameOver = false;
 		int countriesToGenerate = 10;
 		for (int i = 0; i < countriesToGenerate; i++) {
 			countries.add(new Country(true, true, 0.15f, 0.85f));

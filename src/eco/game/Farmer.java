@@ -38,7 +38,7 @@ public class Farmer {
 	public int fHunger() {
 
 		fHunger = 0;
-		fHunger = normalHunger + (Util.randInt(0, 3));
+		fHunger = normalHunger + (Util.randInt(0, 2));
 		return fHunger;
 
 	}

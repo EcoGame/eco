@@ -18,7 +18,7 @@ public class Stone {
 	private int stonePrice = 150;
 	
 	public Stone(){
-		stone = 0;
+		stone = 1000;
 	}
 	
 	public int takeStone(int request, Economy economy){
