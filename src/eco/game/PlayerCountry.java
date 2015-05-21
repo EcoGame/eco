@@ -1,18 +1,18 @@
 package eco.game;
 
 import java.util.ArrayList;
-
 import org.lwjgl.opengl.Display;
+
+/**
+ *
+ * Just a class to keep Main less cluttered
+ * Simulates the player country
+ * @author phil, nate, will, connor
+ *
+ */
 
 public class PlayerCountry {
 
-	/**
-	 * 
-	 * Just a class to keep Main less cluttered
-	 * Simulates the player country
-	 * @author phil, nate, will, connor
-	 * 
-	 */
 	// =====================//
 	// Simulation Variables //
 	// =====================//
@@ -22,7 +22,7 @@ public class PlayerCountry {
 	public static float wDeathRate = 0.002f;
 
 	public static int year = 0;
-	
+
 	public static Score score = new Score();
 
 	public static float farmerDeathRatio = 0.75f;
@@ -36,13 +36,13 @@ public class PlayerCountry {
 	public static final int ticks = 2000;
 
 	public static int generatorToUse = 0;
-	
+
 	public static float wheatRot = 0.9f;
 
 	public static ArrayList<Country> countries = new ArrayList<Country>();
-	
+
 	public static boolean forceConscription = true;
-	
+
 	public static int balanceCooldown = 0;
 
 	// ======================//
@@ -56,7 +56,7 @@ public class PlayerCountry {
 	public static Wood wood = new Wood();
     public static Stone stone = new Stone();
     public static AggressionScore aggression = new AggressionScore();
-	
+
 	public static String name = NameGen.generateCountry();
 
 	/* Game tick */
@@ -66,7 +66,7 @@ public class PlayerCountry {
 		// ==================//
 		// Population growth //
 		// ==================//
-		
+
 		if (World.displacedFarmers != 0) {
 			farmer.setOldFPop(farmer.getfPop());
 		}
@@ -84,7 +84,7 @@ public class PlayerCountry {
 			warrior.setOldWPop(warrior.getwPop());
 			farmer.setOldFPop(farmer.getfPop());
 		}
-		
+
 		if (forceConscription && balanceCooldown == 0){
 			float totalpop = farmer.getFloatFPop() + warrior.getFloatWPop();
 			float warriors = totalpop * desiredWarriorRatio;
@@ -124,7 +124,7 @@ public class PlayerCountry {
 			fDeathRate = Math.min(1f, fDeathRate + 0.001f);
 		}
 		else{
-			fDeathRate = Math.max(0f, fDeathRate - 0.001f);	
+			fDeathRate = Math.max(0f, fDeathRate - 0.001f);
 		}
 
 		if (warriorWheat != 0) {
@@ -135,7 +135,7 @@ public class PlayerCountry {
 			wDeathRate = Math.min(1f, wDeathRate + 0.001f);
 		}
 		else{
-			wDeathRate = Math.max(0f, wDeathRate - 0.001f);	
+			wDeathRate = Math.max(0f, wDeathRate - 0.001f);
 		}
 
 		if (displacedEat) {
@@ -158,7 +158,7 @@ public class PlayerCountry {
 		}
 
 		//World.displacedPeople = land.addPop(World.displacedPeople);
-		
+
 		wheat.update(economy);
 		wheat.rot(wheatRot);
 		Wheat.globalRot(wheatRot);
@@ -174,7 +174,7 @@ public class PlayerCountry {
 				+ World.displacedWarriors;
 		World.displacedFarmers = 0;
 		World.displacedWarriors = 0;
-		
+
 		// ==============//
 		// Other Updates //
 		// ==============//
@@ -200,14 +200,14 @@ public class PlayerCountry {
 				country.tick();
 			}
 		}
-		
+
 		// =========//
 		// Autosave //
 		// =========//
 		if (year % Main.autoSaveInterval == 0){
 			ThreadManager.addJob(new SaveTask());
 		}
-		
+
 		// ======//
 		// Score //
 		// ======//
@@ -218,9 +218,9 @@ public class PlayerCountry {
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
-		aggression.update();
+		aggression.calculateAggressionScore(warrior.getwPop());
 	}
-	
+
 
 	/* Normal game loop */
 	/* returns if the display was closed */
