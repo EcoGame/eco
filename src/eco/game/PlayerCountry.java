@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
 
+import eco.neural.KingManager;
+
 /**
  *
  * Just a class to keep Main less cluttered
@@ -308,6 +310,7 @@ public class PlayerCountry {
 		int countriesToGenerate = 10;
 		for (int i = 0; i < countriesToGenerate; i++) {
 			countries.add(new Country(true, true, 0.15f, 0.85f));
+	        KingManager.periodicInit(i);
 		}
 		MenuBar.reset();
 		if (Util.doesSaveExist(Main.currentSave)) {

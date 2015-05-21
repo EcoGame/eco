@@ -102,10 +102,10 @@ public class KingManager {
 
 	public static void periodicInit(int currentnetwork) {
 
-		NeuronReader.connectionReader(currentnetwork);
-		NeuronReader.attributeReader(currentnetwork);
+		//NeuronReader.connectionReader(currentnetwork);
+		//NeuronReader.attributeReader(currentnetwork);
 		NeuralManager.axonPairing(currentnetwork);
-		NeuralManager.neuroMaker(currentnetwork);
+		NeuralManager.neuronMaker(currentnetwork);
 
 		for (int k = 0; Main.axonArray.length > k; k++) {
 			ConnectionHandler.connectionMaker(k,

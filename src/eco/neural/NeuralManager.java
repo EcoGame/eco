@@ -68,7 +68,7 @@ public class NeuralManager {
 		}
 	}
 
-	public static void neuroMaker(int currentnetwork) {
+	public static void neuronMaker(int currentnetwork) {
 		boolean isComplete = false;
 		int type = 0;
 		while (isComplete == false) {
