@@ -263,7 +263,7 @@ public class NeuralManager{
                 case 2:
                     for(int e = 0; e < Main.neuralArray[currentnetwork].length; e++){
                         if(Main.neuralArray[currentnetwork][e].alreadyfired == false){
-                            Main.neuralArray[currentnetwork][e].firecheck();
+                            Main.neuralArray[currentnetwork][e].firecheck(currentnetwork);
                             eur = Main.neuralArray[currentnetwork][e].pairedaxon;
                             Main.axonArray[currentnetwork][eur].neuroncheck(currentnetwork);
                             nofires++;
