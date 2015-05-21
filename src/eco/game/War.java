@@ -1,6 +1,15 @@
 package eco.game;
 
 public class War {
+	
+	/**
+	 * 
+	 * This class does war between the player and other countries
+	 * It figures out who wins, and what reparations are paid
+	 * 
+	 * @author phil
+	 * 
+	 */
 
 	public static int winLose = 0;
 	public static int wheatLoss = 0;

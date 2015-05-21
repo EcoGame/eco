@@ -53,7 +53,7 @@ public class MenuBar {
 			3, 2);
 
 	private static ToggleButton toggleCutTrees = new ToggleButton(900, 597, 25,
-			4, 2, 5, 2, false);
+			4, 2, 5, 2, true);
 
 	private static ToggleButton toggleForceConscription = new ToggleButton(900,
 			567, 25, 4, 2, 5, 2, true);

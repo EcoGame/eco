@@ -55,7 +55,7 @@ public class World {
 	public static float forestHeight = 0.25f; // The lower this is (can go down
 												// to -1), the more forests
 												// there will be
-	public static boolean cutForests = false; // Will forests be removed to
+	public static boolean cutForests = true; // Will forests be removed to
 												// build things
 
 	public static int woodPerHouse = 2;
@@ -568,7 +568,7 @@ public class World {
 			}
 			int realWoodUsed = PlayerCountry.wood.takeWood(woodused,
 					PlayerCountry.economy);
-			int woodDiff = woodused * 0 - realWoodUsed * 0;
+			int woodDiff = woodused - realWoodUsed;
 			oldFarmers = farmers
 					- Math.max(newfarmland, newhouses
 							+ (woodDiff / woodPerHouse));
@@ -754,9 +754,9 @@ public class World {
 					}
 				}
 			}
-			int realStoneUsed = PlayerCountry.wood.takeWood(stoneUsed,
+			int realStoneUsed = PlayerCountry.stone.takeStone(stoneUsed,
 					PlayerCountry.economy);
-			int stoneDiff = stoneUsed * 0 - realStoneUsed * 0;
+			int stoneDiff = stoneUsed - realStoneUsed;
 			oldWarriors = Math.max(0, warriors - newcastles - stoneDiff);
 			displacedWarriors = newcastles - stoneDiff;
 		} else {

@@ -19,7 +19,7 @@ public class Wood {
 	private int woodPrice = 100;
 	
 	public Wood(){
-		wood = 100;
+		wood = 1000;
 		rotRate = 0.90f;
 	}
 	
