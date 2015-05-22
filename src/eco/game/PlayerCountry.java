@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import eco.neural.KingManager;
-import eco.neural.NeuronReader;
+import eco.neural.NeuralManager;
 
 /**
  *
@@ -65,8 +65,6 @@ public class PlayerCountry {
 
 	/* Game tick */
 	public static void tick() {
-
-
 		// ==================//
 		// Population growth //
 		// ==================//
@@ -228,7 +226,7 @@ public class PlayerCountry {
 		// Neural Network //
 		// ===============//
 		for (int i = 0; i < countries.size(); i++) {
-	        KingManager.periodicInit(i);
+			NeuralManager.neuralTick(i);
 		}
 	}
 
@@ -319,8 +317,6 @@ public class PlayerCountry {
 		for (int i = 0; i < countriesToGenerate; i++) {
 			countries.add(new Country(true, true, 0.15f, 0.85f));
 	        KingManager.periodicInit(i);
-	        NeuronReader.attributeReader(i);
-	        NeuronReader.connectionReader(i);
 		}
 		MenuBar.reset();
 		if (Util.doesSaveExist(Main.currentSave)) {

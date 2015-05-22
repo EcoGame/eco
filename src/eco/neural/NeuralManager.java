@@ -192,6 +192,7 @@ public class NeuralManager {
 		int type = 0;
 		int eur = 0;
 
+		
 		while (iscomplete == false) {
 			switch (type) {
 			case 0:
@@ -208,7 +209,7 @@ public class NeuralManager {
 				}
 				type++;
 				break;
-			case 1:
+			case 2:
 				for (int e = 0; e < Main.neuralArray[currentnetwork].length; e++) {
 					if (Main.neuralArray[currentnetwork][e].alreadyFired == false) {
 						Main.neuralArray[currentnetwork][e].fireCheck();
@@ -219,8 +220,9 @@ public class NeuralManager {
 					}
 				}
 				type++;
+				iscomplete = true;
 				break;
-			case 2:
+			case 1:
 				for (int k = 0; k < Main.outputNeuralArray[currentnetwork].length; k++) {
 					if (Main.outputNeuralArray[currentnetwork][k].alreadyFired == false) {
 						Main.outputNeuralArray[currentnetwork][k]
@@ -232,14 +234,12 @@ public class NeuralManager {
 					}
 				}
 				type++;
-				iscomplete = true;
 				break;
 			}
 		}
 	}
 
 	public static void neuralTick(int currentnetwork) {
-
 		int iteration = 0;
 		boolean isComplete = false;
 		int brainLength = 4;

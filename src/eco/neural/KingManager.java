@@ -102,8 +102,8 @@ public class KingManager {
 
 	public static void periodicInit(int currentnetwork) {
 
-		//NeuronReader.connectionReader(currentnetwork);
-		//NeuronReader.attributeReader(currentnetwork);
+		NeuronReader.connectionReader(currentnetwork);
+		NeuronReader.attributeReader(currentnetwork);
 		NeuralManager.axonPairing(currentnetwork);
 		NeuralManager.neuronMaker(currentnetwork);
 
