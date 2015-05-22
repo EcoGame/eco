@@ -26,7 +26,7 @@ public class Main {
 
 	public static final String vn = "Beta 1.1.3";
 
-	public static int framesPerTick = 8;
+	public static int framesPerTick = 18;
 	public static int frame = 0;
 	
 	public static boolean renderPopMap = false;
