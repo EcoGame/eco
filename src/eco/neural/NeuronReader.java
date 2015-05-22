@@ -21,7 +21,7 @@ public class NeuronReader {
 		int axonId;
 		int filler;
 		try {
-			File file = new File("./eco/txt/connections" + num + ".txt");
+			File file = new File("../neurons/connections" + num + ".ann");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			StringBuffer stringBuffer = new StringBuffer();
@@ -90,7 +90,7 @@ public class NeuronReader {
 		int stream;
 		int filler;
 		try {
-			File file = new File("./eco/txt/neuron" + num + ".txt");
+			File file = new File("../neurons/neuron" + num + ".ann");
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			StringBuffer stringBuffer = new StringBuffer();

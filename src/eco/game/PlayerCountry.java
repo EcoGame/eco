@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import eco.neural.KingManager;
+import eco.neural.NeuronReader;
 
 /**
  *
@@ -222,6 +223,13 @@ public class PlayerCountry {
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
 		aggression.calculateAggressionScore(warrior.getwPop());
+		
+		// ===============//
+		// Neural Network //
+		// ===============//
+		for (int i = 0; i < countries.size(); i++) {
+	        KingManager.periodicInit(i);
+		}
 	}
 
 
@@ -311,6 +319,8 @@ public class PlayerCountry {
 		for (int i = 0; i < countriesToGenerate; i++) {
 			countries.add(new Country(true, true, 0.15f, 0.85f));
 	        KingManager.periodicInit(i);
+	        NeuronReader.attributeReader(i);
+	        NeuronReader.connectionReader(i);
 		}
 		MenuBar.reset();
 		if (Util.doesSaveExist(Main.currentSave)) {

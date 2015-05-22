@@ -209,6 +209,18 @@ public class NeuralManager {
 				type++;
 				break;
 			case 1:
+				for (int e = 0; e < Main.neuralArray[currentnetwork].length; e++) {
+					if (Main.neuralArray[currentnetwork][e].alreadyFired == false) {
+						Main.neuralArray[currentnetwork][e].fireCheck();
+						eur = Main.neuralArray[currentnetwork][e].pairedAxon;
+						Main.axonArray[currentnetwork][eur]
+								.neuronCheck(currentnetwork);
+						noFires++;
+					}
+				}
+				type++;
+				break;
+			case 2:
 				for (int k = 0; k < Main.outputNeuralArray[currentnetwork].length; k++) {
 					if (Main.outputNeuralArray[currentnetwork][k].alreadyFired == false) {
 						Main.outputNeuralArray[currentnetwork][k]
@@ -220,19 +232,8 @@ public class NeuralManager {
 					}
 				}
 				type++;
-				break;
-			case 2:
-				for (int e = 0; e < Main.neuralArray[currentnetwork].length; e++) {
-					if (Main.neuralArray[currentnetwork][e].alreadyFired == false) {
-						Main.neuralArray[currentnetwork][e].fireCheck();
-						eur = Main.neuralArray[currentnetwork][e].pairedAxon;
-						Main.axonArray[currentnetwork][eur]
-								.neuronCheck(currentnetwork);
-						noFires++;
-					}
-				}
-				type++;
 				iscomplete = true;
+				break;
 			}
 		}
 	}
