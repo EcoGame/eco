@@ -1,5 +1,14 @@
 package eco.game;
 
+/**
+*
+* This class does splash texts
+*
+* @Author Phil
+*
+**/
+ 
+
 import java.util.Random;
 
 public class SplashText {
@@ -10,9 +19,6 @@ public class SplashText {
 	
 	static{
 		splashes = new String[]{
-				//======//
-				// Phil //
-				//======//
 				"95% Stable",
 				"Thousands of bugs!",
 				"Artifical but not intelligent",
@@ -20,10 +26,6 @@ public class SplashText {
 				"10,000 lines!",
 				"Multicultural!",
 				"Wait wait wait, is it a simulation or a game?",
-				
-				//======//
-				// Nate //
-				//======//
 				"Go inject your bubby somewhere else",
 				"Your turn to be a conquistador!",
 				"How many of these are there?",
