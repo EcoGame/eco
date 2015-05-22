@@ -265,7 +265,7 @@ public class MenuBar {
 				}
 			}
 			if (toggleFast.checkForClick()) {
-				Main.framesPerTick = 3;
+				Main.framesPerTick = 9;
 				toggleFast.setToggle(true);
 				toggleSlow.setToggle(false);
 				toggleNormal.setToggle(false);
@@ -273,7 +273,7 @@ public class MenuBar {
 				toggleVeryFast.setToggle(false);
 			}
 			if (toggleSlow.checkForClick()) {
-				Main.framesPerTick = 13;
+				Main.framesPerTick = 36;
 				toggleFast.setToggle(false);
 				toggleSlow.setToggle(true);
 				toggleNormal.setToggle(false);
@@ -281,7 +281,7 @@ public class MenuBar {
 				toggleVeryFast.setToggle(false);
 			}
 			if (toggleNormal.checkForClick()) {
-				Main.framesPerTick = 8;
+				Main.framesPerTick = 18;
 				toggleFast.setToggle(false);
 				toggleSlow.setToggle(false);
 				toggleNormal.setToggle(true);
@@ -289,7 +289,7 @@ public class MenuBar {
 				toggleVeryFast.setToggle(false);
 			}
 			if (toggleVeryFast.checkForClick()) {
-				Main.framesPerTick = 1;
+				Main.framesPerTick = 3;
 				toggleFast.setToggle(false);
 				toggleSlow.setToggle(false);
 				toggleNormal.setToggle(false);
