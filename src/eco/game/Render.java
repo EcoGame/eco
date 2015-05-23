@@ -567,7 +567,6 @@ public class Render {
 		if (name.equals("")) {
 			return;
 		}
-		GL11.glShadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

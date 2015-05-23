@@ -49,8 +49,8 @@ public class World {
 	public static int extraWarriors = 0;
 
 	public static int farmsPerTile = 5;
-	public static int housesPerTile = 100;
-	public static int castlesPerTile = 50;
+	public static int housesPerTile = 250;
+	public static int castlesPerTile = 125;
 
 	public static float forestHeight = 0.25f; // The lower this is (can go down
 												// to -1), the more forests
@@ -434,7 +434,7 @@ public class World {
 			while (newfarmland > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.75f) {
+				if (calcAcres() / (float) totalAcres >= 1.0f) {
 					while (map[rand.getX()][rand.getY()] != 1
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
 									.getX()][rand.getY()] == 4)) {
@@ -526,7 +526,7 @@ public class World {
 			while (newhouses > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.75f) {
+				if (calcAcres() / (float) totalAcres >= 1.0f) {
 					while (map[rand.getX()][rand.getY()] != 1
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand
 									.getX()][rand.getY()] == 4)) {
@@ -713,7 +713,7 @@ public class World {
 			while (newcastles > 0 && validLocs.size() > 0) {
 				Point rand = new Point(random.nextInt(mapsize),
 						random.nextInt(mapsize));
-				if (calcAcres() / (float) totalAcres >= 0.75f) {
+				if (calcAcres() / (float) totalAcres >= 1.0f) {
 					while ((map[rand.getX()][rand.getY()] != 1 && map[rand
 							.getX()][rand.getY()] != 3)
 							&& (structures[rand.getX()][rand.getY()] == 0 || structures[rand

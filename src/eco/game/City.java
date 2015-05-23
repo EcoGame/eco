@@ -87,7 +87,7 @@ public class City {
 	public void updatePop(int newpop) {
 		Random random = new Random();
 		if (newpop - pop > 0) {
-			int buildings = (int) Math.ceil(newpop / 6f);
+			int buildings = (int) Math.ceil(newpop / 15f);
 			int oldbuildings = getSize();
 			int deltabuildings = buildings - oldbuildings;
 			while (deltabuildings > 0) {
@@ -105,7 +105,7 @@ public class City {
 			}
 			pop = newpop;
 		} else {
-			int buildings = (int) Math.ceil(newpop / 6f);
+			int buildings = (int) Math.ceil(newpop / 15f);
 			int oldbuildings = getSize();
 			int deltabuildings = oldbuildings - buildings;
 

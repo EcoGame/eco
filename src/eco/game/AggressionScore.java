@@ -4,7 +4,9 @@ public class AggressionScore {
 
 	public int aggressionScore;
 
+	@SuppressWarnings("unused")
 	private static int min = 0;
+	@SuppressWarnings("unused")
 	private static int max = 100;
 
 	public AggressionScore(){

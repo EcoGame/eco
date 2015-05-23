@@ -248,23 +248,96 @@ public class MeshTask implements Runnable {
 		texture[texindex + 7] = Render.atlas.getCoord(tey, true);
 		
 		int colorindex = index / 3 * 4;
-		colors[colorindex] = color;
-		colors[colorindex + 1] = color;
-		colors[colorindex + 2] = color;
-		colors[colorindex + 3] = alpha;
-		colors[colorindex + 4] = color;
-		colors[colorindex + 5] = color;
-		colors[colorindex + 6] = color;
-		colors[colorindex + 7] = alpha;
-		colors[colorindex + 8] = color;
-		colors[colorindex + 9] = color;
-		colors[colorindex + 10] = color;
-		colors[colorindex + 11] = alpha;
-		colors[colorindex + 12] = color;
-		colors[colorindex + 13] = color;
-		colors[colorindex + 14] = color;
-		colors[colorindex + 15] = alpha;
+		
+		if (World.getHeight((int) x + 1, (int) y + 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex] = color - 0.1f;
+			colors[colorindex + 1] = color - 0.1f;
+			colors[colorindex + 2] = color - 0.1f;
+			colors[colorindex + 3] = alpha;
+		} else if (World.getHeight((int) x + 1, (int) y) > World.getHeight((int) x, (int) y)){
+			colors[colorindex] = color - 0.05f;
+			colors[colorindex + 1] = color - 0.05f;
+			colors[colorindex + 2] = color - 0.05f;
+			colors[colorindex + 3] = alpha;
+		} else if (World.getHeight((int) x, (int) y + 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex] = color - 0.05f;
+			colors[colorindex + 1] = color - 0.05f;
+			colors[colorindex + 2] = color - 0.05f;
+			colors[colorindex + 3] = alpha;
+		} else{
+			colors[colorindex] = color;
+			colors[colorindex + 1] = color;
+			colors[colorindex + 2] = color;
+			colors[colorindex + 3] = alpha;
+		}
+		
+		if (World.getHeight((int) x - 1, (int) y + 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 4] = color - 0.1f;
+			colors[colorindex + 5] = color - 0.1f;
+			colors[colorindex + 6] = color - 0.1f;
+			colors[colorindex + 7] = alpha;
+		} else if (World.getHeight((int) x - 1, (int) y) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 4] = color - 0.05f;
+			colors[colorindex + 5] = color - 0.05f;
+			colors[colorindex + 6] = color - 0.05f;
+			colors[colorindex + 7] = alpha;
+		} else if (World.getHeight((int) x, (int) y + 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 4] = color - 0.05f;
+			colors[colorindex + 5] = color - 0.05f;
+			colors[colorindex + 6] = color - 0.05f;
+			colors[colorindex + 7] = alpha;
+		} else{
+			colors[colorindex + 4] = color;
+			colors[colorindex + 5] = color;
+			colors[colorindex + 6] = color;
+			colors[colorindex + 7] = alpha;
+		}
+		
+		if (World.getHeight((int) x - 1, (int) y - 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 8] = color - 0.1f;
+			colors[colorindex + 9] = color - 0.1f;
+			colors[colorindex + 10] = color - 0.1f;
+			colors[colorindex + 11] = alpha;
+		} else if (World.getHeight((int) x - 1, (int) y) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 8] = color - 0.05f;
+			colors[colorindex + 9] = color - 0.05f;
+			colors[colorindex + 10] = color - 0.05f;
+			colors[colorindex + 11] = alpha;
+		} else if (World.getHeight((int) x, (int) y - 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 8] = color - 0.05f;
+			colors[colorindex + 9] = color - 0.05f;
+			colors[colorindex + 10] = color - 0.05f;
+			colors[colorindex + 11] = alpha;
+		} else{
+			colors[colorindex + 8] = color;
+			colors[colorindex + 9] = color;
+			colors[colorindex + 10] = color;
+			colors[colorindex + 11] = alpha;
+		}
+		
+		if (World.getHeight((int) x + 1, (int) y - 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 12] = color - 0.1f;
+			colors[colorindex + 13] = color - 0.1f;
+			colors[colorindex + 14] = color - 0.1f;
+			colors[colorindex + 15] = alpha;
+		} else if (World.getHeight((int) x + 1, (int) y) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 12] = color - 0.05f;
+			colors[colorindex + 13] = color - 0.05f;
+			colors[colorindex + 14] = color - 0.05f;
+			colors[colorindex + 15] = alpha;
+		} else if (World.getHeight((int) x, (int) y - 1) > World.getHeight((int) x, (int) y)){
+			colors[colorindex + 12] = color - 0.05f;
+			colors[colorindex + 13] = color - 0.05f;
+			colors[colorindex + 14] = color - 0.05f;
+			colors[colorindex + 15] = alpha;
+		} else{
+			colors[colorindex + 12] = color;
+			colors[colorindex + 13] = color;
+			colors[colorindex + 14] = color;
+			colors[colorindex + 15] = alpha;
+		}
 
+		
 		vertex[index] = -x * tilesize - offset;
 		vertex[index + 1] = height;
 		vertex[index + 2] = -y * tilesize - offset;
