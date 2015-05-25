@@ -7,9 +7,9 @@ import java.io.IOException;
 
 /**
  * A class that manages the network
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class KingManager {
@@ -107,7 +107,7 @@ public class KingManager {
 		NeuralManager.axonPairing(currentnetwork);
 		NeuralManager.neuronMaker(currentnetwork);
 
-		for (int k = 0; Main.axonArray.length > k; k++) {
+		for (int k = 0; Main.axonArray[currentnetwork].length > k; k++) {
 			ConnectionHandler.connectionMaker(k,
 					Main.axonArray[currentnetwork][k].typeBondedTo,
 					currentnetwork);

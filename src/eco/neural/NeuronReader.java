@@ -7,9 +7,9 @@ import java.io.IOException;
 
 /**
  * A class that handles reading the neurons
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class NeuronReader {
@@ -68,7 +68,7 @@ public class NeuronReader {
 						for (int k = 0; k < Main.axonArraytofill[num][type][axonId][x].length; k++) {
 							Main.axonArraytofill[num][type][axonId][x][k] = Integer
 									.parseInt(tokenSpace[2 + (x * 2) + k]);
-                            System.out.println("f" +Main.axonArraytofill[num][type][axonId][x][k]);
+                          //  System.out.println("f" +Main.axonArraytofill[num][type][axonId][x][k]);
 						}
 					}
 					break;
@@ -108,7 +108,7 @@ public class NeuronReader {
 					neuronid = Integer.parseInt(tokenSpace[1])
 							- Main.INPUT_ID_OFFSET;
 
-					
+
 						Main.neuronArrayfill[num][type][neuronid][0] = Integer
 								.parseInt(tokenSpace[2]);
                         Main.neuronArrayfill[num][type][neuronid][1] = Integer

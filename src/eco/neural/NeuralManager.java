@@ -3,14 +3,14 @@ package eco.neural;
 
 /**
  * A class that manages the neural network
- * 
+ *
  * @author will
  * @param parentOne
  *            the chromosome of the first parent
  * @param parentTwo
  *            the chromosome of the second parent
  * @return a new semirandom child chromosome
- * 
+ *
  */
 public class NeuralManager {
 	public static eco.game.Country Countries[] = new eco.game.Country[10];
@@ -33,6 +33,7 @@ public class NeuralManager {
 					Main.axonArray[currentnetwork][id].typeBondedTo = 0;
 					Main.axonArray[currentnetwork][id].id = id;
 					id++;
+
 				}
 				type++;
 				break;
@@ -45,6 +46,7 @@ public class NeuralManager {
 					Main.axonArray[currentnetwork][id].typeBondedTo = 1;
 					Main.axonArray[currentnetwork][id].id = id;
 					id++;
+
 				}
 				type++;
 				break;
@@ -57,6 +59,7 @@ public class NeuralManager {
 					Main.axonArray[currentnetwork][id].typeBondedTo = 2;
 					Main.axonArray[currentnetwork][id].id = id;
 					id++;
+				
 				}
 				type++;
 				break;
@@ -195,7 +198,7 @@ public class NeuralManager {
 		int type = 0;
 		int eur = 0;
 
-		
+
 		while (iscomplete == false) {
 			switch (type) {
 			case 0:
@@ -252,7 +255,7 @@ public class NeuralManager {
 				isComplete = true;
 			}
 			for (int y = 0; y < brainLength; y++) {
-                System.out.println("fda");
+            //    System.out.println("fda");
 				neuronAddCheck(currentnetwork);
 				fireAllNeurons(currentnetwork);
 			}

@@ -2,9 +2,9 @@ package eco.neural;
 
 /**
  * This class does something
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class OutputNeuron {
@@ -25,10 +25,11 @@ public class OutputNeuron {
 
 	public int fireCheck(int currentnetwork) {
 		fired = 0;
+		//System.out.println("outputCurrentvalue" + currentValue + "id" + id + "paired axon" +pairedAxon);
 		if (currentValue > fireValue) {
 			fired = 1;
-			 System.out.println("outputneuron " + id + " pairedaxon "+
-			 pairedAxon + " current value "+ currentValue);
+	//		 System.out.println("outputneuron " + id + " pairedaxon "+
+		//	 pairedAxon + " current value "+ currentValue);
 			alreadyFired = true;
 			OutputActions.actions(action, currentnetwork);
 		}

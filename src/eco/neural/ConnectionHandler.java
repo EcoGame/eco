@@ -2,15 +2,15 @@ package eco.neural;
 
 /**
  * A class that handles connections
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class ConnectionHandler {
 
 	public static void connectionMaker(int k, int type, int currentnetwork) {
-        System.out.println("diags" + k + type + currentnetwork);
+      // System.out.println("diags" + k  + " type"+ type + "curr" +currentnetwork);
 		switch (type) {
 
 		case 0:
@@ -29,6 +29,7 @@ public class ConnectionHandler {
 			for (int x = 0; x < Main.axonArray[currentnetwork][k].connections.length; x++) {
 				for (int q = 0; q < Main.axonArray[currentnetwork][k].connections[x].length; q++) {
 					Main.axonArray[currentnetwork][k].connections[x][q] = Main.axonArraytofill[currentnetwork][type][u][x][q];
+					//System.out.println(Main.axonArray[currentnetwork][k].connections[x][q]+ "output");
 				}
 			}
 			break;
@@ -38,7 +39,7 @@ public class ConnectionHandler {
 			for (int x = 0; x < Main.axonArray[currentnetwork][k].connections.length; x++) {
 				for (int q = 0; q < Main.axonArray[currentnetwork][k].connections[x].length; q++) {
 					Main.axonArray[currentnetwork][k].connections[x][q] = Main.axonArraytofill[currentnetwork][type][u][x][q];
-                    System.out.println(Main.axonArray[currentnetwork][k].connections[x][q] + "important numbers");
+                  //  System.out.println(Main.axonArray[currentnetwork][k].connections[x][q] + "important numbers");
 				}
 			}
 			break;

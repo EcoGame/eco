@@ -27,7 +27,7 @@ public class InputStream {
 
 		case 4:
 		}
-       // System.out.println("k"+ k);
+    //    System.out.println("k"+ k);
 		return k;
 	}
 

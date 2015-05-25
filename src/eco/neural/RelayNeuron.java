@@ -2,9 +2,9 @@ package eco.neural;
 
 /**
  * This class does something
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class RelayNeuron {
@@ -22,10 +22,10 @@ public class RelayNeuron {
 	}
 
 	public int fireCheck() {
-
+	//	System.out.println("RelayCurrentvalue" + currentValue + "id" + id + "paired axon" +pairedAxon);
 		if (currentValue > fireValue) {
 			fired = 1;
-            System.out.println("df");
+          //  System.out.println("df");
 			// System.out.println("relayneuron " + id + " pairedaxon "+
 			// pairedaxon + " current value "+ currentvalue); alreadyfired =
 			// true;
