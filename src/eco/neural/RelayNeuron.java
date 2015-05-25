@@ -25,6 +25,7 @@ public class RelayNeuron {
 
 		if (currentValue > fireValue) {
 			fired = 1;
+            System.out.println("df");
 			// System.out.println("relayneuron " + id + " pairedaxon "+
 			// pairedaxon + " current value "+ currentvalue); alreadyfired =
 			// true;

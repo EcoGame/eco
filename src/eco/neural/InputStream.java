@@ -7,26 +7,27 @@ public class InputStream {
 		switch (id) {
 
 		case 0:
-			k = NeuralManager.Countries[currentnetwork].farmer.getfPop() * 100;
-
+               // System.out.println(currentnetwork +"fasd");
+			k = NeuralManager.Countries[currentnetwork].farmer.getfPop();
+          //  System.out.println(NeuralManager.Countries[currentnetwork].farmer.//getfPop()+" af");
 			break;
 
 		case 1:
-			k = NeuralManager.Countries[currentnetwork].warrior.getwPop() * 100;
+			k = NeuralManager.Countries[currentnetwork].warrior.getwPop();
 
 			break;
 		case 2:
-			k = NeuralManager.Countries[currentnetwork].wheat.gettWheat() * 100;
+			k = NeuralManager.Countries[currentnetwork].wheat.gettWheat();
 
 			break;
 
 		case 3:
-			k = NeuralManager.Countries[currentnetwork].economy.getTreasury() * 100;
+			k = NeuralManager.Countries[currentnetwork].economy.getTreasury();
 			break;
 
 		case 4:
 		}
-
+       // System.out.println("k"+ k);
 		return k;
 	}
 

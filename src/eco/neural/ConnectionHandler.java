@@ -10,7 +10,7 @@ package eco.neural;
 public class ConnectionHandler {
 
 	public static void connectionMaker(int k, int type, int currentnetwork) {
-
+        System.out.println("diags" + k + type + currentnetwork);
 		switch (type) {
 
 		case 0:
@@ -38,6 +38,7 @@ public class ConnectionHandler {
 			for (int x = 0; x < Main.axonArray[currentnetwork][k].connections.length; x++) {
 				for (int q = 0; q < Main.axonArray[currentnetwork][k].connections[x].length; q++) {
 					Main.axonArray[currentnetwork][k].connections[x][q] = Main.axonArraytofill[currentnetwork][type][u][x][q];
+                    System.out.println(Main.axonArray[currentnetwork][k].connections[x][q] + "important numbers");
 				}
 			}
 			break;

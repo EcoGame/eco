@@ -27,8 +27,8 @@ public class OutputNeuron {
 		fired = 0;
 		if (currentValue > fireValue) {
 			fired = 1;
-			// System.out.println("outputneuron " + id + " pairedaxon "+
-			// pairedaxon + " current value "+ currentvalue);
+			 System.out.println("outputneuron " + id + " pairedaxon "+
+			 pairedAxon + " current value "+ currentValue);
 			alreadyFired = true;
 			OutputActions.actions(action, currentnetwork);
 		}

@@ -68,7 +68,7 @@ public class NeuronReader {
 						for (int k = 0; k < Main.axonArraytofill[num][type][axonId][x].length; k++) {
 							Main.axonArraytofill[num][type][axonId][x][k] = Integer
 									.parseInt(tokenSpace[2 + (x * 2) + k]);
-
+                            System.out.println("f" +Main.axonArraytofill[num][type][axonId][x][k]);
 						}
 					}
 					break;
@@ -108,10 +108,11 @@ public class NeuronReader {
 					neuronid = Integer.parseInt(tokenSpace[1])
 							- Main.INPUT_ID_OFFSET;
 
-					for (int x = 0; Main.neuronArrayfill[num][type][neuronid].length > x; x++) {
-						Main.neuronArrayfill[num][type][neuronid][x] = Integer
-								.parseInt(tokenSpace[2 + x]);
-					}
+					
+						Main.neuronArrayfill[num][type][neuronid][0] = Integer
+								.parseInt(tokenSpace[2]);
+                        Main.neuronArrayfill[num][type][neuronid][1] = Integer
+                        .parseInt(tokenSpace[3]);
 					break;
 				case 'b':
 					type = 1;

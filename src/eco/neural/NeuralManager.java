@@ -78,6 +78,7 @@ public class NeuralManager {
 				for (int x = 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++) {
 					Main.inputNeuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 					Main.inputNeuralArray[currentnetwork][x].stream = Main.neuronArrayfill[currentnetwork][type][x][1];
+                    //System.out.println(Main.neuronArrayfill[currentnetwork][type][x][1]);
 				}
 				type++;
 				break;
@@ -160,21 +161,23 @@ public class NeuralManager {
 			case 1:
 				for (int k = 0; k < Main.outputNeuralArray[currentnetwork].length; k++) {
 					eur = Main.outputNeuralArray[currentnetwork][k].pairedAxon;
+                   // System.out.println("f" + eur);
 					Main.axonArray[currentnetwork][eur]
 							.pullFires(currentnetwork);
 					Main.outputNeuralArray[currentnetwork][k].currentValue = Main.axonArray[currentnetwork][eur].transferValue;
 					// Main.outputneuralArray[k].firecheck();
-					// Main.axonArray[eur].neuroncheck();
+					 //Main.axonArray[eur].neuroncheck();
 				}
 				type++;
 				break;
 			case 2:
 				for (int e = 0; e < Main.neuralArray[currentnetwork].length; e++) {
 					eur = Main.neuralArray[currentnetwork][e].pairedAxon;
+                 //  System.out.println("a" + eur);
 					Main.axonArray[currentnetwork][eur]
 							.pullFires(currentnetwork);
 					Main.neuralArray[currentnetwork][e].currentValue = Main.axonArray[currentnetwork][eur].transferValue;
-					// Main.outputneuralArray[e].firecheck();
+					 //Main.outputneuralArray[e].firecheck();
 					// Main.axonArray[eur].neuroncheck();
 				}
 				isComplete = true;
@@ -249,6 +252,7 @@ public class NeuralManager {
 				isComplete = true;
 			}
 			for (int y = 0; y < brainLength; y++) {
+                System.out.println("fda");
 				neuronAddCheck(currentnetwork);
 				fireAllNeurons(currentnetwork);
 			}

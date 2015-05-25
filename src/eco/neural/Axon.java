@@ -36,6 +36,7 @@ public class Axon {
 			int e = 0;
 			for (int r = 0; r < Main.axonArraytofill[typeBondedTo].length; r++) {
 				e = connections[r][0];
+                
 				transferValue = transferValue
 						+ (connections[r][1] * Main.axonArray[currentnetwork][e].fired);
 			}
@@ -45,6 +46,7 @@ public class Axon {
 			int k = 0;
 			for (int r = 0; r < Main.axonArraytofill[typeBondedTo].length; r++) {
 				k = connections[r][0];
+                System.out.println(k+ "k");
 				transferValue = transferValue
 						+ (connections[r][1] * Main.axonArray[currentnetwork][k].fired);
 			}
