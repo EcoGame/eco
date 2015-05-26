@@ -34,7 +34,7 @@ public class Util {
 				switch (type) {
 
 				case 0:
-					for (int r = 0; r < 10; r++) {
+					for (int r = 0; r < Main.inputNeuralArray[p].length; r++) {
 						BW.write("a " + r + " 0 0 0 0 0 0 0 0 0 0 0 0 0");
 						BW.newLine();
 					}
@@ -71,7 +71,7 @@ public class Util {
 					break;
 				case 2:
 					for (int k = 0; k < Main.neuralArray[p].length; k++) {
-						BW.write("b "
+						BW.write("c "
 								+ k
 								+ " "
 								+ Main.axonArraytoprint[p][type][k][0][0]
@@ -129,7 +129,7 @@ public class Util {
 				switch (type) {
 
 				case 0:
-					for (int r = 0; r < 10; r++) {
+					for (int r = 0; r < Main.inputNeuralArray[p].length; r++) {
 						BW.write("a "
 								+ r
 								+ " "
@@ -142,7 +142,7 @@ public class Util {
 					break;
 
 				case 1:
-					for (int k = 0; k < 10; k++) {
+					for (int k = 0; k < Main.outputNeuralArray[p].length; k++) {
 						BW.write("b "
 								+ (k + Main.OUTPUT_ID_OFFSET)
 								+ " "
@@ -154,7 +154,7 @@ public class Util {
 					type++;
 					break;
 				case 2:
-					for (int k = 0; k < 10; k++) {
+					for (int k = 0; k < Main.nueralArray[p].length; k++) {
 						BW.write("c "
 								+ (k + Main.RELAY_ID_OFFSET)
 								+ " "
