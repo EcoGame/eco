@@ -60,6 +60,7 @@ switch(type){
 int type = 0;
 boolean iscomplete = false;
 for(int k = 0; k < Main.workingnetworks.length; k++){
+	type = 0;
 	iscomplete = false;
 	while(iscomplete == false){
 	switch(type){
