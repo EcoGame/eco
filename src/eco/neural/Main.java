@@ -2,9 +2,9 @@ package eco.neural;
 
 /**
  * A class that acts as the main class for the neural package
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class Main {
@@ -15,6 +15,7 @@ public class Main {
 	public static Axon[][] axonArray = new Axon[10][30];
 	public static int[][][][][] axonArraytofill = new int[10][3][10][5][2];
 	public static int[][][][] neuronArrayfill = new int[10][3][10][2];
+	public static int[][] highOrLow = new int[10][1];
 	public static int[][][][][] axonArraytoprint = new int[10][3][10][5][2];
 	public static int[][][][] neuronArrayprint = new int[10][3][10][2];
 	public static boolean[] workingnetworks = new boolean[10];

@@ -59,7 +59,7 @@ public class NeuralManager {
 					Main.axonArray[currentnetwork][id].typeBondedTo = 2;
 					Main.axonArray[currentnetwork][id].id = id;
 					id++;
-				
+
 				}
 				type++;
 				break;
@@ -81,7 +81,12 @@ public class NeuralManager {
 				for (int x = 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++) {
 					Main.inputNeuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 					Main.inputNeuralArray[currentnetwork][x].stream = Main.neuronArrayfill[currentnetwork][type][x][1];
-                    //System.out.println(Main.neuronArrayfill[currentnetwork][type][x][1]);
+          if(Main.highOrLow[x][0] == 0){
+						Main.inputNeuralArray[currentnetwork][x].highOrLow = false;
+					}
+
+
+
 				}
 				type++;
 				break;

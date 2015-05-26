@@ -2,9 +2,9 @@ package eco.neural;
 
 /**
  * A class that handles input
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class InputNeuron {
@@ -28,9 +28,15 @@ public class InputNeuron {
 			if (input > fireValue) {
 				fired = 1;
               //  System.out.println("fire high");
+
+			}else{
+				fired = 0;
 			}
+
 		} else {
 			if (input < fireValue) {
+				fired = 1;
+			} else {
 				fired = 0;
 			}
 		}

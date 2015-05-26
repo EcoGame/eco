@@ -113,6 +113,8 @@ public class NeuronReader {
 								.parseInt(tokenSpace[2]);
                         Main.neuronArrayfill[num][type][neuronid][1] = Integer
                         .parseInt(tokenSpace[3]);
+												Main.highOrLow[neuronid][0] = Integer
+                        .parseInt(tokenSpace[4]);
 					break;
 				case 'b':
 					type = 1;
