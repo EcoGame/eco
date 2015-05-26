@@ -12,9 +12,9 @@ import java.io.OutputStreamWriter;
 
 /**
  * A class that contains various utilities and convenience methods
- * 
+ *
  * @author connor
- * 
+ *
  */
 
 public class Util {
