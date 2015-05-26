@@ -18,6 +18,8 @@ public class Country {
 	public Economy economy = new Economy();
 	public Wheat wheat = new Wheat();
 	public Land land = new Land();
+	public Wood wood = new Wood();
+	public Stone stone = new Stone();
 
 	// ==================//
 	// Country Variables //
@@ -44,6 +46,10 @@ public class Country {
 	public static float wheatRot = PlayerCountry.wheatRot;
 
 	public int landsize;
+	
+	public boolean cutForests = false;
+	
+	public boolean forceConscription = false;
 
 	public boolean dead = false;
 
@@ -98,6 +104,16 @@ public class Country {
 		warrior.addPop(newWarriors);
 		warrior.setOldWPop(warrior.getwPop());
 		farmer.setOldFPop(farmer.getfPop());
+		
+		if (forceConscription){
+			float totalpop = farmer.getFloatFPop() + warrior.getFloatWPop();
+			float warriors = totalpop * desiredWarriorRatio;
+			float farmers = totalpop - warriors;
+			warrior.setwPop((int) warriors);
+			warrior.setFloatWPop(warriors);
+			farmer.setfHunger((int) farmers);
+			farmer.setFloatFPop(farmers);
+		}
 
 		// ====================//
 		// Hunger Calculations //
