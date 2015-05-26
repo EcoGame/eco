@@ -12,7 +12,7 @@ public class GeneticMaster {
 		System.out.println("yay for polan");
 		Counties = eco.game.Util.getCountries();
 		selectParents();
-		System.out.println(numhighfit +" go fock urself "+ ndnumhighfit);
+		System.out.println(numhighfit +" gof "+ ndnumhighfit);
 		attributeBreeder(numhighfit, ndnumhighfit);
 		connectionBreeder(numhighfit, ndnumhighfit);
 		NeuronReader.generation++;
