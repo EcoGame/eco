@@ -7,6 +7,7 @@ public class InputStream {
 	static int oldwheat = 0;
 	public static int readInput(int currentnetwork, int id) {
 		int k = 0;
+		int q = 0;
 		switch (id) {
 
 		case 0:
@@ -37,92 +38,92 @@ public class InputStream {
 	break;
 
 		case 6:
-		k = wheatchange(currentnetwork);
+		k = wheatChange(currentnetwork);
 		break ;
 
 		case 7:
-		k = wheatchange(currentnetwork);
+		k = wheatChange(currentnetwork);
 		break ;
 		case 8:
-		int q = 0;
+		q = 0;
 		k = getagression(currentnetwork , q);
 		break;
 		case 9:
-		int q = 1;
+		q = 1;
 		k = getagression(currentnetwork , q);
 		break;
 		case 10:
-		int q = 2;
+		q = 2;
 		k = getagression(currentnetwork , q);
 		break;
 		case 11:
-		int q = 3;
+		q = 3;
 		k = getagression(currentnetwork , q);
 		break;
 		case 12:
-		int q = 4;
+		q = 4;
 		k = getagression(currentnetwork , q);
 		break;
 		case 13:
-		int q = 5;
+		q = 5;
 		k = getagression(currentnetwork , q);
 		break;
 		case 14:
-		int q = 6;
+		q = 6;
 		k = getagression(currentnetwork , q);
 		break;
 		case 15:
-		int q = 7;
+		q = 7;
 		k = getagression(currentnetwork , q);
 		break;
 		case 16:
-		int q = 8;
+		q = 8;
 		k = getagression(currentnetwork , q);
 		break;
 		case 17:
-		int q = 9;
+		q = 9;
 		k = getagression(currentnetwork , q);
 		break;
 
 
 	case 18:
-	int q = 0;
+	q = 0;
 	k = warriorratio(currentnetwork, q);
  break;
 	case 19:
-	int q = 1;
+	q = 1;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 20:
-	int q = 2;
+	q = 2;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 21:
-	int q = 3;
+	q = 3;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 22:
-	int q = 4;
+	q = 4;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 23:
-	int q = 5;
+	q = 5;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 24:
-	int q = 6;
+	q = 6;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 25:
-	int q = 7;
+	q = 7;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 26:
-	int q = 8;
+	q = 8;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 27:
-	int q = 9;
+	q = 9;
 	k = warriorratio(currentnetwork, q);
 	break;
 	case 28:
