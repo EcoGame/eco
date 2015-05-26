@@ -2,9 +2,9 @@ package eco.game;
 
 /**
  * This class handles visual display of debug information
- * 
+ *
  * @author phil, connor, nate, will
- * 
+ *
  */
 
 public class OutputManager {

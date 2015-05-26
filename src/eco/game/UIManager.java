@@ -12,9 +12,9 @@ import org.lwjgl.input.Mouse;
 /**
  * This class handles the rendering, updating, and passing of click events for
  * buttons
- * 
+ *
  * @author phil, connor
- * 
+ *
  */
 
 public class UIManager {

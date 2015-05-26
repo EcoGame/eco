@@ -7,16 +7,16 @@ package eco.game;
 * @Author Phil
 *
 **/
- 
+
 
 import java.util.Random;
 
 public class SplashText {
-	
+
 	private static String[] splashes;
-	
+
 	private static String splash = "";
-	
+
 	static{
 		splashes = new String[]{
 				"95% Stable",
@@ -54,15 +54,15 @@ public class SplashText {
 				"Windows - The best $89 solitaire game you can buy",
 				"This is a P. Heikompf production",
 				"Did you hear about the Italian chef that died? Yeah, he pasta way.",
-				
+
 		};
 	}
-	
+
 	public static void newSplash(){
 		Random random = new Random();
 		splash =  splashes[random.nextInt(splashes.length)];
 	}
-	
+
 	public static String getSplash(){
 		return splash;
 	}

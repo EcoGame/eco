@@ -7,9 +7,9 @@ import org.lwjgl.opengl.Display;
 /**
  * This class handles keyboard and mouse input, passing it along to where ever
  * it needs to go
- * 
+ *
  * @author phil, connor
- * 
+ *
  */
 
 public class InputManager {
@@ -134,7 +134,7 @@ public class InputManager {
 			}
 		}
 	}
-	
+
 	public static void updateGameOver(){
 		while (Keyboard.next()) {
 			if (Keyboard.getEventKeyState()) {

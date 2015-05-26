@@ -3,9 +3,9 @@ package eco.game;
 /**
  * A class that keeps track of how fast the program is running. Call
  * <i>tick()</i> once every frame to update correctly.
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class FPSCounter {

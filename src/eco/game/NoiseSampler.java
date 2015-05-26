@@ -3,9 +3,9 @@ package eco.game;
 /**
  * This class samples multiple octaves of open simplex noise, and blends them
  * together.
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class NoiseSampler {

@@ -5,18 +5,18 @@ import eco.game.War;
 
 /**
  * This class does something
- * 
+ *
  * @author will
- * 
+ *
  */
 
 public class OutputActions {
 
 	public static void actions(int k, int currentnetwork) {
 		Country c = NeuralManager.Countries[currentnetwork];
-		
+
 		Country[] otherCountries = new Country[9];
-		
+
 		int place = 0;
 		for (int i = 0; i < 10; i++){
 			if (NeuralManager.Countries[i] != c){
@@ -24,7 +24,7 @@ public class OutputActions {
 				place++;
 			}
 		}
-		
+
 		switch (k) {
 		case 0:
 			c.desiredWarriorRatio += 0.01f;

@@ -3,9 +3,9 @@ package eco.game;
 /**
  * This class represents wheat and associated methods, including the wheat
  * stockpile
- * 
+ *
  * @author phil, nate, will, connor
- * 
+ *
  */
 
 public class Wheat {
@@ -15,7 +15,7 @@ public class Wheat {
 
 	private int maxwheat = 5000;
 	private int minwheat = 2000;
-	
+
 	public static int globalWheat = 0;
 
 	public int tWheat(int farmers, Farmer farmer) {
@@ -67,15 +67,15 @@ public class Wheat {
 	public void resetWheat() {
 		tWheat = 0;
 	}
-	
+
 	public void rot(float rate){
 		tWheat *= rate;
 	}
-	
+
 	public static void globalRot(float rate){
 		globalWheat *= rate;
 	}
-	
+
 	public void addWheat(int toAdd){
 		tWheat += toAdd;
 	}

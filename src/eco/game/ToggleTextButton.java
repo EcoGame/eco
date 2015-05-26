@@ -6,9 +6,9 @@ import java.awt.Rectangle;
 /**
  * A <i>ToggleTextButton</i> behaves just like a normal <i>TextButton</i>, but
  * will toggle to it's second texture when pressed, not just when moused over
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class ToggleTextButton extends Button {

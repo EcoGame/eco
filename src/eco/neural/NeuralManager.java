@@ -81,7 +81,7 @@ public class NeuralManager {
 				for (int x = 0; Main.inputNeuralArray[currentnetwork].length > x; x++) {
 					Main.inputNeuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 					Main.inputNeuralArray[currentnetwork][x].stream = Main.neuronArrayfill[currentnetwork][type][x][1];
-          if(Main.highOrLow[x][0] == 0){
+          if(Main.highOrLow[currentnetwork][x][0] == 0){
 						Main.inputNeuralArray[currentnetwork][x].highOrLow = false;
 					}
 

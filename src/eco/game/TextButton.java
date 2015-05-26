@@ -75,7 +75,7 @@ public class TextButton extends Button {
 		String str = "";
 		for (int i = 0; i < text.length(); i++){
 			if (text.charAt(i) != '@'){
-				str += text.charAt(i); 
+				str += text.charAt(i);
 			}
 			else{
 				str += ' ';

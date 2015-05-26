@@ -1,5 +1,5 @@
 package eco.game;
-
+import eco.neural.GeneticMaster;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.Display;
@@ -221,7 +221,7 @@ public class PlayerCountry {
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
 		aggression.calculateAggressionScore(warrior.getwPop());
-		
+
 		// ===============//
 		// Neural Network //
 		// ===============//
@@ -245,10 +245,12 @@ public class PlayerCountry {
 			if (Main.gameOver) {
 				Render.drawGameOver();
 				FPSCounter.tick();
+
 				InputManager.updateGameOver();
 				UIManager.updateGameOver();
 				UIManager.renderGameOver();
 				UIManager.renderGameOver2();
+				
 				Display.update();
 				Display.sync(60);
 			} else if (!Main.paused) {
@@ -288,6 +290,7 @@ public class PlayerCountry {
 		}
 		if (!Main.gameOver){
 			Util.createSave();
+
 		}
 		Menu.mainMenu();
 	}

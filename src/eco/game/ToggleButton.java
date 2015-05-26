@@ -6,9 +6,9 @@ import java.awt.Rectangle;
 /**
  * A <i>ToggleButton</i> behaves just like a normal <i>Button</i>, but will
  * toggle to it's second texture when pressed, not just when moused over
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class ToggleButton extends Button {
@@ -91,7 +91,7 @@ public class ToggleButton extends Button {
 			GL11.glEnd();
 		}
 	}
-	
+
 	public void setToggle(boolean toggle){
 		this.toggle = toggle;
 	}

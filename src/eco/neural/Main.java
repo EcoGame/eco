@@ -15,7 +15,8 @@ public class Main {
 	public static Axon[][] axonArray = new Axon[10][100];
 	public static int[][][][][] axonArraytofill = new int[10][3][50][5][2];
 	public static int[][][][] neuronArrayfill = new int[10][3][50][2];
-	public static int[][] highOrLow = new int[30][1];
+	public static int[][][] highOrLow = new int[10][30][1];
+	public static int[][][] highOrLowtoprint = new int[10][30][1];
 	public static int[][][][][] axonArraytoprint = new int[10][3][50][5][2];
 	public static int[][][][] neuronArrayprint = new int[10][3][50][2];
 	public static boolean[] workingnetworks = new boolean[10];

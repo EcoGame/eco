@@ -6,9 +6,9 @@ import java.util.Random;
 
 /**
  * This class represents the game world
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class World {

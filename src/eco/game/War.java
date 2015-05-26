@@ -122,7 +122,7 @@ public class War {
 			moneyLoss = -money;
 		}
 	}
-	
+
 	public static void warWith(Country a, Country b){
 		// Book-keeping stuff
 		Log.log(PlayerCountry.year, a.name + " declares war on "

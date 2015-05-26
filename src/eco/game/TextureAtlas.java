@@ -6,9 +6,9 @@ import org.newdawn.slick.opengl.Texture;
  * This class makes is easier to use a texture atlas. It contains methods that
  * return a float position of where a subtexture is located. Has adjustable
  * resolution and size
- * 
+ *
  * @author phil
- * 
+ *
  */
 
 public class TextureAtlas {

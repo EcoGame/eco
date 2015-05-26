@@ -5,9 +5,9 @@ import org.lwjgl.opengl.Display;
 
 /**
  * This class handles typing needs.
- * 
+ *
  * @author connor
- * 
+ *
  */
 
 public class Typing {
@@ -17,7 +17,7 @@ public class Typing {
 		if (Display.isCloseRequested()){
 			System.exit(0);
 		}
-		
+
 		boolean cursorOn = false;
 		if (cursorTick % 13 > 3) {
 			cursorOn = true;

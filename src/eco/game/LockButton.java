@@ -3,14 +3,14 @@ package eco.game;
 import java.awt.Rectangle;
 
 public class LockButton extends ToggleButton {
-	
+
 	public boolean lock = true;
 
 	public LockButton(float x, float y, float size, int tex, int tey,
 			int texselected, int teyselected, boolean on) {
 		super(x, y, size, tex, tey, texselected, teyselected, on);
 	}
-	
+
 	public void click(float mousex, float mousey) {
 		Rectangle rect = new Rectangle((int) getX(), (int) getY(),
 				(int) getSize(), (int) getSize());
@@ -24,7 +24,7 @@ public class LockButton extends ToggleButton {
 			}
 		}
 	}
-	
+
 	public void render(float mousex, float mousey) {
 		Rectangle rect = new Rectangle((int) getX(), (int) getY(),
 				(int) getSize(), (int) getSize());
