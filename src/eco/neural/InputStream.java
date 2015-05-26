@@ -83,54 +83,57 @@ public class InputStream {
 		int q = 9;
 		k = getagression(currentnetwork , q);
 		break;
-		return k;
+
 
 	case 18:
 	int q = 0;
 	k = warriorratio(currentnetwork, q);
-	return k;
+ break;
 	case 19:
 	int q = 1;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 20:
 	int q = 2;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 21:
 	int q = 3;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 22:
 	int q = 4;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 23:
 	int q = 5;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 24:
 	int q = 6;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 25:
 	int q = 7;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 26:
 	int q = 8;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 27:
 	int q = 9;
 	k = warriorratio(currentnetwork, q);
-	return k;
+	break;
 	case 28:
 	k = woodlevels(currentnetwork);
-	return k;
+	break;
 	case 29:
 	k =stonelevels(currentnetwork);
-	return k ;
+	break;
+
+	}
+	return k;
 }
 	public static int goldchange(int currentnetwork){
 		int currentgold = 0;
