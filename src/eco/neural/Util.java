@@ -154,7 +154,7 @@ public class Util {
 					type++;
 					break;
 				case 2:
-					for (int k = 0; k < Main.nueralArray[p].length; k++) {
+					for (int k = 0; k < Main.neuralArray[p].length; k++) {
 						BW.write("c "
 								+ (k + Main.RELAY_ID_OFFSET)
 								+ " "

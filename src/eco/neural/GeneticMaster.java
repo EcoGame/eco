@@ -31,22 +31,22 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 switch(type){
 	case 0:
 	for(int x = 0; x < Main.inputNeuralArray[k].length; x++){
-		Main.neuronArrayprint[k][type][x][0]= GeneticMixer.spawnChildChromosome(Main.neuronArrayfill[network1][type][x][0], Main.neuronArrayfill[network2][type][x][0]);
-		Main.highOrLowtoprint[k][x][0] = GeneticMixer.spawnChildChromosome(Main.highOrLow[network1][x][0], Main.highOrLow[network1][x][0]);
+		Main.neuronArrayprint[k][type][x][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][x][0], Main.neuronArrayfill[network2][type][x][0]);
+		Main.highOrLowtoprint[k][x][0] = GeneticMixer.spawnChildChromosome1(Main.highOrLow[network1][x][0], Main.highOrLow[network1][x][0]);
 		Main.neuronArrayprint[k][type][x][1] =Main.neuronArrayfill[k][type][x][1];
 		}
 		type++;
 	break;
 	case 1:
 	for(int q = 0; q < Main.outputNeuralArray[k].length; q++){
-		Main.neuronArrayprint[k][type][q][0]= GeneticMixer.spawnChildChromosome(Main.neuronArrayfill[network1][type][q][0], Main.neuronArrayfill[network2][type][q][0]);
+		Main.neuronArrayprint[k][type][q][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][q][0], Main.neuronArrayfill[network2][type][q][0]);
 		Main.neuronArrayprint[k][type][q][1] =Main.neuronArrayfill[k][type][q][1];
 		}
 		type++;
 		break;
 		case 2:
 		for(int e = 0; e < Main.neuralArray[k].length; e++){
-			Main.neuronArrayprint[k][type][e][0]= GeneticMixer.spawnChildChromosome(Main.neuronArrayfill[network1][type][e][0], Main.neuronArrayfill[network2][type][e][0]);
+			Main.neuronArrayprint[k][type][e][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][e][0], Main.neuronArrayfill[network2][type][e][0]);
 			Main.neuronArrayprint[k][type][e][1] =Main.neuronArrayfill[k][type][e][1];
 		}
 		iscomplete = true;
@@ -68,7 +68,7 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 		for(int x = 0; x < Main.inputNeuralArray[k].length; x++){
 			for(int m = 0; m < Main.axonArraytofill[k][type][x].length; m++){
 				for(int g = 0; g < Main.axonArraytofill[k][type][x][m].length; g++){
-					Main.axonArraytoprint[k][type][x][m][g] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][x][m][g],Main.axonArraytofill[network2][type][x][m][g]);
+					Main.axonArraytoprint[k][type][x][m][g] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][x][m][g],Main.axonArraytofill[network2][type][x][m][g], 0, Main.axonArraytofill[network1][type].length);
 				}
 			}
 			}
@@ -78,7 +78,7 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 		for(int q = 0; q < Main.outputNeuralArray[k].length; q++){
 			for(int y = 0; y < Main.axonArraytofill[k][type][q].length; y++){
 				for(int p = 0; p < Main.axonArraytofill[k][type][q][y].length; p++){
-					Main.axonArraytoprint[k][type][q][y][p] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][q][y][p],Main.axonArraytofill[network2][type][q][y][p]);
+					Main.axonArraytoprint[k][type][q][y][p] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][q][y][p],Main.axonArraytofill[network2][type][q][y][p], 0, Main.axonArraytofill[network1][type].length);
 				}
 			}
 			}
@@ -88,7 +88,7 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 			for(int e = 0; e < Main.neuralArray[k].length; e++){
 				for(int b = 0; b < Main.axonArraytofill[k][type][e].length; b++){
 					for(int a = 0; a < Main.axonArraytofill[k][type][e][b].length; a++){
-						Main.axonArraytoprint[k][type][e][b][a] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][e][b][a],Main.axonArraytofill[network2][type][e][b][a]);
+						Main.axonArraytoprint[k][type][e][b][a] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][e][b][a],Main.axonArraytofill[network2][type][e][b][a], 0, Main.axonArraytofill[network1][type].length);
 					}
 				}
 			}

@@ -19,12 +19,20 @@ public class GeneticMixer {
 	public static Random random = new Random();
 
 
-	public static int spawnChildChromosome(int parentOne, int parentTwo) {
+	public static int spawnChildChromosome(int parentOne, int parentTwo, int lowerlimit, int higherlimit) {
 			// starts with the base as anything the same between them
 			int base = parentOne & parentTwo;
-			int randInt = random.nextInt();
+			int randInt = eco.game.Util.randInt(lowerlimit, higherlimit);
 			// combines base with a random integer
 			base += (parentOne^parentTwo)&(randInt);
 			return base;
 		}
+		public static int spawnChildChromosome1(int parentOne, int parentTwo) {
+				// starts with the base as anything the same between them
+				int base = parentOne & parentTwo;
+				int randInt = random.nextInt();
+				// combines base with a random integer
+				base += (parentOne^parentTwo)&(randInt);
+				return base;
+			}
 }
