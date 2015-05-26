@@ -78,7 +78,7 @@ public class NeuralManager {
 
 			switch (type) {
 			case 0:
-				for (int x = 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++) {
+				for (int x = 0; Main.inputNeuralArray[currentnetwork].length > x; x++) {
 					Main.inputNeuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 					Main.inputNeuralArray[currentnetwork][x].stream = Main.neuronArrayfill[currentnetwork][type][x][1];
           if(Main.highOrLow[x][0] == 0){
@@ -91,14 +91,14 @@ public class NeuralManager {
 				type++;
 				break;
 			case 1:
-				for (int x = 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++) {
+				for (int x = 0; Main.outputNeuralArray[currentnetwork].length > x; x++) {
 					Main.outputNeuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 					Main.outputNeuralArray[currentnetwork][x].action = Main.neuronArrayfill[currentnetwork][type][x][1];
 				}
 				type++;
 				break;
 			case 2:
-				for (int x = 0; Main.neuronArrayfill[currentnetwork][type].length > x; x++) {
+				for (int x = 0; Main.neuralArray[currentnetwork].length > x; x++) {
 					Main.neuralArray[currentnetwork][x].fireValue = Main.neuronArrayfill[currentnetwork][type][x][0];
 				}
 				type++;

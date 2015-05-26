@@ -131,6 +131,7 @@ public class NeuronReader {
 
 					neuronid = Integer.parseInt(tokenSpace[1])
 							- Main.RELAY_ID_OFFSET;
+							System.out.println(neuronid);
 					for (int x = 0; Main.neuronArrayfill[num][type][neuronid].length > x; x++) {
 						Main.neuronArrayfill[num][type][neuronid][x] = Integer
 								.parseInt(tokenSpace[2 + x]);

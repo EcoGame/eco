@@ -25,7 +25,7 @@ public class ConnectionHandler {
 			break;
 
 		case 1:
-			int u = k - 10;
+			int u = k - 30;
 			for (int x = 0; x < Main.axonArray[currentnetwork][k].connections.length; x++) {
 				for (int q = 0; q < Main.axonArray[currentnetwork][k].connections[x].length; q++) {
 					Main.axonArray[currentnetwork][k].connections[x][q] = Main.axonArraytofill[currentnetwork][type][u][x][q];
@@ -35,7 +35,7 @@ public class ConnectionHandler {
 			break;
 
 		case 2:
-			u = k - 20;
+			u = k - 50;
 			for (int x = 0; x < Main.axonArray[currentnetwork][k].connections.length; x++) {
 				for (int q = 0; q < Main.axonArray[currentnetwork][k].connections[x].length; q++) {
 					Main.axonArray[currentnetwork][k].connections[x][q] = Main.axonArraytofill[currentnetwork][type][u][x][q];

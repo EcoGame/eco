@@ -9,15 +9,15 @@ package eco.neural;
 
 public class Main {
 
-	public static RelayNeuron[][] neuralArray = new RelayNeuron[10][10];
-	public static InputNeuron[][] inputNeuralArray = new InputNeuron[10][10];
-	public static OutputNeuron[][] outputNeuralArray = new OutputNeuron[10][10];
-	public static Axon[][] axonArray = new Axon[10][30];
-	public static int[][][][][] axonArraytofill = new int[10][3][10][5][2];
-	public static int[][][][] neuronArrayfill = new int[10][3][10][2];
-	public static int[][] highOrLow = new int[10][1];
-	public static int[][][][][] axonArraytoprint = new int[10][3][10][5][2];
-	public static int[][][][] neuronArrayprint = new int[10][3][10][2];
+	public static RelayNeuron[][] neuralArray = new RelayNeuron[10][50];
+	public static InputNeuron[][] inputNeuralArray = new InputNeuron[10][30];
+	public static OutputNeuron[][] outputNeuralArray = new OutputNeuron[10][20];
+	public static Axon[][] axonArray = new Axon[10][100];
+	public static int[][][][][] axonArraytofill = new int[10][3][50][5][2];
+	public static int[][][][] neuronArrayfill = new int[10][3][50][2];
+	public static int[][] highOrLow = new int[30][1];
+	public static int[][][][][] axonArraytoprint = new int[10][3][50][5][2];
+	public static int[][][][] neuronArrayprint = new int[10][3][50][2];
 	public static boolean[] workingnetworks = new boolean[10];
 
 	public static final int INPUT_ID_OFFSET = 0;

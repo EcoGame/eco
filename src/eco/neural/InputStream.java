@@ -195,7 +195,11 @@ return ret;
 	}else{
 		selfwPop =NeuralManager.Countries[currentnetwork].warrior.getwPop();
 		otherwPop = NeuralManager.Countries[currentnetwork].warrior.getwPop();
+		if(otherwPop == 0){
+			otherwPop = 1;
+		}
 		ratio = selfwPop/otherwPop;
+
 		ratio= ratio*100;
 		ret = (int)(ratio);
 		return ret;
