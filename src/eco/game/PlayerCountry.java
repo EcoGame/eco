@@ -188,10 +188,10 @@ public class PlayerCountry {
 		// Render Updates //
 		// ===============//
 		if (Render.multithreading) {
-			//ThreadManager.addJob(new MeshTask());
+			ThreadManager.addJob(new MeshTask());
 		} else {
-			//DisplayLists.mesh();
-			//Main.skipFrame = true;
+			DisplayLists.mesh();
+			Main.skipFrame = true;
 		}
 
 		// =============//
@@ -237,22 +237,24 @@ public class PlayerCountry {
 		Main.shouldBeInMenu = true;
 		while (!Main.shouldQuit) {
 			if (Display.isCloseRequested()) {
+				if (!Main.gameOver){
+					Util.createSave();
+				}
 				System.exit(0);
 			}
 			if (Main.gameOver) {
-				//Render.drawGameOver();
-				//FPSCounter.tick();
+				Render.drawGameOver();
+				FPSCounter.tick();
 
-				//InputManager.updateGameOver();
-				//UIManager.updateGameOver();
-				//UIManager.renderGameOver();
-				//UIManager.renderGameOver2();
-				
-				//Display.update();
-				//Display.sync(60);
-				Main.shouldQuit = true;
+				InputManager.updateGameOver();
+				UIManager.updateGameOver();
+				UIManager.renderGameOver();
+				UIManager.renderGameOver2();
+
+				Display.update();
+				Display.sync(60);
 			} else if (!Main.paused) {
-				/*Main.frame++;
+				Main.frame++;
 				if (Main.frame >= Main.framesPerTick && !Main.paused
 						&& PlayerCountry.year < PlayerCountry.ticks) {
 					PlayerCountry.year++;
@@ -262,25 +264,20 @@ public class PlayerCountry {
 						Main.gameOver = true;
 					}
 					Main.frame = 0;
-				}*/
-				PlayerCountry.year++;
-				PlayerCountry.tick();
-				if (year > ticks - 1){
-					Main.shouldQuit = true;
 				}
-				//UIManager.update();
-				//InputManager.update();
-				//if (!Main.skipFrame) {
-				//	Render.draw();
-				//	OutputManager.newDebug();
-				//} else {
-				//	Main.skipFrame = false;
-				//}
+				UIManager.update();
+				InputManager.update();
+				if (!Main.skipFrame) {
+					Render.draw();
+					OutputManager.newDebug();
+				} else {
+					Main.skipFrame = false;
+				}
 				FPSCounter.tick();
-				//Display.update();
-				//Display.sync(60);
+				Display.update();
+				Display.sync(60);
 			} else {
-				/*Render.drawPaused();
+				Render.drawPaused();
 				InputManager.updatePause();
 
 				UIManager.renderPause();
@@ -288,15 +285,15 @@ public class PlayerCountry {
 				UIManager.updatePaused();
 				FPSCounter.tick();
 				Display.update();
-				Display.sync(60);*/
+				Display.sync(60);
 			}
 		}
+		GeneticMaster.geneMaster();
 		if (!Main.gameOver){
-			//Util.createSave();
+			Util.createSave();
 
 		}
-		//Menu.mainMenu();
-		KingManager.gameManager();
+		Menu.mainMenu();
 	}
 
 
@@ -326,7 +323,7 @@ public class PlayerCountry {
 	        KingManager.periodicInit(i);
 		}
 		MenuBar.reset();
-		if (Util.doesSaveExist(Main.currentSave) && false) {
+		if (Util.doesSaveExist(Main.currentSave)) {
 			Util.readSave();
 		} else {
 		}

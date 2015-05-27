@@ -1,8 +1,6 @@
 package eco.game;
 
 
-import java.io.File;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.SharedDrawable;
@@ -63,18 +61,8 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Welcome to EcoLand!");
 		initDisplay();
-		//Menu.initMenu();
-		//Menu.mainMenu();
-		while (!Display.isCloseRequested()){
-			PlayerCountry.initGame();
-			PlayerCountry.gameLoop();
-			File oldNeurons = new File("../neurons");
-			oldNeurons.delete();
-			File newNeurons = new File("../newtxt");
-			newNeurons.renameTo(oldNeurons);
-			File newNewNeurons = new File("../nextxt");
-			newNewNeurons.mkdirs();
-		}
+		Menu.initMenu();
+		Menu.mainMenu();
 		System.exit(0);
 	}
 	
