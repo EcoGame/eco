@@ -18,6 +18,9 @@ public class AggressionScore {
 	public int calculateAggressionScore(int wPop) {
 
 		aggressionScore = wPop;
+		if (aggressionScore < 0) {
+			aggressionScore = 0;
+		}
 		return aggressionScore;
 
 	}
