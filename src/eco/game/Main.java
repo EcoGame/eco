@@ -1,5 +1,9 @@
 package eco.game;
-
+import eco.neural.*;
+import java.io.*;
+import java.io.File;
+import java.nio.file.*;
+import static java.nio.file.StandardCopyOption.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -63,6 +67,23 @@ public class Main {
 		initDisplay();
 		Menu.initMenu();
 		Menu.mainMenu();
+		try{
+			for(int p =0; p < 10; p++){
+				Path filepath1 = Paths.get("../newtxt/connections"+ p+ ".ann");
+				Path filepath2 = Paths.get("../neurons/connections"+ p+ ".ann");
+				Files.move(filepath1, filepath2, REPLACE_EXISTING);
+			}
+			for(int q =0; q < 10; q++){
+				Path filepath1 = Paths.get("../newtxt/neuron"+ q+ ".ann");
+				Path filepath2 = Paths.get("../neurons/neuron"+ q+ ".ann");
+				Files.move(filepath1, filepath2, REPLACE_EXISTING);
+			}
+			Path filepath1 = Paths.get("../newtxt/currentstate.ann");
+			Path filepath2 = Paths.get("../neurons/currentstate.ann");
+			Files.move(filepath1, filepath2, REPLACE_EXISTING);
+		}catch (IOException ex) {
+			System.err.println(ex);
+		}
 		System.exit(0);
 	}
 	
