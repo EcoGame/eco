@@ -9,10 +9,8 @@ public class GeneticMaster {
 	public static int ndnumhighfit = 0;
 	public static eco.game.Country Counties[] = new eco.game.Country[10];
 	public static void geneMaster() {
-		System.out.println("yay for polan");
 		Counties = eco.game.Util.getCountries();
 		selectParents();
-		System.out.println(numhighfit +" gof "+ ndnumhighfit);
 		attributeBreeder(numhighfit, ndnumhighfit);
 		connectionBreeder(numhighfit, ndnumhighfit);
 		NeuronReader.generation++;
@@ -27,7 +25,6 @@ public class GeneticMaster {
 boolean iscomplete = false;
 
 for(int k = 0; k < 10; k++){
-	System.out.println("k"+k);
 	int randInt = eco.game.Util.randInt(0, 20);
 	int type = 0;
 	iscomplete = false;

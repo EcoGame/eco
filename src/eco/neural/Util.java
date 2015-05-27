@@ -25,7 +25,6 @@ public class Util {
 		String path = null;
 
 			path = "../newtxt/connections" + p + ".ann";
-			System.out.println("printing connect" + p);
 		try {
 			File fOut = new File(path);
 			FileOutputStream FOS = new FileOutputStream(fOut);
@@ -119,7 +118,7 @@ public class Util {
 
 		try {
 			path = "../newtxt/neuron" + p + ".ann";
-			System.out.println("printing connect " + p);
+			//System.out.println("printing connect " + p);
 			/*
 
 			 * if (!Main.isInEclipse) {
