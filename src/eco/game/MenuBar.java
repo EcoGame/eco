@@ -566,26 +566,26 @@ public class MenuBar {
 
 			/* Draw wheat icon */
 			glBegin(GL_QUADS);
-			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(0, false));
 			glVertex2f(750, 610);
-			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(0, false));
 			glVertex2f(775, 610);
-			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(0, true));
 			glVertex2f(775, 635);
-			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(0, true));
 			glVertex2f(750, 635);
 			glEnd();
 			glColor3f(1.0f, 1.0f, 1.0f);
 
 			/* Draw wheat icon */
 			glBegin(GL_QUADS);
-			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, false));
+			glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(1, false));
 			glVertex2f(750, 645);
-			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, false));
+			glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(1, false));
 			glVertex2f(775, 645);
-			glTexCoord2f(atlas.getCoord(0, true), atlas.getCoord(3, true));
+			glTexCoord2f(atlas.getCoord(8, true), atlas.getCoord(1, true));
 			glVertex2f(775, 670);
-			glTexCoord2f(atlas.getCoord(0, false), atlas.getCoord(3, true));
+			glTexCoord2f(atlas.getCoord(8, false), atlas.getCoord(1, true));
 			glVertex2f(750, 670);
 			glEnd();
 			glColor3f(1.0f, 1.0f, 1.0f);
