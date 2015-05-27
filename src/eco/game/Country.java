@@ -223,6 +223,9 @@ public class Country {
 		//  Neural Network //
 		// ================//
         //eco.neural.NeuralManager.neuralTick(PlayerCountry.countries.indexOf(this));
+        if (dead){
+        	aggression.score = 0;
+        }
 
 	}
 
