@@ -124,7 +124,10 @@ public class War {
 	}
 
 	public static void warWith(Country a, Country b){
-		// Book-keeping stuff
+		if (a.dead || b.dead){
+            return;
+        }
+        // Book-keeping stuff
 		Log.log(PlayerCountry.year, a.name + " declares war on "
 				+ b.name + "!");
 

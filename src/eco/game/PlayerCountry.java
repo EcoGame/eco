@@ -220,7 +220,7 @@ public class PlayerCountry {
 		score.calculateAvgGrowth(tick);
 		score.calculatePeakScore(tick);
 		score.calculateTotalScore(tick);
-		aggression.calculateAggressionScore(warrior.getwPop());
+		aggression.calculateAggressionScore(warrior.getwPop(), false);
 
 		// ===============//
 		// Neural Network //

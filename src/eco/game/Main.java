@@ -1,9 +1,10 @@
 package eco.game;
-import eco.neural.*;
-import java.io.*;
-import java.io.File;
-import java.nio.file.*;
-import static java.nio.file.StandardCopyOption.*;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;

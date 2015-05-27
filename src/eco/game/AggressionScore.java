@@ -15,8 +15,11 @@ public class AggressionScore {
 
 	}
 
-	public int calculateAggressionScore(int wPop) {
-
+	public int calculateAggressionScore(int wPop, boolean dead) {
+		if (dead){
+			aggressionScore = 0;
+			return 0;
+		}
 		aggressionScore = wPop;
 		if (aggressionScore < 0) {
 			aggressionScore = 0;
