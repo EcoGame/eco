@@ -11,7 +11,7 @@ public class Graph {
 	 * Contains methods for drawing and updating
 	 * Based on nates <i>Graphs</i> code
 	 *
-	 * @author phil
+	 * @author phil, nate
 	 *
 	 */
 
