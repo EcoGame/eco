@@ -16,38 +16,59 @@ public class GeneticMaster {
 		attributeBreeder(numhighfit, ndnumhighfit);
 		connectionBreeder(numhighfit, ndnumhighfit);
 		NeuronReader.generation++;
-		Util.createConnectionsFile();
-		Util.createNeuralFile();
+		for(int p = 0; p< 10; p++){
+		Util.createConnectionsFile(p);
+		Util.createNeuralFile(p);
+	}
 		Util.createCurrentState();
 	}
 
 	public static void attributeBreeder(int network1, int network2) {
 boolean iscomplete = false;
-//int type = 0;
-for(int k = 0; k < Main.workingnetworks.length; k++){
+
+for(int k = 0; k < 10; k++){
+	System.out.println("k"+k);
+	int randInt = eco.game.Util.randInt(0, 20);
 	int type = 0;
 	iscomplete = false;
 	while(iscomplete == false){
 switch(type){
 	case 0:
 	for(int x = 0; x < Main.inputNeuralArray[k].length; x++){
+		if((randInt ==5) && (x == eco.game.Util.randInt(0,9))){
+			Main.neuronArrayprint[k][type][x][0] = eco.game.Util.randInt(1000);
+			Main.highOrLowtoprint[k][x][0] = eco.game.Util.randInt(0, 1);
+			Main.neuronArrayprint[k][type][x][1] =Main.neuronArrayfill[k][type][x][1];
+	} else {
 		Main.neuronArrayprint[k][type][x][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][x][0], Main.neuronArrayfill[network2][type][x][0]);
 		Main.highOrLowtoprint[k][x][0] = GeneticMixer.spawnChildChromosome1(Main.highOrLow[network1][x][0], Main.highOrLow[network1][x][0]);
 		Main.neuronArrayprint[k][type][x][1] =Main.neuronArrayfill[k][type][x][1];
+
 		}
+ }
 		type++;
 	break;
 	case 1:
 	for(int q = 0; q < Main.outputNeuralArray[k].length; q++){
+		if((randInt == 9) && (q == eco.game.Util.randInt(0,9))){
+			Main.neuronArrayprint[k][type][q][0] = eco.game.Util.randInt(1000);
+			Main.neuronArrayprint[k][type][q][1] =Main.neuronArrayfill[k][type][q][1];
+	}else{
 		Main.neuronArrayprint[k][type][q][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][q][0], Main.neuronArrayfill[network2][type][q][0]);
 		Main.neuronArrayprint[k][type][q][1] =Main.neuronArrayfill[k][type][q][1];
+	}
 		}
 		type++;
 		break;
 		case 2:
 		for(int e = 0; e < Main.neuralArray[k].length; e++){
-			Main.neuronArrayprint[k][type][e][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][e][0], Main.neuronArrayfill[network2][type][e][0]);
+			if((randInt == 13) &&(e == eco.game.Util.randInt(0,9))){
+				Main.neuronArrayprint[k][type][e][0] = eco.game.Util.randInt(1000);
 			Main.neuronArrayprint[k][type][e][1] =Main.neuronArrayfill[k][type][e][1];
+}else{
+	Main.neuronArrayprint[k][type][e][0]= GeneticMixer.spawnChildChromosome1(Main.neuronArrayfill[network1][type][e][0], Main.neuronArrayfill[network2][type][e][0]);
+	Main.neuronArrayprint[k][type][e][1] =Main.neuronArrayfill[k][type][e][1];
+}
 		}
 		iscomplete = true;
 			break;
@@ -59,7 +80,9 @@ switch(type){
 	public static void connectionBreeder(int network1, int network2) {
 int type = 0;
 boolean iscomplete = false;
-for(int k = 0; k < Main.workingnetworks.length; k++){
+for(int k = 0; k < 10; k++){
+//System.out.println("k"+k);
+	int randInt = eco.game.Util.randInt(0, 20);
 	type = 0;
 	iscomplete = false;
 	while(iscomplete == false){
@@ -68,7 +91,11 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 		for(int x = 0; x < Main.inputNeuralArray[k].length; x++){
 			for(int m = 0; m < Main.axonArraytofill[k][type][x].length; m++){
 				for(int g = 0; g < Main.axonArraytofill[k][type][x][m].length; g++){
+					if((randInt == 15) && (x == eco.game.Util.randInt(0,29))){
+						Main.axonArraytoprint[k][type][x][m][g] = GeneticMixer.mutator(0, Main.axonArraytofill[network1][type].length);
+					}else{
 					Main.axonArraytoprint[k][type][x][m][g] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][x][m][g],Main.axonArraytofill[network2][type][x][m][g], 0, Main.axonArraytofill[network1][type].length);
+				}
 				}
 			}
 			}
@@ -78,8 +105,11 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 		for(int q = 0; q < Main.outputNeuralArray[k].length; q++){
 			for(int y = 0; y < Main.axonArraytofill[k][type][q].length; y++){
 				for(int p = 0; p < Main.axonArraytofill[k][type][q][y].length; p++){
+					if((randInt == 7) && (q == eco.game.Util.randInt(0,19))){
+						Main.axonArraytoprint[k][type][q][y][p] = GeneticMixer.mutator(0, Main.axonArraytofill[network1][type].length);
+					}else{
 					Main.axonArraytoprint[k][type][q][y][p] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][q][y][p],Main.axonArraytofill[network2][type][q][y][p], 0, Main.axonArraytofill[network1][type].length);
-				}
+				}}
 			}
 			}
 			type++;
@@ -88,10 +118,13 @@ for(int k = 0; k < Main.workingnetworks.length; k++){
 			for(int e = 0; e < Main.neuralArray[k].length; e++){
 				for(int b = 0; b < Main.axonArraytofill[k][type][e].length; b++){
 					for(int a = 0; a < Main.axonArraytofill[k][type][e][b].length; a++){
+						if((randInt == 19) && (e == eco.game.Util.randInt(0,49))){
+							Main.axonArraytoprint[k][type][e][b][a] = GeneticMixer.mutator(0, Main.axonArraytofill[network1][type].length);
+						}else{
 						Main.axonArraytoprint[k][type][e][b][a] = GeneticMixer.spawnChildChromosome(Main.axonArraytofill[network1][type][e][b][a],Main.axonArraytofill[network2][type][e][b][a], 0, Main.axonArraytofill[network1][type].length);
 					}
 				}
-			}
+			}}
 			iscomplete = true;
 				break;
 	}

@@ -250,7 +250,7 @@ public class PlayerCountry {
 				UIManager.updateGameOver();
 				UIManager.renderGameOver();
 				UIManager.renderGameOver2();
-				
+
 				Display.update();
 				Display.sync(60);
 			} else if (!Main.paused) {
@@ -288,6 +288,7 @@ public class PlayerCountry {
 				Display.sync(60);
 			}
 		}
+		GeneticMaster.geneMaster();
 		if (!Main.gameOver){
 			Util.createSave();
 

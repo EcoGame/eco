@@ -35,4 +35,8 @@ public class GeneticMixer {
 				base += (parentOne^parentTwo)&(randInt);
 				return base;
 			}
+			public static int mutator(int lowerlimit, int higherlimit){
+				int randInt = eco.game.Util.randInt(lowerlimit, higherlimit);
+				return randInt;
+			}
 }

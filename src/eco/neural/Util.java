@@ -19,12 +19,13 @@ import java.io.OutputStreamWriter;
 
 public class Util {
 
-	public static void createConnectionsFile() {
+	public static void createConnectionsFile(int p) {
 		int type = 0;
 		boolean iscomplete = false;
 		String path = null;
-		for(int p = 0; p < Main.workingnetworks.length; p++){
-			path = "../newtxt/connnections" + p + ".ann";
+
+			path = "../newtxt/connections" + p + ".ann";
+			System.out.println("printing connect" + p);
 		try {
 			File fOut = new File(path);
 			FileOutputStream FOS = new FileOutputStream(fOut);
@@ -108,17 +109,19 @@ public class Util {
 		} catch (IOException ex) {
 			System.out.println("1IOException");
 		}
-}
+
 	}
 
-	public static void createNeuralFile() {
+	public static void createNeuralFile( int p) {
 		int type = 0;
 		boolean iscomplete = false;
 		String path = null;
-		for(int p = 0; p < Main.workingnetworks.length; p++){
+
 		try {
 			path = "../newtxt/neuron" + p + ".ann";
+			System.out.println("printing connect " + p);
 			/*
+
 			 * if (!Main.isInEclipse) {
 			 * System.out.println("PROBABLE ERROR WITH NEURAL FILES"); }
 			 */
@@ -135,7 +138,7 @@ public class Util {
 								+ " "
 								+ Main.neuronArrayprint[p][type][r][0]
 								+ " "
-								+ Main.neuronArrayprint[p][type][r][1]);
+								+ Main.neuronArrayprint[p][type][r][1] + " " + Main.highOrLowtoprint[p][r][0]);
 						BW.newLine();
 					}
 					type++;
@@ -175,7 +178,7 @@ public class Util {
 		} catch (IOException ex) {
 			System.out.println("3IOException");
 		}
-}
+
 	}
 	public static void createCurrentState() {
 boolean iscomplete = false;
