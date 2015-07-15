@@ -15,52 +15,52 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
 
-	private Vector3f position;
-	private float yaw = 0.0f;
-	private float pitch = 30.0f;
+    private Vector3f position;
+    private float yaw = 0.0f;
+    private float pitch = 30.0f;
 
-	public Camera(float x, float y, float z) {
-		position = new Vector3f(x, y, z);
-	}
+    public Camera(float x, float y, float z) {
+        position = new Vector3f(x, y, z);
+    }
 
-	public void moveForward(float distance) {
-		position.x += distance * (float) Math.sin(Math.toRadians(yaw));
-		position.z -= distance * (float) Math.cos(Math.toRadians(yaw));
-	}
+    public void moveForward(float distance) {
+        position.x += distance * (float) Math.sin(Math.toRadians(yaw));
+        position.z -= distance * (float) Math.cos(Math.toRadians(yaw));
+    }
 
-	public void moveBack(float distance) {
-		position.x -= distance * (float) Math.sin(Math.toRadians(yaw));
-		position.z += distance * (float) Math.cos(Math.toRadians(yaw));
-	}
+    public void moveBack(float distance) {
+        position.x -= distance * (float) Math.sin(Math.toRadians(yaw));
+        position.z += distance * (float) Math.cos(Math.toRadians(yaw));
+    }
 
-	public void moveLeft(float distance) {
-		position.x -= distance * (float) Math.sin(Math.toRadians(yaw - 90));
-		position.z += distance * (float) Math.cos(Math.toRadians(yaw - 90));
-	}
+    public void moveLeft(float distance) {
+        position.x -= distance * (float) Math.sin(Math.toRadians(yaw - 90));
+        position.z += distance * (float) Math.cos(Math.toRadians(yaw - 90));
+    }
 
-	public void moveRight(float distance) {
-		position.x -= distance * (float) Math.sin(Math.toRadians(yaw + 90));
-		position.z += distance * (float) Math.cos(Math.toRadians(yaw + 90));
-	}
+    public void moveRight(float distance) {
+        position.x -= distance * (float) Math.sin(Math.toRadians(yaw + 90));
+        position.z += distance * (float) Math.cos(Math.toRadians(yaw + 90));
+    }
 
-	public void moveUp(float distance) {
-		position.y -= distance;
-	}
+    public void moveUp(float distance) {
+        position.y -= distance;
+    }
 
-	public void moveDown(float distance) {
-		position.y += distance;
-	}
+    public void moveDown(float distance) {
+        position.y += distance;
+    }
 
-	public void look() {
-		if (!Render.overhead){
-			GL11.glRotatef(yaw, 0f, 0f, 1f);
-			GL11.glRotatef(pitch, 1f, 0f, 0f);
-			GL11.glTranslatef(-position.x, position.y, -position.z);
-		} else{
-			GL11.glRotatef(yaw, 0f, 0f, 1f);
-			GL11.glRotatef(0, 1f, 0f, 0f);
-			GL11.glTranslatef(-position.x, -1.7f, -position.z);
-		}
-	}
+    public void look() {
+        if (!Render.overhead){
+            GL11.glRotatef(yaw, 0f, 0f, 1f);
+            GL11.glRotatef(pitch, 1f, 0f, 0f);
+            GL11.glTranslatef(-position.x, position.y, -position.z);
+        } else{
+            GL11.glRotatef(yaw, 0f, 0f, 1f);
+            GL11.glRotatef(0, 1f, 0f, 0f);
+            GL11.glTranslatef(-position.x, -1.7f, -position.z);
+        }
+    }
 
 }

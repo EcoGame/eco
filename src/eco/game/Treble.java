@@ -12,38 +12,38 @@ package eco.game;
 
 public class Treble<X, Y, Z> {
 
-	public X x;
-	public Y y;
-	public Z z;
+    public X x;
+    public Y y;
+    public Z z;
 
-	public Treble(X x, Y y, Z z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+    public Treble(X x, Y y, Z z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
-	public X getX() {
-		return x;
-	}
+    public X getX() {
+        return x;
+    }
 
-	public void setX(X x) {
-		this.x = x;
-	}
+    public void setX(X x) {
+        this.x = x;
+    }
 
-	public Y getY() {
-		return y;
-	}
+    public Y getY() {
+        return y;
+    }
 
-	public void setY(Y y) {
-		this.y = y;
-	}
+    public void setY(Y y) {
+        this.y = y;
+    }
 
-	public Z getZ() {
-		return z;
-	}
+    public Z getZ() {
+        return z;
+    }
 
-	public void setZ(Z z) {
-		this.z = z;
-	}
+    public void setZ(Z z) {
+        this.z = z;
+    }
 
 }

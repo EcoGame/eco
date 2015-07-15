@@ -10,138 +10,138 @@ package eco.game;
 
 public class Farmer {
 
-	private int fPop = 5;
-	private int oldFPop = fPop;
-	private int fHunger;
+    private int fPop = 5;
+    private int oldFPop = fPop;
+    private int fHunger;
 
-	private float floatFPop = fPop;
+    private float floatFPop = fPop;
 
-	private int wheatPerFarmer = 14;
+    private int wheatPerFarmer = 14;
 
-	private int totalHarvest;
+    private int totalHarvest;
 
-	private int totalHunger;
+    private int totalHunger;
 
-	private int normalHunger = 10;
+    private int normalHunger = 10;
 
-	public Farmer(){
-		 fPop = 5;
-		 oldFPop = fPop;
+    public Farmer(){
+         fPop = 5;
+         oldFPop = fPop;
 
-		floatFPop = fPop;
+        floatFPop = fPop;
 
-		 wheatPerFarmer = 14;
+         wheatPerFarmer = 14;
 
-		 normalHunger = 10;
-	}
-	
-	public int fHunger() {
+         normalHunger = 10;
+    }
+    
+    public int fHunger() {
 
-		fHunger = 0;
-		fHunger = normalHunger + (Util.randInt(0, 2));
-		return fHunger;
+        fHunger = 0;
+        fHunger = normalHunger + (Util.randInt(0, 2));
+        return fHunger;
 
-	}
+    }
 
-	public float fPop(float fBirthRate, float fDeathRate) {
-		
-		if (fPop < 0){
-			fPop = 0;
-		}
-		if (floatFPop < 0){
-			floatFPop = 0;
-		}
-		
-		float rate = (1 + fBirthRate - fDeathRate);
-		float floatfPop = (this.floatFPop * rate);
-		int fpop = (int) (floatfPop);
+    public float fPop(float fBirthRate, float fDeathRate) {
+        
+        if (fPop < 0){
+            fPop = 0;
+        }
+        if (floatFPop < 0){
+            floatFPop = 0;
+        }
+        
+        float rate = (1 + fBirthRate - fDeathRate);
+        float floatfPop = (this.floatFPop * rate);
+        int fpop = (int) (floatfPop);
 
 
-		return fpop - oldFPop;
+        return fpop - oldFPop;
 
-	}
+    }
 
-	public void addPop(float newPop) {
-		floatFPop += newPop;
-		fPop = (int) floatFPop;
-	}
+    public void addPop(float newPop) {
+        floatFPop += newPop;
+        fPop = (int) floatFPop;
+    }
 
-	public int newPop() {
-		return fPop - oldFPop;
+    public int newPop() {
+        return fPop - oldFPop;
 
-	}
+    }
 
-	public void harvest() {
-		totalHarvest = wheatPerFarmer * fPop;
-	}
+    public void harvest() {
+        totalHarvest = wheatPerFarmer * fPop;
+    }
 
-	public int getfPop() {
-		return fPop;
-	}
+    public int getfPop() {
+        return fPop;
+    }
 
-	public void setfPop(int fPop) {
-		this.fPop = fPop;
-	}
+    public void setfPop(int fPop) {
+        this.fPop = fPop;
+    }
 
-	public int getOldFPop() {
-		return oldFPop;
-	}
+    public int getOldFPop() {
+        return oldFPop;
+    }
 
-	public void setOldFPop(int oldFPop) {
-		this.oldFPop = oldFPop;
-	}
+    public void setOldFPop(int oldFPop) {
+        this.oldFPop = oldFPop;
+    }
 
-	public int getfHunger() {
-		return fHunger;
-	}
+    public int getfHunger() {
+        return fHunger;
+    }
 
-	public void setfHunger(int fHunger) {
-		this.fHunger = fHunger;
-	}
+    public void setfHunger(int fHunger) {
+        this.fHunger = fHunger;
+    }
 
-	public float getFloatFPop() {
-		return floatFPop;
-	}
+    public float getFloatFPop() {
+        return floatFPop;
+    }
 
-	public void setFloatFPop(float floatFPop) {
-		this.floatFPop = floatFPop;
-	}
+    public void setFloatFPop(float floatFPop) {
+        this.floatFPop = floatFPop;
+    }
 
-	public int getWheatProductionRate() {
-		return wheatPerFarmer;
-	}
+    public int getWheatProductionRate() {
+        return wheatPerFarmer;
+    }
 
-	public void setWheatPerFarmer(int wheatPerFarmer) {
-		this.wheatPerFarmer = wheatPerFarmer;
-	}
+    public void setWheatPerFarmer(int wheatPerFarmer) {
+        this.wheatPerFarmer = wheatPerFarmer;
+    }
 
-	public int getTotalHarvest() {
-		return totalHarvest;
-	}
+    public int getTotalHarvest() {
+        return totalHarvest;
+    }
 
-	public void setTotalHarvest(int totalHarvest) {
-		this.totalHarvest = totalHarvest;
-	}
+    public void setTotalHarvest(int totalHarvest) {
+        this.totalHarvest = totalHarvest;
+    }
 
-	public int getTotalHunger() {
-		return totalHunger;
-	}
+    public int getTotalHunger() {
+        return totalHunger;
+    }
 
-	public void setTotalHunger(int totalHunger) {
-		this.totalHunger = totalHunger;
-	}
+    public void setTotalHunger(int totalHunger) {
+        this.totalHunger = totalHunger;
+    }
 
-	public int getNormalHunger() {
-		return normalHunger;
-	}
+    public int getNormalHunger() {
+        return normalHunger;
+    }
 
-	public void setNormalHunger(int normalHunger) {
-		this.normalHunger = normalHunger;
-	}
+    public void setNormalHunger(int normalHunger) {
+        this.normalHunger = normalHunger;
+    }
 
-	public void addPop(int tooAdd) {
-		fPop += tooAdd;
-		floatFPop += tooAdd;
-	}
+    public void addPop(int tooAdd) {
+        fPop += tooAdd;
+        floatFPop += tooAdd;
+    }
 
 }

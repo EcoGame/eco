@@ -9,51 +9,51 @@ package eco.game;
 
 public class Economy {
 
-	private int treasury = 0;
+    private int treasury = 0;
 
-	private static int wheatPrice = 10;
+    private static int wheatPrice = 10;
 
-	public int buyWheat(int ammount) {
-		int neededMoney = wheatPrice * ammount;
-		if (neededMoney <= treasury) {
-			treasury -= neededMoney;
-			return ammount;
-		} else {
-			int canBuy = treasury / wheatPrice;
-			treasury = 0;
-			return canBuy;
-		}
-	}
+    public int buyWheat(int ammount) {
+        int neededMoney = wheatPrice * ammount;
+        if (neededMoney <= treasury) {
+            treasury -= neededMoney;
+            return ammount;
+        } else {
+            int canBuy = treasury / wheatPrice;
+            treasury = 0;
+            return canBuy;
+        }
+    }
 
-	public int sellWheat(int ammount) {
-		treasury += wheatPrice * ammount;
-		return ammount;
-	}
+    public int sellWheat(int ammount) {
+        treasury += wheatPrice * ammount;
+        return ammount;
+    }
 
-	public int takeMoney(int request){
-		if (request > treasury){
-			request = treasury;
-			treasury = 0;
-			return request;
-		}
-		treasury -= request;
-		return request;
-	}
-	
-	public void updateMarket(int time) {
-		wheatPrice += Util.randInt(-5, 5);
-	}
+    public int takeMoney(int request){
+        if (request > treasury){
+            request = treasury;
+            treasury = 0;
+            return request;
+        }
+        treasury -= request;
+        return request;
+    }
+    
+    public void updateMarket(int time) {
+        wheatPrice += Util.randInt(-5, 5);
+    }
 
-	public int getTreasury() {
-		return treasury;
-	}
+    public int getTreasury() {
+        return treasury;
+    }
 
-	public void setTreasury(int ammount) {
-		treasury = ammount;
-	}
+    public void setTreasury(int ammount) {
+        treasury = ammount;
+    }
 
-	public int getPrice() {
-		return wheatPrice;
-	}
+    public int getPrice() {
+        return wheatPrice;
+    }
 
 }

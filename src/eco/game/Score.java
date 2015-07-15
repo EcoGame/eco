@@ -41,11 +41,11 @@ public class Score {
         }
         if(tick > 1){
             try{
-	        	int tickGrowth = scores[i - 1] - scores[i - 2];
-	            growths[tick - 1] = tickGrowth;
+                int tickGrowth = scores[i - 1] - scores[i - 2];
+                growths[tick - 1] = tickGrowth;
             }
             catch(Exception e){
-            	
+                
             }
             return tickGrowth;
         }
@@ -78,10 +78,10 @@ public class Score {
         try{
         int score = total / count;
         avgScore = score;
-        	return score;
+            return score;
         }
         catch(Exception e){
-        	return 0;
+            return 0;
         }
         
     }
