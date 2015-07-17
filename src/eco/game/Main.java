@@ -1,14 +1,14 @@
 package eco.game;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.SharedDrawable;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.SharedDrawable;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Main class
@@ -29,7 +29,7 @@ public class Main {
     public static final int width = 1280;
     public static boolean skipFrame = false;
 
-    public static final String vn = "Beta 1.1.3";
+    public static final String vn = "Beta 1.2";
 
     public static int framesPerTick = 18;
     public static int frame = 0;
@@ -39,7 +39,7 @@ public class Main {
     // =============//
     // IO Variables //
     // =============//
-    public static final boolean isInEclipse = false;
+    public static boolean isInEclipse = false;
     public static boolean paused = false;
     public static boolean debug;
     public static boolean fullDebug = false;
@@ -64,6 +64,11 @@ public class Main {
     
     /* Main method */
     public static void main(String[] args) {
+        if (args.length >= 1){
+            if (args[0].equals("-e")){
+                isInEclipse = true;
+            }
+        }
         System.out.println("Welcome to EcoLand!");
         initDisplay();
         Menu.initMenu();
@@ -90,7 +95,7 @@ public class Main {
     
     /* Initiate Rendering */
     public static void initDisplay() {
-        Render.initDisplay();
+        RenderUtil.initDisplay();
         Render.init();
         try {
             ThreadManager.drawable = new SharedDrawable(Display.getDrawable());

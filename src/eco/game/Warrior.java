@@ -44,7 +44,7 @@ public class Warrior {
 
     public int wHunger() {
         wHunger = 0;
-        wHunger = normalHunger + (Util.randInt(0, 3));
+        wHunger = normalHunger + (MathUtil.randInt(0, 3));
         return wHunger;
     }
 

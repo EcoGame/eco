@@ -36,30 +36,30 @@ public class Menu {
             File saves = new File("../saves");
             saves.mkdirs();
         }
-        if (!Util.doesSaveExist(1)) {
+        if (!SaveUtil.doesSaveExist(1)) {
             UIManager.startSaveGame1.setText("Create a save");
         } else {
-            UIManager.startSaveGame1.setText("Play " + Util.loadSaveName(1));
+            UIManager.startSaveGame1.setText("Play " + SaveUtil.loadSaveName(1));
         }
-        if (!Util.doesSaveExist(2)) {
+        if (!SaveUtil.doesSaveExist(2)) {
             UIManager.startSaveGame2.setText("Create a save");
         } else {
-            UIManager.startSaveGame2.setText("Play " + Util.loadSaveName(2));
+            UIManager.startSaveGame2.setText("Play " + SaveUtil.loadSaveName(2));
         }
-        if (!Util.doesSaveExist(3)) {
+        if (!SaveUtil.doesSaveExist(3)) {
             UIManager.startSaveGame3.setText("Create a save");
         } else {
-            UIManager.startSaveGame3.setText("Play " + Util.loadSaveName(3));
+            UIManager.startSaveGame3.setText("Play " + SaveUtil.loadSaveName(3));
         }
-        if (!Util.doesSaveExist(4)) {
+        if (!SaveUtil.doesSaveExist(4)) {
             UIManager.startSaveGame4.setText("Create a save");
         } else {
-            UIManager.startSaveGame4.setText("Play " + Util.loadSaveName(4));
+            UIManager.startSaveGame4.setText("Play " + SaveUtil.loadSaveName(4));
         }
-        if (!Util.doesSaveExist(5)) {
+        if (!SaveUtil.doesSaveExist(5)) {
             UIManager.startSaveGame5.setText("Create a save");
         } else {
-            UIManager.startSaveGame5.setText("Play " + Util.loadSaveName(5));
+            UIManager.startSaveGame5.setText("Play " + SaveUtil.loadSaveName(5));
         }
     }
 

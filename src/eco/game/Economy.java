@@ -41,7 +41,7 @@ public class Economy {
     }
     
     public void updateMarket(int time) {
-        wheatPrice += Util.randInt(-5, 5);
+        wheatPrice += MathUtil.randInt(-5, 5);
     }
 
     public int getTreasury() {

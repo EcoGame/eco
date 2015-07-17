@@ -1,60 +1,19 @@
 package eco.game;
 
-import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.GL_GREATER;
-import static org.lwjgl.opengl.GL11.GL_LEQUAL;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_NICEST;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_PERSPECTIVE_CORRECTION_HINT;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glAlphaFunc;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearDepth;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDepthFunc;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glHint;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glScalef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.glVertex3f;
-import static org.lwjgl.opengl.GL11.glViewport;
-
-import java.awt.Font;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.FloatBuffer;
-
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.FloatBuffer;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * This class does all the rendering.
@@ -71,7 +30,6 @@ public class Render {
     public static volatile boolean shouldRender = true;
 
     static TextureAtlas atlas;
-    static TrueTypeFont font;
 
     public static final float tilesize = 0.2f;
 
@@ -108,7 +66,7 @@ public class Render {
         /* Gets ready to draw */
         glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
-        initFrustrum();
+        RenderUtil.initFrustrum();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
 
         if (preferMultiThreading && Main.framesPerTick <= minTPS
@@ -243,7 +201,7 @@ public class Render {
         }
 
         /* Gets ready for orthogonal drawing */
-        initOrtho();
+        RenderUtil.initOrtho();
 
         GL11.glDisable(GL11.GL_DEPTH_TEST);
 
@@ -291,7 +249,7 @@ public class Render {
 
         /* Draw all the messages */
         for (Message message : Message.getMessages()) {
-            Render.drawString(message.getMessage(), message.getX(),
+            RenderUtil.drawString(message.getMessage(), message.getX(),
                     message.getY());
         }
     }
@@ -301,12 +259,12 @@ public class Render {
         /* Get ready to draw */
         glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
-        initOrtho();
+        RenderUtil.initOrtho();
 
         /* Colors */
-        Treble<Float, Float, Float> backColor = Util
+        Treble<Float, Float, Float> backColor = RenderUtil
                 .convertColor(new Treble<Float, Float, Float>(157f, 130f, 117f));
-        Treble<Float, Float, Float> borderColor = Util
+        Treble<Float, Float, Float> borderColor = RenderUtil
                 .convertColor(new Treble<Float, Float, Float>(169f, 145f, 126f));
 
         /* Draw the background */
@@ -388,19 +346,19 @@ public class Render {
 
         /* Draw all the text */
         UIManager.renderMenu2();
-        drawString("Generation Settings", ((Main.width / 2) + 280), 224);
+        RenderUtil.drawString("Generation Settings", ((Main.width / 2) + 280), 224);
 
         /* Splash Text */
-        font.drawString(15, 15, "Version " + Main.vn, new Color(200, 200, 200));
+        RenderUtil.font.drawString(15, 15, "Version " + Main.vn, new Color(200, 200, 200));
 
         String splash = SplashText.getSplash();
-        centx = (Main.width - font.getWidth(splash)) / 2f;
+        centx = (Main.width - RenderUtil.font.getWidth(splash)) / 2f;
 
-        font.drawString(centx, 690, splash, new Color(147, 206, 239));
+        RenderUtil.font.drawString(centx, 690, splash, new Color(147, 206, 239));
 
         /* Draw all the messages */
         for (Message message : Message.getMessages()) {
-            Render.drawString(message.getMessage(), message.getX(),
+            RenderUtil.drawString(message.getMessage(), message.getX(),
                     message.getY());
         }
 
@@ -573,9 +531,9 @@ public class Render {
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glDepthMask(false);
         glPushMatrix();
-        int width = font.getWidth(city.getName());
+        int width = RenderUtil.font.getWidth(city.getName());
         width /= 2f;
-        int height = font.getHeight(city.getName());
+        int height = RenderUtil.font.getHeight(city.getName());
         height /= 2;
         float size = 0.005f;
         glTranslatef(0, 0, z);
@@ -587,11 +545,11 @@ public class Render {
         glTranslatef(-xpos, -ypos, 0);
         if (city.getName().contains(City.capitalEpithet)) {
             glColor3f(173f / 255f, 93f / 255f, 93f / 255f);
-            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
+            RenderUtil.font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
                     city.getName(), new Color(245f / 255f, 63f / 255f,
                             63f / 255f, 2f));
         } else {
-            font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
+            RenderUtil.font.drawString((x * (1f / size)) - width, y * (-1f / size) - 50,
                     city.getName(), new Color(1f, 1f, 1f, 2f));
         }
         glDisable(GL11.GL_TEXTURE_2D);
@@ -611,17 +569,12 @@ public class Render {
         glPopMatrix();
     }
 
-    /* Draw a string */
-    public static void drawString(String message, float x, float y) {
-        font.drawString(x, y, message);
-    }
-
     /* Draw the paused overlay */
     public static void drawPaused() {
         glLoadIdentity();
-        initOrtho();
+        RenderUtil.initOrtho();
 
-        Treble<Float, Float, Float> pauseColor = Util
+        Treble<Float, Float, Float> pauseColor = RenderUtil
                 .convertColor(new Treble<Float, Float, Float>(186f, 179f, 178f));
 
         glDisable(GL11.GL_TEXTURE_2D);
@@ -646,7 +599,7 @@ public class Render {
 
     /* Draw the gameover overlay */
     public static void drawGameOver() {
-        Treble<Float, Float, Float> pauseColor = Util
+        Treble<Float, Float, Float> pauseColor = RenderUtil
                 .convertColor(new Treble<Float, Float, Float>(168f, 78f, 78f));
 
         glDisable(GL11.GL_TEXTURE_2D);
@@ -663,22 +616,6 @@ public class Render {
 
         atlas.bind();
 
-    }
-
-    /* Creates the display */
-    public static void initDisplay() {
-        try {
-            Display.setDisplayMode(new DisplayMode(Main.width, Main.height));
-        } catch (LWJGLException e) {
-            e.printStackTrace();
-        }
-        Display.setTitle("Eco " + Main.vn);
-        try {
-            Display.create();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
-        }
-        Display.setVSyncEnabled(true);
     }
 
     /* Creates the openGl context */
@@ -730,7 +667,7 @@ public class Render {
         GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T,
                 GL11.GL_REPEAT);
 
-        initFrustrum();
+        RenderUtil.initFrustrum();
 
         GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
 
@@ -746,7 +683,7 @@ public class Render {
             }
             Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(16f); // set font size
-            font = new TrueTypeFont(awtFont, true);
+            RenderUtil.font = new TrueTypeFont(awtFont, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -785,35 +722,6 @@ public class Render {
         bigCastleTexture.addTexture(new Point(3, 4));
 
         DisplayLists.init();
-    }
-
-    /* Creates a frustrum projection */
-    public static void initFrustrum() {
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        GLU.gluPerspective(Main.fov / 2f, Main.windowwidth / Main.windowheight,
-                0.1f, 100000000000000f);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_ALPHA_TEST);
-        glDepthFunc(GL_LEQUAL);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-        glEnable(GL_BLEND);
-        glDisable(GL11.GL_CULL_FACE);
-        glDepthFunc(GL_LEQUAL);
-    }
-
-    /* Creates an orthogonal projection */
-    public static void initOrtho() {
-        glClearDepth(1);
-        glViewport(0, 0, Display.getWidth(), Display.getHeight());
-        glMatrixMode(GL_MODELVIEW);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, Main.width, Main.height, 0, 1, -1);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
     }
 
 }

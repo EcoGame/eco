@@ -1,13 +1,11 @@
 package eco.game;
 
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-
-import java.util.ArrayList;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-import org.lwjgl.input.Mouse;
+import java.util.ArrayList;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * This class handles the rendering, updating, and passing of click events for
@@ -103,8 +101,7 @@ public class UIManager {
      */
 
     public static void update() {
-
-        MenuBar.update();
+        MenuBar.update(PlayerCountry.playerCountry);
     }
 
     public static void updatePaused() {
@@ -121,29 +118,29 @@ public class UIManager {
         }
         if (loadLastSave.checkForClick()) {
             Main.gameOver = false;
-            Util.readSave();
+            SaveUtil.readSave();
         }
     }
 
     public static void updateMenu() {
         if (delete1.checkForClick()) {
-            Util.deleteSave(1);
+            SaveUtil.deleteSave(1);
         }
         if (delete2.checkForClick()) {
-            Util.deleteSave(2);
+            SaveUtil.deleteSave(2);
         }
         if (delete3.checkForClick()) {
-            Util.deleteSave(3);
+            SaveUtil.deleteSave(3);
         }
         if (delete4.checkForClick()) {
-            Util.deleteSave(4);
+            SaveUtil.deleteSave(4);
         }
         if (delete5.checkForClick()) {
-            Util.deleteSave(5);
+            SaveUtil.deleteSave(5);
         }
         word = "";
         if (startSaveGame1.checkForClick()) {
-            if (!Util.doesSaveExist(1)) {
+            if (!SaveUtil.doesSaveExist(1)) {
                 Main.saveName1 = "";
                 while (!word.equals("@")) {
                     cursorTick++;
@@ -158,7 +155,7 @@ public class UIManager {
                     }
                     Main.saveName1 = word;
                     startSaveGame1.setText(word);
-                    Render.initOrtho();
+                    RenderUtil.initOrtho();
                     renderMenu();
                     renderMenu2();
                     Render.drawMainMenu();
@@ -176,12 +173,11 @@ public class UIManager {
             }
             Main.currentSave = 1;
             Main.shouldQuit = false;
-            PlayerCountry.initGame();
-            PlayerCountry.gameLoop();
+            PlayerCountry.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame2.checkForClick()) {
-            if (!Util.doesSaveExist(2)) {
+            if (!SaveUtil.doesSaveExist(2)) {
                 Main.saveName2 = "";
                 while (!word.equals("@")) {
                     cursorTick++;
@@ -196,7 +192,7 @@ public class UIManager {
                     }
                     Main.saveName2 = word;
                     startSaveGame2.setText(word);
-                    Render.initOrtho();
+                    RenderUtil.initOrtho();
                     renderMenu();
                     renderMenu2();
                     Render.drawMainMenu();
@@ -215,12 +211,11 @@ public class UIManager {
             }
             Main.currentSave = 2;
             Main.shouldQuit = false;
-            PlayerCountry.initGame();
-            PlayerCountry.gameLoop();
+            PlayerCountry.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame3.checkForClick()) {
-            if (!Util.doesSaveExist(3)) {
+            if (!SaveUtil.doesSaveExist(3)) {
                 Main.saveName3 = "";
                 while (!word.equals("@")) {
                     cursorTick++;
@@ -235,7 +230,7 @@ public class UIManager {
                     }
                     Main.saveName3 = word;
                     startSaveGame3.setText(word);
-                    Render.initOrtho();
+                    RenderUtil.initOrtho();
                     renderMenu();
                     renderMenu2();
                     Render.drawMainMenu();
@@ -253,13 +248,12 @@ public class UIManager {
             }
             Main.currentSave = 3;
             Main.shouldQuit = false;
-            PlayerCountry.initGame();
-            PlayerCountry.gameLoop();
+            PlayerCountry.gameLoop(new PlayerCountry());
 
         }
 
         if (startSaveGame4.checkForClick()) {
-            if (!Util.doesSaveExist(4)) {
+            if (!SaveUtil.doesSaveExist(4)) {
                 Main.saveName4 = "";
                 while (!word.equals("@")) {
                     cursorTick++;
@@ -274,7 +268,7 @@ public class UIManager {
                     }
                     Main.saveName4 = word;
                     startSaveGame4.setText(word);
-                    Render.initOrtho();
+                    RenderUtil.initOrtho();
                     renderMenu();
                     renderMenu2();
                     Render.drawMainMenu();
@@ -292,13 +286,11 @@ public class UIManager {
             }
             Main.currentSave = 4;
             Main.shouldQuit = false;
-            PlayerCountry.initGame();
-            PlayerCountry.gameLoop();
-
+            PlayerCountry.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame5.checkForClick()) {
-            if (!Util.doesSaveExist(5)) {
+            if (!SaveUtil.doesSaveExist(5)) {
                 Main.saveName5 = "";
                 while (!word.equals("@")) {
                     cursorTick++;
@@ -313,7 +305,7 @@ public class UIManager {
                     }
                     Main.saveName5 = word;
                     startSaveGame5.setText(word);
-                    Render.initOrtho();
+                    RenderUtil.initOrtho();
                     renderMenu();
                     renderMenu2();
                     Render.drawMainMenu();
@@ -331,8 +323,7 @@ public class UIManager {
             }
             Main.currentSave = 5;
             Main.shouldQuit = false;
-            PlayerCountry.initGame();
-            PlayerCountry.gameLoop();
+            PlayerCountry.gameLoop(new PlayerCountry());
 
         }
 
@@ -419,14 +410,14 @@ public class UIManager {
         float centerX = Display.getWidth() / 2f;
         float centerY = Display.getHeight() / 2f;
 
-        float textWidth = Render.font.getWidth("Game Over") / 2f;
-        float textHeight = Render.font.getHeight("Game Over") / 2f;
-        float textWidth2 = Render.font.getWidth(Main.reason) / 2f;
+        float textWidth = RenderUtil.font.getWidth("Game Over") / 2f;
+        float textHeight = RenderUtil.font.getHeight("Game Over") / 2f;
+        float textWidth2 = RenderUtil.font.getWidth(Main.reason) / 2f;
 
         glDisable(GL_DEPTH_TEST);
-        Render.font.drawString(centerX - textWidth, centerY - textHeight,
+        RenderUtil.font.drawString(centerX - textWidth, centerY - textHeight,
                 "Game Over");
-        Render.font.drawString(centerX - textWidth2, centerY - textHeight + 30,
+        RenderUtil.font.drawString(centerX - textWidth2, centerY - textHeight + 30,
                 Main.reason);
         glEnable(GL_DEPTH_TEST);
     }
@@ -439,10 +430,10 @@ public class UIManager {
         float centerX = Display.getWidth() / 2f;
         float centerY = 256 + 64;
 
-        float textWidth = Render.font.getWidth("Paused") / 2f;
-        float textHeight = Render.font.getHeight("Paused") / 2f;
+        float textWidth = RenderUtil.font.getWidth("Paused") / 2f;
+        float textHeight = RenderUtil.font.getHeight("Paused") / 2f;
 
-        Render.font.drawString(centerX - textWidth, centerY - textHeight,
+        RenderUtil.font.drawString(centerX - textWidth, centerY - textHeight,
                 "Paused");
     }
 

@@ -93,7 +93,7 @@ public class Button {
             GL11.glVertex2f(x, y + size);
             GL11.glEnd();
         }
-        if (oversize == 24 || true){
+        if (oversize == 24){
 
             float offx = (size - oversize) / 2;
             float offy = (size - oversize) / 2;

@@ -24,7 +24,7 @@ public class Typing {
         }
 
         boolean didletter = false;
-        if (Render.font.getWidth(word + "|") < 185) {
+        if (RenderUtil.font.getWidth(word + "|") < 185) {
             while (Keyboard.next()) {
                 if (Keyboard.getEventKeyState()) {
                     didletter = true;

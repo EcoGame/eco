@@ -85,7 +85,7 @@ public class Graph {
             return;
         }
 
-        Render.font.drawString(x + ((size - Render.font.getWidth(title)) / 2), y - height - 15, title, new Color(color.x, color.y, color.z));
+        RenderUtil.font.drawString(x + ((size - RenderUtil.font.getWidth(title)) / 2), y - height - 15, title, new Color(color.x, color.y, color.z));
 
         float max = 0;
 
@@ -93,9 +93,9 @@ public class Graph {
             max = Math.max(max, contents[i]);
         }
 
-        Render.font.drawString(x - 5 - Render.font.getWidth("0"), y - 10, "0", new Color(color.x, color.y, color.z));
-        Render.font.drawString(x - 5 - Render.font.getWidth(String.valueOf((int) max / 2)), y - 5 - (height / 2), String.valueOf((int) max / 2), new Color(color.x, color.y, color.z));
-        Render.font.drawString(x - 5 - Render.font.getWidth(String.valueOf((int) max)), y - 5 - (height), String.valueOf((int) max), new Color(color.x, color.y, color.z));
+        RenderUtil.font.drawString(x - 5 - RenderUtil.font.getWidth("0"), y - 10, "0", new Color(color.x, color.y, color.z));
+        RenderUtil.font.drawString(x - 5 - RenderUtil.font.getWidth(String.valueOf((int) max / 2)), y - 5 - (height / 2), String.valueOf((int) max / 2), new Color(color.x, color.y, color.z));
+        RenderUtil.font.drawString(x - 5 - RenderUtil.font.getWidth(String.valueOf((int) max)), y - 5 - (height), String.valueOf((int) max), new Color(color.x, color.y, color.z));
 
     }
 

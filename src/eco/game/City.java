@@ -72,10 +72,10 @@ public class City {
         }
         this.castle = isCastle;
         if (usename){
-            Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
+            //Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
         }
         else{
-            Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
+          //  Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
         }
         this.name = name;
     }

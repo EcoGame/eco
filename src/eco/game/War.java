@@ -20,7 +20,7 @@ public class War {
 
     private static int aggressionConstant = 4;
 
-    public static void attackPlayer(Country c){
+    /*public static void attackPlayer(NPCCountry c){
         // Book-keeping stuff
         int diff = c.aggression.aggressionScore - PlayerCountry.aggression.aggressionScore;
         diff = (int) Math.ceil(diff / (float) aggressionConstant);
@@ -32,7 +32,7 @@ public class War {
         MenuBar.setPane(1);
     }
 
-    public static void warWith(Country c) {
+    public static void warWith(NPCCountry c) {
         // Book-keeping stuff
         Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "
                 + c.name + "!");
@@ -123,7 +123,7 @@ public class War {
         }
     }
 
-    public static void warWith(Country a, Country b){
+    public static void warWith(NPCCountry a, NPCCountry b){
         if (a.dead || b.dead){
             return;
         }
@@ -217,6 +217,6 @@ public class War {
         if (b.land.getLand() < minLand) {
             b.dead = true;
         }
-    }
+    }*/
 
 }

@@ -1,16 +1,11 @@
 package eco.game;
 
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 
 import java.util.ArrayList;
 
-import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
+import static org.lwjgl.opengl.GL11.*;
 
 public class MenuBar {
 
@@ -197,7 +192,7 @@ public class MenuBar {
         econPane.addOverlay(8, 0, 24);
     }
 
-    public static void update() {
+    public static void update(PlayerCountry playerCountry) {
         if (statsPane.checkForClick()) {
             warPane.setToggle(false);
             graphsPane.setToggle(false);
@@ -241,27 +236,27 @@ public class MenuBar {
 
         if (pane == 4) {
             if (toggleFeedDisplaced.checkForClick()) {
-                PlayerCountry.displacedEat ^= true;
+                playerCountry.displacedEat ^= true;
             }
             if (toggleFavorWarrior.checkForClick()) {
-                PlayerCountry.favorFarmers ^= true;
+                playerCountry.favorFarmers ^= true;
             }
             if (toggleCutTrees.checkForClick()) {
                 World.cutForests ^= true;
             }
             if (toggleForceConscription.checkForClick()) {
-                PlayerCountry.forceConscription ^= true;
+                playerCountry.forceConscription ^= true;
             }
             if (increaseWarriorRatio.checkForClick()) {
-                if (PlayerCountry.desiredWarriorRatio < 1.0f) {
-                    PlayerCountry.desiredWarriorRatio += 0.01f;
+                if (playerCountry.desiredWarriorRatio < 1.0f) {
+                    playerCountry.desiredWarriorRatio += 0.01f;
                 }
             }
             if (decreaseWarriorRatio.checkForClick()) {
-                if (PlayerCountry.desiredWarriorRatio > 0.0f) {
-                    PlayerCountry.desiredWarriorRatio -= 0.01f;
+                if (playerCountry.desiredWarriorRatio > 0.0f) {
+                    playerCountry.desiredWarriorRatio -= 0.01f;
                 } else {
-                    PlayerCountry.desiredWarriorRatio = 0.0f;
+                    playerCountry.desiredWarriorRatio = 0.0f;
                 }
             }
             if (toggleFast.checkForClick()) {
@@ -305,7 +300,8 @@ public class MenuBar {
                 toggleVeryFast.setToggle(false);
             }
         }
-        if (pane == 1) {
+
+       /* if (pane == 1) {
             if (warDown.checkForClick()) {
                 warOff++;
                 warOff = Math.min(warOff, PlayerCountry.countries.size());
@@ -317,87 +313,87 @@ public class MenuBar {
                 }
             }
             if (warOff != 0 && warPos == 0) {
-                warPos = PlayerCountry.countries.size();
+                warPos = playerCountry.countries.size();
             } else if (warOff == 0) {
                 warPos = 0;
             }
             try {
                 if (warOne.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 1);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 1);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warTwo.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 2);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 2);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warThree.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 3);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 3);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warFour.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 4);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 4);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warFive.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 5);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 5);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warSix.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 6);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 6);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warSeven.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 7);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 7);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
                 }
                 if (warEight.checkForClick()) {
-                    Country c = PlayerCountry.countries
-                            .get(PlayerCountry.countries.size() - warOff - 8);
+                    NPCCountry c = playerCountry.countries
+                            .get(playerCountry.countries.size() - warOff - 8);
                     if (c != null && !c.dead) {
                         War.warWith(c);
-                        warName = "The " + PlayerCountry.name + "-" + c.name
+                        warName = "The " + playerCountry.name + "-" + c.name
                                 + " war";
                         updateWar(warName);
                     }
@@ -405,7 +401,7 @@ public class MenuBar {
             } catch (Exception e) {
 
             }
-        }
+        }*/
 
         if (pane == 2) {
             if (logDown.checkForClick()) {
@@ -425,13 +421,13 @@ public class MenuBar {
             }
         }
 
-        popGraph.tick(PlayerCountry.farmer.getfPop()
-                + PlayerCountry.warrior.getwPop());
-        globalWheatGraph.tick(PlayerCountry.wheat.gettWheat());
-        moneyGraph.tick(PlayerCountry.economy.getTreasury());
-        scoreGraph.tick(PlayerCountry.score.scoreAt(Math.max(0,
-                PlayerCountry.year - 1)));
-        scoreGraphOther.tick(Util.calcAverageCountryScore());
+        popGraph.tick(playerCountry.farmer.getfPop()
+                + playerCountry.warrior.getwPop());
+        globalWheatGraph.tick(playerCountry.wheat.gettWheat());
+        moneyGraph.tick(playerCountry.economy.getTreasury());
+        scoreGraph.tick(playerCountry.score.scoreAt(Math.max(0,
+                playerCountry.year - 1)));
+        scoreGraphOther.tick(MathUtil.calcAverageCountryScore());
 
     }
 
@@ -467,70 +463,70 @@ public class MenuBar {
             b.render(x, y);
         }
         if (pane == 0) {
-            renderStats();
+            renderStats(PlayerCountry.playerCountry);
         } else if (pane == 1) {
-            renderWar();
+            renderWar(PlayerCountry.playerCountry);
         } else if (pane == 2) {
-            renderLog();
+            renderLog(PlayerCountry.playerCountry);
         } else if (pane == 3) {
-            renderGraphs();
+            renderGraphs(PlayerCountry.playerCountry);
         } else if (pane == 4){
-            renderEcon();
+            renderEcon(PlayerCountry.playerCountry);
         }
     }
 
     public static void render2(float x, float y) {
-        Render.initOrtho();
+        RenderUtil.initOrtho();
         for (Button b : buttons) {
             b.render2();
         }
         if (pane == 3) {
-            renderGraphs2();
+            renderGraphs2(PlayerCountry.playerCountry);
         }
     }
     
-    public static void renderEcon(){
+    public static void renderEcon(PlayerCountry playerCountry){
         for (Button b : pane4Buttons){
             b.render(Mouse.getX(), Main.height - Mouse.getY());
         }
         
-        renderEcon2();
+        renderEcon2(playerCountry);
     }
     
-    public static void renderEcon2(){
+    public static void renderEcon2(PlayerCountry playerCountry){
         for (Button b : pane4Buttons){
             b.render2();
         }
         
-        Render.drawString("Conscription Rate: "
-                + ((int) (100 * PlayerCountry.desiredWarriorRatio)) + "%", 285,
+        RenderUtil.drawString("Conscription Rate: "
+                        + ((int) (100 * playerCountry.desiredWarriorRatio)) + "%", 285,
                 657);
         if(toggleFast.getToggle() == true) {
-            Render.drawString("Game Speed: Fast", 35, 567);
+            RenderUtil.drawString("Game Speed: Fast", 35, 567);
         } else if(toggleSlow.getToggle() == true) {
-            Render.drawString("Game Speed: Slow", 35, 567);
+            RenderUtil.drawString("Game Speed: Slow", 35, 567);
         } else if(toggleNormal.getToggle() == true) {
-            Render.drawString("Game Speed: Normal", 35, 567);
+            RenderUtil.drawString("Game Speed: Normal", 35, 567);
         } else if(toggleVeryFast.getToggle() == true) {
-            Render.drawString("Game Speed: Very Fast", 35, 567);
+            RenderUtil.drawString("Game Speed: Very Fast", 35, 567);
         } else if(togglePaused.getToggle() == true) {
-            Render.drawString("Game Speed: Paused", 35, 567);
+            RenderUtil.drawString("Game Speed: Paused", 35, 567);
         }
-        Render.drawString(
-                "Feed Displaced: " + String.valueOf(PlayerCountry.displacedEat),
+        RenderUtil.drawString(
+                "Feed Displaced: " + String.valueOf(playerCountry.displacedEat),
                 585, 657);
-        Render.drawString(
+        RenderUtil.drawString(
                 "Favor Warrior Rations: "
-                        + String.valueOf(!PlayerCountry.favorFarmers), 585, 627);
-        Render.drawString("Cut Forests: " + String.valueOf(World.cutForests),
+                        + String.valueOf(!playerCountry.favorFarmers), 585, 627);
+        RenderUtil.drawString("Cut Forests: " + String.valueOf(World.cutForests),
                 585, 597);
-        Render.drawString(
+        RenderUtil.drawString(
                 "Force Conscription: "
-                        + String.valueOf(PlayerCountry.forceConscription), 585,
+                        + String.valueOf(playerCountry.forceConscription), 585,
                 567);
     }
 
-    public static void renderWar() {
+    public static void renderWar(PlayerCountry playerCountry) {
         for (int i = 0; i < pane1Buttons.size(); i++) {
             if (i < 2) {
                 pane1Buttons.get(i).render(Mouse.getX(),
@@ -538,11 +534,11 @@ public class MenuBar {
                 continue;
             }
             try {
-                Country c = PlayerCountry.countries.get(PlayerCountry.countries
+                /*NPCCountry c = PlayerCountry.countries.get(PlayerCountry.countries
                         .size() - warOff - (i - 2) - 1);
                 if (c == null) {
                     continue;
-                }
+                }*/
             } catch (Exception e) {
                 continue;
             }
@@ -591,22 +587,22 @@ public class MenuBar {
             glColor3f(1.0f, 1.0f, 1.0f);
         }
 
-        renderWar2();
+        renderWar2(playerCountry);
     }
 
-    public static void renderGraphs() {
+    public static void renderGraphs(PlayerCountry playerCountry) {
         for (Graph g : graphs) {
             g.render();
         }
     }
 
-    public static void renderGraphs2() {
+    public static void renderGraphs2(PlayerCountry playerCountry) {
         for (Graph g : graphs) {
             g.render2();
         }
     }
 
-    public static void renderLog() {
+    public static void renderLog(PlayerCountry playerCountry) {
 
         for (Button b : pane2Buttons) {
             b.render(Mouse.getX(), Main.height - Mouse.getY());
@@ -628,7 +624,7 @@ public class MenuBar {
                 } else {
                     str = log.get(logPos - 1 - i);
                 }
-                Render.font.drawString(offx, offy, str);
+                RenderUtil.font.drawString(offx, offy, str);
                 offy += 20;
             } catch (Exception e) {
                 break;
@@ -636,18 +632,18 @@ public class MenuBar {
         }
     }
 
-    public static void renderWar2() {
+    public static void renderWar2(PlayerCountry playerCountry) {
         for (int i = 0; i < pane1Buttons.size(); i++) {
             if (i < 2) {
                 pane1Buttons.get(i).render2();
                 continue;
             }
             try {
-                Country c = PlayerCountry.countries.get(PlayerCountry.countries
+               /* NPCCountry c = PlayerCountry.countries.get(PlayerCountry.countries
                         .size() - warOff - (i - 2) - 1);
                 if (c == null) {
                     continue;
-                }
+                }*/
             } catch (Exception e) {
                 continue;
             }
@@ -663,53 +659,53 @@ public class MenuBar {
         for (int i = logstart; i < 8 + logstart; i++) {
             try {
                 String name = "";
-                Country country = null;
-                if (warOff == 0) {
+                NPCCountry NPCCountry = null;
+               /* if (warOff == 0) {
                     name = PlayerCountry.countries.get(PlayerCountry.countries
                             .size() - 1 - i).name;
-                    country = PlayerCountry.countries
+                    NPCCountry = PlayerCountry.countries
                             .get(PlayerCountry.countries.size() - 1 - i);
                 } else {
                     name = PlayerCountry.countries.get(warPos - 1 - i).name;
-                    country = PlayerCountry.countries.get(warPos - 1 - i);
-                }
-                if (!country.dead) {
-                    Render.font.drawString(offx, offy, name);
-                    Render.font.drawString(offx + Render.font.getWidth(name)
+                    NPCCountry = PlayerCountry.countries.get(warPos - 1 - i);
+                }*/
+                if (!NPCCountry.dead) {
+                    RenderUtil.font.drawString(offx, offy, name);
+                    RenderUtil.font.drawString(offx + RenderUtil.font.getWidth(name)
                             + 10, offy,
-                            "[" + Integer.toString(country.aggression.aggressionScore)
+                            "[" + Integer.toString(NPCCountry.aggression.aggressionScore)
                                     + "]", new Color(
-                                    (country.aggression.aggressionScore * 2) / 255f,
-                                    1 - (country.aggression.aggressionScore * 2 / 255f),
+                                    (NPCCountry.aggression.aggressionScore * 2) / 255f,
+                                    1 - (NPCCountry.aggression.aggressionScore * 2 / 255f),
                                     20 / 255f));
                     int tempoff = offx
-                            + Render.font.getWidth(name)
+                            + RenderUtil.font.getWidth(name)
                             + 20
-                            + Render.font.getWidth("["
+                            + RenderUtil.font.getWidth("["
                                     + Integer
-                                            .toString(country.aggression.aggressionScore)
+                                            .toString(NPCCountry.aggression.aggressionScore)
                                     + "]");
-                    Render.font.drawString(tempoff, offy,
-                            "[" + Integer.toString(country.getScore()) + "]",
+                    RenderUtil.font.drawString(tempoff, offy,
+                            "[" + Integer.toString(NPCCountry.getScore()) + "]",
                             new Color(102, 186, 233));
                     offy += 20;
                 } else {
-                    Render.font.drawString(offx, offy, name);
-                    Render.font.drawString(offx + Render.font.getWidth(name)
+                    RenderUtil.font.drawString(offx, offy, name);
+                    RenderUtil.font.drawString(offx + RenderUtil.font.getWidth(name)
                             + 10, offy,
-                            "[" + Integer.toString(country.aggression.aggressionScore)
+                            "[" + Integer.toString(NPCCountry.aggression.aggressionScore)
                                     + "]", new Color(
-                                    (country.aggression.aggressionScore * 2) / 255f,
-                                    1 - (country.aggression.aggressionScore * 2 / 255f),
+                                    (NPCCountry.aggression.aggressionScore * 2) / 255f,
+                                    1 - (NPCCountry.aggression.aggressionScore * 2 / 255f),
                                     20 / 255f));
                     int tempoff = offx
-                            + Render.font.getWidth(name)
+                            + RenderUtil.font.getWidth(name)
                             + 20
-                            + Render.font.getWidth("["
+                            + RenderUtil.font.getWidth("["
                                     + Integer
-                                            .toString(country.aggression.aggressionScore)
+                                            .toString(NPCCountry.aggression.aggressionScore)
                                     + "]");
-                    Render.font.drawString(tempoff, offy, "[In Exile]",
+                    RenderUtil.font.drawString(tempoff, offy, "[In Exile]",
                             new Color(195, 65, 65));
                     offy += 20;
                 }
@@ -719,40 +715,40 @@ public class MenuBar {
         }
 
         if (warState == 0) {
-            Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
-            int off = Render.font.getWidth(warName) + 10;
-            Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+            int off = RenderUtil.font.getWidth(warName) + 10;
+            RenderUtil.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
                     "- Stalemate!", new Color(0.75f, 0.75f, 0.25f));
         } else if (warState == 1) {
-            Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
-            int off = Render.font.getWidth(warName) + 10;
-            Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+            int off = RenderUtil.font.getWidth(warName) + 10;
+            RenderUtil.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
                     "- Victory!", new Color(0.25f, 0.75f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "
                     + wheat, new Color(0.25f, 0.75f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "
                     + gold, new Color(0.25f, 0.75f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "
                     + land, new Color(0.25f, 0.75f, 0.25f));
         } else if (warState == -1) {
-            Render.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
-            int off = Render.font.getWidth(warName) + 10;
-            Render.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 12, warName);
+            int off = RenderUtil.font.getWidth(warName) + 10;
+            RenderUtil.font.drawString(800 + off, (Main.height / 8 * 6) + 12,
                     "- Defeat!", new Color(0.75f, 0.25f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 37, "Wheat: "
                     + wheat, new Color(0.75f, 0.25f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 77, "Money: "
                     + gold, new Color(0.75f, 0.25f, 0.25f));
-            Render.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 117, "Land: "
                     + land, new Color(0.75f, 0.25f, 0.25f));
         } else if (warState == 2) {
-            Render.font.drawString(800, (Main.height / 8 * 6) + 12,
+            RenderUtil.font.drawString(800, (Main.height / 8 * 6) + 12,
                     "No Recent Wars");
         }
 
     }
 
-    public static void renderStats() {
+    public static void renderStats(PlayerCountry playerCountry) {
 
         for (Button b : pane0Buttons) {
             b.render(Mouse.getX(), Main.height - Mouse.getY());
@@ -862,43 +858,43 @@ public class MenuBar {
         glEnd();
         glColor3f(1.0f, 1.0f, 1.0f);
 
-        renderStats2();
+        renderStats2(playerCountry);
 
     }
 
-    public static void renderStats2() {
-        Render.drawString(String.valueOf(PlayerCountry.warrior.getwPop())
+    public static void renderStats2(PlayerCountry playerCountry) {
+        RenderUtil.drawString(String.valueOf(playerCountry.warrior.getwPop())
                 + " Warriors", 85, 657);
-        Render.drawString(String.valueOf(PlayerCountry.farmer.getfPop())
+        RenderUtil.drawString(String.valueOf(playerCountry.farmer.getfPop())
                 + " Farmers", 85, 627);
-        Render.drawString(String.valueOf(PlayerCountry.wheat.gettWheat()), 85,
+        RenderUtil.drawString(String.valueOf(playerCountry.wheat.gettWheat()), 85,
                 587);
-        if (Util.getWheatRate() > 0) {
-            Render.font.drawString(85 + Render.font.getWidth(String
-                    .valueOf(PlayerCountry.wheat.gettWheat() + " ")), 587, " ("
-                    + Util.getWheatRateForDisplay() + ")", Color.green);
+        if (MathUtil.getWheatRate(playerCountry) > 0) {
+            RenderUtil.font.drawString(85 + RenderUtil.font.getWidth(String
+                    .valueOf(playerCountry.wheat.gettWheat() + " ")), 587, " ("
+                    + MathUtil.getWheatRateForDisplay(playerCountry) + ")", Color.green);
         } else {
-            Render.font.drawString(85 + Render.font.getWidth(String
-                    .valueOf(PlayerCountry.wheat.gettWheat() + " ")), 587, " ("
-                    + Util.getWheatRateForDisplay() + ")", Color.red);
+            RenderUtil.font.drawString(85 + RenderUtil.font.getWidth(String
+                    .valueOf(playerCountry.wheat.gettWheat() + " ")), 587, " ("
+                    + MathUtil.getWheatRateForDisplay(playerCountry) + ")", Color.red);
         }
-        Render.drawString(
+        RenderUtil.drawString(
                 "Occupied Territories: "
-                        + String.valueOf(PlayerCountry.land.getLand()), 985,
+                        + String.valueOf(playerCountry.land.getLand()), 985,
                 627);
-        Render.drawString(
-                "Money: " + String.valueOf(PlayerCountry.economy.getTreasury()),
+        RenderUtil.drawString(
+                "Money: " + String.valueOf(playerCountry.economy.getTreasury()),
                 985, 657);
-        Render.drawString(
-                "Wood: " + String.valueOf(PlayerCountry.wood.getWood()), 985,
+        RenderUtil.drawString(
+                "Wood: " + String.valueOf(playerCountry.wood.getWood()), 985,
                 597);
-        Render.drawString("Aggression: ", 985, 567);
-        int value = PlayerCountry.aggression.aggressionScore;
-        Render.font.drawString(985 + 15 + Render.font.getWidth("Aggression"),
-                567, String.valueOf(PlayerCountry.aggression.aggressionScore), new Color(
+        RenderUtil.drawString("Aggression: ", 985, 567);
+        int value = playerCountry.aggression.aggressionScore;
+        RenderUtil.font.drawString(985 + 15 + RenderUtil.font.getWidth("Aggression"),
+                567, String.valueOf(playerCountry.aggression.aggressionScore), new Color(
                         (value * 2) / 255f, 1 - (value * 2 / 255f), 20 / 255f));
-        Render.drawString(
-                "Stone: " + String.valueOf(PlayerCountry.stone.getStone()),
+        RenderUtil.drawString(
+                "Stone: " + String.valueOf(playerCountry.stone.getStone()),
                 985, 687);
     }
 

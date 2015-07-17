@@ -78,118 +78,118 @@ public class MeshTask implements Runnable {
                 }
                 if (World.map[x][y] == 1) {
                     if (World.decorations[x][y] == 5){
-                        drawTile(x, y, height, 4, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTile(x, y, height, 4, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     } else{
-                        drawTile(x, y, height, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTile(x, y, height, 1, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x + 1, y);
                         diff *= Render.heightConstant;
-                        drawTileN(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileN(x, y, height, diff, 1, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x - 1, y);
                         diff *= Render.heightConstant;
-                        drawTileS(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileS(x, y, height, diff, 1, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y + 1);
                         diff *= Render.heightConstant;
-                        drawTileW(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileW(x, y, height, diff, 1, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y - 1);
                         diff *= Render.heightConstant;
-                        drawTileE(x, y, height, diff, 1, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileE(x, y, height, diff, 1, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                 }
                 if (World.map[x][y] == 2) {
                     if (World.decorations[x][y] == 5){
-                        drawTile(x, y, height, 6, 4, Util.getRandomColorNoise(x, y), 1f);
+                        drawTile(x, y, height, 6, 4, RenderUtil.getRandomColorNoise(x, y), 1f);
                     } else{
-                        drawTile(x, y, height, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTile(x, y, height, 3, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x + 1, y);
                         diff *= Render.heightConstant;
-                        drawTileN(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileN(x, y, height, diff, 3, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x - 1, y);
                         diff *= Render.heightConstant;
-                        drawTileS(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileS(x, y, height, diff, 3, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y + 1);
                         diff *= Render.heightConstant;
-                        drawTileW(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileW(x, y, height, diff, 3, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y - 1);
                         diff *= Render.heightConstant;
-                        drawTileE(x, y, height, diff, 3, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileE(x, y, height, diff, 3, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                 }
                 if (World.map[x][y] == 3) {
-                    drawTile(x, y, height, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                    drawTile(x, y, height, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x + 1, y);
                         diff *= Render.heightConstant;
-                        drawTileN(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileN(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x - 1, y);
                         diff *= Render.heightConstant;
-                        drawTileS(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileS(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y + 1);
                         diff *= Render.heightConstant;
-                        drawTileW(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileW(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y - 1);
                         diff *= Render.heightConstant;
-                        drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileE(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                 }
                 if (World.map[x][y] == 5) {
-                    drawTile(x, y, height, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                    drawTile(x, y, height, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     if (World.getHeight(x + 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x + 1, y);
                         diff *= Render.heightConstant;
-                        drawTileN(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileN(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x - 1, y) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x - 1, y);
                         diff *= Render.heightConstant;
-                        drawTileS(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileS(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y + 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y + 1);
                         diff *= Render.heightConstant;
-                        drawTileW(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileW(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                     if (World.getHeight(x, y - 1) < World.getHeight(x, y)) {
                         diff = World.getHeight(x, y)
                                 - World.getHeight(x, y - 1);
                         diff *= Render.heightConstant;
-                        drawTileE(x, y, height, diff, 2, 0, Util.getRandomColorNoise(x, y), 1f);
+                        drawTileE(x, y, height, diff, 2, 0, RenderUtil.getRandomColorNoise(x, y), 1f);
                     }
                 }
             }

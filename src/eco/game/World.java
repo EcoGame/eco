@@ -396,7 +396,7 @@ public class World {
         return true;
     }
 
-    public static void updateMap(int farmers, int warriors) {
+    public static void updateMap(Country country, int farmers, int warriors) {
         Random random = new Random();
 
         int deltafarmers = farmers - oldFarmers;
@@ -566,8 +566,8 @@ public class World {
                     }
                 }
             }
-            int realWoodUsed = PlayerCountry.wood.takeWood(woodused,
-                    PlayerCountry.economy);
+            int realWoodUsed = country.wood.takeWood(woodused,
+                    country.economy);
             int woodDiff = woodused - realWoodUsed;
             oldFarmers = farmers
                     - Math.max(newfarmland, newhouses
@@ -754,8 +754,8 @@ public class World {
                     }
                 }
             }
-            int realStoneUsed = PlayerCountry.stone.takeStone(stoneUsed,
-                    PlayerCountry.economy);
+            int realStoneUsed = country.stone.takeStone(stoneUsed,
+                    country.economy);
             int stoneDiff = stoneUsed - realStoneUsed;
             oldWarriors = Math.max(0, warriors - (newcastles + (stoneDiff / stonePerCastle)));
             displacedWarriors = newcastles + (stoneDiff / stonePerCastle);
@@ -943,7 +943,7 @@ public class World {
         return count;
     }
 
-    public static void updateWood() {
+    public static void updateWood(Country country) {
 
         int toAdd = 0;
 
@@ -962,10 +962,10 @@ public class World {
             }
         }
 
-        PlayerCountry.wood.addWood(toAdd);
+        country.wood.addWood(toAdd);
     }
 
-    public static void updateStone() {
+    public static void updateStone(Country country) {
 
         int toAdd = 0;
 
@@ -980,6 +980,6 @@ public class World {
             }
         }
 
-        PlayerCountry.stone.addStone(toAdd);
+        country.stone.addStone(toAdd);
     }
 }

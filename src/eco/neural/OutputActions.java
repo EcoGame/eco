@@ -1,7 +1,6 @@
 package eco.neural;
 
-import eco.game.Country;
-import eco.game.War;
+import eco.game.NPCCountry;
 
 /**
  * This class does something
@@ -13,9 +12,9 @@ import eco.game.War;
 public class OutputActions {
 
     public static void actions(int k, int currentnetwork) {
-        Country c = NeuralManager.Countries[currentnetwork];
+        NPCCountry c = NeuralManager.Countries[currentnetwork];
 
-        Country[] otherCountries = new Country[9];
+        NPCCountry[] otherCountries = new NPCCountry[9];
 
         int place = 0;
         for (int i = 0; i < 10; i++){
@@ -61,31 +60,31 @@ public class OutputActions {
             c.forceConscription = false;
             break;
         case 10:
-            War.warWith(c, otherCountries[0]);
+          //  War.warWith(c, otherCountries[0]);
             break;
         case 11:
-            War.warWith(c, otherCountries[1]);
+           // War.warWith(c, otherCountries[1]);
             break;
         case 12:
-            War.warWith(c, otherCountries[2]);
+           // War.warWith(c, otherCountries[2]);
             break;
         case 13:
-            War.warWith(c, otherCountries[3]);
+           // War.warWith(c, otherCountries[3]);
             break;
         case 14:
-            War.warWith(c, otherCountries[4]);
+           // War.warWith(c, otherCountries[4]);
             break;
         case 15:
-            War.warWith(c, otherCountries[5]);
+           // War.warWith(c, otherCountries[5]);
             break;
         case 16:
-            War.warWith(c, otherCountries[6]);
+           // War.warWith(c, otherCountries[6]);
             break;
         case 18:
-            War.warWith(c, otherCountries[7]);
+           // War.warWith(c, otherCountries[7]);
             break;
         case 19:
-            War.warWith(c, otherCountries[8]);
+           // War.warWith(c, otherCountries[8]);
             break;
         }
 

@@ -1,6 +1,8 @@
 package eco.neural;
 
 
+import eco.game.NPCCountry;
+
 /**
  * A class that manages the neural network
  *
@@ -13,7 +15,7 @@ package eco.neural;
  *
  */
 public class NeuralManager {
-    public static eco.game.Country Countries[] = new eco.game.Country[10];
+    public static NPCCountry Countries[] = new NPCCountry[10];
 
     public static void axonPairing(int currentnetwork) {
 

@@ -68,7 +68,7 @@ public class InputManager {
                     }
                     break;
                 case Keyboard.KEY_F10:
-                    Util.takeScreenshot();
+                    RenderUtil.takeScreenshot();
                     break;
                 case Keyboard.KEY_O:
                     Render.overhead ^= true;
@@ -95,7 +95,7 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                 case Keyboard.KEY_F10:
-                    Util.takeScreenshot();
+                    RenderUtil.takeScreenshot();
                     break;
                 }
             }
@@ -116,7 +116,7 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                 case Keyboard.KEY_F10:
-                    Util.takeScreenshot();
+                    RenderUtil.takeScreenshot();
                     break;
                 case Keyboard.KEY_ESCAPE:
                     Main.paused ^= true;
@@ -140,7 +140,7 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                 case Keyboard.KEY_F10:
-                    Util.takeScreenshot();
+                    RenderUtil.takeScreenshot();
                     break;
                 }
             }
