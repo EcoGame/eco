@@ -40,4 +40,14 @@ public class Util {
        }
     }
 
+    public static Point getRandomTile(){
+        int x = MathUtil.randInt(1, World.mapsize - 2);
+        int y = MathUtil.randInt(1, World.mapsize - 2);;
+        while (!World.isDryLand(x, y)){
+            x = MathUtil.randInt(1, World.mapsize - 2);
+            y = MathUtil.randInt(1, World.mapsize - 2);;
+        }
+        return new Point(x, y);
+    }
+
 }

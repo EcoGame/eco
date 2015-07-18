@@ -406,7 +406,7 @@ public class MenuBar {
         if (pane == 2) {
             if (logDown.checkForClick()) {
                 logOff++;
-                logOff = Math.min(logOff, Log.getAll().size());
+                logOff = Math.min(logOff, EventLog.getAll().size());
             }
             if (logUp.checkForClick()) {
                 logOff--;
@@ -415,7 +415,7 @@ public class MenuBar {
                 }
             }
             if (logOff != 0 && logPos == 0) {
-                logPos = Log.getAll().size();
+                logPos = EventLog.getAll().size();
             } else if (logOff == 0) {
                 logPos = 0;
             }
@@ -608,7 +608,7 @@ public class MenuBar {
             b.render(Mouse.getX(), Main.height - Mouse.getY());
         }
 
-        ArrayList<String> log = Log.getAll();
+        ArrayList<String> log = EventLog.getAll();
 
         String str;
         int offx = 100;

@@ -34,7 +34,7 @@ public class War {
 
     public static void warWith(NPCCountry c) {
         // Book-keeping stuff
-        Log.log(PlayerCountry.year, PlayerCountry.name + " declares war on "
+        EventLog.log(PlayerCountry.year, PlayerCountry.name + " declares war on "
                 + c.name + "!");
         PlayerCountry.balanceCooldown = 5;
 
@@ -74,7 +74,7 @@ public class War {
 
         // Reparations
         if (result == 0) {
-            Log.log(PlayerCountry.year, "The war with " + c.name
+            EventLog.log(PlayerCountry.year, "The war with " + c.name
                     + " ends in stalemate!");
             winLose = 0;
             return;
@@ -91,7 +91,7 @@ public class War {
             c.wheat.settWheat(c.wheat.gettWheat() - wheat);
             c.economy.setTreasury(c.economy.getTreasury() - money);
             c.takeLand(land);
-            Log.log(PlayerCountry.year,
+            EventLog.log(PlayerCountry.year,
                     PlayerCountry.name + " " + NameGen.generateWarWin() + " "
                             + c.name + "!");
             wheatLoss = wheat;
@@ -110,7 +110,7 @@ public class War {
             PlayerCountry.land.addLand(-land);
             c.wheat.settWheat(c.wheat.gettWheat() + wheat);
             c.economy.setTreasury(c.economy.getTreasury() + money);
-            Log.log(PlayerCountry.year,
+            EventLog.log(PlayerCountry.year,
                     PlayerCountry.name + " " + NameGen.generateWarLoss() + " "
                             + c.name + "!");
             if (PlayerCountry.land.getLand() < minLand) {
@@ -128,7 +128,7 @@ public class War {
             return;
         }
         // Book-keeping stuff
-        Log.log(PlayerCountry.year, a.name + " declares war on "
+        EventLog.log(PlayerCountry.year, a.name + " declares war on "
                 + b.name + "!");
 
         int diff = a.aggression.aggressionScore - b.aggression.aggressionScore;
@@ -167,7 +167,7 @@ public class War {
 
         // Reparations
         if (result == 0) {
-            Log.log(PlayerCountry.year, "The war with " + b.name
+            EventLog.log(PlayerCountry.year, "The war with " + b.name
                     + " ends in stalemate!");
             winLose = 0;
             return;
@@ -184,7 +184,7 @@ public class War {
             b.wheat.settWheat(b.wheat.gettWheat() - wheat);
             b.economy.setTreasury(b.economy.getTreasury() - money);
             b.takeLand(land);
-            Log.log(PlayerCountry.year,
+            EventLog.log(PlayerCountry.year,
                     a.name + " " + NameGen.generateWarWin() + " "
                             + b.name + "!");
             wheatLoss = wheat;
@@ -204,7 +204,7 @@ public class War {
             b.takeLand(-land);
             b.wheat.settWheat(b.wheat.gettWheat() + wheat);
             b.economy.setTreasury(b.economy.getTreasury() + money);
-            Log.log(PlayerCountry.year,
+            EventLog.log(PlayerCountry.year,
                     a.name + " " + NameGen.generateWarLoss() + " "
                             + b.name + "!");
             if (a.land.getLand() < minLand) {

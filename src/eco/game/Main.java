@@ -102,8 +102,6 @@ public class Main {
         } catch (LWJGLException e) {
             e.printStackTrace();
         }
-        DisplayLists.mesh();
-
     }
 
 }

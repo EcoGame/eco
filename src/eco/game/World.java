@@ -13,8 +13,18 @@ import java.util.Random;
 
 public class World {
 
-    public static int mapscale = 6;
-    public static int mapsize = (int) Math.pow(2, mapscale);
+    public static int mapscale = 16;
+    public static final int chunksize = Chunk.chunksize;
+    public static int mapsize = chunksize * mapscale;
+
+    private static final float seaLevel = Chunk.seaLevel;
+    public static long mapseed = "seeds are cool".hashCode();
+
+    private static HashMap<Point, Chunk> chunks = new HashMap<>();
+
+
+    // MOST OF THIS STUFF IS GOING TO BE REMOVED
+
     public static volatile short[][] map = new short[mapsize][mapsize];
     public static float[][] noise = new float[mapsize][mapsize];
     public static short[][] structures = new short[mapsize][mapsize];
@@ -22,8 +32,6 @@ public class World {
 
     public static short[][] popmap = new short[mapsize][mapsize];
     public static short[][] popdensity = new short[mapsize][mapsize];
-
-    public static long mapseed = "seeds are cool".hashCode();
 
     public static HashMap<Point, City> cities = new HashMap<Point, City>();
 
@@ -71,7 +79,22 @@ public class World {
     }
 
     public static void generate(int generator) {
-        decorations = new short[mapsize][mapsize];
+
+        NoiseSampler.initSimplexNoise((int) mapseed);
+        NoiseSampler.setNoiseScale(8);
+
+        for (int x = 0; x < mapscale; x++){
+            for (int y = 0; y < mapscale; y++){
+                chunks.put(new Point(x, y), new Chunk(new Point(x, y)));
+            }
+        }
+
+        for (Chunk c : chunks.values()){
+            c.generate();
+        }
+
+
+       /* decorations = new short[mapsize][mapsize];
         mapseed = System.currentTimeMillis();
         map = new short[mapsize][mapsize];
         structures = new short[mapsize][mapsize];
@@ -330,19 +353,88 @@ public class World {
         }
         if (isAllOcean()) {
             generate(generator);
-        }
+        }*/
+
     }
 
-    public static float getHeight(int x, int y) {
-        try {
-            if (map[x][y] == 0) {
-                return 48;
-            }
-            return noise[x][y];
-        } catch (Exception e) {
-        }
-        return -10;
+
+    public static Chunk getChunk(int x, int y){
+        return chunks.get(new Point(x / chunksize, y / chunksize));
     }
+
+    public static short getTileId(int x, int y){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize){
+            return 0;
+        }
+        return getChunk(x, y).getTile(x % chunksize, y % chunksize);
+    }
+
+    public static Tile getTile(int x, int y){
+        return Tile.getTile(getTileId(x, y));
+    }
+
+    public static float getHeight(int x, int y){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize){
+            return 0;
+        }
+        if (getTileId(x, y) == 0){
+            return seaLevel;
+        }
+        Chunk c = getChunk(x, y);
+        if (c == null){
+            return 0f;
+        }
+        return c.getHeight(x % chunksize, y % chunksize);
+    }
+
+    public static int getTerritory(int x, int y){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize){
+            return -1;
+        }
+        Chunk c = getChunk(x, y);
+        if (c == null){
+            return -1;
+        }
+        return c.getTerritory(x % chunksize, y % chunksize);
+    }
+
+    public static void claimLand(int x, int y, short claim){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize){
+            return;
+        }
+        Chunk c = getChunk(x, y);
+        if (c == null){
+            return;
+        }
+        c.setTerritory(x % chunksize, y % chunksize, claim);
+    }
+
+
+    public static boolean isDryLand(int x, int y){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize){
+            return false;
+        }
+        return getTileId(x, y) != 0;
+    }
+
+    public static float getHeightDiffE(int x, int y){
+        return getHeight(x, y) - getHeight(x, y - 1);
+    }
+    public static float getHeightDiffW(int x, int y){
+        return getHeight(x, y) - getHeight(x, y + 1);
+    }
+    public static float getHeightDiffN(int x, int y){
+        return getHeight(x, y) - getHeight(x + 1, y);
+    }
+    public static float getHeightDiffS(int x, int y){
+        return getHeight(x, y) - getHeight(x - 1, y);
+    }
+
+    public static ArrayList<Chunk> getAllChunks(){
+        return new ArrayList<>(chunks.values());
+    }
+
+    // Here be dragons, proceed with caution
 
     public static boolean isAllOcean() {
         for (int x = 0; x < mapsize; x++) {

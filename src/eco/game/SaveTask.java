@@ -12,7 +12,7 @@ public class SaveTask implements Runnable {
 
     @Override
     public void run() {
-        SaveUtil.createSave();
+        SaveUtil.createSave(PlayerCountry.playerCountry);
     }
 
 }

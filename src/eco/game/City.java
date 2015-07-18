@@ -72,10 +72,10 @@ public class City {
         }
         this.castle = isCastle;
         if (usename){
-            //Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
+            //EventLog.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
         }
         else{
-          //  Log.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
+          //  EventLog.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
         }
         this.name = name;
     }
@@ -150,7 +150,7 @@ public class City {
     public String getName() {
         try{
             if (name == "" || name == null){
-                Log.log(-1, "NAME IS NULL");
+                EventLog.log(-1, "NAME IS NULL");
                 return "";
             }
             for (City c : World.cities.values()){

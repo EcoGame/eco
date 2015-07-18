@@ -16,6 +16,7 @@ import java.nio.ByteBuffer;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -133,5 +134,16 @@ public class RenderUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Chunk> getDirtyChunks(){
+        ArrayList<Chunk> chunks = World.getAllChunks();
+        ArrayList<Chunk> dirty = new ArrayList<>();
+        for (Chunk c : chunks){
+            if (c.isDirty()){
+                dirty.add(c);
+            }
+        }
+        return dirty;
     }
 }

@@ -27,6 +27,10 @@ public abstract class Country {
 
     public static float globalWheatRot = 0.9f;
 
+    public static final int startLand = 100;
+
+    private static int count = 0; // Used for preventing infinite recursion
+
     // =====================//
     // Simulation Variables //
     // =====================//
@@ -49,6 +53,8 @@ public abstract class Country {
 
     public int balanceCooldown = 0;
 
+    public Point start;
+
     // ================//
     // Instanced Stuff //
     // ================//
@@ -63,6 +69,8 @@ public abstract class Country {
     public Score score = new Score();
 
     public String name = NameGen.generateCountry();
+
+    public Treble<Float, Float, Float> color = new Treble<>(1f, 1f, 1f);
 
     public Country(){
         countries.add(this);
@@ -81,23 +89,21 @@ public abstract class Country {
         // Population growth //
         // ==================//
 
-        if (World.displacedFarmers != 0) {
-            farmer.setOldFPop(farmer.getfPop());
-        }
+        // if (World.displacedFarmers != 0) {
+        // farmer.setOldFPop(farmer.getfPop());
+        //}
 
-        if (World.displacedWarriors != 0) {
-            warrior.setOldWPop(warrior.getwPop());
-        }
+        // if (World.displacedWarriors != 0) {
+        //   warrior.setOldWPop(warrior.getwPop());
+        //   }
 
-        if (World.displacedFarmers == 0 && World.displacedWarriors == 0) {
-            float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(wBirthRate, wDeathRate);
-            float newWarriors = newPopulation * desiredWarriorRatio;
-            newPopulation -= newWarriors;
-            farmer.addPop(newPopulation);
-            warrior.addPop(newWarriors);
-            warrior.setOldWPop(warrior.getwPop());
-            farmer.setOldFPop(farmer.getfPop());
-        }
+        float newPopulation = farmer.fPop(fBirthRate, fDeathRate) + warrior.wPop(wBirthRate, wDeathRate);
+        float newWarriors = newPopulation * desiredWarriorRatio;
+        newPopulation -= newWarriors;
+        farmer.addPop(newPopulation);
+        warrior.addPop(newWarriors);
+        warrior.setOldWPop(warrior.getwPop());
+        farmer.setOldFPop(farmer.getfPop());
 
         if (forceConscription && balanceCooldown == 0) {
             float totalpop = farmer.getFloatFPop() + warrior.getFloatWPop();
@@ -157,7 +163,7 @@ public abstract class Country {
             if (displacedHunger != 0) {
                 int displacedDeath = Math.round(((float) displacedHunger
                         / (float) farmer.getfHunger() / 2f) * 1f);
-                World.displacedPeople -= displacedDeath;
+                // World.displacedPeople -= displacedDeath;
             }
         } else {
             int displacedHungerConst = farmer.getfHunger() / 2;
@@ -165,16 +171,16 @@ public abstract class Country {
             if (displacedHunger != 0) {
                 int displacedDeath = Math.round(((float) displacedHunger
                         / (float) farmer.getfHunger() / 2f) * 1f);
-                World.displacedPeople -= displacedDeath;
+                //World.displacedPeople -= displacedDeath;
             }
         }
 
         // ==============//
         // Other Updates //
         // ==============//
-        World.updateWood(this);
+        //World.updateWood(this);
         wood.update();
-        World.updateStone(this);
+        //World.updateStone(this);
 
         wheat.update(economy);
         wheat.rot(wheatRot);
@@ -196,5 +202,38 @@ public abstract class Country {
     }
 
     public abstract void updateTick();
+
+    public static Treble<Float, Float, Float> getTerritoryColor(int id){
+        if (id == 0 || id == -1){
+            return null;
+        }
+        return countries.get(id - 1).color;
+    }
+
+    protected void claimInitialLand(int x, int y){
+        doLandClaim(x, y);
+        count = 0;
+    }
+
+    protected void doLandClaim(int x, int y){
+        if (count > startLand){
+            return;
+        }
+        System.out.println(count);
+        World.claimLand(x, y, (short) (countries.indexOf(this) + 1));
+        count++;
+        if (World.isDryLand(x - 1, y) && !(count > startLand)){
+            doLandClaim(x - 1, y);
+        }
+        if (World.isDryLand(x + 1, y) && !(count > startLand)){
+            doLandClaim(x + 1, y);
+        }
+        if (World.isDryLand(x, y - 1) && !(count > startLand)){
+            doLandClaim(x, y - 1);
+        }
+        if (World.isDryLand(x, y + 1) && !(count > startLand)){
+            doLandClaim(x, y + 1);
+        }
+    }
 
 }

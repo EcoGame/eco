@@ -17,6 +17,8 @@ public class PlayerCountry extends Country{
         super();
         eco.neural.Main.init();
         World.init(generatorToUse);
+        start = Util.getRandomTile();
+        claimInitialLand(start.getX(), start.getY());
         Main.paused = false;
         wheat = new Wheat();
         farmer = new Farmer();
@@ -36,7 +38,6 @@ public class PlayerCountry extends Country{
         if (SaveUtil.doesSaveExist(Main.currentSave)) {
             SaveUtil.readSave();
         }
-        DisplayLists.mesh();
     }
 
     /* Game tick */
@@ -44,14 +45,14 @@ public class PlayerCountry extends Country{
         // ===========//
         // Map Update //
         // ===========//
-        World.updateMap(this, farmer.getfPop(), warrior.getwPop());
-        World.freeAcres = World.calcAcres();
-        farmer.addPop(-World.displacedFarmers);
-        warrior.addPop(-World.displacedWarriors);
-        World.displacedPeople += World.displacedFarmers
-                + World.displacedWarriors;
-        World.displacedFarmers = 0;
-        World.displacedWarriors = 0;
+       // World.updateMap(this, farmer.getfPop(), warrior.getwPop());
+        //World.freeAcres = World.calcAcres();
+       // farmer.addPop(-World.displacedFarmers);
+       // warrior.addPop(-World.displacedWarriors);
+       // World.displacedPeople += World.displacedFarmers
+       //         + World.displacedWarriors;
+       // World.displacedFarmers = 0;
+       // World.displacedWarriors = 0;
 
         // ===============//
         // Render Updates //

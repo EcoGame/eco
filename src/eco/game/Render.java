@@ -45,7 +45,7 @@ public class Render {
 
     public static boolean overhead = false;
 
-    public static float heightConstant = 0.025f * (World.mapsize / 64);
+    public static float heightConstant = 4f;
 
     public static boolean preferMultiThreading = true;
     public static boolean multithreading = true;
@@ -102,7 +102,7 @@ public class Render {
         /* Array rendering */
         synchronized (lock) {
             if (multithreading) {
-                if (vertex != null && texture != null && colors != null) {
+                /*if (vertex != null && texture != null && colors != null) {
                     GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
 
                     GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
@@ -118,6 +118,9 @@ public class Render {
                     GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
                     GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
                     GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+                }*/
+                for (Chunk c : World.getAllChunks()){
+                    c.render();
                 }
             }
         }
