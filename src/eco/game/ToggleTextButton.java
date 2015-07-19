@@ -1,14 +1,14 @@
 package eco.game;
 
 import org.lwjgl.opengl.GL11;
-import java.awt.Rectangle;
+
+import java.awt.*;
 
 /**
  * A <i>ToggleTextButton</i> behaves just like a normal <i>TextButton</i>, but
  * will toggle to it's second texture when pressed, not just when moused over
  *
  * @author phil
- *
  */
 
 public class ToggleTextButton extends Button {
@@ -21,8 +21,8 @@ public class ToggleTextButton extends Button {
     private boolean toggle;
 
     public ToggleTextButton(float x, float y, float width, float height,
-            int tex, int tey, int texselected, int teyselected, String text,
-            boolean on) {
+                            int tex, int tey, int texselected, int teyselected, String text,
+                            boolean on) {
         super(x, y, width, tex, tey, texselected, teyselected);
         this.width = width;
         this.height = height;

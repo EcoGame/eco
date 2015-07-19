@@ -3,27 +3,15 @@ package eco.game;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.ImageIOImageData;
-import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.Log;
-import org.newdawn.slick.util.ResourceLoader;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 
 /**
  * This class does all the rendering.
- * 
+ *
  * @author phil
- * 
  */
 
 public class Render {
@@ -36,24 +24,18 @@ public class Render {
     static TextureAtlas atlas;
 
     public static final float tilesize = 0.2f;
+    public static float heightConstant = 4f;
 
     public static volatile boolean mesh = false;
 
     public static Camera camera = new Camera(-World.mapsize / 2f * tilesize,
             -8f, World.mapsize / 2f * tilesize);
+    public static boolean overhead = false;
 
     public static volatile FloatBuffer vertex = null;
     public static volatile FloatBuffer texture = null;
     public static volatile FloatBuffer colors = null;
     public static volatile int buffersize;
-
-    public static boolean overhead = false;
-
-    public static float heightConstant = 4f;
-
-    public static boolean preferMultiThreading = true;
-    public static boolean multithreading = true;
-    public static boolean multiThreadStructures = false;
 
     public static final Object lock = new Object();
 
@@ -63,37 +45,12 @@ public class Render {
     public static final RandTexture smallCastleTexture = new RandTexture();
     public static final RandTexture bigCastleTexture = new RandTexture();
 
-    private static final int minTPS = -1;
-
-    /* Main draw function */
     public static void draw() {
-        /* Gets ready to draw */
-        glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glLoadIdentity();
+        RenderUtil.prepDraw();
         RenderUtil.initFrustrum();
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
 
-        if (preferMultiThreading && Main.framesPerTick <= minTPS
-                && multithreading) {
-            System.out.println("###########");
-            System.out.println("# WARNING #");
-            System.out.println("###########");
-            System.out.println("TPS is too low for safe multithreading!");
-            System.out.println("Switching to display lists.....");
-            multithreading = false;
-        } else if (preferMultiThreading && Main.framesPerTick > minTPS
-                && !multithreading) {
-            multithreading = true;
-        }
-
-        if (!preferMultiThreading) {
-            multithreading = false;
-        }
-
-        /* Look through the camera */
         camera.look();
 
-        /* Bind the textureatlas */
         atlas.bind();
 
         int mapsize = World.mapsize;
@@ -103,36 +60,11 @@ public class Render {
         glRotatef(rot, 0.0f, 1.0f, 0.0f);
         glTranslatef(offset, 0f, offset);
 
-        /* Array rendering */
+        /* Chunk rendering */
         synchronized (lock) {
-            if (multithreading) {
-                /*if (vertex != null && texture != null && colors != null) {
-                    GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
-
-                    GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
-                    GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-                    GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-
-                    GL11.glVertexPointer(3, 0, vertex);
-                    GL11.glTexCoordPointer(2, 0, texture);
-                    GL11.glColorPointer(4, 0, colors);
-
-                    GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
-
-                    GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-                    GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
-                    GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
-                }*/
-                for (Chunk c : World.getAllChunks()){
-                    c.render();
-                }
+            for (Chunk c : World.getAllChunks()) {
+                c.render();
             }
-        }
-
-        /* DisplayList rendering */
-        if (!multithreading) {
-            /* Call the display list */
-            GL11.glCallList(DisplayLists.getIndex());
         }
 
         /* Render structures */
@@ -143,7 +75,7 @@ public class Render {
                         World.cities.get(new Point(x, y)).updatePop(
                                 (int) World.popdensity[x][y]);
                         drawCity((-x) * tilesize, World.noise[x][y]
-                                * heightConstant, (-y) * tilesize, 1,
+                                        * heightConstant, (-y) * tilesize, 1,
                                 World.cities.get(new Point(x, y)));
                     } catch (Exception e) {
                         World.cities.put(new Point(x, y), new City(new Point(x,
@@ -155,7 +87,7 @@ public class Render {
                         World.cities.get(new Point(x, y)).updatePop(
                                 (int) World.popdensity[x][y]);
                         drawCity((-x) * tilesize, World.noise[x][y]
-                                * heightConstant, (-y) * tilesize, 2,
+                                        * heightConstant, (-y) * tilesize, 2,
                                 World.cities.get(new Point(x, y)));
                     } catch (Exception e) {
                         World.cities.put(new Point(x, y), new City(new Point(x,
@@ -164,7 +96,7 @@ public class Render {
                 }
                 if (World.structures[x][y] == 3) {
                     drawStructure((-x) * tilesize, World.noise[x][y]
-                            * heightConstant, (-y) * tilesize,
+                                    * heightConstant, (-y) * tilesize,
                             treeTexture.sample(x, y));
                 }
                 if (World.decorations[x][y] == 1) {
@@ -194,12 +126,12 @@ public class Render {
                 try {
                     if (World.structures[x][y] == 1) {
                         drawCityName((-x) * tilesize, World.noise[x][y]
-                                * heightConstant, (-y) * tilesize,
+                                        * heightConstant, (-y) * tilesize,
                                 World.cities.get(new Point(x, y)));
                     }
                     if (World.structures[x][y] == 2) {
                         drawCityName((-x) * tilesize, World.noise[x][y]
-                                * heightConstant, (-y) * tilesize,
+                                        * heightConstant, (-y) * tilesize,
                                 World.cities.get(new Point(x, y)));
                     }
                 } catch (Exception e) {

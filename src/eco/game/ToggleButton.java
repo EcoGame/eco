@@ -1,14 +1,14 @@
 package eco.game;
 
 import org.lwjgl.opengl.GL11;
-import java.awt.Rectangle;
+
+import java.awt.*;
 
 /**
  * A <i>ToggleButton</i> behaves just like a normal <i>Button</i>, but will
  * toggle to it's second texture when pressed, not just when moused over
  *
  * @author phil
- *
  */
 
 public class ToggleButton extends Button {
@@ -16,7 +16,7 @@ public class ToggleButton extends Button {
     private boolean toggle = false;
 
     public ToggleButton(float x, float y, float size, int tex, int tey,
-            int texselected, int teyselected, boolean on) {
+                        int texselected, int teyselected, boolean on) {
         super(x, y, size, tex, tey, texselected, teyselected);
         toggle = on;
     }
@@ -71,7 +71,7 @@ public class ToggleButton extends Button {
             GL11.glVertex2f(x, y + size);
             GL11.glEnd();
         }
-        if (getOversize() == 24 || true){
+        if (getOversize() == 24 || true) {
 
             float offx = (size - getOversize()) / 2;
             float offy = (size - getOversize()) / 2;
@@ -92,10 +92,11 @@ public class ToggleButton extends Button {
         }
     }
 
-    public void setToggle(boolean toggle){
+    public void setToggle(boolean toggle) {
         this.toggle = toggle;
     }
-    public boolean getToggle(){
+
+    public boolean getToggle() {
         return this.toggle;
     }
 

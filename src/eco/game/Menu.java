@@ -11,6 +11,7 @@ public class Menu {
     public static void mainMenu() {
         initMenu();
         while (Main.shouldBeInMenu) {
+            Command.update();
             if (Display.isCloseRequested()) {
                 Main.shouldQuit = true;
                 Util.quit(0);

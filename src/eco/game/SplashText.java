@@ -1,12 +1,10 @@
 package eco.game;
 
 /**
-*
-* This class does splash texts
-*
-* @Author Phil
-*
-**/
+ * This class does splash texts
+ *
+ * @Author Phil
+ **/
 
 
 import java.util.Random;
@@ -17,7 +15,7 @@ public class SplashText {
 
     private static String splash = "";
 
-    static{
+    static {
         splashes = new String[]{
                 "95% Stable",
                 "Thousands of bugs!",
@@ -39,16 +37,17 @@ public class SplashText {
                 "'Lemme just draw it on the board.'",
                 "Never trust an operating system you don't have sources for.",
                 "This is a P. Heikompf production",
+                "0X7d3f16f235a508cb!"
 
         };
     }
 
-    public static void newSplash(){
+    public static void newSplash() {
         Random random = new Random();
-        splash =  splashes[random.nextInt(splashes.length)];
+        splash = splashes[random.nextInt(splashes.length)];
     }
 
-    public static String getSplash(){
+    public static String getSplash() {
         return splash;
     }
 

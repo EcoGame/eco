@@ -5,7 +5,6 @@ package eco.game;
  * <i>tick()</i> once every frame to update correctly.
  *
  * @author phil
- *
  */
 
 public class FPSCounter {

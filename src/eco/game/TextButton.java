@@ -1,7 +1,8 @@
 package eco.game;
 
 import org.lwjgl.opengl.GL11;
-import java.awt.Rectangle;
+
+import java.awt.*;
 
 public class TextButton extends Button {
 
@@ -11,7 +12,7 @@ public class TextButton extends Button {
     private String text;
 
     public TextButton(float x, float y, float width, float height, int tex,
-            int tey, int texselected, int teyselected, String text) {
+                      int tey, int texselected, int teyselected, String text) {
         super(x, y, width, tex, tey, texselected, teyselected);
         this.width = width;
         this.height = height;
@@ -73,11 +74,10 @@ public class TextButton extends Button {
     public void setText(String text) {
         this.text = text;
         String str = "";
-        for (int i = 0; i < text.length(); i++){
-            if (text.charAt(i) != '@'){
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != '@') {
                 str += text.charAt(i);
-            }
-            else{
+            } else {
                 str += ' ';
             }
         }

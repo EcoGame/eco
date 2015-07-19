@@ -9,7 +9,6 @@ import org.lwjgl.opengl.Display;
  * it needs to go
  *
  * @author phil, connor
- *
  */
 
 public class InputManager {
@@ -44,38 +43,38 @@ public class InputManager {
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
-                case Keyboard.KEY_G:
-                    Main.debug ^= true;
-                    System.out.println("DEBUG MODE IS TOGGLED!");
-                    break;
-                case Keyboard.KEY_Q:
-                    Render.camera = new Camera(-World.mapsize / 2f
-                            * Render.tilesize, -4f, World.mapsize / 2f
-                            * Render.tilesize);
-                    System.out.println("Reset camera to default location");
-                    break;
-                case Keyboard.KEY_H:
-                case Keyboard.KEY_GRAVE:
-                    Main.fullDebug ^= true;
-                    break;
-                case Keyboard.KEY_M:
-                    Render.multithreading ^= true;
-                    break;
-                case Keyboard.KEY_ESCAPE:
-                    Main.paused ^= true;
-                    if (Main.paused == true){
-                        ThreadManager.addJob(new SaveTask());
-                    }
-                    break;
-                case Keyboard.KEY_F10:
-                    RenderUtil.takeScreenshot();
-                    break;
-                case Keyboard.KEY_O:
-                    Render.overhead ^= true;
-                    break;
-                case Keyboard.KEY_B:
-                    Render.preferMultiThreading ^= true;
-                    break;
+                    case Keyboard.KEY_G:
+                        Main.debug ^= true;
+                        System.out.println("DEBUG MODE IS TOGGLED!");
+                        break;
+                    case Keyboard.KEY_Q:
+                        Render.camera = new Camera(-World.mapsize / 2f
+                                * Render.tilesize, -4f, World.mapsize / 2f
+                                * Render.tilesize);
+                        System.out.println("Reset camera to default location");
+                        break;
+                    case Keyboard.KEY_H:
+                    case Keyboard.KEY_GRAVE:
+                        Main.fullDebug ^= true;
+                        break;
+                    case Keyboard.KEY_M:
+                        Render.multithreading ^= true;
+                        break;
+                    case Keyboard.KEY_ESCAPE:
+                        Main.paused ^= true;
+                        if (Main.paused == true) {
+                            ThreadManager.addJob(new SaveTask());
+                        }
+                        break;
+                    case Keyboard.KEY_F10:
+                        RenderUtil.takeScreenshot();
+                        break;
+                    case Keyboard.KEY_O:
+                        Render.overhead ^= true;
+                        break;
+                    case Keyboard.KEY_B:
+                        Render.preferMultiThreading ^= true;
+                        break;
                 }
             }
         }
@@ -94,9 +93,9 @@ public class InputManager {
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
-                case Keyboard.KEY_F10:
-                    RenderUtil.takeScreenshot();
-                    break;
+                    case Keyboard.KEY_F10:
+                        RenderUtil.takeScreenshot();
+                        break;
                 }
             }
         }
@@ -115,12 +114,12 @@ public class InputManager {
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
-                case Keyboard.KEY_F10:
-                    RenderUtil.takeScreenshot();
-                    break;
-                case Keyboard.KEY_ESCAPE:
-                    Main.paused ^= true;
-                    break;
+                    case Keyboard.KEY_F10:
+                        RenderUtil.takeScreenshot();
+                        break;
+                    case Keyboard.KEY_ESCAPE:
+                        Main.paused ^= true;
+                        break;
                 }
             }
         }
@@ -135,13 +134,13 @@ public class InputManager {
         }
     }
 
-    public static void updateGameOver(){
+    public static void updateGameOver() {
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
-                case Keyboard.KEY_F10:
-                    RenderUtil.takeScreenshot();
-                    break;
+                    case Keyboard.KEY_F10:
+                        RenderUtil.takeScreenshot();
+                        break;
                 }
             }
         }

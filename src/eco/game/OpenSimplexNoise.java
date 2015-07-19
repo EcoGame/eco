@@ -133,7 +133,7 @@ public class OpenSimplexNoise {
         if (inSum <= 1) { // We're inside the triangle (2-Simplex) at (0,0)
             double zins = 1 - inSum;
             if (zins > xins || zins > yins) { // (0,0) is one of the closest two
-                                                // triangular vertices
+                // triangular vertices
                 if (xins > yins) {
                     xsv_ext = xsb + 1;
                     ysv_ext = ysb - 1;
@@ -154,7 +154,7 @@ public class OpenSimplexNoise {
         } else { // We're inside the triangle (2-Simplex) at (1,1)
             double zins = 2 - inSum;
             if (zins < xins || zins < yins) { // (0,0) is one of the closest two
-                                                // triangular vertices
+                // triangular vertices
                 if (xins > yins) {
                     xsv_ext = xsb + 2;
                     ysv_ext = ysb + 0;
@@ -262,13 +262,13 @@ public class OpenSimplexNoise {
             // (0,0,0)
             double wins = 1 - inSum;
             if (wins > aScore || wins > bScore) { // (0,0,0) is one of the
-                                                    // closest two tetrahedral
-                                                    // vertices.
+                // closest two tetrahedral
+                // vertices.
                 byte c = (bScore > aScore ? bPoint : aPoint); // Our other
-                                                                // closest
-                                                                // vertex is the
-                                                                // closest out
-                                                                // of a and b.
+                // closest
+                // vertex is the
+                // closest out
+                // of a and b.
 
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsb - 1;
@@ -305,10 +305,10 @@ public class OpenSimplexNoise {
                     dz_ext0 = dz_ext1 = dz0 - 1;
                 }
             } else { // (0,0,0) is not one of the closest two tetrahedral
-                        // vertices.
+                // vertices.
                 byte c = (byte) (aPoint | bPoint); // Our two extra vertices are
-                                                    // determined by the closest
-                                                    // two.
+                // determined by the closest
+                // two.
 
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsb;
@@ -385,7 +385,7 @@ public class OpenSimplexNoise {
                         * extrapolate(xsb + 0, ysb + 0, zsb + 1, dx3, dy3, dz3);
             }
         } else if (inSum >= 2) { // We're inside the tetrahedron (3-Simplex) at
-                                    // (1,1,1)
+            // (1,1,1)
 
             // Determine which two tetrahedral vertices are the closest, out of
             // (1,1,0), (1,0,1), (0,1,1) but not (1,1,1).
@@ -407,13 +407,13 @@ public class OpenSimplexNoise {
             // (1,1,1)
             double wins = 3 - inSum;
             if (wins < aScore || wins < bScore) { // (1,1,1) is one of the
-                                                    // closest two tetrahedral
-                                                    // vertices.
+                // closest two tetrahedral
+                // vertices.
                 byte c = (bScore < aScore ? bPoint : aPoint); // Our other
-                                                                // closest
-                                                                // vertex is the
-                                                                // closest out
-                                                                // of a and b.
+                // closest
+                // vertex is the
+                // closest out
+                // of a and b.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsb + 2;
@@ -450,10 +450,10 @@ public class OpenSimplexNoise {
                     dz_ext0 = dz_ext1 = dz0 - 3 * SQUISH_CONSTANT_3D;
                 }
             } else { // (1,1,1) is not one of the closest two tetrahedral
-                        // vertices.
+                // vertices.
                 byte c = (byte) (aPoint & bPoint); // Our two extra vertices are
-                                                    // determined by the closest
-                                                    // two.
+                // determined by the closest
+                // two.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsb + 1;
@@ -533,7 +533,7 @@ public class OpenSimplexNoise {
                         * extrapolate(xsb + 1, ysb + 1, zsb + 1, dx0, dy0, dz0);
             }
         } else { // We're inside the octahedron (Rectified 3-Simplex) in
-                    // between.
+            // between.
             double aScore;
             byte aPoint;
             boolean aIsFurtherSide;
@@ -792,7 +792,7 @@ public class OpenSimplexNoise {
             value += attn_ext0
                     * attn_ext0
                     * extrapolate(xsv_ext0, ysv_ext0, zsv_ext0, dx_ext0,
-                            dy_ext0, dz_ext0);
+                    dy_ext0, dz_ext0);
         }
 
         // Second extra vertex
@@ -803,7 +803,7 @@ public class OpenSimplexNoise {
             value += attn_ext1
                     * attn_ext1
                     * extrapolate(xsv_ext1, ysv_ext1, zsv_ext1, dx_ext1,
-                            dy_ext1, dz_ext1);
+                    dy_ext1, dz_ext1);
         }
 
         return value / NORM_CONSTANT_3D;
@@ -862,7 +862,7 @@ public class OpenSimplexNoise {
 
         double value = 0;
         if (inSum <= 1) { // We're inside the pentachoron (4-Simplex) at
-                            // (0,0,0,0)
+            // (0,0,0,0)
 
             // Determine which two of (0,0,0,1), (0,0,1,0), (0,1,0,0), (1,0,0,0)
             // are closest.
@@ -891,13 +891,13 @@ public class OpenSimplexNoise {
             // (0,0,0,0)
             double uins = 1 - inSum;
             if (uins > aScore || uins > bScore) { // (0,0,0,0) is one of the
-                                                    // closest two pentachoron
-                                                    // vertices.
+                // closest two pentachoron
+                // vertices.
                 byte c = (bScore > aScore ? bPoint : aPoint); // Our other
-                                                                // closest
-                                                                // vertex is the
-                                                                // closest out
-                                                                // of a and b.
+                // closest
+                // vertex is the
+                // closest out
+                // of a and b.
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsb - 1;
                     xsv_ext1 = xsv_ext2 = xsb;
@@ -953,10 +953,10 @@ public class OpenSimplexNoise {
                     dw_ext0 = dw_ext1 = dw_ext2 = dw0 - 1;
                 }
             } else { // (0,0,0,0) is not one of the closest two pentachoron
-                        // vertices.
+                // vertices.
                 byte c = (byte) (aPoint | bPoint); // Our three extra vertices
-                                                    // are determined by the
-                                                    // closest two.
+                // are determined by the
+                // closest two.
 
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsv_ext2 = xsb;
@@ -1024,7 +1024,7 @@ public class OpenSimplexNoise {
                 value += attn0
                         * attn0
                         * extrapolate(xsb + 0, ysb + 0, zsb + 0, wsb + 0, dx0,
-                                dy0, dz0, dw0);
+                        dy0, dz0, dw0);
             }
 
             // Contribution (1,0,0,0)
@@ -1038,7 +1038,7 @@ public class OpenSimplexNoise {
                 value += attn1
                         * attn1
                         * extrapolate(xsb + 1, ysb + 0, zsb + 0, wsb + 0, dx1,
-                                dy1, dz1, dw1);
+                        dy1, dz1, dw1);
             }
 
             // Contribution (0,1,0,0)
@@ -1052,7 +1052,7 @@ public class OpenSimplexNoise {
                 value += attn2
                         * attn2
                         * extrapolate(xsb + 0, ysb + 1, zsb + 0, wsb + 0, dx2,
-                                dy2, dz2, dw2);
+                        dy2, dz2, dw2);
             }
 
             // Contribution (0,0,1,0)
@@ -1066,7 +1066,7 @@ public class OpenSimplexNoise {
                 value += attn3
                         * attn3
                         * extrapolate(xsb + 0, ysb + 0, zsb + 1, wsb + 0, dx3,
-                                dy3, dz3, dw3);
+                        dy3, dz3, dw3);
             }
 
             // Contribution (0,0,0,1)
@@ -1080,10 +1080,10 @@ public class OpenSimplexNoise {
                 value += attn4
                         * attn4
                         * extrapolate(xsb + 0, ysb + 0, zsb + 0, wsb + 1, dx4,
-                                dy4, dz4, dw4);
+                        dy4, dz4, dw4);
             }
         } else if (inSum >= 3) { // We're inside the pentachoron (4-Simplex) at
-                                    // (1,1,1,1)
+            // (1,1,1,1)
             // Determine which two of (1,1,1,0), (1,1,0,1), (1,0,1,1), (0,1,1,1)
             // are closest.
             byte aPoint = 0x0E;
@@ -1111,13 +1111,13 @@ public class OpenSimplexNoise {
             // (0,0,0,0)
             double uins = 4 - inSum;
             if (uins < aScore || uins < bScore) { // (1,1,1,1) is one of the
-                                                    // closest two pentachoron
-                                                    // vertices.
+                // closest two pentachoron
+                // vertices.
                 byte c = (bScore < aScore ? bPoint : aPoint); // Our other
-                                                                // closest
-                                                                // vertex is the
-                                                                // closest out
-                                                                // of a and b.
+                // closest
+                // vertex is the
+                // closest out
+                // of a and b.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsb + 2;
@@ -1176,10 +1176,10 @@ public class OpenSimplexNoise {
                     dw_ext0 = dw_ext1 = dw_ext2 = dw0 - 4 * SQUISH_CONSTANT_4D;
                 }
             } else { // (1,1,1,1) is not one of the closest two pentachoron
-                        // vertices.
+                // vertices.
                 byte c = (byte) (aPoint & bPoint); // Our three extra vertices
-                                                    // are determined by the
-                                                    // closest two.
+                // are determined by the
+                // closest two.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsv_ext2 = xsb + 1;
@@ -1251,7 +1251,7 @@ public class OpenSimplexNoise {
                 value += attn4
                         * attn4
                         * extrapolate(xsb + 1, ysb + 1, zsb + 1, wsb + 0, dx4,
-                                dy4, dz4, dw4);
+                        dy4, dz4, dw4);
             }
 
             // Contribution (1,1,0,1)
@@ -1265,7 +1265,7 @@ public class OpenSimplexNoise {
                 value += attn3
                         * attn3
                         * extrapolate(xsb + 1, ysb + 1, zsb + 0, wsb + 1, dx3,
-                                dy3, dz3, dw3);
+                        dy3, dz3, dw3);
             }
 
             // Contribution (1,0,1,1)
@@ -1279,7 +1279,7 @@ public class OpenSimplexNoise {
                 value += attn2
                         * attn2
                         * extrapolate(xsb + 1, ysb + 0, zsb + 1, wsb + 1, dx2,
-                                dy2, dz2, dw2);
+                        dy2, dz2, dw2);
             }
 
             // Contribution (0,1,1,1)
@@ -1293,7 +1293,7 @@ public class OpenSimplexNoise {
                 value += attn1
                         * attn1
                         * extrapolate(xsb + 0, ysb + 1, zsb + 1, wsb + 1, dx1,
-                                dy1, dz1, dw1);
+                        dy1, dz1, dw1);
             }
 
             // Contribution (1,1,1,1)
@@ -1307,10 +1307,10 @@ public class OpenSimplexNoise {
                 value += attn0
                         * attn0
                         * extrapolate(xsb + 1, ysb + 1, zsb + 1, wsb + 1, dx0,
-                                dy0, dz0, dw0);
+                        dy0, dz0, dw0);
             }
         } else if (inSum <= 2) { // We're inside the first dispentachoron
-                                    // (Rectified 4-Simplex)
+            // (Rectified 4-Simplex)
             double aScore;
             byte aPoint;
             boolean aIsBiggerSide = true;
@@ -1642,7 +1642,7 @@ public class OpenSimplexNoise {
                 value += attn1
                         * attn1
                         * extrapolate(xsb + 1, ysb + 0, zsb + 0, wsb + 0, dx1,
-                                dy1, dz1, dw1);
+                        dy1, dz1, dw1);
             }
 
             // Contribution (0,1,0,0)
@@ -1656,7 +1656,7 @@ public class OpenSimplexNoise {
                 value += attn2
                         * attn2
                         * extrapolate(xsb + 0, ysb + 1, zsb + 0, wsb + 0, dx2,
-                                dy2, dz2, dw2);
+                        dy2, dz2, dw2);
             }
 
             // Contribution (0,0,1,0)
@@ -1670,7 +1670,7 @@ public class OpenSimplexNoise {
                 value += attn3
                         * attn3
                         * extrapolate(xsb + 0, ysb + 0, zsb + 1, wsb + 0, dx3,
-                                dy3, dz3, dw3);
+                        dy3, dz3, dw3);
             }
 
             // Contribution (0,0,0,1)
@@ -1684,7 +1684,7 @@ public class OpenSimplexNoise {
                 value += attn4
                         * attn4
                         * extrapolate(xsb + 0, ysb + 0, zsb + 0, wsb + 1, dx4,
-                                dy4, dz4, dw4);
+                        dy4, dz4, dw4);
             }
 
             // Contribution (1,1,0,0)
@@ -1698,7 +1698,7 @@ public class OpenSimplexNoise {
                 value += attn5
                         * attn5
                         * extrapolate(xsb + 1, ysb + 1, zsb + 0, wsb + 0, dx5,
-                                dy5, dz5, dw5);
+                        dy5, dz5, dw5);
             }
 
             // Contribution (1,0,1,0)
@@ -1712,7 +1712,7 @@ public class OpenSimplexNoise {
                 value += attn6
                         * attn6
                         * extrapolate(xsb + 1, ysb + 0, zsb + 1, wsb + 0, dx6,
-                                dy6, dz6, dw6);
+                        dy6, dz6, dw6);
             }
 
             // Contribution (1,0,0,1)
@@ -1726,7 +1726,7 @@ public class OpenSimplexNoise {
                 value += attn7
                         * attn7
                         * extrapolate(xsb + 1, ysb + 0, zsb + 0, wsb + 1, dx7,
-                                dy7, dz7, dw7);
+                        dy7, dz7, dw7);
             }
 
             // Contribution (0,1,1,0)
@@ -1740,7 +1740,7 @@ public class OpenSimplexNoise {
                 value += attn8
                         * attn8
                         * extrapolate(xsb + 0, ysb + 1, zsb + 1, wsb + 0, dx8,
-                                dy8, dz8, dw8);
+                        dy8, dz8, dw8);
             }
 
             // Contribution (0,1,0,1)
@@ -1754,7 +1754,7 @@ public class OpenSimplexNoise {
                 value += attn9
                         * attn9
                         * extrapolate(xsb + 0, ysb + 1, zsb + 0, wsb + 1, dx9,
-                                dy9, dz9, dw9);
+                        dy9, dz9, dw9);
             }
 
             // Contribution (0,0,1,1)
@@ -1769,7 +1769,7 @@ public class OpenSimplexNoise {
                 value += attn10
                         * attn10
                         * extrapolate(xsb + 0, ysb + 0, zsb + 1, wsb + 1, dx10,
-                                dy10, dz10, dw10);
+                        dy10, dz10, dw10);
             }
         } else { // We're inside the second dispentachoron (Rectified 4-Simplex)
             double aScore;
@@ -2095,7 +2095,7 @@ public class OpenSimplexNoise {
                 value += attn4
                         * attn4
                         * extrapolate(xsb + 1, ysb + 1, zsb + 1, wsb + 0, dx4,
-                                dy4, dz4, dw4);
+                        dy4, dz4, dw4);
             }
 
             // Contribution (1,1,0,1)
@@ -2109,7 +2109,7 @@ public class OpenSimplexNoise {
                 value += attn3
                         * attn3
                         * extrapolate(xsb + 1, ysb + 1, zsb + 0, wsb + 1, dx3,
-                                dy3, dz3, dw3);
+                        dy3, dz3, dw3);
             }
 
             // Contribution (1,0,1,1)
@@ -2123,7 +2123,7 @@ public class OpenSimplexNoise {
                 value += attn2
                         * attn2
                         * extrapolate(xsb + 1, ysb + 0, zsb + 1, wsb + 1, dx2,
-                                dy2, dz2, dw2);
+                        dy2, dz2, dw2);
             }
 
             // Contribution (0,1,1,1)
@@ -2137,7 +2137,7 @@ public class OpenSimplexNoise {
                 value += attn1
                         * attn1
                         * extrapolate(xsb + 0, ysb + 1, zsb + 1, wsb + 1, dx1,
-                                dy1, dz1, dw1);
+                        dy1, dz1, dw1);
             }
 
             // Contribution (1,1,0,0)
@@ -2151,7 +2151,7 @@ public class OpenSimplexNoise {
                 value += attn5
                         * attn5
                         * extrapolate(xsb + 1, ysb + 1, zsb + 0, wsb + 0, dx5,
-                                dy5, dz5, dw5);
+                        dy5, dz5, dw5);
             }
 
             // Contribution (1,0,1,0)
@@ -2165,7 +2165,7 @@ public class OpenSimplexNoise {
                 value += attn6
                         * attn6
                         * extrapolate(xsb + 1, ysb + 0, zsb + 1, wsb + 0, dx6,
-                                dy6, dz6, dw6);
+                        dy6, dz6, dw6);
             }
 
             // Contribution (1,0,0,1)
@@ -2179,7 +2179,7 @@ public class OpenSimplexNoise {
                 value += attn7
                         * attn7
                         * extrapolate(xsb + 1, ysb + 0, zsb + 0, wsb + 1, dx7,
-                                dy7, dz7, dw7);
+                        dy7, dz7, dw7);
             }
 
             // Contribution (0,1,1,0)
@@ -2193,7 +2193,7 @@ public class OpenSimplexNoise {
                 value += attn8
                         * attn8
                         * extrapolate(xsb + 0, ysb + 1, zsb + 1, wsb + 0, dx8,
-                                dy8, dz8, dw8);
+                        dy8, dz8, dw8);
             }
 
             // Contribution (0,1,0,1)
@@ -2207,7 +2207,7 @@ public class OpenSimplexNoise {
                 value += attn9
                         * attn9
                         * extrapolate(xsb + 0, ysb + 1, zsb + 0, wsb + 1, dx9,
-                                dy9, dz9, dw9);
+                        dy9, dz9, dw9);
             }
 
             // Contribution (0,0,1,1)
@@ -2222,7 +2222,7 @@ public class OpenSimplexNoise {
                 value += attn10
                         * attn10
                         * extrapolate(xsb + 0, ysb + 0, zsb + 1, wsb + 1, dx10,
-                                dy10, dz10, dw10);
+                        dy10, dz10, dw10);
             }
         }
 
@@ -2234,7 +2234,7 @@ public class OpenSimplexNoise {
             value += attn_ext0
                     * attn_ext0
                     * extrapolate(xsv_ext0, ysv_ext0, zsv_ext0, wsv_ext0,
-                            dx_ext0, dy_ext0, dz_ext0, dw_ext0);
+                    dx_ext0, dy_ext0, dz_ext0, dw_ext0);
         }
 
         // Second extra vertex
@@ -2245,7 +2245,7 @@ public class OpenSimplexNoise {
             value += attn_ext1
                     * attn_ext1
                     * extrapolate(xsv_ext1, ysv_ext1, zsv_ext1, wsv_ext1,
-                            dx_ext1, dy_ext1, dz_ext1, dw_ext1);
+                    dx_ext1, dy_ext1, dz_ext1, dw_ext1);
         }
 
         // Third extra vertex
@@ -2256,7 +2256,7 @@ public class OpenSimplexNoise {
             value += attn_ext2
                     * attn_ext2
                     * extrapolate(xsv_ext2, ysv_ext2, zsv_ext2, wsv_ext2,
-                            dx_ext2, dy_ext2, dz_ext2, dw_ext2);
+                    dx_ext2, dy_ext2, dz_ext2, dw_ext2);
         }
 
         return value / NORM_CONSTANT_4D;
@@ -2268,14 +2268,14 @@ public class OpenSimplexNoise {
     }
 
     private double extrapolate(int xsb, int ysb, int zsb, double dx, double dy,
-            double dz) {
+                               double dz) {
         int index = permGradIndex3D[(perm[(perm[xsb & 0xFF] + ysb) & 0xFF] + zsb) & 0xFF];
         return gradients3D[index] * dx + gradients3D[index + 1] * dy
                 + gradients3D[index + 2] * dz;
     }
 
     private double extrapolate(int xsb, int ysb, int zsb, int wsb, double dx,
-            double dy, double dz, double dw) {
+                               double dy, double dz, double dw) {
         int index = perm[(perm[(perm[(perm[xsb & 0xFF] + ysb) & 0xFF] + zsb) & 0xFF] + wsb) & 0xFF] & 0xFC;
         return gradients4D[index] * dx + gradients4D[index + 1] * dy
                 + gradients4D[index + 2] * dz + gradients4D[index + 3] * dw;
@@ -2288,24 +2288,24 @@ public class OpenSimplexNoise {
 
     // Gradients for 2D. They approximate the directions to the
     // vertices of an octagon from the center.
-    private static byte[] gradients2D = new byte[] { 5, 2, 2, 5, -5, 2, -2, 5,
-            5, -2, 2, -5, -5, -2, -2, -5, };
+    private static byte[] gradients2D = new byte[]{5, 2, 2, 5, -5, 2, -2, 5,
+            5, -2, 2, -5, -5, -2, -2, -5,};
 
     // Gradients for 3D. They approximate the directions to the
     // vertices of a rhombicuboctahedron from the center, skewed so
     // that the triangular and square facets can be inscribed inside
     // circles of the same radius.
-    private static byte[] gradients3D = new byte[] { -11, 4, 4, -4, 11, 4, -4,
+    private static byte[] gradients3D = new byte[]{-11, 4, 4, -4, 11, 4, -4,
             4, 11, 11, 4, 4, 4, 11, 4, 4, 4, 11, -11, -4, 4, -4, -11, 4, -4,
             -4, 11, 11, -4, 4, 4, -11, 4, 4, -4, 11, -11, 4, -4, -4, 11, -4,
             -4, 4, -11, 11, 4, -4, 4, 11, -4, 4, 4, -11, -11, -4, -4, -4, -11,
-            -4, -4, -4, -11, 11, -4, -4, 4, -11, -4, 4, -4, -11, };
+            -4, -4, -4, -11, 11, -4, -4, 4, -11, -4, 4, -4, -11,};
 
     // Gradients for 4D. They approximate the directions to the
     // vertices of a disprismatotesseractihexadecachoron from the center,
     // skewed so that the tetrahedral and cubic facets can be inscribed inside
     // spheres of the same radius.
-    private static byte[] gradients4D = new byte[] { 3, 1, 1, 1, 1, 3, 1, 1, 1,
+    private static byte[] gradients4D = new byte[]{3, 1, 1, 1, 1, 3, 1, 1, 1,
             1, 3, 1, 1, 1, 1, 3, -3, 1, 1, 1, -1, 3, 1, 1, -1, 1, 3, 1, -1, 1,
             1, 3, 3, -1, 1, 1, 1, -3, 1, 1, 1, -1, 3, 1, 1, -1, 1, 3, -3, -1,
             1, 1, -1, -3, 1, 1, -1, -1, 3, 1, -1, -1, 1, 3, 3, 1, -1, 1, 1, 3,
@@ -2318,5 +2318,5 @@ public class OpenSimplexNoise {
             -1, -1, 3, -1, -1, -1, 1, -3, 3, 1, -1, -1, 1, 3, -1, -1, 1, 1, -3,
             -1, 1, 1, -1, -3, -3, 1, -1, -1, -1, 3, -1, -1, -1, 1, -3, -1, -1,
             1, -1, -3, 3, -1, -1, -1, 1, -3, -1, -1, 1, -1, -3, -1, 1, -1, -1,
-            -3, -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3, };
+            -3, -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3,};
 }

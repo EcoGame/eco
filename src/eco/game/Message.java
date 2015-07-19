@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 /**
  * This class defines a message with a location and duration.
- * 
+ *
  * @author phil
- * 
  */
 
 public class Message {

@@ -2,23 +2,15 @@ package eco.game;
 
 
 /**
- *
  * This class represents and simulates another country
  *
  * @author phil, nate
  */
-public class NPCCountry extends Country{
+public class NPCCountry extends Country {
 
     // ================//
     // Main Variables //
     // ===============//
-    public Farmer farmer = new Farmer();
-    public Warrior warrior = new Warrior();
-    public Economy economy = new Economy();
-    public Wheat wheat = new Wheat();
-    public Land land = new Land();
-    public Wood wood = new Wood();
-    public Stone stone = new Stone();
 
     // ==================//
     // NPCCountry Variables //
@@ -45,9 +37,9 @@ public class NPCCountry extends Country{
     public static float wheatRot = 0.7f;
 
     public int landsize;
-    
+
     public boolean cutForests = false;
-    
+
     public boolean forceConscription = false;
 
     public boolean dead = false;
@@ -88,7 +80,7 @@ public class NPCCountry extends Country{
         //int diff = (Math.abs(aggression.aggressionScore - PlayerCountry.aggression.aggressionScore)) + 1;
         //int warMul = 100;
         //if (PlayerCountry.year < 250){
-       //     warMul = 1000;
+        //     warMul = 1000;
         //}
         // if (World.random.nextInt(diff * warMul) == 0){
         //War.attackPlayer(this);
@@ -104,21 +96,20 @@ public class NPCCountry extends Country{
         // }
     }
 
-    public int getScore(){
-        try{
+    public int getScore() {
+        try {
             return score.scoreAt(PlayerCountry.year - 1);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }
 
-    public void takeLand(int toTake){
-        if (toTake >= land.getLand()){
+    public void takeLand(int toTake) {
+        if (toTake >= land.getLand()) {
             toTake -= land.getLand();
             land.setLand(0);
             landsize -= toTake;
-        } else{
+        } else {
             land.setLand(land.getLand() - toTake);
         }
     }

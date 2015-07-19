@@ -6,9 +6,8 @@ import java.util.Objects;
  * A class that represents a 2D point, and has overridden <i>hashCode</i> and
  * <i>equals</i> methods for use in hashmaps. Maintains the hashcode-equals
  * contract.
- * 
+ *
  * @author phil
- * 
  */
 
 public class Point {
@@ -54,9 +53,9 @@ public class Point {
     public void setY(int y) {
         this.y = y;
     }
-    
-    public String toString(){
-        return "("+x+","+y+")";
+
+    public String toString() {
+        return "(" + x + "," + y + ")";
     }
-     
+
 }

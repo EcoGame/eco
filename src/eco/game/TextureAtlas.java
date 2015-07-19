@@ -8,7 +8,6 @@ import org.newdawn.slick.opengl.Texture;
  * resolution and size
  *
  * @author phil
- *
  */
 
 public class TextureAtlas {

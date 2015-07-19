@@ -1,19 +1,18 @@
 package eco.game;
-import eco.neural.GeneticMaster;
+
 import org.lwjgl.opengl.Display;
 
 /**
- *
  * Simulates the player country
- * @author phil, nate, will, connor
  *
+ * @author phil, nate, will, connor
  */
 
-public class PlayerCountry extends Country{
+public class PlayerCountry extends Country {
 
     public static PlayerCountry playerCountry;
 
-    public PlayerCountry(){
+    public PlayerCountry() {
         super();
         eco.neural.Main.init();
         World.init(generatorToUse);
@@ -21,8 +20,6 @@ public class PlayerCountry extends Country{
         claimInitialLand(start.getX(), start.getY());
         Main.paused = false;
         wheat = new Wheat();
-        farmer = new Farmer();
-        warrior = new Warrior();
         economy = new Economy();
         stone = new Stone();
         land = new Land();
@@ -42,61 +39,30 @@ public class PlayerCountry extends Country{
 
     /* Game tick */
     public void updateTick() {
-        // ===========//
-        // Map Update //
-        // ===========//
-       // World.updateMap(this, farmer.getfPop(), warrior.getwPop());
-        //World.freeAcres = World.calcAcres();
-       // farmer.addPop(-World.displacedFarmers);
-       // warrior.addPop(-World.displacedWarriors);
-       // World.displacedPeople += World.displacedFarmers
-       //         + World.displacedWarriors;
-       // World.displacedFarmers = 0;
-       // World.displacedWarriors = 0;
-
         // ===============//
         // Render Updates //
         // ===============//
         if (Render.multithreading) {
             ThreadManager.addJob(new MeshTask());
-        } else {
-            DisplayLists.mesh();
-            Main.skipFrame = true;
         }
-
-        // =============//
-        // Multicountry //
-        // =============//
-        /*for (NPCCountry NPCCountry : new ArrayList<NPCCountry>(countries)) {
-            if (!NPCCountry.dead){
-                NPCCountry.tick();
-            }
-        }*/
 
         // =========//
         // Autosave //
         // =========//
-        if (year % Main.autoSaveInterval == 0){
+        if (year % Main.autoSaveInterval == 0) {
             ThreadManager.addJob(new SaveTask());
         }
-
-        // ===============//
-        // Neural Network //
-        // ===============//
-       // for (int i = 0; i < countries.size(); i++) {
-          //  NeuralManager.neuralTick(i);
-        //}
     }
 
 
     /* Normal game loop */
-    /* returns if the display was closed */
     public static void gameLoop(PlayerCountry playerCountry) {
         PlayerCountry.playerCountry = playerCountry;
         Main.shouldBeInMenu = true;
         while (!Main.shouldQuit) {
+            Command.update();
             if (Display.isCloseRequested()) {
-                if (!Main.gameOver){
+                if (!Main.gameOver) {
                     SaveUtil.createSave(playerCountry);
                 }
                 Util.quit(0);
@@ -118,8 +84,8 @@ public class PlayerCountry extends Country{
                         && PlayerCountry.year < PlayerCountry.ticks) {
                     PlayerCountry.year++;
                     Country.globalTick();
-                    if (playerCountry.farmer.getfPop() <= 0
-                            && playerCountry.warrior.getwPop() <= 0) {
+                    if (playerCountry.farmer.getPop() <= 0
+                            && playerCountry.warrior.getPop() <= 0) {
                         Main.gameOver = true;
                     }
                     Main.frame = 0;
@@ -147,12 +113,19 @@ public class PlayerCountry extends Country{
                 Display.sync(60);
             }
         }
-        GeneticMaster.geneMaster();
-        if (!Main.gameOver){
+        //GeneticMaster.geneMaster();
+        if (!Main.gameOver) {
             SaveUtil.createSave(playerCountry);
 
         }
+        PlayerCountry.playerCountry = null;
         Menu.mainMenu();
+    }
+
+    public static void testGame() {
+        Main.currentSave = -1;
+        Main.shouldQuit = false;
+        gameLoop(new PlayerCountry());
     }
 
 }

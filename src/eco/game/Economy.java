@@ -3,7 +3,7 @@ package eco.game;
 /**
  * This class describes the international market for wheat, it manages wheat
  * reserve goals and sells or buys to meet it.
- * 
+ *
  * @Author phil
  */
 
@@ -30,8 +30,8 @@ public class Economy {
         return ammount;
     }
 
-    public int takeMoney(int request){
-        if (request > treasury){
+    public int takeMoney(int request) {
+        if (request > treasury) {
             request = treasury;
             treasury = 0;
             return request;
@@ -39,7 +39,7 @@ public class Economy {
         treasury -= request;
         return request;
     }
-    
+
     public void updateMarket(int time) {
         wheatPrice += MathUtil.randInt(-5, 5);
     }

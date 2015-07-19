@@ -5,7 +5,6 @@ package eco.game;
  * together.
  *
  * @author phil
- *
  */
 
 public class NoiseSampler {

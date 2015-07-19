@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL11.*;
  * buttons
  *
  * @author phil, connor
- *
  */
 
 public class UIManager {

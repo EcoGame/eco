@@ -1,13 +1,13 @@
 package eco.game;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class LockButton extends ToggleButton {
 
     public boolean lock = true;
 
     public LockButton(float x, float y, float size, int tex, int tey,
-            int texselected, int teyselected, boolean on) {
+                      int texselected, int teyselected, boolean on) {
         super(x, y, size, tex, tey, texselected, teyselected, on);
     }
 
@@ -16,10 +16,9 @@ public class LockButton extends ToggleButton {
                 (int) getSize(), (int) getSize());
         if (rect.contains(mousex, mousey)) {
             super.setToggle(true);
-            if (lock){
+            if (lock) {
                 lock = false;
-            }
-            else{
+            } else {
                 setClickFlag(true);
             }
         }

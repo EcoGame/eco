@@ -8,9 +8,8 @@ import org.lwjgl.util.vector.Vector3f;
  * Has methods for movement in six directions, along with a method look() that
  * will apply the matrix transformations that make the camera function. Defaults
  * to a 30 degree pitch and 0 degree yaw
- * 
+ *
  * @author phil
- * 
  */
 
 public class Camera {
@@ -52,11 +51,11 @@ public class Camera {
     }
 
     public void look() {
-        if (!Render.overhead){
+        if (!Render.overhead) {
             GL11.glRotatef(yaw, 0f, 0f, 1f);
             GL11.glRotatef(pitch, 1f, 0f, 0f);
             GL11.glTranslatef(-position.x, position.y, -position.z);
-        } else{
+        } else {
             GL11.glRotatef(yaw, 0f, 0f, 1f);
             GL11.glRotatef(0, 1f, 0f, 0f);
             GL11.glTranslatef(-position.x, -1.7f, -position.z);

@@ -6,13 +6,11 @@ import org.newdawn.slick.Color;
 public class Graph {
 
     /**
-     *
      * An object that represents a graph
      * Contains methods for drawing and updating
      * Based on nates <i>Graphs</i> code
      *
      * @author phil
-     *
      */
 
     private static int size = 150;
@@ -32,21 +30,21 @@ public class Graph {
 
     private boolean justGraph = false;
 
-    public Graph(float x, float y, String title, Treble<Float, Float, Float> treble){
+    public Graph(float x, float y, String title, Treble<Float, Float, Float> treble) {
         this.x = x;
         this.y = y;
         this.title = title;
         this.color = treble;
     }
 
-    public void tick(float value){
-         contents[size - 1] = value;
-         for (int i = 0; i < size - 1; i++){
-             contents[i] = contents[i + 1];
-         }
+    public void tick(float value) {
+        contents[size - 1] = value;
+        for (int i = 0; i < size - 1; i++) {
+            contents[i] = contents[i + 1];
+        }
     }
 
-    public void render(){
+    public void render() {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_LINE_SMOOTH);
         GL11.glLineWidth(3f);
@@ -55,13 +53,13 @@ public class Graph {
 
         float max = 0;
 
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             max = Math.max(max, contents[i]);
         }
 
         /* Graph */
         GL11.glBegin(GL11.GL_LINE_STRIP);
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             GL11.glVertex2f(x + i, y - (contents[i] * height / (float) max));
         }
         GL11.glEnd();
@@ -80,8 +78,8 @@ public class Graph {
         GL11.glColor3f(1f, 1f, 1f);
     }
 
-    public void render2(){
-        if (justGraph){
+    public void render2() {
+        if (justGraph) {
             return;
         }
 
@@ -89,7 +87,7 @@ public class Graph {
 
         float max = 0;
 
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             max = Math.max(max, contents[i]);
         }
 
@@ -99,11 +97,11 @@ public class Graph {
 
     }
 
-    public void hideStats(){
+    public void hideStats() {
         justGraph = true;
     }
 
-    public void reset(){
+    public void reset() {
         contents = new float[size];
     }
 

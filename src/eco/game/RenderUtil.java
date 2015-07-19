@@ -26,12 +26,10 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
- *
  * A class that holds some utility methods used by <i>Render</i>
  * Mostly just to keep other classes free of clutter
  *
  * @author phil
- *
  */
 public class RenderUtil {
     static TrueTypeFont font;
@@ -118,7 +116,9 @@ public class RenderUtil {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         File file = new File("../screenshots/" + dateFormat.format(date));
-        file.mkdirs();
+        if (!file.mkdirs()) {
+            Log.warning("Failed to create screenshots directory!");
+        }
         String format = "PNG";
         BufferedImage image = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
@@ -141,11 +141,11 @@ public class RenderUtil {
         }
     }
 
-    public static ArrayList<Chunk> getDirtyChunks(){
+    public static ArrayList<Chunk> getDirtyChunks() {
         ArrayList<Chunk> chunks = World.getAllChunks();
         ArrayList<Chunk> dirty = new ArrayList<>();
-        for (Chunk c : chunks){
-            if (c.isDirty()){
+        for (Chunk c : chunks) {
+            if (c.isDirty()) {
                 dirty.add(c);
             }
         }
@@ -173,11 +173,11 @@ public class RenderUtil {
 
         initFrustrum();
 
-        GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
+        setDefaultClearColor();
 
     }
 
-    private static void loadResources(){
+    private static void loadResources() {
 
         org.newdawn.slick.util.Log.setVerbose(false);
         /* Creates textureatlas */
@@ -265,13 +265,13 @@ public class RenderUtil {
         File icon128 = new File("../assets/icon128.png");
         File icon32 = new File("../assets/icon32.png");
         File icon16 = new File("../assets/icon16.png");
-        if (Main.isInEclipse){
+        if (Main.isInEclipse) {
             icon128 = new File("assets/icon128.png");
             icon32 = new File("assets/icon32.png");
             icon16 = new File("assets/icon16.png");
         }
         try {
-            Display.setIcon(new ByteBuffer[] {
+            Display.setIcon(new ByteBuffer[]{
                     new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon128), false, false, null),
                     new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon32), false, false, null),
                     new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon16), false, false, null)
@@ -282,5 +282,19 @@ public class RenderUtil {
             e.printStackTrace();
         }
 
+    }
+
+    public static void setClearColor(int r, int g, int b) {
+        glClearColor(r / 255f, g / 255f, b / 255f, 1f);
+    }
+
+    public static void setDefaultClearColor() {
+        GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
+    }
+
+    public static void prepDraw() {
+        glClear(GL11.GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 }

@@ -1,4 +1,5 @@
 package eco.game;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.SharedDrawable;
@@ -12,9 +13,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Main class
- * 
+ *
  * @author phil, connor, nate, will
- * 
  */
 
 public class Main {
@@ -33,7 +33,7 @@ public class Main {
 
     public static int framesPerTick = 18;
     public static int frame = 0;
-    
+
     public static boolean renderPopMap = false;
 
     // =============//
@@ -61,41 +61,41 @@ public class Main {
     public static boolean shouldQuit = false;
 
     public static final int autoSaveInterval = 100;
-    
+
     /* Main method */
     public static void main(String[] args) {
-        if (args.length >= 1){
-            if (args[0].equals("-e")){
+        if (args.length >= 1) {
+            if (args[0].equals("-e")) {
                 isInEclipse = true;
             }
         }
-       // System.out.println("Welcome to EcoLand!");
+        // System.out.println("Welcome to EcoLand!");
         Log.title("Welcome to EcoLand!");
-        Log.title("Version "+vn);
+        Log.title("Version " + vn);
         initDisplay();
         Menu.initMenu();
         Log.info("Switching to menu");
         Menu.mainMenu();
-        try{
-            for(int p =0; p < 10; p++){
-                Path filepath1 = Paths.get("../newtxt/connections"+ p+ ".ann");
-                Path filepath2 = Paths.get("../neurons/connections"+ p+ ".ann");
+        try {
+            for (int p = 0; p < 10; p++) {
+                Path filepath1 = Paths.get("../newtxt/connections" + p + ".ann");
+                Path filepath2 = Paths.get("../neurons/connections" + p + ".ann");
                 Files.move(filepath1, filepath2, REPLACE_EXISTING);
             }
-            for(int q =0; q < 10; q++){
-                Path filepath1 = Paths.get("../newtxt/neuron"+ q+ ".ann");
-                Path filepath2 = Paths.get("../neurons/neuron"+ q+ ".ann");
+            for (int q = 0; q < 10; q++) {
+                Path filepath1 = Paths.get("../newtxt/neuron" + q + ".ann");
+                Path filepath2 = Paths.get("../neurons/neuron" + q + ".ann");
                 Files.move(filepath1, filepath2, REPLACE_EXISTING);
             }
             Path filepath1 = Paths.get("../newtxt/currentstate.ann");
             Path filepath2 = Paths.get("../neurons/currentstate.ann");
             Files.move(filepath1, filepath2, REPLACE_EXISTING);
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             System.err.println(ex);
         }
         Util.quit(0);
     }
-    
+
     /* Initiate Rendering */
     public static void initDisplay() {
         RenderUtil.initDisplay();

@@ -5,9 +5,8 @@ import java.util.Random;
 /**
  * An object that stores additional information about a city, such as the
  * configuration of buildings and name.
- * 
+ *
  * @author phil
- * 
  */
 
 public class City {
@@ -25,7 +24,6 @@ public class City {
     public static String capitalEpithet = "# ";
 
     public boolean castle = false;
-    
 
 
     public City(Point key, boolean isCastle) {
@@ -71,11 +69,10 @@ public class City {
             usename = false;
         }
         this.castle = isCastle;
-        if (usename){
+        if (usename) {
             //EventLog.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" is founded");
-        }
-        else{
-          //  EventLog.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
+        } else {
+            //  EventLog.log(PlayerCountry.year, PlayerCountry.name+" - "+name+" has grown");
         }
         this.name = name;
     }
@@ -96,7 +93,7 @@ public class City {
                 while (map[rand.getX()][rand.getY()] == 2) {
                     rand = new Point(random.nextInt(4), random.nextInt(4));
                     count++;
-                    if (count > 1000000000){
+                    if (count > 1000000000) {
                         break;
                     }
                 }
@@ -119,20 +116,20 @@ public class City {
             }
             pop = newpop;
         }
-        if (newpop <= 0){
+        if (newpop <= 0) {
             usename = true;
             castle = false;
         }
-        for (int x = 0; x < 4; x++){
-            for (int y = 0; y < 4; y++){
-                if (map[x][y] == -1 && random.nextInt(10) == 0){
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                if (map[x][y] == -1 && random.nextInt(10) == 0) {
                     map[x][y] = 0;
                 }
             }
         }
-        for (int x = 0; x < 4; x++){
-            for (int y = 0; y < 4; y++){
-                if (map[x][y] != 0){
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                if (map[x][y] != 0) {
                     return;
                 }
             }
@@ -148,15 +145,15 @@ public class City {
     }
 
     public String getName() {
-        try{
-            if (name == "" || name == null){
+        try {
+            if (name == "" || name == null) {
                 EventLog.log(-1, "NAME IS NULL");
                 return "";
             }
-            for (City c : World.cities.values()){
-                if (c.name.equals(name)){
-                    if (!c.getLoc().equals(getLoc())){
-                        if (c.usename){
+            for (City c : World.cities.values()) {
+                if (c.name.equals(name)) {
+                    if (!c.getLoc().equals(getLoc())) {
+                        if (c.usename) {
                             usename = false;
                             return "";
                         }
@@ -179,26 +176,25 @@ public class City {
                 usename = shouldUseName(World.cities.get(new Point(loc.getX() + 1, loc.getY() - 1)));
             } else if (World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)) != null) {
                 usename = shouldUseName(World.cities.get(new Point(loc.getX() - 1, loc.getY() - 1)));
-            } else{
+            } else {
                 usename = true;
             }
             if (usename) {
-                for (City c : World.cities.values()){
-                    if (c.name.equals(name)){
-                        if (!c.getLoc().equals(getLoc())){
-                            if (c.usename){
+                for (City c : World.cities.values()) {
+                    if (c.name.equals(name)) {
+                        if (!c.getLoc().equals(getLoc())) {
+                            if (c.usename) {
                                 usename = false;
                                 return "";
                             }
                         }
                     }
                 }
-                return "["+World.popdensity[loc.getX()][loc.getY()]+"] "+name;
+                return "[" + World.popdensity[loc.getX()][loc.getY()] + "] " + name;
             }
             return "";
-        }
-        catch(Exception e){
-            if (Main.isInEclipse){
+        } catch (Exception e) {
+            if (Main.isInEclipse) {
                 e.printStackTrace();
             }
         }
@@ -219,29 +215,29 @@ public class City {
         }
         return size;
     }
-    
-    public Point getLoc(){
+
+    public Point getLoc() {
         return loc;
     }
-    
-    public int getPop(){
+
+    public int getPop() {
         return pop;
     }
-    
-    public static boolean shouldUseName(City city){
-        if (city == null || city.name == "" || city.name == null){
+
+    public static boolean shouldUseName(City city) {
+        if (city == null || city.name == "" || city.name == null) {
             return true;
-        } else if (city.usename || city.pop < 5){
+        } else if (city.usename || city.pop < 5) {
             return false;
         }
         return true;
     }
-    
-    public boolean isUsingName(){
+
+    public boolean isUsingName() {
         return usename;
     }
-    
-    public void makeCapital(){
+
+    public void makeCapital() {
         usename = true;
         name = capitalEpithet + name;
     }

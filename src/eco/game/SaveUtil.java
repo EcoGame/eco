@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class SaveUtil {
     public static void createSave(PlayerCountry country) {
 
+        if (Main.currentSave == -1) {
+            return;
+        }
+
         if (Main.currentSave == 1) {
             if (Main.saveName1.contains(" ")) {
                 Main.saveName1 = Main.saveName1.replace(" ", "@");
@@ -70,13 +74,13 @@ public class SaveUtil {
                 BW.newLine();
             }
 
-           BW.write(Integer.toString(Country.year));
+            BW.write(Integer.toString(Country.year));
             BW.newLine();
             BW.write(Integer.toString(country.wheat.gettWheat()));
             BW.newLine();
-            BW.write(Integer.toString(country.farmer.getfPop()));
+            BW.write(Integer.toString(country.farmer.getPop()));
             BW.newLine();
-            BW.write(Integer.toString(country.warrior.getwPop()));
+            BW.write(Integer.toString(country.warrior.getPop()));
             BW.newLine();
             BW.write(Integer.toString(country.land.getLand()));
             BW.newLine();
@@ -126,12 +130,12 @@ public class SaveUtil {
             }
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer
-                        .getfPop()) + ",");
+                        .getPop()) + ",");
             }
             BW.newLine();
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 BW.write(String.valueOf(PlayerCountry.countries.get(x).warrior
-                        .getwPop()) + ",");
+                        .getPop()) + ",");
             }
             BW.newLine();
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
@@ -248,8 +252,8 @@ public class SaveUtil {
             PlayerCountry playerCountry = new PlayerCountry();
             PlayerCountry.year = Integer.valueOf(list.get(1));
             playerCountry.wheat.settWheat(Integer.valueOf(list.get(2)));
-            playerCountry.farmer.setfPop(Integer.valueOf(list.get(3)));
-            playerCountry.warrior.setwPop(Integer.valueOf(list.get(4)));
+            playerCountry.farmer.setPop(Integer.valueOf(list.get(3)));
+            playerCountry.warrior.setPop(Integer.valueOf(list.get(4)));
             playerCountry.land.setLand(Integer.valueOf(list.get(5)));
             playerCountry.land.setPop(Integer.valueOf(list.get(6)));
             playerCountry.wood.setWood(Integer.valueOf(list.get(7)));
@@ -306,14 +310,14 @@ public class SaveUtil {
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 String values = list.get(line);
                 String[] parts = values.split(",");
-                PlayerCountry.countries.get(x).farmer.setfPop(Integer
+                PlayerCountry.countries.get(x).farmer.setPop(Integer
                         .valueOf(parts[x]));
             }
             line++;
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 String values = list.get(line);
                 String[] parts = values.split(",");
-                PlayerCountry.countries.get(x).warrior.setwPop(Integer
+                PlayerCountry.countries.get(x).warrior.setPop(Integer
                         .valueOf(parts[x]));
             }
             line++;
@@ -370,6 +374,9 @@ public class SaveUtil {
     }
 
     public static boolean doesSaveExist(int currentSave) {
+        if (currentSave == -1) {
+            return false;
+        }
         String path = "";
         File name = null;
         path = "saves/" + currentSave + ".txt";

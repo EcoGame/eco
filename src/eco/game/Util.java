@@ -4,7 +4,6 @@ package eco.game;
  * A class that contains various utilities and convenience methods
  *
  * @author phil, nate, connor, will
- *
  */
 
 public class Util {
@@ -35,24 +34,27 @@ public class Util {
 
     public static void putCountries(NPCCountry[] toPut) {
         PlayerCountry.countries.clear();
-       for (NPCCountry c : toPut) {
-           Country.countries.add(c);
-       }
+        for (NPCCountry c : toPut) {
+            Country.countries.add(c);
+        }
     }
 
-    public static Point getRandomTile(){
+    public static Point getRandomTile() {
         int x = MathUtil.randInt(1, World.mapsize - 2);
-        int y = MathUtil.randInt(1, World.mapsize - 2);;
-        while (!World.isDryLand(x, y)){
+        int y = MathUtil.randInt(1, World.mapsize - 2);
+        ;
+        while (!World.isDryLand(x, y)) {
             x = MathUtil.randInt(1, World.mapsize - 2);
-            y = MathUtil.randInt(1, World.mapsize - 2);;
+            y = MathUtil.randInt(1, World.mapsize - 2);
+            ;
         }
         return new Point(x, y);
     }
 
-    public static void quit(int exitCode){
-        Log.stop("Stopping (exit code "+exitCode+")");
+    public static void quit(int exitCode) {
+        Log.stop("Stopping (exit code " + exitCode + ")");
         Console.moveBack();
+        Console.close();
         System.exit(exitCode);
     }
 

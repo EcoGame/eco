@@ -1,15 +1,15 @@
 package eco.game;
 
 import org.lwjgl.opengl.GL11;
-import java.awt.Rectangle;
+
+import java.awt.*;
 
 /**
  * An object to represent a visual button. When the button is clicked,
  * <i>clickFlag</i> will be set to true. The click flag can be polled using
  * checkForClick(), and will be reset to false during this.
- * 
+ *
  * @author phil
- * 
  */
 
 public class Button {
@@ -27,14 +27,14 @@ public class Button {
     private int texselected;
 
     private int teyselected;
-    
+
     private int overtex;
     private int overtey;
-    
+
     private int oversize;
 
     public Button(float x, float y, float size, int tex, int tey,
-            int texselected, int teyselected) {
+                  int texselected, int teyselected) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -93,7 +93,7 @@ public class Button {
             GL11.glVertex2f(x, y + size);
             GL11.glEnd();
         }
-        if (oversize == 24){
+        if (oversize == 24) {
 
             float offx = (size - oversize) / 2;
             float offy = (size - oversize) / 2;
@@ -182,8 +182,8 @@ public class Button {
     public void render2() {
 
     }
-    
-    public void addOverlay(int tex, int tey, int size){
+
+    public void addOverlay(int tex, int tey, int size) {
         overtex = tex;
         overtey = tey;
         this.oversize = size;
@@ -212,7 +212,6 @@ public class Button {
     public void setOversize(int oversize) {
         this.oversize = oversize;
     }
-    
-    
+
 
 }

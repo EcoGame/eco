@@ -5,7 +5,6 @@ package eco.game;
  * stockpile
  *
  * @author phil, nate, will, connor
- *
  */
 
 public class Wheat {
@@ -19,7 +18,7 @@ public class Wheat {
     public static int globalWheat = 0;
 
     public int tWheat(int farmers, Farmer farmer) {
-        tWheat += farmers * farmer.getWheatProductionRate();
+        tWheat += farmers * farmer.getWheatRate();
         return tWheat;
     }
 
@@ -68,15 +67,15 @@ public class Wheat {
         tWheat = 0;
     }
 
-    public void rot(float rate){
+    public void rot(float rate) {
         tWheat *= rate;
     }
 
-    public static void globalRot(float rate){
+    public static void globalRot(float rate) {
         globalWheat *= rate;
     }
 
-    public void addWheat(int toAdd){
+    public void addWheat(int toAdd) {
         tWheat += toAdd;
     }
 

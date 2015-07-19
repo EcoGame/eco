@@ -3,10 +3,9 @@ package eco.game;
 /**
  * A small parameterized class for an object with two values, a 2-tuple
  *
- * @author phil
- *
  * @param <X>
  * @param <Y>
+ * @author phil
  */
 
 public class Tuple<X, Y> {

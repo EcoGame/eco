@@ -10,11 +10,9 @@ import static org.lwjgl.opengl.GL11.*;
 public class MenuBar {
 
     /**
-     *
      * This class manages the rendering and logic for the menu bar
      *
      * @author phil, connor
-     *
      */
 
     // ===============//
@@ -112,7 +110,7 @@ public class MenuBar {
             new Treble<>(129 / 255f, 87 / 255f, 87 / 255f));
 
     private static ArrayList<Graph> graphs = new ArrayList<Graph>();
-    
+
     // =============//
     // Economy Pane //
     // =============//
@@ -133,16 +131,16 @@ public class MenuBar {
             567, 25, 4, 2, 5, 2, true);
 
     private static ToggleButton toggleVeryFast = new ToggleButton(35, 595, 25, 8, 5, 9, 5,
-             false);
+            false);
     private static ToggleButton toggleFast = new ToggleButton(70, 595, 25, 8, 5, 9, 5,
-     false);
+            false);
     private static ToggleButton toggleNormal = new ToggleButton(105, 595, 25, 8, 6, 9, 6,
-     true);
+            true);
     private static ToggleButton toggleSlow = new ToggleButton(140, 595, 25, 8, 6, 9, 6,
-     false);
+            false);
     private static ToggleButton togglePaused = new ToggleButton(175, 595, 25, 8, 4, 9, 4,
-             false);
-    
+            false);
+
     private static ArrayList<Button> pane4Buttons = new ArrayList<Button>();
 
     static {
@@ -421,8 +419,8 @@ public class MenuBar {
             }
         }
 
-        popGraph.tick(playerCountry.farmer.getfPop()
-                + playerCountry.warrior.getwPop());
+        popGraph.tick(playerCountry.farmer.getPop()
+                + playerCountry.warrior.getPop());
         globalWheatGraph.tick(playerCountry.wheat.gettWheat());
         moneyGraph.tick(playerCountry.economy.getTreasury());
         scoreGraph.tick(playerCountry.score.scoreAt(Math.max(0,
@@ -470,7 +468,7 @@ public class MenuBar {
             renderLog(PlayerCountry.playerCountry);
         } else if (pane == 3) {
             renderGraphs(PlayerCountry.playerCountry);
-        } else if (pane == 4){
+        } else if (pane == 4) {
             renderEcon(PlayerCountry.playerCountry);
         }
     }
@@ -484,32 +482,32 @@ public class MenuBar {
             renderGraphs2(PlayerCountry.playerCountry);
         }
     }
-    
-    public static void renderEcon(PlayerCountry playerCountry){
-        for (Button b : pane4Buttons){
+
+    public static void renderEcon(PlayerCountry playerCountry) {
+        for (Button b : pane4Buttons) {
             b.render(Mouse.getX(), Main.height - Mouse.getY());
         }
-        
+
         renderEcon2(playerCountry);
     }
-    
-    public static void renderEcon2(PlayerCountry playerCountry){
-        for (Button b : pane4Buttons){
+
+    public static void renderEcon2(PlayerCountry playerCountry) {
+        for (Button b : pane4Buttons) {
             b.render2();
         }
-        
+
         RenderUtil.drawString("Conscription Rate: "
                         + ((int) (100 * playerCountry.desiredWarriorRatio)) + "%", 285,
                 657);
-        if(toggleFast.getToggle() == true) {
+        if (toggleFast.getToggle() == true) {
             RenderUtil.drawString("Game Speed: Fast", 35, 567);
-        } else if(toggleSlow.getToggle() == true) {
+        } else if (toggleSlow.getToggle() == true) {
             RenderUtil.drawString("Game Speed: Slow", 35, 567);
-        } else if(toggleNormal.getToggle() == true) {
+        } else if (toggleNormal.getToggle() == true) {
             RenderUtil.drawString("Game Speed: Normal", 35, 567);
-        } else if(toggleVeryFast.getToggle() == true) {
+        } else if (toggleVeryFast.getToggle() == true) {
             RenderUtil.drawString("Game Speed: Very Fast", 35, 567);
-        } else if(togglePaused.getToggle() == true) {
+        } else if (togglePaused.getToggle() == true) {
             RenderUtil.drawString("Game Speed: Paused", 35, 567);
         }
         RenderUtil.drawString(
@@ -672,7 +670,7 @@ public class MenuBar {
                 if (!NPCCountry.dead) {
                     RenderUtil.font.drawString(offx, offy, name);
                     RenderUtil.font.drawString(offx + RenderUtil.font.getWidth(name)
-                            + 10, offy,
+                                    + 10, offy,
                             "[" + Integer.toString(NPCCountry.aggression.aggressionScore)
                                     + "]", new Color(
                                     (NPCCountry.aggression.aggressionScore * 2) / 255f,
@@ -682,9 +680,9 @@ public class MenuBar {
                             + RenderUtil.font.getWidth(name)
                             + 20
                             + RenderUtil.font.getWidth("["
-                                    + Integer
-                                            .toString(NPCCountry.aggression.aggressionScore)
-                                    + "]");
+                            + Integer
+                            .toString(NPCCountry.aggression.aggressionScore)
+                            + "]");
                     RenderUtil.font.drawString(tempoff, offy,
                             "[" + Integer.toString(NPCCountry.getScore()) + "]",
                             new Color(102, 186, 233));
@@ -692,7 +690,7 @@ public class MenuBar {
                 } else {
                     RenderUtil.font.drawString(offx, offy, name);
                     RenderUtil.font.drawString(offx + RenderUtil.font.getWidth(name)
-                            + 10, offy,
+                                    + 10, offy,
                             "[" + Integer.toString(NPCCountry.aggression.aggressionScore)
                                     + "]", new Color(
                                     (NPCCountry.aggression.aggressionScore * 2) / 255f,
@@ -702,9 +700,9 @@ public class MenuBar {
                             + RenderUtil.font.getWidth(name)
                             + 20
                             + RenderUtil.font.getWidth("["
-                                    + Integer
-                                            .toString(NPCCountry.aggression.aggressionScore)
-                                    + "]");
+                            + Integer
+                            .toString(NPCCountry.aggression.aggressionScore)
+                            + "]");
                     RenderUtil.font.drawString(tempoff, offy, "[In Exile]",
                             new Color(195, 65, 65));
                     offy += 20;
@@ -863,9 +861,9 @@ public class MenuBar {
     }
 
     public static void renderStats2(PlayerCountry playerCountry) {
-        RenderUtil.drawString(String.valueOf(playerCountry.warrior.getwPop())
+        RenderUtil.drawString(String.valueOf(playerCountry.warrior.getPop())
                 + " Warriors", 85, 657);
-        RenderUtil.drawString(String.valueOf(playerCountry.farmer.getfPop())
+        RenderUtil.drawString(String.valueOf(playerCountry.farmer.getPop())
                 + " Farmers", 85, 627);
         RenderUtil.drawString(String.valueOf(playerCountry.wheat.gettWheat()), 85,
                 587);
@@ -912,11 +910,11 @@ public class MenuBar {
         }
     }
 
-    public static void setPane(int newPane){
+    public static void setPane(int newPane) {
         pane = newPane;
     }
 
-    public static void updateWar(String name){
+    public static void updateWar(String name) {
         warState = War.winLose;
         warName = name;
         wheat = War.wheatLoss;

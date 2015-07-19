@@ -3,102 +3,35 @@ package eco.game;
 /**
  * This class represents the warriors in the world, and manages their needs and
  * outputs
- * 
+ *
  * @author connor, will, nate, phil
- * 
  */
 
-public class Warrior {
+public class Warrior extends SocialClass {
 
-    private int wPop = 5;
-    private int oldWPop = wPop;
-    private float floatWPop = wPop;
-    private int wHunger;
 
-    private int normalHunger = 10;
-    private int totalHunger;
-    
-    public Warrior(){
-         wPop = 5;
-         oldWPop = wPop;
-         floatWPop = wPop;
-
-         normalHunger = 10;
+    public Warrior(float birthrate, float deathrate, float ratio) {
+        super(birthrate, deathrate, ratio);
+        setHunger(10);
     }
 
-    public float wPop(float wBirthRate, float wDeathRate) {
-        float rate = (1 + wBirthRate - wDeathRate);
-        float floatWPop = (this.floatWPop * rate);
-        float wpop = floatWPop;
-        return wpop - oldWPop;
+    @Override
+    public void tick() {
+
     }
 
-    public int newPop() {
-        return wPop - oldWPop;
+    @Override
+    public int onAddPop(int added) {
+        return 0;
     }
 
-    public void addPop(float newPop) {
-        floatWPop += newPop;
-        wPop = (int) floatWPop;
+    @Override
+    public void onRemovePop(int removed) {
+
     }
 
-    public int wHunger() {
-        wHunger = 0;
-        wHunger = normalHunger + (MathUtil.randInt(0, 3));
-        return wHunger;
-    }
-
-    public int getwPop() {
-        return wPop;
-    }
-
-    public void setwPop(int wPop) {
-        this.wPop = wPop;
-    }
-
-    public int getOldWPop() {
-        return oldWPop;
-    }
-
-    public void setOldWPop(int oldWPop) {
-        this.oldWPop = oldWPop;
-    }
-
-    public float getFloatWPop() {
-        return floatWPop;
-    }
-
-    public void setFloatWPop(float floatWPop) {
-        this.floatWPop = floatWPop;
-    }
-
-    public int getwHunger() {
-        return wHunger;
-    }
-
-    public void setwHunger(int wHunger) {
-        this.wHunger = wHunger;
-    }
-
-    public int getNormalHunger() {
-        return normalHunger;
-    }
-
-    public void setNormalHunger(int normalHunger) {
-        this.normalHunger = normalHunger;
-    }
-
-    public int getTotalHunger() {
-        return totalHunger;
-    }
-
-    public void setTotalHunger(int totalHunger) {
-        this.totalHunger = totalHunger;
-    }
-
-    public void addPop(int tooAdd) {
-        wPop += tooAdd;
-        floatWPop += tooAdd;
+    public int getMilitaryMight() {
+        return getPop();
     }
 
 }

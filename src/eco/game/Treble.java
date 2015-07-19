@@ -2,12 +2,11 @@ package eco.game;
 
 /**
  * A small parameterized class for an object with three values, a 3-tuple
- * 
- * @author phil
- * 
+ *
  * @param <X>
  * @param <Y>
  * @param <Z>
+ * @author phil
  */
 
 public class Treble<X, Y, Z> {

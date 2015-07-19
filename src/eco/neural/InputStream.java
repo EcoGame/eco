@@ -147,7 +147,7 @@ public class InputStream {
     public static int fPopchange(int currentnetwork){
         int currentfPop =0;
         int ret =0;
-     currentfPop = NeuralManager.Countries[currentnetwork].farmer.getfPop();
+     currentfPop = NeuralManager.Countries[currentnetwork].farmer.getPop();
     ret =currentfPop - oldfPop;
     oldfPop = currentfPop;
 return ret;
@@ -155,14 +155,14 @@ return ret;
     public static int wPopchange(int currentnetwork){
         int currentwPop = 0;
         int ret = 0;
-        currentwPop = NeuralManager.Countries[currentnetwork].warrior.getwPop();
+        currentwPop = NeuralManager.Countries[currentnetwork].warrior.getPop();
         ret = oldwPop - currentwPop;
         return ret;
     }
     public static int wheatChange(int currentnetwork){
         int currentwheat = 0;
         int ret = 0;
-        currentwheat = NeuralManager.Countries[currentnetwork].warrior.getwPop();
+        currentwheat = NeuralManager.Countries[currentnetwork].warrior.getPop();
         ret  = currentwheat - oldwheat;
         oldwheat = currentwheat;
         return ret;
@@ -193,8 +193,8 @@ return ret;
         return 0;
 
     }else{
-        selfwPop =NeuralManager.Countries[currentnetwork].warrior.getwPop();
-        otherwPop = NeuralManager.Countries[currentnetwork].warrior.getwPop();
+        selfwPop =NeuralManager.Countries[currentnetwork].warrior.getPop();
+        otherwPop = NeuralManager.Countries[currentnetwork].warrior.getPop();
         if(otherwPop == 0){
             otherwPop = 1;
         }

@@ -30,7 +30,7 @@ public class Chunk {
     private volatile FloatBuffer colors;
     private volatile int buffersize;
 
-    public Chunk(Point location){
+    public Chunk(Point location) {
         this.location = location;
         map = new short[chunksize * chunksize];
         structures = new short[chunksize * chunksize];
@@ -40,9 +40,9 @@ public class Chunk {
         density = new short[chunksize * chunksize];
     }
 
-    public void generate(){
-        for (int x = 0; x < chunksize; x++){
-            for (int y = 0; y < chunksize; y++){
+    public void generate() {
+        for (int x = 0; x < chunksize; x++) {
+            for (int y = 0; y < chunksize; y++) {
                 height[(x * chunksize) + y] = NoiseSampler.getNoise(x + (location.getX() * chunksize), y + (location.getY() * chunksize));
                 if (height[(x * chunksize) + y] > seaLevel) {
                     map[(x * chunksize) + y] = 1;
@@ -51,38 +51,38 @@ public class Chunk {
         }
     }
 
-    public short getTile(int x, int y){
+    public short getTile(int x, int y) {
         return map[(x * chunksize) + y];
     }
 
-    public short getStructure(int x, int y){
+    public short getStructure(int x, int y) {
         return structures[(x * chunksize) + y];
     }
 
-    public short getDecoration(int x, int y){
+    public short getDecoration(int x, int y) {
         return decorations[(x * chunksize) + y];
     }
 
-    public void setTile(int x, int y, short tile){
+    public void setTile(int x, int y, short tile) {
         map[(x * chunksize) + y] = tile;
         isDirty = true;
     }
 
-    public void setStructure(int x, int y, short structure){
+    public void setStructure(int x, int y, short structure) {
         structures[(x * chunksize) + y] = structure;
         isDirty = true;
     }
 
-    public void setDecoration(int x, int y, short decoration){
+    public void setDecoration(int x, int y, short decoration) {
         decorations[(x * chunksize) + y] = decoration;
         isDirty = true;
     }
 
-    public float getHeight(int x, int y){
+    public float getHeight(int x, int y) {
         return height[(x * chunksize) + y];
     }
 
-    public void updateMesh(FloatBuffer vertex, FloatBuffer texture, FloatBuffer color, int buffersize){
+    public void updateMesh(FloatBuffer vertex, FloatBuffer texture, FloatBuffer color, int buffersize) {
         if (!isDirty) {
             Log.severe("Updating a chunk mesh that is not dirty!");
         }
@@ -96,11 +96,11 @@ public class Chunk {
         isDirty = false;
     }
 
-    public boolean isDirty(){
+    public boolean isDirty() {
         return isDirty;
     }
 
-    public void render(){
+    public void render() {
         if (vertex != null && texture != null && colors != null) {
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
 
@@ -120,23 +120,23 @@ public class Chunk {
         }
     }
 
-    public int getStartX(){
+    public int getStartX() {
         return location.getX() * chunksize;
     }
 
-    public int getStartY(){
+    public int getStartY() {
         return location.getY() * chunksize;
     }
 
-    public Point getLocation(){
+    public Point getLocation() {
         return location;
     }
 
-    public int getTerritory(int x, int y){
+    public int getTerritory(int x, int y) {
         return territory[(x * chunksize) + y];
     }
 
-    public void setTerritory(int x, int y, short claim){
+    public void setTerritory(int x, int y, short claim) {
         territory[(x * chunksize) + y] = claim;
     }
 
