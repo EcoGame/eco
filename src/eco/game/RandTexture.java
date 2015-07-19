@@ -11,11 +11,14 @@ public class RandTexture {
      * 
      */
     
-    private ArrayList<Point> textures = new ArrayList<Point>();
+    private ArrayList<Point> textures = new ArrayList<>();
+
+    public static int count = 0;
     
     public void addTexture(Point texture){
         textures.add(texture);
         Collections.shuffle(textures);
+        count++;
     }
     
     public Point sample(int x, int y){

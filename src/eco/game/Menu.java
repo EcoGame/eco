@@ -1,8 +1,8 @@
 package eco.game;
 
-import java.io.File;
-
 import org.lwjgl.opengl.Display;
+
+import java.io.File;
 
 public class Menu {
 
@@ -13,7 +13,7 @@ public class Menu {
         while (Main.shouldBeInMenu) {
             if (Display.isCloseRequested()) {
                 Main.shouldQuit = true;
-                System.exit(0);
+                Util.quit(0);
             }
             Render.drawMainMenu();
             InputManager.updateMenu();

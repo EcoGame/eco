@@ -4,13 +4,17 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.Log;
 import org.newdawn.slick.util.ResourceLoader;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -619,112 +623,6 @@ public class Render {
 
         atlas.bind();
 
-    }
-
-    /* Creates the openGl context */
-    public static void init() {
-        Log.setVerbose(false);
-        /* Creates textureatlas */
-        try {
-            if (Main.isInEclipse) {
-                atlas = new TextureAtlas(
-                        TextureLoader.getTexture(
-                                "PNG",
-                                ResourceLoader
-                                        .getResourceAsStream("assets/textureatlas.png"),
-                                GL_NEAREST));
-            } else {
-                atlas = new TextureAtlas(
-                        TextureLoader.getTexture(
-                                "PNG",
-                                ResourceLoader
-                                        .getResourceAsStream("../assets/textureatlas.png"),
-                                GL_NEAREST));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        /* Creates the icon */
-        try {
-            /*
-             * Display.setIcon(new ByteBuffer[] { new ImageIOImageData()
-             * .imageToByteBuffer( ImageIO.read(new File("../assets/icon.png")),
-             * false, false, null) });
-             */
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        atlas.getTexture().bind();
-
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-        GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S,
-                GL11.GL_REPEAT);
-        GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T,
-                GL11.GL_REPEAT);
-
-        RenderUtil.initFrustrum();
-
-        GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
-
-        /* Creates the font */
-        try {
-            InputStream inputStream;
-            if (Main.isInEclipse) {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("assets/font.ttf");
-            } else {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("../assets/font.ttf");
-            }
-            Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            awtFont = awtFont.deriveFont(16f); // set font size
-            RenderUtil.font = new TrueTypeFont(awtFont, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        treeTexture.addTexture(new Point(2, 1));
-        treeTexture.addTexture(new Point(5, 4));
-
-        smallHouseTexture.addTexture(new Point(0, 1));
-        smallHouseTexture.addTexture(new Point(1, 6));
-        smallHouseTexture.addTexture(new Point(4, 6));
-        smallHouseTexture.addTexture(new Point(5, 6));
-        smallHouseTexture.addTexture(new Point(6, 6));
-        smallHouseTexture.addTexture(new Point(7, 6));
-        smallHouseTexture.addTexture(new Point(1, 7));
-        smallHouseTexture.addTexture(new Point(4, 7));
-        smallHouseTexture.addTexture(new Point(5, 7));
-        smallHouseTexture.addTexture(new Point(6, 7));
-        smallHouseTexture.addTexture(new Point(7, 7));
-
-        bigHouseTexture.addTexture(new Point(3, 1));
-        bigHouseTexture.addTexture(new Point(4, 3));
-        bigHouseTexture.addTexture(new Point(5, 3));
-        bigHouseTexture.addTexture(new Point(2, 5));
-        bigHouseTexture.addTexture(new Point(3, 5));
-        bigHouseTexture.addTexture(new Point(0, 6));
-        bigHouseTexture.addTexture(new Point(2, 6));
-        bigHouseTexture.addTexture(new Point(3, 6));
-        bigHouseTexture.addTexture(new Point(0, 7));
-        bigHouseTexture.addTexture(new Point(2, 7));
-        bigHouseTexture.addTexture(new Point(3, 7));
-
-        smallCastleTexture.addTexture(new Point(1, 1));
-        smallCastleTexture.addTexture(new Point(4, 4));
-
-        bigCastleTexture.addTexture(new Point(1, 3));
-        bigCastleTexture.addTexture(new Point(3, 4));
-
-        DisplayLists.init();
     }
 
 }

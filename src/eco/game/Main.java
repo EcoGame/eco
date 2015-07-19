@@ -69,9 +69,12 @@ public class Main {
                 isInEclipse = true;
             }
         }
-        System.out.println("Welcome to EcoLand!");
+       // System.out.println("Welcome to EcoLand!");
+        Log.title("Welcome to EcoLand!");
+        Log.title("Version "+vn);
         initDisplay();
         Menu.initMenu();
+        Log.info("Switching to menu");
         Menu.mainMenu();
         try{
             for(int p =0; p < 10; p++){
@@ -90,18 +93,21 @@ public class Main {
         }catch (IOException ex) {
             System.err.println(ex);
         }
-        System.exit(0);
+        Util.quit(0);
     }
     
     /* Initiate Rendering */
     public static void initDisplay() {
         RenderUtil.initDisplay();
-        Render.init();
+        Log.success("Created display");
+        RenderUtil.init();
+        Log.success("Initiated openGL");
         try {
             ThreadManager.drawable = new SharedDrawable(Display.getDrawable());
         } catch (LWJGLException e) {
             e.printStackTrace();
         }
+        Console.init();
     }
 
 }

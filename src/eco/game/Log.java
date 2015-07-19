@@ -31,7 +31,14 @@ public class Log {
             return;
         }
         if (level == 0){
-            System.out.println(ANSI_WHITE+ "[Info] "+ message + ANSI_RESET);
+            boolean moved = false;
+            if (Console.moveBack()){
+                moved = true;
+            }
+            System.out.println(ANSI_WHITE + "[Info] " + message + ANSI_RESET);
+            if (moved){
+                Console.printIndicator();
+            }
         }
     }
 
@@ -47,7 +54,14 @@ public class Log {
         if (level == -1){
             return;
         }
+        boolean moved = false;
+        if (Console.moveBack()){
+            moved = true;
+        }
         System.out.println(ANSI_RED+"[Severe] "+ message + ANSI_RESET);
+        if (moved){
+            Console.printIndicator();
+        }
     }
 
     public static void success(String message){
@@ -55,7 +69,14 @@ public class Log {
             return;
         }
         if (level <= 1){
-            System.out.println(ANSI_GREEN+ "[Success] "+ message + ANSI_RESET);
+            boolean moved = false;
+            if (Console.moveBack()){
+                moved = true;
+            }
+            System.out.println(ANSI_GREEN + "[Success] " + message + ANSI_RESET);
+            if (moved){
+                Console.printIndicator();
+            }
         }
     }
 
@@ -63,12 +84,44 @@ public class Log {
         System.out.println(ANSI_BLUE+message + ANSI_RESET);
     }
 
+    public static void stop(String message){
+        Console.moveBack();
+        System.out.println(ANSI_CYAN+message + ANSI_RESET);
+    }
+
     public static void warning(String message){
         if (level == -1){
             return;
         }
         if (level <= 2){
+            boolean moved = false;
+            if (Console.moveBack()){
+                moved = true;
+            }
             System.out.println(ANSI_YELLOW+ "[Warning] "+ message + ANSI_RESET);
+            if (moved){
+                Console.printIndicator();
+            }
+        }
+    }
+
+    public static void print(String message){
+        boolean moved = false;
+        if (Console.moveBack()){
+            moved = true;
+        }
+        System.out.print(message);
+        if (moved){
+        }
+    }
+
+    public static void println(String message){
+        boolean moved = false;
+        if (Console.moveBack()){
+            moved = true;
+        }
+        System.out.println(message);
+        if (moved){
         }
     }
 

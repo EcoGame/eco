@@ -7,11 +7,16 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.ImageIOImageData;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -145,5 +150,137 @@ public class RenderUtil {
             }
         }
         return dirty;
+    }
+
+    /* Creates the openGl context */
+    public static void init() {
+        loadResources();
+
+        Render.atlas.getTexture().bind();
+
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_ALPHA_TEST);
+        glAlphaFunc(GL_GREATER, 0.0f);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+        GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S,
+                GL11.GL_REPEAT);
+        GL11.glTexParameteri(GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T,
+                GL11.GL_REPEAT);
+
+        initFrustrum();
+
+        GL11.glClearColor(152f / 255f, 242f / 255f, 255f / 255f, 1.0f);
+
+    }
+
+    private static void loadResources(){
+
+        org.newdawn.slick.util.Log.setVerbose(false);
+        /* Creates textureatlas */
+        try {
+            if (Main.isInEclipse) {
+                Render.atlas = new TextureAtlas(
+                        TextureLoader.getTexture(
+                                "PNG",
+                                ResourceLoader
+                                        .getResourceAsStream("assets/textureatlas.png"),
+                                GL_NEAREST));
+            } else {
+                Render.atlas = new TextureAtlas(
+                        TextureLoader.getTexture(
+                                "PNG",
+                                ResourceLoader
+                                        .getResourceAsStream("../assets/textureatlas.png"),
+                                GL_NEAREST));
+            }
+        } catch (IOException e) {
+            Log.severe("Could not create texture atlas!");
+            Log.severe("Aborting!");
+            e.printStackTrace();
+            Util.quit(1);
+        }
+        Log.success("Created texture atlas");
+
+        /* Creates the font */
+        try {
+            InputStream inputStream;
+            if (Main.isInEclipse) {
+                inputStream = ResourceLoader
+                        .getResourceAsStream("assets/font.ttf");
+            } else {
+                inputStream = ResourceLoader
+                        .getResourceAsStream("../assets/font.ttf");
+            }
+            Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont = awtFont.deriveFont(16f); // set font size
+            font = new TrueTypeFont(awtFont, true);
+        } catch (Exception e) {
+            Log.severe("Could not create font!");
+            Log.severe("Aborting!");
+            e.printStackTrace();
+            Util.quit(1);
+        }
+        Log.success("Created font");
+
+        Render.treeTexture.addTexture(new Point(2, 1));
+        Render.treeTexture.addTexture(new Point(5, 4));
+
+        Render.smallHouseTexture.addTexture(new Point(0, 1));
+        Render.smallHouseTexture.addTexture(new Point(1, 6));
+        Render.smallHouseTexture.addTexture(new Point(4, 6));
+        Render.smallHouseTexture.addTexture(new Point(5, 6));
+        Render.smallHouseTexture.addTexture(new Point(6, 6));
+        Render.smallHouseTexture.addTexture(new Point(7, 6));
+        Render.smallHouseTexture.addTexture(new Point(1, 7));
+        Render.smallHouseTexture.addTexture(new Point(4, 7));
+        Render.smallHouseTexture.addTexture(new Point(5, 7));
+        Render.smallHouseTexture.addTexture(new Point(6, 7));
+        Render.smallHouseTexture.addTexture(new Point(7, 7));
+
+        Render.bigHouseTexture.addTexture(new Point(3, 1));
+        Render.bigHouseTexture.addTexture(new Point(4, 3));
+        Render.bigHouseTexture.addTexture(new Point(5, 3));
+        Render.bigHouseTexture.addTexture(new Point(2, 5));
+        Render.bigHouseTexture.addTexture(new Point(3, 5));
+        Render.bigHouseTexture.addTexture(new Point(0, 6));
+        Render.bigHouseTexture.addTexture(new Point(2, 6));
+        Render.bigHouseTexture.addTexture(new Point(3, 6));
+        Render.bigHouseTexture.addTexture(new Point(0, 7));
+        Render.bigHouseTexture.addTexture(new Point(2, 7));
+        Render.bigHouseTexture.addTexture(new Point(3, 7));
+
+        Render.smallCastleTexture.addTexture(new Point(1, 1));
+        Render.smallCastleTexture.addTexture(new Point(4, 4));
+
+        Render.bigCastleTexture.addTexture(new Point(1, 3));
+        Render.bigCastleTexture.addTexture(new Point(3, 4));
+
+        org.newdawn.slick.util.Log.info("Added " + RandTexture.count + " random textures");
+
+        /* Creates the icon */
+        File icon128 = new File("../assets/icon128.png");
+        File icon32 = new File("../assets/icon32.png");
+        File icon16 = new File("../assets/icon16.png");
+        if (Main.isInEclipse){
+            icon128 = new File("assets/icon128.png");
+            icon32 = new File("assets/icon32.png");
+            icon16 = new File("assets/icon16.png");
+        }
+        try {
+            Display.setIcon(new ByteBuffer[] {
+                    new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon128), false, false, null),
+                    new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon32), false, false, null),
+                    new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon16), false, false, null)
+            });
+            Log.success("Loaded icon");
+        } catch (Exception e) {
+            Log.warning("Failed to load icon!");
+            e.printStackTrace();
+        }
+
     }
 }

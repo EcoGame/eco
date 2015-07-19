@@ -50,4 +50,10 @@ public class Util {
         return new Point(x, y);
     }
 
+    public static void quit(int exitCode){
+        Log.stop("Stopping (exit code "+exitCode+")");
+        Console.moveBack();
+        System.exit(exitCode);
+    }
+
 }

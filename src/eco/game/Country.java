@@ -219,7 +219,6 @@ public abstract class Country {
         if (count > startLand){
             return;
         }
-        System.out.println(count);
         World.claimLand(x, y, (short) (countries.indexOf(this) + 1));
         count++;
         if (World.isDryLand(x - 1, y) && !(count > startLand)){

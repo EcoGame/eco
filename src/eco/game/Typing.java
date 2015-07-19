@@ -15,7 +15,7 @@ public class Typing {
     public static String currentMenuName(String word, int cursorTick) {
 
         if (Display.isCloseRequested()){
-            System.exit(0);
+            Util.quit(0);
         }
 
         boolean cursorOn = false;

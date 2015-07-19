@@ -99,7 +99,7 @@ public class PlayerCountry extends Country{
                 if (!Main.gameOver){
                     SaveUtil.createSave(playerCountry);
                 }
-                System.exit(0);
+                Util.quit(0);
             }
             if (Main.gameOver) {
                 Render.drawGameOver();
