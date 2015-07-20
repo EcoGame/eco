@@ -52,9 +52,9 @@ public class NPCCountry extends Country {
     public int maxpop = 10000;
     public int displaced = 0;
 
-    public NPCCountry(boolean favorFarmers, boolean displacedEat,
-                      float desiredWarriorRatio, float desiredFarmerRatio) {
+    public NPCCountry() {
 
+        super();
         name = NameGen.generateRandom();
 
         fBirthRate = MathUtil.randFloat(0.01f, 0.07f);
@@ -66,8 +66,9 @@ public class NPCCountry extends Country {
         farmerDeathRatio = MathUtil.randFloat(0.00f, 1f);
         warriorDeathRatio = MathUtil.randFloat(0.00f, 1f);
 
-        landsize = World.random.nextInt(4000) + 100;
-        maxpop = World.random.nextInt(4000) + 100;
+
+        claimInitialLand(Util.getRandomUnclaimedTile());
+        color = RenderUtil.getColor(MathUtil.randInt(32) * 8, MathUtil.randInt(32) * 8, MathUtil.randInt(32) * 8);
 
     }
 

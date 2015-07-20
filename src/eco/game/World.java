@@ -17,7 +17,7 @@ public class World {
     public static int mapsize = chunksize * mapscale;
 
     private static final float seaLevel = Chunk.seaLevel;
-    public static long mapseed = "seeds are cool".hashCode();
+    public static long mapseed = "seeds r cool".hashCode();
 
     private static HashMap<Point, Chunk> chunks = new HashMap<>();
 
@@ -408,12 +408,28 @@ public class World {
         c.setTerritory(x % chunksize, y % chunksize, claim);
     }
 
-
     public static boolean isDryLand(int x, int y) {
+        return !(x < 0 || y < 0 || x >= mapsize || y >= mapsize) && getTileId(x, y) != 0;
+    }
+
+    public static boolean isUnclaimed(int x, int y){
         if (x < 0 || y < 0 || x >= mapsize || y >= mapsize) {
             return false;
         }
-        return getTileId(x, y) != 0;
+        Chunk c = getChunk(x, y);
+        return c.getTerritory(x % chunksize, y % chunksize) == 0;
+    }
+
+    public static boolean isBorder(int x, int y){
+        int territory = getTerritory(x, y);
+        return  territory != getTerritory(x - 1, y) ||
+                territory != getTerritory(x - 1, y - 1) ||
+                territory != getTerritory(x, y - 1) ||
+                territory != getTerritory(x + 1, y - 1) ||
+                territory != getTerritory(x + 1, y) ||
+                territory != getTerritory(x + 1, y + 1) ||
+                territory != getTerritory(x, y + 1) ||
+                territory != getTerritory(x - 1, y + 1);
     }
 
     public static float getHeightDiffE(int x, int y) {

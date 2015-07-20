@@ -186,6 +186,9 @@ public class Render {
         UIManager.render();
         UIManager.render2();
 
+        RenderUtil.drawString("Eco version " + Main.vn, 10, 10);
+        RenderUtil.drawString("FPS: "+FPSCounter.getFPS(), 10, 30);
+
         /* Draw all the messages */
         for (Message message : Message.getMessages()) {
             RenderUtil.drawString(message.getMessage(), message.getX(),
@@ -202,9 +205,9 @@ public class Render {
 
         /* Colors */
         Treble<Float, Float, Float> backColor = RenderUtil
-                .convertColor(new Treble<Float, Float, Float>(157f, 130f, 117f));
+                .convertColor(new Treble<>(157f, 130f, 117f));
         Treble<Float, Float, Float> borderColor = RenderUtil
-                .convertColor(new Treble<Float, Float, Float>(169f, 145f, 126f));
+                .convertColor(new Treble<>(169f, 145f, 126f));
 
         /* Draw the background */
         glDisable(GL11.GL_TEXTURE_2D);

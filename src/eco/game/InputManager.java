@@ -57,9 +57,6 @@ public class InputManager {
                     case Keyboard.KEY_GRAVE:
                         Main.fullDebug ^= true;
                         break;
-                    case Keyboard.KEY_M:
-                        Render.multithreading ^= true;
-                        break;
                     case Keyboard.KEY_ESCAPE:
                         Main.paused ^= true;
                         if (Main.paused == true) {
@@ -71,9 +68,6 @@ public class InputManager {
                         break;
                     case Keyboard.KEY_O:
                         Render.overhead ^= true;
-                        break;
-                    case Keyboard.KEY_B:
-                        Render.preferMultiThreading ^= true;
                         break;
                 }
             }

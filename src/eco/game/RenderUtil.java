@@ -297,4 +297,12 @@ public class RenderUtil {
         glLoadIdentity();
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
+
+    public static Treble<Float, Float, Float> getColor(int r, int g, int b){
+        return new Treble<>(r / 255f, g / 255f, b / 255f);
+    }
+
+    public static Treble<Float, Float, Float> invertColor(Treble<Float, Float, Float> color){
+        return new Treble<>(1f - color.x, 1f - color.y, 1f - color.z);
+    }
 }

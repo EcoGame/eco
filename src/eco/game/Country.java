@@ -28,9 +28,9 @@ public abstract class Country {
 
     public static float globalWheatRot = 0.9f;
 
-    public static final int startLand = 100;
+    public static final int startLand = 10000;
 
-    private static int count = 0; // Used for preventing infinite recursion
+    private static int landClaimed = 0;
 
     // =====================//
     // Simulation Variables //
@@ -82,7 +82,17 @@ public abstract class Country {
         warrior = new Warrior(0.008f, 0.002f, 0.15f);
         classes.add(warrior);
         Collections.sort(classes);
+
         countries.add(this);
+    }
+
+    public static void init(){
+        Country pc = countries.get(0);
+        countries.clear();;
+        countries.add(pc);
+        for (int i = 0; i < 10; i++){
+            new NPCCountry();
+        }
     }
 
     public static void globalTick() {
@@ -117,10 +127,9 @@ public abstract class Country {
         wheat.tWheat(farmer.getPop(), farmer);
         land.updateWheat(wheat);
 
-        for (int i = 0; i < classes.size(); i++) {
-            wheat.settWheat(classes.get(i).updateHunger(wheat.gettWheat()));
-        }
+
         for (SocialClass sc : classes) {
+            wheat.settWheat(sc.updateHunger(wheat.gettWheat()));
             sc.tick();
         }
 
@@ -159,29 +168,48 @@ public abstract class Country {
         return countries.get(id - 1).color;
     }
 
-    protected void claimInitialLand(int x, int y) {
-        doLandClaim(x, y);
-        count = 0;
+    protected void claimInitialLand(Point start) {
+        ArrayList<Point> queue = new ArrayList<>();
+        queue.add(start);
+
+        Point point;
+        int x;
+        int y;
+        while (!queue.isEmpty()){
+            point = queue.get(0);
+            x = point.getX();
+            y = point.getY();
+            queue.remove(0);
+
+            World.claimLand(point.getX(), point.getY(), getClaimId());
+            landClaimed++;
+
+            if (World.isDryLand(x - 1, y) && World.isUnclaimed(x - 1, y)) {
+                if (!queue.contains(new Point(x - 1, y))) {
+                    queue.add(new Point(x - 1, y));
+                }
+            }
+            if (World.isDryLand(x + 1, y) && World.isUnclaimed(x + 1, y)) {
+                if (!queue.contains(new Point(x + 1, y))) {
+                    queue.add(new Point(x + 1, y));
+                }
+            }
+            if (World.isDryLand(x, y - 1) && World.isUnclaimed(x, y - 1)) {
+                if (!queue.contains(new Point(x, y - 1))) {
+                    queue.add(new Point(x, y - 1));
+                }
+            }
+            if (World.isDryLand(x, y + 1) && World.isUnclaimed(x, y + 1)) {
+                if (!queue.contains(new Point(x, y + 1))) {
+                    queue.add(new Point(x, y + 1));
+                }
+            }
+        }
+
     }
 
-    protected void doLandClaim(int x, int y) {
-        if (count > startLand) {
-            return;
-        }
-        World.claimLand(x, y, (short) (countries.indexOf(this) + 1));
-        count++;
-        if (World.isDryLand(x - 1, y) && !(count > startLand)) {
-            doLandClaim(x - 1, y);
-        }
-        if (World.isDryLand(x + 1, y) && !(count > startLand)) {
-            doLandClaim(x + 1, y);
-        }
-        if (World.isDryLand(x, y - 1) && !(count > startLand)) {
-            doLandClaim(x, y - 1);
-        }
-        if (World.isDryLand(x, y + 1) && !(count > startLand)) {
-            doLandClaim(x, y + 1);
-        }
+    public short getClaimId(){
+        return (short) (countries.indexOf(this) + 1);
     }
 
 }

@@ -16,8 +16,7 @@ public class PlayerCountry extends Country {
         super();
         eco.neural.Main.init();
         World.init(generatorToUse);
-        start = Util.getRandomTile();
-        claimInitialLand(start.getX(), start.getY());
+        claimInitialLand(Util.getRandomUnclaimedTile());
         Main.paused = false;
         wheat = new Wheat();
         economy = new Economy();
@@ -35,6 +34,7 @@ public class PlayerCountry extends Country {
         if (SaveUtil.doesSaveExist(Main.currentSave)) {
             SaveUtil.readSave();
         }
+        color = RenderUtil.getColor(24,218,234);
     }
 
     /* Game tick */
@@ -42,9 +42,7 @@ public class PlayerCountry extends Country {
         // ===============//
         // Render Updates //
         // ===============//
-        if (Render.multithreading) {
-            ThreadManager.addJob(new MeshTask());
-        }
+        ThreadManager.addJob(new MeshTask());
 
         // =========//
         // Autosave //
@@ -58,6 +56,7 @@ public class PlayerCountry extends Country {
     /* Normal game loop */
     public static void gameLoop(PlayerCountry playerCountry) {
         PlayerCountry.playerCountry = playerCountry;
+        Country.init();
         Main.shouldBeInMenu = true;
         while (!Main.shouldQuit) {
             Command.update();
@@ -94,7 +93,6 @@ public class PlayerCountry extends Country {
                 InputManager.update();
                 if (!Main.skipFrame) {
                     Render.draw();
-                    OutputManager.newDebug();
                 } else {
                     Main.skipFrame = false;
                 }
