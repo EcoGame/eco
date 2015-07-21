@@ -152,6 +152,17 @@ public class RenderUtil {
         return dirty;
     }
 
+    public static ArrayList<Chunk> getDirtyStructureChunks(){
+        ArrayList<Chunk> chunks = World.getAllChunks();
+        ArrayList<Chunk> dirty = new ArrayList<>();
+        for (Chunk c : chunks){
+            if (c.isDirtyStructure()){
+                dirty.add(c);
+            }
+        }
+        return dirty;
+    }
+
     /* Creates the openGl context */
     public static void init() {
         loadResources();

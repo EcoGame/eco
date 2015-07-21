@@ -92,6 +92,13 @@ public class World {
             c.generate();
         }
 
+        NoiseSampler.initSimplexNoise((int) mapseed);
+        NoiseSampler.setNoiseScale(mapsize / 32);
+
+        for (Chunk c : chunks.values()) {
+            c.decorate();
+        }
+
 
        /* decorations = new short[mapsize][mapsize];
         mapseed = System.currentTimeMillis();
@@ -149,9 +156,6 @@ public class World {
                 map[0][y] = 0;
                 map[mapsize - 1][y] = 0;
             }
-
-            NoiseSampler.initSimplexNoise((int) mapseed);
-            NoiseSampler.setNoiseScale(mapsize / 32);
             for (int x = 0; x < mapsize; x++) {
                 for (int y = 0; y < mapsize; y++) {
                     if (NoiseSampler.getNoise(x, y) >= forestHeight) {
@@ -371,6 +375,15 @@ public class World {
     public static Tile getTile(int x, int y) {
         return Tile.getTile(getTileId(x, y));
     }
+
+    public static short getStructureId(int x, int y){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize) {
+            return 0;
+        }
+        return getChunk(x, y).getStructure(x % chunksize, y % chunksize);
+    }
+
+    public static Structure getStructure(int x, int y) {return Structure.getStructure(getStructureId(x, y));}
 
     public static float getHeight(int x, int y) {
         if (x < 0 || y < 0 || x >= mapsize || y >= mapsize) {

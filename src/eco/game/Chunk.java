@@ -1,6 +1,9 @@
 package eco.game;
 
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.ARBPointSprite;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 
 import java.nio.FloatBuffer;
 
@@ -15,7 +18,6 @@ public class Chunk {
 
     private short[] map;
     private short[] structures;
-    private short[] decorations;
     private float[] height;
     private short[] territory;
     private short[] density;
@@ -23,6 +25,7 @@ public class Chunk {
     private Point location;
 
     public static final float seaLevel = 0.15f;
+    public static final float forestHeight = 0.25f;
 
     private volatile boolean isDirty = true;
     private volatile FloatBuffer vertex;
@@ -30,11 +33,16 @@ public class Chunk {
     private volatile FloatBuffer colors;
     private volatile int buffersize;
 
+    private volatile boolean isDirtyStructure = true;
+    private volatile FloatBuffer vertexStructure;
+    private volatile FloatBuffer textureStructure;
+    private volatile FloatBuffer colorsStructure;
+    private volatile int buffersizeStructure;
+
     public Chunk(Point location) {
         this.location = location;
         map = new short[chunksize * chunksize];
         structures = new short[chunksize * chunksize];
-        decorations = new short[chunksize * chunksize];
         height = new float[chunksize * chunksize];
         territory = new short[chunksize * chunksize];
         density = new short[chunksize * chunksize];
@@ -51,16 +59,24 @@ public class Chunk {
         }
     }
 
+    public void decorate(){
+        for (int x = 0; x < chunksize; x++) {
+            for (int y = 0; y < chunksize; y++) {
+                if (NoiseSampler.getNoise(x, y) >= forestHeight) {
+                    if (getTile(x, y) == Tile.grass.id) {
+                        setStructure(x, y, (short) 3);
+                    }
+                }
+            }
+        }
+    }
+
     public short getTile(int x, int y) {
         return map[(x * chunksize) + y];
     }
 
     public short getStructure(int x, int y) {
         return structures[(x * chunksize) + y];
-    }
-
-    public short getDecoration(int x, int y) {
-        return decorations[(x * chunksize) + y];
     }
 
     public void setTile(int x, int y, short tile) {
@@ -70,12 +86,7 @@ public class Chunk {
 
     public void setStructure(int x, int y, short structure) {
         structures[(x * chunksize) + y] = structure;
-        isDirty = true;
-    }
-
-    public void setDecoration(int x, int y, short decoration) {
-        decorations[(x * chunksize) + y] = decoration;
-        isDirty = true;
+        isDirtyStructure = true;
     }
 
     public float getHeight(int x, int y) {
@@ -96,9 +107,25 @@ public class Chunk {
         isDirty = false;
     }
 
+    public void updateMeshStructure(FloatBuffer vertex, FloatBuffer texture, FloatBuffer color, int buffersize){
+        if (!isDirtyStructure) {
+            Log.severe("Updating a chunk mesh that is not dirty!");
+        }
+        this.vertexStructure = vertex;
+        this.textureStructure = texture;
+        this.colorsStructure = color;
+        this.buffersizeStructure = buffersize;
+        this.vertexStructure.flip();
+        this.textureStructure.flip();
+        this.colorsStructure.flip();
+        isDirtyStructure = false;
+    }
+
     public boolean isDirty() {
         return isDirty;
     }
+
+    public boolean isDirtyStructure() { return isDirtyStructure; }
 
     public void render() {
         if (vertex != null && texture != null && colors != null) {
@@ -113,6 +140,32 @@ public class Chunk {
             GL11.glColorPointer(4, 0, colors);
 
             GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersize / 3);
+
+            GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
+            GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
+            GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+        }
+        if (vertexStructure != null && textureStructure != null && colorsStructure != null) {
+
+            GL11.glEnable(ARBPointSprite.GL_POINT_SPRITE_ARB);
+            GL11.glTexEnvf(ARBPointSprite.GL_POINT_SPRITE_ARB, ARBPointSprite.GL_COORD_REPLACE_ARB, GL11.GL_TRUE);
+            GL11.glPointSize(8.0f);
+            FloatBuffer parm = BufferUtils.createFloatBuffer(4);
+            parm.put(new float[]{0.0f, 0f, 0.0001f, 0.0f});
+            parm.flip();
+            GL14.glPointParameter(GL14.GL_POINT_DISTANCE_ATTENUATION, parm);
+
+            GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
+
+            GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
+            GL11.glEnableClientState(GL11.GL_VERTEX_ARRAY);
+            GL11.glEnableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+
+            GL11.glVertexPointer(3, 0, vertexStructure);
+            GL11.glTexCoordPointer(2, 0, textureStructure);
+            GL11.glColorPointer(4, 0, colorsStructure);
+
+            GL11.glDrawArrays(GL11.GL_POINTS, 0, buffersizeStructure / 3);
 
             GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
             GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);

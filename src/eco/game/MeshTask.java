@@ -115,6 +115,34 @@ public class MeshTask implements Runnable {
 
         }
 
+        chunks = RenderUtil.getDirtyStructureChunks();
+
+        Structure s;
+        for (Chunk c : chunks) {
+            index = 0;
+            for (int x = c.getStartX(); x < Chunk.chunksize + c.getStartX(); x++) {
+                for (int y = c.getStartY(); y < Chunk.chunksize + c.getStartY(); y++) {
+                    s = World.getStructure(x, y);
+                    if (s != null) {
+                        drawStructure(x, y, World.getHeight(x, y), s.getTex(), s.getTey());
+                    }
+                }
+            }
+            int buffersize = index;
+
+            FloatBuffer vertexData = BufferUtils.createFloatBuffer(buffersize);
+            FloatBuffer textureData = BufferUtils.createFloatBuffer(buffersize * 2 / 3);
+            FloatBuffer colorData = BufferUtils.createFloatBuffer(buffersize / 3 * 4);
+
+            vertexData.put(vertex, 0, index);
+            textureData.put(texture, 0, index * 2 / 3);
+            colorData.put(colors, 0, index / 3 * 4);
+
+            synchronized (Render.lock) {
+                c.updateMeshStructure(vertexData, textureData, colorData, buffersize);
+            }
+        }
+
 
         @SuppressWarnings("unused")
         long end = System.nanoTime();
@@ -122,6 +150,21 @@ public class MeshTask implements Runnable {
         //System.out.println((end - start) / 1000000);
     }
 
+
+    private static void drawStructure(float x, float y, float height, int tex, int tey){
+        int texindex = index / 3 * 2;
+        texture[texindex] = Render.atlas.getCoord(tex, false);
+        texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+        int colorindex = index / 3 * 4;
+        colors[colorindex] = 1f;
+        colors[colorindex + 1] = 1f;
+        colors[colorindex + 2] = 1f;
+        colors[colorindex + 3] = 1f;
+        vertex[index] = -x * tilesize - offset;
+        vertex[index + 1] = height;
+        vertex[index + 2] = -y * tilesize - offset;
+        index += 3;
+    }
 
     @SuppressWarnings("unused")
     private static void drawTile(float x, float y, float height,
