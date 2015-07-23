@@ -29,12 +29,10 @@ public class MeshTask implements Runnable {
 
     private static long newTime;
 
-    private long time;
-
     @Override
     public void run() {
 
-        time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
         if (time > newTime) {
             newTime = time;
         }
@@ -152,18 +150,56 @@ public class MeshTask implements Runnable {
 
 
     private static void drawStructure(float x, float y, float height, int tex, int tey){
+        float color = 1f;
+        float alpha = 1f;
+
         int texindex = index / 3 * 2;
+
         texture[texindex] = Render.atlas.getCoord(tex, false);
-        texture[texindex + 1] = Render.atlas.getCoord(tey, false);
+        texture[texindex + 1] = Render.atlas.getCoord(tey, true);
+        texture[texindex + 2] = Render.atlas.getCoord(tex, true);
+        texture[texindex + 3] = Render.atlas.getCoord(tey, true);
+        texture[texindex + 4] = Render.atlas.getCoord(tex, true);
+        texture[texindex + 5] = Render.atlas.getCoord(tey, false);
+        texture[texindex + 6] = Render.atlas.getCoord(tex, false);
+        texture[texindex + 7] = Render.atlas.getCoord(tey, false);
+
         int colorindex = index / 3 * 4;
-        colors[colorindex] = 1f;
-        colors[colorindex + 1] = 1f;
-        colors[colorindex + 2] = 1f;
-        colors[colorindex + 3] = 1f;
+
+        colors[colorindex] = color;
+        colors[colorindex + 1] = color;
+        colors[colorindex + 2] = color;
+        colors[colorindex + 3] = alpha;
+        colors[colorindex + 4] = color;
+        colors[colorindex + 5] = color;
+        colors[colorindex + 6] = color;
+        colors[colorindex + 7] = alpha;
+        colors[colorindex + 8] = color;
+        colors[colorindex + 9] = color;
+        colors[colorindex + 10] = color;
+        colors[colorindex + 11] = alpha;
+        colors[colorindex + 12] = color;
+        colors[colorindex + 13] = color;
+        colors[colorindex + 14] = color;
+        colors[colorindex + 15] = alpha;
+
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
-        vertex[index + 2] = -y * tilesize - offset;
-        index += 3;
+        vertex[index + 2] = -y * tilesize;
+
+        vertex[index + 3] = -x * tilesize + offset;
+        vertex[index + 4] = height;
+        vertex[index + 5] = -y * tilesize;
+
+        vertex[index + 6] = -x * tilesize + offset;
+        vertex[index + 7] = height + tilesize;
+        vertex[index + 8] = -y * tilesize;
+
+        vertex[index + 9] = -x * tilesize - offset;
+        vertex[index + 10] = height + tilesize;
+        vertex[index + 11] = -y * tilesize;
+
+        index += 12;
     }
 
     @SuppressWarnings("unused")
@@ -206,95 +242,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 15] = alpha;
 
         applyBorderColors((int) x, (int) y, colorindex, texindex);
-
-        /*if (World.getHeight((int) x + 1, (int) y + 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex] = color - 0.1f;
-            colors[colorindex + 1] = color - 0.1f;
-            colors[colorindex + 2] = color - 0.1f;
-            colors[colorindex + 3] = alpha;
-        } else if (World.getHeight((int) x + 1, (int) y) > World.getHeight((int) x, (int) y)){
-            colors[colorindex] = color - 0.05f;
-            colors[colorindex + 1] = color - 0.05f;
-            colors[colorindex + 2] = color - 0.05f;
-            colors[colorindex + 3] = alpha;
-        } else if (World.getHeight((int) x, (int) y + 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex] = color - 0.05f;
-            colors[colorindex + 1] = color - 0.05f;
-            colors[colorindex + 2] = color - 0.05f;
-            colors[colorindex + 3] = alpha;
-        } else{
-            colors[colorindex] = color;
-            colors[colorindex + 1] = color;
-            colors[colorindex + 2] = color;
-            colors[colorindex + 3] = alpha;
-        }
-        
-        if (World.getHeight((int) x - 1, (int) y + 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 4] = color - 0.1f;
-            colors[colorindex + 5] = color - 0.1f;
-            colors[colorindex + 6] = color - 0.1f;
-            colors[colorindex + 7] = alpha;
-        } else if (World.getHeight((int) x - 1, (int) y) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 4] = color - 0.05f;
-            colors[colorindex + 5] = color - 0.05f;
-            colors[colorindex + 6] = color - 0.05f;
-            colors[colorindex + 7] = alpha;
-        } else if (World.getHeight((int) x, (int) y + 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 4] = color - 0.05f;
-            colors[colorindex + 5] = color - 0.05f;
-            colors[colorindex + 6] = color - 0.05f;
-            colors[colorindex + 7] = alpha;
-        } else{
-            colors[colorindex + 4] = color;
-            colors[colorindex + 5] = color;
-            colors[colorindex + 6] = color;
-            colors[colorindex + 7] = alpha;
-        }
-        
-        if (World.getHeight((int) x - 1, (int) y - 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 8] = color - 0.1f;
-            colors[colorindex + 9] = color - 0.1f;
-            colors[colorindex + 10] = color - 0.1f;
-            colors[colorindex + 11] = alpha;
-        } else if (World.getHeight((int) x - 1, (int) y) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 8] = color - 0.05f;
-            colors[colorindex + 9] = color - 0.05f;
-            colors[colorindex + 10] = color - 0.05f;
-            colors[colorindex + 11] = alpha;
-        } else if (World.getHeight((int) x, (int) y - 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 8] = color - 0.05f;
-            colors[colorindex + 9] = color - 0.05f;
-            colors[colorindex + 10] = color - 0.05f;
-            colors[colorindex + 11] = alpha;
-        } else{
-            colors[colorindex + 8] = color;
-            colors[colorindex + 9] = color;
-            colors[colorindex + 10] = color;
-            colors[colorindex + 11] = alpha;
-        }
-        
-        if (World.getHeight((int) x + 1, (int) y - 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 12] = color - 0.1f;
-            colors[colorindex + 13] = color - 0.1f;
-            colors[colorindex + 14] = color - 0.1f;
-            colors[colorindex + 15] = alpha;
-        } else if (World.getHeight((int) x + 1, (int) y) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 12] = color - 0.05f;
-            colors[colorindex + 13] = color - 0.05f;
-            colors[colorindex + 14] = color - 0.05f;
-            colors[colorindex + 15] = alpha;
-        } else if (World.getHeight((int) x, (int) y - 1) > World.getHeight((int) x, (int) y)){
-            colors[colorindex + 12] = color - 0.05f;
-            colors[colorindex + 13] = color - 0.05f;
-            colors[colorindex + 14] = color - 0.05f;
-            colors[colorindex + 15] = alpha;
-        } else{
-            colors[colorindex + 12] = color;
-            colors[colorindex + 13] = color;
-            colors[colorindex + 14] = color;
-            colors[colorindex + 15] = alpha;
-        }*/
-
 
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
@@ -550,8 +497,11 @@ public class MeshTask implements Runnable {
     }
 
     public static boolean applyBorderColors(int x, int y, int colorindex, int texindex){
+        if (!Main.fullDebug){
+            return false;
+        }
         if (World.isBorder(x, y)){
-            Treble<Float, Float, Float> terrColor = Country.getTerritoryColor(World.getTerritory((int) x, (int) y));
+            Treble<Float, Float, Float> terrColor = Country.getTerritoryColor(World.getTerritory(x, y));
             if (terrColor != null) {
                 colors[colorindex] = (terrColor.x);
                 colors[colorindex + 1] = (terrColor.y);

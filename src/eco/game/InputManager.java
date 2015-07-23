@@ -17,10 +17,10 @@ public class InputManager {
 
     public static void update() {
         if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
-            Render.rot -= 0.5f;
+            Render.camera.yaw -= 0.5f;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-            Render.rot += 0.5f;
+            Render.camera.yaw += 0.5f;
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             Render.camera.moveForward(moveSpeed);
@@ -44,7 +44,6 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                     case Keyboard.KEY_G:
-                        Main.debug ^= true;
                         System.out.println("DEBUG MODE IS TOGGLED!");
                         break;
                     case Keyboard.KEY_Q:

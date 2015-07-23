@@ -29,7 +29,7 @@ public class Main {
     public static final int width = 1280;
     public static boolean skipFrame = false;
 
-    public static final String vn = "Beta 1.3";
+    public static final String vn = "Beta 1.2";
 
     public static int framesPerTick = 18;
     public static int frame = 0;
@@ -41,7 +41,6 @@ public class Main {
     // =============//
     public static boolean isInEclipse = false;
     public static boolean paused = false;
-    public static boolean debug;
     public static boolean fullDebug = false;
 
     public static int currentSave;

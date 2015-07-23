@@ -1,9 +1,7 @@
 package eco.game;
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.ARBPointSprite;
+import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL14;
 
 import java.nio.FloatBuffer;
 
@@ -145,16 +143,13 @@ public class Chunk {
             GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
             GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
         }
+    }
+
+    public void renderStructures(){
         if (vertexStructure != null && textureStructure != null && colorsStructure != null) {
-
-            GL11.glEnable(ARBPointSprite.GL_POINT_SPRITE_ARB);
-            GL11.glTexEnvf(ARBPointSprite.GL_POINT_SPRITE_ARB, ARBPointSprite.GL_COORD_REPLACE_ARB, GL11.GL_TRUE);
-            GL11.glPointSize(8.0f);
-            FloatBuffer parm = BufferUtils.createFloatBuffer(4);
-            parm.put(new float[]{0.0f, 0f, 0.0001f, 0.0f});
-            parm.flip();
-            GL14.glPointParameter(GL14.GL_POINT_DISTANCE_ATTENUATION, parm);
-
+            if (ShaderManager.useShader) {
+                ARBShaderObjects.glUseProgramObjectARB(ShaderManager.billboard);
+            }
             GL11.glDisableClientState(GL11.GL_NORMAL_ARRAY);
 
             GL11.glEnableClientState(GL11.GL_COLOR_ARRAY);
@@ -165,11 +160,14 @@ public class Chunk {
             GL11.glTexCoordPointer(2, 0, textureStructure);
             GL11.glColorPointer(4, 0, colorsStructure);
 
-            GL11.glDrawArrays(GL11.GL_POINTS, 0, buffersizeStructure / 3);
+            GL11.glDrawArrays(GL11.GL_QUADS, 0, buffersizeStructure / 3);
 
             GL11.glDisableClientState(GL11.GL_VERTEX_ARRAY);
             GL11.glDisableClientState(GL11.GL_COLOR_ARRAY);
             GL11.glDisableClientState(GL11.GL_TEXTURE_COORD_ARRAY);
+            if (ShaderManager.useShader){
+                ARBShaderObjects.glUseProgramObjectARB(0);
+            }
         }
     }
 
@@ -191,6 +189,10 @@ public class Chunk {
 
     public void setTerritory(int x, int y, short claim) {
         territory[(x * chunksize) + y] = claim;
+    }
+
+    public void setDirty(){
+        isDirty = true;
     }
 
 }

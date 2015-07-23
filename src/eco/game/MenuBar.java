@@ -240,7 +240,7 @@ public class MenuBar {
                 playerCountry.favorFarmers ^= true;
             }
             if (toggleCutTrees.checkForClick()) {
-                World.cutForests ^= true;
+                Log.warning("This button doesn't do anything!");
             }
             if (toggleForceConscription.checkForClick()) {
                 playerCountry.forceConscription ^= true;
@@ -516,7 +516,7 @@ public class MenuBar {
         RenderUtil.drawString(
                 "Favor Warrior Rations: "
                         + String.valueOf(!playerCountry.favorFarmers), 585, 627);
-        RenderUtil.drawString("Cut Forests: " + String.valueOf(World.cutForests),
+        RenderUtil.drawString("Cut Forests: ????",
                 585, 597);
         RenderUtil.drawString(
                 "Force Conscription: "

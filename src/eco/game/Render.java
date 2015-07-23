@@ -2,6 +2,7 @@ package eco.game;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 
 import java.nio.FloatBuffer;
@@ -50,39 +51,30 @@ public class Render {
         RenderUtil.initFrustrum();
 
         camera.look();
-
         atlas.bind();
+
+        synchronized (lock) {
+            for (Chunk c : World.getAllChunks()) {
+                c.renderStructures();
+            }
+        }
+
 
         int mapsize = World.mapsize;
         rot += 0.05f;
         float offset = mapsize * tilesize / 2f;
-        glTranslatef(-offset, 0f, -offset);
+        /*glTranslatef(-offset, 0f, -offset);
         glRotatef(rot, 0.0f, 1.0f, 0.0f);
-        glTranslatef(offset, 0f, offset);
+        glTranslatef(offset, 0f, offset);*/
+
+
+        GL20.glUniform1f(ShaderManager.rotLocation, (float) Math.toRadians(rot - 180));
+
 
         /* Chunk rendering */
         synchronized (lock) {
             for (Chunk c : World.getAllChunks()) {
                 c.render();
-            }
-        }
-
-        /* Draw city names */
-        for (int x = 0; x < mapsize; x++) {
-            for (int y = 0; y < mapsize; y++) {
-                try {
-                    if (World.structures[x][y] == 1) {
-                        drawCityName((-x) * tilesize, World.noise[x][y]
-                                        * heightConstant, (-y) * tilesize,
-                                World.cities.get(new Point(x, y)));
-                    }
-                    if (World.structures[x][y] == 2) {
-                        drawCityName((-x) * tilesize, World.noise[x][y]
-                                        * heightConstant, (-y) * tilesize,
-                                World.cities.get(new Point(x, y)));
-                    }
-                } catch (Exception e) {
-                }
             }
         }
 

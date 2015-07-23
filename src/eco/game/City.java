@@ -134,9 +134,6 @@ public class City {
                 }
             }
         }
-        World.popdensity[loc.getX()][loc.getY()] = 0;
-        World.popmap[loc.getX()][loc.getY()] = 0;
-        World.structures[loc.getX()][loc.getY()] = 0;
         World.cities.remove(loc);
     }
 
@@ -190,7 +187,6 @@ public class City {
                         }
                     }
                 }
-                return "[" + World.popdensity[loc.getX()][loc.getY()] + "] " + name;
             }
             return "";
         } catch (Exception e) {

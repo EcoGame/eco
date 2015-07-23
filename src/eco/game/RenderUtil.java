@@ -293,6 +293,8 @@ public class RenderUtil {
             e.printStackTrace();
         }
 
+        ShaderManager.init();
+
     }
 
     public static void setClearColor(int r, int g, int b) {

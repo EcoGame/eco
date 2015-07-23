@@ -15,6 +15,7 @@ public class Command {
     private static ArrayList<String> helpCommands = new ArrayList<>();
 
     static {
+        helpCommands.add("debug -> toggles debug mode");
         helpCommands.add("foo -> a test command");
         helpCommands.add("splash -> changes the menu splashtext");
         helpCommands.add("exit -> exits the program");
@@ -48,6 +49,10 @@ public class Command {
             switch (command) {
                 case "foo":
                     Log.println("bar!");
+                    break;
+                case "debug":
+                    Main.fullDebug ^= true;
+                    World.invalidateChunkCache();
                     break;
                 case "splash":
                     SplashText.newSplash();

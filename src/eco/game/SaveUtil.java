@@ -92,42 +92,6 @@ public class SaveUtil {
             BW.newLine();
             BW.write(Integer.toString(country.aggression.aggressionScore));
             BW.newLine();
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Short.toString(World.map[x][y]));
-                }
-                BW.newLine();
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Float.toString(World.noise[x][y]) + ",");
-                }
-                BW.newLine();
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Short.toString(World.structures[x][y]) + ",");
-                }
-                BW.newLine();
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Short.toString(World.popmap[x][y]) + ",");
-                }
-                BW.newLine();
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Short.toString(World.popdensity[x][y]) + ",");
-                }
-                BW.newLine();
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                for (int y = 0; y < World.mapsize; y++) {
-                    BW.write(Short.toString(World.decorations[x][y]) + ",");
-                }
-                BW.newLine();
-            }
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 BW.write(String.valueOf(PlayerCountry.countries.get(x).farmer
                         .getPop()) + ",");
@@ -260,53 +224,6 @@ public class SaveUtil {
             playerCountry.stone.setStone(Integer.valueOf(list.get(8)));
             playerCountry.aggression.aggressionScore = Integer.valueOf(list.get(9));
             int line = 10;
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.map[x][y] = Short.valueOf(values.substring(y, y + 1));
-                }
-                line++;
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                String[] parts = values.split(",");
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.noise[x][y] = Float.valueOf((parts[y]));
-                }
-                line++;
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                String[] parts = values.split(",");
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.structures[x][y] = Short.valueOf((parts[y]));
-                }
-                line++;
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                String[] parts = values.split(",");
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.popmap[x][y] = Short.valueOf((parts[y]));
-                }
-                line++;
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                String[] parts = values.split(",");
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.popdensity[x][y] = Short.valueOf((parts[y]));
-                }
-                line++;
-            }
-            for (int x = 0; x < World.mapsize; x++) {
-                String values = list.get(line);
-                String[] parts = values.split(",");
-                for (int y = 0; y < World.mapsize; y++) {
-                    World.decorations[x][y] = Short.valueOf((parts[y]));
-                }
-                line++;
-            }
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 String values = list.get(line);
                 String[] parts = values.split(",");
