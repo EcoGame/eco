@@ -29,7 +29,7 @@ public class Main {
     public static final int width = 1280;
     public static boolean skipFrame = false;
 
-    public static final String vn = "Beta 1.2";
+    public static final String vn = "Beta 1.3";
 
     public static int framesPerTick = 18;
     public static int frame = 0;
