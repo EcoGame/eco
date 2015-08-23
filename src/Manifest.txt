@@ -1,0 +1,2 @@
+Main-Class: eco.game.Main
+Class-Path: ../lib/lwjgl.jar ../lib/lwjgl_util.jar ../lib/slick-util.jar
