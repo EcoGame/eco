@@ -16,7 +16,7 @@ public class World {
     public static int mapsize = chunksize * mapscale;
 
     private static final float seaLevel = Chunk.seaLevel;
-    public static long mapseed = "seeds r cool".hashCode();
+    public static long mapseed = System.currentTimeMillis();
 
     private static HashMap<Point, Chunk> chunks = new HashMap<>();
 

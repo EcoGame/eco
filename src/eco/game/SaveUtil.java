@@ -1,5 +1,7 @@
 package eco.game;
 
+import eco.ui.Menu;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;

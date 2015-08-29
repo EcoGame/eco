@@ -1,5 +1,8 @@
 package eco.game;
 
+import eco.render.RenderUtil;
+import eco.ui.Console;
+import eco.ui.Menu;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.SharedDrawable;
@@ -70,9 +73,6 @@ public class Main {
         }
         // System.out.println("Welcome to EcoLand!");
         Log.title("Welcome to EcoLand!");
-        Log.title("VVVVVV We don't have a way to enter seeds, but if we did, it would look something like this VVVVVVVV");
-        Log.title("What do you want your world to look like? Type a description here:")
-        String seed = String.hashCode("test description");
         Log.title("Version " + vn);
         initDisplay();
         Menu.initMenu();

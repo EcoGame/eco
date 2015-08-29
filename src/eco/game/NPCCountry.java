@@ -1,6 +1,8 @@
 package eco.game;
 
 
+import eco.render.RenderUtil;
+
 /**
  * This class represents and simulates another country
  *

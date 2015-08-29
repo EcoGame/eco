@@ -1,5 +1,7 @@
 package eco.game;
 
+import eco.ui.Console;
+
 /**
  * A utility class to make logging information, warnings, and errors easier
  * Colors output with ansi escape codes

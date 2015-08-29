@@ -1,5 +1,6 @@
 package eco.game;
 
+import eco.render.ShaderManager;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 

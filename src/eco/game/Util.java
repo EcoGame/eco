@@ -1,5 +1,8 @@
 package eco.game;
 
+import eco.ui.Console;
+import eco.ui.Message;
+
 /**
  * A class that contains various utilities and convenience methods
  *
