@@ -1,5 +1,6 @@
 all:
-	make build
+	@echo "Starting build..."	
+	gradle build
 	make run
 
 run:

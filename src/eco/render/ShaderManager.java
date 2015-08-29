@@ -18,8 +18,8 @@ public class ShaderManager {
         int vertShader = 0, fragShader = 0;
 
         try {
-            vertShader = createShader("../shaders/billboard.vert", ARBVertexShader.GL_VERTEX_SHADER_ARB);
-            fragShader = createShader("../shaders/billboard.frag", ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+            vertShader = createShader("shaders/billboard.vert", ARBVertexShader.GL_VERTEX_SHADER_ARB);
+            fragShader = createShader("shaders/billboard.frag", ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
         }
         catch(Exception exc) {
             exc.printStackTrace();

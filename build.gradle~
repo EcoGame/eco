@@ -22,3 +22,5 @@ sourceSets {
         }
     }
 }
+
+mainClassName = "src/eco/game/Main"

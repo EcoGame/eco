@@ -189,7 +189,11 @@ public class City {
                 }
             }
             return "";
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            if (Main.isInEclipse) {
+                e.printStackTrace();
+            }
+        }
         return "";
     }
 

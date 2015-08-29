@@ -116,7 +116,7 @@ public class RenderUtil {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm:ss");
         Date date = new Date(System.currentTimeMillis());
-        File file = new File("../screenshots/" + dateFormat.format(date));
+        File file = new File("screenshots/" + dateFormat.format(date));
         if (!file.mkdirs()) {
             Log.warning("Failed to create screenshots directory!");
         }
@@ -194,21 +194,12 @@ public class RenderUtil {
         org.newdawn.slick.util.Log.setVerbose(false);
         /* Creates textureatlas */
         try {
-            if (Main.isInEclipse) {
                 Render.atlas = new TextureAtlas(
                         TextureLoader.getTexture(
                                 "PNG",
                                 ResourceLoader
                                         .getResourceAsStream("assets/textureatlas.png"),
                                 GL_NEAREST));
-            } else {
-                Render.atlas = new TextureAtlas(
-                        TextureLoader.getTexture(
-                                "PNG",
-                                ResourceLoader
-                                        .getResourceAsStream("../assets/textureatlas.png"),
-                                GL_NEAREST));
-            }
         } catch (IOException e) {
             Log.severe("Could not create texture atlas!");
             Log.severe("Aborting!");
@@ -220,13 +211,8 @@ public class RenderUtil {
         /* Creates the font */
         try {
             InputStream inputStream;
-            if (Main.isInEclipse) {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("assets/font.ttf");
-            } else {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("../assets/font.ttf");
-            }
+            inputStream = ResourceLoader
+                 .getResourceAsStream("assets/font.ttf");
             Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(16f); // set font size
             font = new TrueTypeFont(awtFont, true);
@@ -274,14 +260,9 @@ public class RenderUtil {
         org.newdawn.slick.util.Log.info("Added " + RandTexture.count + " random textures");
 
         /* Creates the icon */
-        File icon128 = new File("../assets/icon128.png");
-        File icon32 = new File("../assets/icon32.png");
-        File icon16 = new File("../assets/icon16.png");
-        if (Main.isInEclipse) {
-            icon128 = new File("assets/icon128.png");
-            icon32 = new File("assets/icon32.png");
-            icon16 = new File("assets/icon16.png");
-        }
+        File icon128 = new File("assets/icon128.png");
+        File icon32 = new File("assets/icon32.png");
+        File icon16 = new File("assets/icon16.png");
         try {
             Display.setIcon(new ByteBuffer[]{
                     new ImageIOImageData().imageToByteBuffer(ImageIO.read(icon128), false, false, null),

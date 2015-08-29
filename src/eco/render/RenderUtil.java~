@@ -1,5 +1,6 @@
-package eco.game;
+package eco.render;
 
+import eco.game.*;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -32,7 +33,7 @@ import static org.lwjgl.opengl.GL11.*;
  * @author phil
  */
 public class RenderUtil {
-    static TrueTypeFont font;
+    public static TrueTypeFont font;
 
     public static Treble<Float, Float, Float> convertColor(
             Treble<Float, Float, Float> base) {
@@ -115,7 +116,7 @@ public class RenderUtil {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm:ss");
         Date date = new Date(System.currentTimeMillis());
-        File file = new File("../screenshots/" + dateFormat.format(date));
+        File file = new File("screenshots/" + dateFormat.format(date));
         if (!file.mkdirs()) {
             Log.warning("Failed to create screenshots directory!");
         }
@@ -193,21 +194,12 @@ public class RenderUtil {
         org.newdawn.slick.util.Log.setVerbose(false);
         /* Creates textureatlas */
         try {
-            if (Main.isInEclipse) {
                 Render.atlas = new TextureAtlas(
                         TextureLoader.getTexture(
                                 "PNG",
                                 ResourceLoader
                                         .getResourceAsStream("assets/textureatlas.png"),
                                 GL_NEAREST));
-            } else {
-                Render.atlas = new TextureAtlas(
-                        TextureLoader.getTexture(
-                                "PNG",
-                                ResourceLoader
-                                        .getResourceAsStream("../assets/textureatlas.png"),
-                                GL_NEAREST));
-            }
         } catch (IOException e) {
             Log.severe("Could not create texture atlas!");
             Log.severe("Aborting!");
@@ -219,13 +211,8 @@ public class RenderUtil {
         /* Creates the font */
         try {
             InputStream inputStream;
-            if (Main.isInEclipse) {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("assets/font.ttf");
-            } else {
-                inputStream = ResourceLoader
-                        .getResourceAsStream("../assets/font.ttf");
-            }
+            inputStream = ResourceLoader
+                 .getResourceAsStream("assets/font.ttf");
             Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
             awtFont = awtFont.deriveFont(16f); // set font size
             font = new TrueTypeFont(awtFont, true);
@@ -237,45 +224,45 @@ public class RenderUtil {
         }
         Log.success("Created font");
 
-        Render.treeTexture.addTexture(new Point(2, 1));
-        Render.treeTexture.addTexture(new Point(5, 4));
+        Render.treeTexture.addTexture(new eco.game.Point(2, 1));
+        Render.treeTexture.addTexture(new eco.game.Point(5, 4));
 
-        Render.smallHouseTexture.addTexture(new Point(0, 1));
-        Render.smallHouseTexture.addTexture(new Point(1, 6));
-        Render.smallHouseTexture.addTexture(new Point(4, 6));
-        Render.smallHouseTexture.addTexture(new Point(5, 6));
-        Render.smallHouseTexture.addTexture(new Point(6, 6));
-        Render.smallHouseTexture.addTexture(new Point(7, 6));
-        Render.smallHouseTexture.addTexture(new Point(1, 7));
-        Render.smallHouseTexture.addTexture(new Point(4, 7));
-        Render.smallHouseTexture.addTexture(new Point(5, 7));
-        Render.smallHouseTexture.addTexture(new Point(6, 7));
-        Render.smallHouseTexture.addTexture(new Point(7, 7));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(0, 1));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(1, 6));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(4, 6));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(5, 6));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(6, 6));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(7, 6));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(1, 7));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(4, 7));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(5, 7));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(6, 7));
+        Render.smallHouseTexture.addTexture(new eco.game.Point(7, 7));
 
-        Render.bigHouseTexture.addTexture(new Point(3, 1));
-        Render.bigHouseTexture.addTexture(new Point(4, 3));
-        Render.bigHouseTexture.addTexture(new Point(5, 3));
-        Render.bigHouseTexture.addTexture(new Point(2, 5));
-        Render.bigHouseTexture.addTexture(new Point(3, 5));
-        Render.bigHouseTexture.addTexture(new Point(0, 6));
-        Render.bigHouseTexture.addTexture(new Point(2, 6));
-        Render.bigHouseTexture.addTexture(new Point(3, 6));
-        Render.bigHouseTexture.addTexture(new Point(0, 7));
-        Render.bigHouseTexture.addTexture(new Point(2, 7));
-        Render.bigHouseTexture.addTexture(new Point(3, 7));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(3, 1));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(4, 3));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(5, 3));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(2, 5));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(3, 5));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(0, 6));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(2, 6));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(3, 6));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(0, 7));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(2, 7));
+        Render.bigHouseTexture.addTexture(new eco.game.Point(3, 7));
 
-        Render.smallCastleTexture.addTexture(new Point(1, 1));
-        Render.smallCastleTexture.addTexture(new Point(4, 4));
+        Render.smallCastleTexture.addTexture(new eco.game.Point(1, 1));
+        Render.smallCastleTexture.addTexture(new eco.game.Point(4, 4));
 
-        Render.bigCastleTexture.addTexture(new Point(1, 3));
-        Render.bigCastleTexture.addTexture(new Point(3, 4));
+        Render.bigCastleTexture.addTexture(new eco.game.Point(1, 3));
+        Render.bigCastleTexture.addTexture(new eco.game.Point(3, 4));
 
         org.newdawn.slick.util.Log.info("Added " + RandTexture.count + " random textures");
 
         /* Creates the icon */
-        File icon128 = new File("../assets/icon128.png");
-        File icon32 = new File("../assets/icon32.png");
-        File icon16 = new File("../assets/icon16.png");
+        File icon128 = new File("assets/icon128.png");
+        File icon32 = new File("assets/icon32.png");
+        File icon16 = new File("assets/icon16.png");
         if (Main.isInEclipse) {
             icon128 = new File("assets/icon128.png");
             icon32 = new File("assets/icon32.png");

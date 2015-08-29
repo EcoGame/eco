@@ -292,8 +292,11 @@ public class SaveUtil {
         }
         String path = "";
         File name = null;
-        path = "../saves/" + currentSave + ".txt";
+        path = "saves/" + currentSave + ".txt";
         name = new File(currentSave + ".txt");
+        if (!Main.isInEclipse) {
+            path = "../" + path;
+        }
         name = new File(path);
         if (name.exists()) {
             return true;

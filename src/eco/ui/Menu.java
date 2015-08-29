@@ -35,13 +35,8 @@ public class Menu {
         Main.paused = false;
         Main.gameOver = false;
         SplashText.newSplash();
-        if (Main.isInEclipse) {
-            File saves = new File("saves");
-            saves.mkdirs();
-        } else {
             File saves = new File("../saves");
             saves.mkdirs();
-        }
         if (!SaveUtil.doesSaveExist(1)) {
             UIManager.startSaveGame1.setText("Create a save");
         } else {
