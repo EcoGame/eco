@@ -1,4 +1,4 @@
-https://travis-ci.org/EcoGame/Eco.svg?branch=master
+[![Build Status](https://travis-ci.org/EcoGame/Eco.svg?branch=master)](https://travis-ci.org/EcoGame/Eco)
 
 # Eco
 The simulation game of nations
