@@ -4,7 +4,7 @@
 The simulation game of nations
 
 # Usage
-On *nix systems (Mac OSX, Linux), simply run compi.sh (./compi.sh)
+On *nix systems (Mac OSX, Linux), simply run make (./compi.sh)
 On Windows systems, either run compi.sh through something like cygwin, or compile it from source
 
 ## Controls
