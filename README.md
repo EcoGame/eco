@@ -1,3 +1,5 @@
+https://travis-ci.org/EcoGame/Eco.svg?branch=master
+
 # Eco
 The simulation game of nations
 
