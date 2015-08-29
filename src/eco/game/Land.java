@@ -32,7 +32,7 @@ public class Land {
     }
 
     public void updateWheat(Wheat wheat) {
-        wheat.addWheat(wheatPerLand * land);
+        wheat.add(wheatPerLand * land);
     }
 
     public int getLand() {

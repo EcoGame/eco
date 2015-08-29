@@ -78,7 +78,7 @@ public class SaveUtil {
 
             BW.write(Integer.toString(Country.year));
             BW.newLine();
-            BW.write(Integer.toString(country.wheat.gettWheat()));
+            BW.write(Integer.toString(country.wheat.getAmount()));
             BW.newLine();
             BW.write(Integer.toString(country.farmer.getPop()));
             BW.newLine();
@@ -88,9 +88,9 @@ public class SaveUtil {
             BW.newLine();
             BW.write(Integer.toString(country.land.getPop()));
             BW.newLine();
-            BW.write(Integer.toString(country.wood.getWood()));
+            BW.write(Integer.toString(country.wood.getAmount()));
             BW.newLine();
-            BW.write(Integer.toString(country.stone.getStone()));
+            BW.write(Integer.toString(country.stone.getAmount()));
             BW.newLine();
             BW.write(Integer.toString(country.aggression.aggressionScore));
             BW.newLine();
@@ -111,7 +111,7 @@ public class SaveUtil {
             BW.newLine();
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 BW.write(String.valueOf(PlayerCountry.countries.get(x).wheat
-                        .gettWheat()) + ",");
+                        .getAmount()) + ",");
             }
             BW.newLine();
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
@@ -217,13 +217,13 @@ public class SaveUtil {
             }
             PlayerCountry playerCountry = new PlayerCountry();
             PlayerCountry.year = Integer.valueOf(list.get(1));
-            playerCountry.wheat.settWheat(Integer.valueOf(list.get(2)));
+            playerCountry.wheat.setAmount(Integer.valueOf(list.get(2)));
             playerCountry.farmer.setPop(Integer.valueOf(list.get(3)));
             playerCountry.warrior.setPop(Integer.valueOf(list.get(4)));
             playerCountry.land.setLand(Integer.valueOf(list.get(5)));
             playerCountry.land.setPop(Integer.valueOf(list.get(6)));
-            playerCountry.wood.setWood(Integer.valueOf(list.get(7)));
-            playerCountry.stone.setStone(Integer.valueOf(list.get(8)));
+            playerCountry.wood.setAmount(Integer.valueOf(list.get(7)));
+            playerCountry.stone.setAmount(Integer.valueOf(list.get(8)));
             playerCountry.aggression.aggressionScore = Integer.valueOf(list.get(9));
             int line = 10;
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
@@ -249,7 +249,7 @@ public class SaveUtil {
             for (int x = 0; x < PlayerCountry.countries.size(); x++) {
                 String values = list.get(line);
                 String[] parts = values.split(",");
-                PlayerCountry.countries.get(x).wheat.settWheat(Integer
+                PlayerCountry.countries.get(x).wheat.setAmount(Integer
                         .valueOf(parts[x]));
             }
             line++;

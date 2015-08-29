@@ -99,11 +99,9 @@ public abstract class Country {
         for (Country c : countries) {
             c.tick();
         }
-
-        Wheat.globalRot(globalWheatRot);
     }
 
-    public void tick() {
+    final public void tick() {
         // ==================//
         // Population growth //
         // ==================//
@@ -124,30 +122,27 @@ public abstract class Country {
         // =================//
         // Wheat Production //
         // =================//
-        wheat.tWheat(farmer.getPop(), farmer);
+        wheat.add(farmer.getPop() * farmer.getWheatRate());
         land.updateWheat(wheat);
 
 
         for (SocialClass sc : classes) {
-            wheat.settWheat(sc.updateHunger(wheat.gettWheat()));
+            wheat.setAmount(sc.updateHunger(wheat.getAmount()));
             sc.tick();
         }
 
         // ==============//
         // Other Updates //
         // ==============//
-        //World.updateWood(this);
-        wood.update();
-        //World.updateStone(this);
-
-        wheat.update(economy);
-        wheat.rot(wheatRot);
+        wood.tick();
+        stone.tick();
+        wheat.tick();
 
         // ======//
         // Score //
         // ======//
         int tick = year;
-        score.calculateTickScore(tick, farmer.getPop(), warrior.getPop(), wheat.gettWheat(), economy.getTreasury());
+        score.calculateTickScore(tick, farmer.getPop(), warrior.getPop(), wheat.getAmount(), economy.getTreasury());
         score.calculateAvgScore(tick);
         score.calculateTickGrowth(tick);
         score.calculateAvgGrowth(tick);

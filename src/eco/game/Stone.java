@@ -7,45 +7,20 @@ package eco.game;
  * @author phil
  */
 
-public class Stone {
+public class Stone extends Resource{
 
-    private int stone;
+    private static int price = 1;
+    private static int globalAmmount = 0;
+    private static float globalRotRate = 1.0f;
 
-    public boolean buyStone = true;
-
-    private int stonePrice = 150;
+    private static final int START_STONE = 1000;
 
     public Stone() {
-        stone = 1000;
+        super();
+        add(START_STONE);
     }
 
-    public int takeStone(int request, Economy economy) {
-        if (request > stone) {
-            if (!buyStone) {
-                request = stone;
-                stone = 0;
-                return request;
-            } else {
-                int missing = request - stone;
-                int canBuy = (int) Math.ceil(economy.takeMoney(missing * stonePrice) / (float) stonePrice);
-                return request - (missing - canBuy);
-            }
-        }
-        stone -= request;
-        return request;
-    }
-
-    public void addStone(int toAdd) {
-        stone += toAdd;
-    }
-
-    public int getStone() {
-        return stone;
-    }
-
-    public void setStone(int stone) {
-        this.stone = stone;
-    }
-
+    @Override
+    public void updateTick() {}
 
 }

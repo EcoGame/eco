@@ -425,7 +425,7 @@ public class MenuBar {
 
         popGraph.tick(playerCountry.farmer.getPop()
                 + playerCountry.warrior.getPop());
-        globalWheatGraph.tick(playerCountry.wheat.gettWheat());
+        globalWheatGraph.tick(playerCountry.wheat.getAmount());
         moneyGraph.tick(playerCountry.economy.getTreasury());
         scoreGraph.tick(playerCountry.score.scoreAt(Math.max(0,
                 playerCountry.year - 1)));
@@ -869,15 +869,15 @@ public class MenuBar {
                 + " Warriors", 85, 657);
         RenderUtil.drawString(String.valueOf(playerCountry.farmer.getPop())
                 + " Farmers", 85, 627);
-        RenderUtil.drawString(String.valueOf(playerCountry.wheat.gettWheat()), 85,
+        RenderUtil.drawString(String.valueOf(playerCountry.wheat.getAmount()), 85,
                 587);
         if (MathUtil.getWheatRate(playerCountry) > 0) {
             RenderUtil.font.drawString(85 + RenderUtil.font.getWidth(String
-                    .valueOf(playerCountry.wheat.gettWheat() + " ")), 587, " ("
+                    .valueOf(playerCountry.wheat.getAmount() + " ")), 587, " ("
                     + MathUtil.getWheatRateForDisplay(playerCountry) + ")", Color.green);
         } else {
             RenderUtil.font.drawString(85 + RenderUtil.font.getWidth(String
-                    .valueOf(playerCountry.wheat.gettWheat() + " ")), 587, " ("
+                    .valueOf(playerCountry.wheat.getAmount() + " ")), 587, " ("
                     + MathUtil.getWheatRateForDisplay(playerCountry) + ")", Color.red);
         }
         RenderUtil.drawString(
@@ -888,7 +888,7 @@ public class MenuBar {
                 "Money: " + String.valueOf(playerCountry.economy.getTreasury()),
                 985, 657);
         RenderUtil.drawString(
-                "Wood: " + String.valueOf(playerCountry.wood.getWood()), 985,
+                "Wood: " + String.valueOf(playerCountry.wood.getAmount()), 985,
                 597);
         RenderUtil.drawString("Aggression: ", 985, 567);
         int value = playerCountry.aggression.aggressionScore;
@@ -896,7 +896,7 @@ public class MenuBar {
                 567, String.valueOf(playerCountry.aggression.aggressionScore), new Color(
                         (value * 2) / 255f, 1 - (value * 2 / 255f), 20 / 255f));
         RenderUtil.drawString(
-                "Stone: " + String.valueOf(playerCountry.stone.getStone()),
+                "Stone: " + String.valueOf(playerCountry.stone.getAmount()),
                 985, 687);
     }
 

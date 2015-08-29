@@ -208,12 +208,12 @@ return ret;
 }
     public static int woodlevels(int currentnetwork){
         int ret = 0;
-        ret = NeuralManager.Countries[currentnetwork].wood.getWood();
+        ret = NeuralManager.Countries[currentnetwork].wood.getAmount();
         return ret;
     }
     public static int stonelevels(int currentnetwork){
         int ret = 0;
-        ret = NeuralManager.Countries[currentnetwork].stone.getStone();
+        ret = NeuralManager.Countries[currentnetwork].stone.getAmount();
         return ret;
     }
 }
