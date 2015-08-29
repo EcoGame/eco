@@ -3,7 +3,7 @@
 # ![](http://i.imgur.com/jhtR6dA.png) Eco
 The simulation game of nations
 
-# Usage
+## Usage
 clone, and run `make`. Requires gradle
 
 The makefile has four targets:
@@ -13,7 +13,7 @@ The makefile has four targets:
 * `make run` -> just run
 * `make clean` -> cleans up binaries and files created by the game
 
-## Controls
+### Controls
 
 W,A,S, and D - Move the camera within the XZ plane
 
