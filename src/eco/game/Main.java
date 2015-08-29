@@ -39,6 +39,8 @@ public class Main {
 
     public static boolean renderPopMap = false;
 
+    this should make the build fail, right?
+
     // =============//
     // IO Variables //
     // =============//
