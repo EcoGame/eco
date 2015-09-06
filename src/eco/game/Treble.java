@@ -45,4 +45,9 @@ public class Treble<X, Y, Z> {
         this.z = z;
     }
 
+    @Override
+    public String toString(){
+        return "("+x+", "+y+", "+z+")";
+    }
+
 }

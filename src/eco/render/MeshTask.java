@@ -242,8 +242,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 14] = color;
         colors[colorindex + 15] = alpha;
 
-        applyBorderColors((int) x, (int) y, colorindex, texindex);
-
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
         vertex[index + 2] = -y * tilesize - offset;
@@ -261,6 +259,10 @@ public class MeshTask implements Runnable {
         vertex[index + 11] = -y * tilesize + offset;
 
         index += 12;
+
+        colorindex = index / 3 * 4;
+        texindex = index / 3 * 2;
+        applyBorderColors(x, y, height, colorindex, texindex);
     }
 
     @SuppressWarnings("unused")
@@ -299,8 +301,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 13] = color;
         colors[colorindex + 14] = color;
         colors[colorindex + 15] = alpha;
-
-        applyBorderColors((int) x, (int) y, colorindex, texindex);
 
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
@@ -359,8 +359,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 14] = color;
         colors[colorindex + 15] = alpha;
 
-        applyBorderColors((int) x, (int) y, colorindex, texindex);
-
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
         vertex[index + 2] = -y * tilesize - offset;
@@ -418,8 +416,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 14] = color;
         colors[colorindex + 15] = alpha;
 
-        applyBorderColors((int) x, (int) y, colorindex, texindex);
-
         vertex[index] = -x * tilesize + offset;
         vertex[index + 1] = height;
         vertex[index + 2] = -y * tilesize - offset;
@@ -476,8 +472,6 @@ public class MeshTask implements Runnable {
         colors[colorindex + 14] = color;
         colors[colorindex + 15] = alpha;
 
-        applyBorderColors((int) x, (int) y, colorindex, texindex);
-
         vertex[index] = -x * tilesize - offset;
         vertex[index + 1] = height;
         vertex[index + 2] = -y * tilesize + offset;
@@ -497,34 +491,62 @@ public class MeshTask implements Runnable {
         index += 12;
     }
 
-    public static boolean applyBorderColors(int x, int y, int colorindex, int texindex){
+    public static boolean applyBorderColors(float x, float y, float height, int colorindex, int texindex){
         if (!Main.fullDebug){
             return false;
         }
-        if (World.isBorder(x, y)){
-            Treble<Float, Float, Float> terrColor = Country.getTerritoryColor(World.getTerritory(x, y));
+        if (World.isBorder((int)x, (int)y)){
+            Treble<Float, Float, Float> terrColor = Country.getTerritoryColor(World.getTerritory((int)x, (int)y));
             if (terrColor != null) {
+                height += 0.01f;
+
+                vertex[index] = -x * tilesize - offset;
+                vertex[index + 1] = height;
+                vertex[index + 2] = -y * tilesize - offset;
+
+                vertex[index + 3] = -x * tilesize + offset;
+                vertex[index + 4] = height;
+                vertex[index + 5] = -y * tilesize - offset;
+
+                vertex[index + 6] = -x * tilesize + offset;
+                vertex[index + 7] = height;
+                vertex[index + 8] = -y * tilesize + offset;
+
+                vertex[index + 9] = -x * tilesize - offset;
+                vertex[index + 10] = height;
+                vertex[index + 11] = -y * tilesize + offset;
+
                 colors[colorindex] = (terrColor.x);
                 colors[colorindex + 1] = (terrColor.y);
                 colors[colorindex + 2] = (terrColor.z);
+
                 colors[colorindex + 4] = (terrColor.x);
                 colors[colorindex + 5] = (terrColor.y);
                 colors[colorindex + 6] = (terrColor.z);
+
                 colors[colorindex + 8] = (terrColor.x);
                 colors[colorindex + 9] = (terrColor.y);
                 colors[colorindex + 10] = (terrColor.z);
+
                 colors[colorindex + 12] = (terrColor.x);
                 colors[colorindex + 13] = (terrColor.y);
                 colors[colorindex + 14] = (terrColor.z);
 
-                texture[texindex] = 1;
-                texture[texindex + 1] = 1;
-                texture[texindex + 2] = 1;
-                texture[texindex + 3] = 1;
-                texture[texindex + 4] = 1;
-                texture[texindex + 5] = 1;
-                texture[texindex + 6] = 1;
-                texture[texindex + 7] = 1;
+                colors[colorindex + 3] = 1;
+                colors[colorindex + 7] = 1;
+                colors[colorindex + 11] = 1;
+                colors[colorindex + 15] = 1;
+
+                texture[texindex] = RenderUtil.getDummyTex(false);
+                texture[texindex + 1] = RenderUtil.getDummyTey(false);
+                texture[texindex + 2] = RenderUtil.getDummyTex(true);
+                texture[texindex + 3] = RenderUtil.getDummyTey(false);
+                texture[texindex + 4] = RenderUtil.getDummyTex(true);
+                texture[texindex + 5] = RenderUtil.getDummyTey(true);
+                texture[texindex + 6] = RenderUtil.getDummyTex(false);
+                texture[texindex + 7] = RenderUtil.getDummyTey(true);
+
+                index += 12;
                 return true;
             }
         }

@@ -88,7 +88,7 @@ public abstract class Country {
 
     public static void init(){
         Country pc = countries.get(0);
-        countries.clear();;
+        countries.clear();
         countries.add(pc);
         for (int i = 0; i < 10; i++){
             new NPCCountry();

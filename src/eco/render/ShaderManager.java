@@ -57,6 +57,8 @@ public class ShaderManager {
         int loc = GL20.glGetUniformLocation(billboard, "texture1");
         GL20.glUniform1i(loc, 0);
         rotLocation = GL20.glGetUniformLocation(billboard, "rotation");
+
+        useShader = false;
     }
 
     private static int createShader(String filename, int shaderType) throws Exception {

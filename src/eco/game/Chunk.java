@@ -92,6 +92,10 @@ public class Chunk {
         return height[(x * chunksize) + y];
     }
 
+    public void setHeight(int x, int y, float height){
+        this.height[(x * chunksize) + y] = height;
+    }
+
     public void updateMesh(FloatBuffer vertex, FloatBuffer texture, FloatBuffer color, int buffersize) {
         if (!isDirty) {
             Log.severe("Updating a chunk mesh that is not dirty!");

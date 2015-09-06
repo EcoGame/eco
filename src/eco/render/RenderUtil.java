@@ -279,6 +279,14 @@ public class RenderUtil {
 
     }
 
+    public static float getDummyTex(boolean increase){
+        return Render.atlas.getCoord(9, increase);
+    }
+
+    public static float getDummyTey(boolean increase){
+        return Render.atlas.getCoord(0, increase);
+    }
+
     public static void setClearColor(int r, int g, int b) {
         glClearColor(r / 255f, g / 255f, b / 255f, 1f);
     }

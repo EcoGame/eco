@@ -32,6 +32,7 @@ public class Tile {
     public static final Tile grass = new Tile(1, "Grass", 1, 0);
     public static final Tile stone = new Tile(2, "Stone", 2, 0);
     public static final Tile farmland = new Tile(3, "Farmland", 3, 0);
+    public static final Tile marble = new Tile(4, "Marble", 9, 0);
 
     public boolean shouldRenderE(int x, int y) {
         return World.getHeight(x, y) > World.getHeight(x, y - 1);

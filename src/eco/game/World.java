@@ -48,6 +48,21 @@ public class World {
         for (Chunk c : chunks.values()) {
             c.decorate();
         }
+
+
+        final float edgeHeight = seaLevel + 0.1f;
+        for (int x = 0; x < mapsize; x++){
+            setHeight(x, 0, edgeHeight);
+            setHeight(x, mapsize - 1, edgeHeight);
+            setTile(x, 0, Tile.marble);
+            setTile(x, mapsize - 1, Tile.marble);
+        }
+        for (int y = 0; y < mapsize; y++){
+            setHeight(0, y, edgeHeight);
+            setHeight(mapsize - 1, y, edgeHeight);
+            setTile(0, y, Tile.marble);
+            setTile(mapsize - 1, y, Tile.marble);
+        }
     }
 
 
@@ -60,6 +75,17 @@ public class World {
             return 0;
         }
         return getChunk(x, y).getTile(x % chunksize, y % chunksize);
+    }
+
+    public static void setTileId(int x, int y, short id){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize) {
+            return;
+        }
+        getChunk(x, y).setTile(x % chunksize, y % chunksize, id);
+    }
+
+    public static void setTile(int x, int y, Tile tile){
+        setTileId(x, y, tile.id);
     }
 
     public static Tile getTile(int x, int y) {
@@ -87,6 +113,17 @@ public class World {
             return 0f;
         }
         return c.getHeight(x % chunksize, y % chunksize);
+    }
+
+    public static void setHeight(int x, int y, float height){
+        if (x < 0 || y < 0 || x >= mapsize || y >= mapsize) {
+            return;
+        }
+        Chunk c = getChunk(x, y);
+        if (c == null) {
+            return;
+        }
+        c.setHeight(x % chunksize, y % chunksize, height);
     }
 
     public static int getTerritory(int x, int y) {
