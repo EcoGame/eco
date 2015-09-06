@@ -1,6 +1,7 @@
 package eco.render;
 
 import eco.game.*;
+import eco.ui.IGConsole;
 import eco.ui.Message;
 import eco.ui.SplashText;
 import eco.ui.UIManager;
@@ -49,6 +50,8 @@ public class Render {
     public static final RandTexture bigHouseTexture = new RandTexture();
     public static final RandTexture smallCastleTexture = new RandTexture();
     public static final RandTexture bigCastleTexture = new RandTexture();
+
+    public static float consoleAnim = 0;
 
     public static void draw() {
         RenderUtil.prepDraw();
@@ -482,7 +485,7 @@ public class Render {
     /* Draw the gameover overlay */
     public static void drawGameOver() {
         Treble<Float, Float, Float> pauseColor = RenderUtil
-                .convertColor(new Treble<Float, Float, Float>(168f, 78f, 78f));
+                .convertColor(new Treble<>(168f, 78f, 78f));
 
         glDisable(GL11.GL_TEXTURE_2D);
         glBegin(GL_QUADS);
@@ -498,6 +501,44 @@ public class Render {
 
         atlas.bind();
 
+    }
+
+    /* start drawing the console */
+    public static void initConsoleRender(){
+        consoleAnim = -100;
+    }
+
+    /* draw the console */
+    public static void drawConsole(){
+        RenderUtil.initOrtho();
+
+        if (consoleAnim < 0){
+            consoleAnim += 30;
+            consoleAnim = Math.min(0, consoleAnim);
+        }
+
+        final float width = 500;
+        final float height = 100;
+
+        glDisable(GL_TEXTURE_2D);
+
+        glPushMatrix();
+        glTranslatef(0, consoleAnim, 0);
+
+        glColor4f(0.3f, 0.3f, 0.3f, 0.8f);
+        glBegin(GL_QUADS);
+        glVertex2f(Main.width, 0);
+        glVertex2f(Main.width - width, 0);
+        glVertex2f(Main.width - width, height);
+        glVertex2f(Main.width, height);
+        glEnd();
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+        glPopMatrix();
+
+        glEnable(GL_TEXTURE_2D);
+
+        RenderUtil.drawString(IGConsole.ps1+IGConsole.buffer, Main.width - width + 10, 10);
     }
 
 }

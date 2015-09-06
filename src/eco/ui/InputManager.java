@@ -55,7 +55,7 @@ public class InputManager {
                         break;
                     case Keyboard.KEY_H:
                     case Keyboard.KEY_GRAVE:
-                        Main.fullDebug ^= true;
+                        IGConsole.consoleLoop();
                         break;
                     case Keyboard.KEY_ESCAPE:
                         Main.paused ^= true;
@@ -86,6 +86,9 @@ public class InputManager {
         while (Keyboard.next()) {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
+                    case Keyboard.KEY_GRAVE:
+                        IGConsole.consoleLoop();
+                        break;
                     case Keyboard.KEY_F10:
                         RenderUtil.takeScreenshot();
                         break;
@@ -140,6 +143,40 @@ public class InputManager {
                 if (Mouse.getEventButtonState()) {
                     UIManager.clickGameOver(Mouse.getX(), Display.getHeight()
                             - Mouse.getY());
+                }
+            }
+        }
+    }
+
+    public static void updateConsole(){
+        while (Keyboard.next()) {
+            if (Keyboard.getEventKeyState()) {
+                switch (Keyboard.getEventKey()) {
+                    case Keyboard.KEY_GRAVE:
+                        IGConsole.running = false;
+                        break;
+                    case Keyboard.KEY_BACK:
+                    case Keyboard.KEY_DELETE:
+                        if (IGConsole.buffer.length() != 0){
+                            IGConsole.buffer = IGConsole.buffer.substring(0, IGConsole.buffer.length() - 1);
+                        }
+                        break;
+                    case Keyboard.KEY_RETURN:
+                        Command.onCommand(IGConsole.buffer);
+                        IGConsole.buffer = "";
+                        break;
+                    case Keyboard.KEY_SPACE:
+                        IGConsole.buffer += " ";
+                        break;
+                    case Keyboard.KEY_F10:
+                        RenderUtil.takeScreenshot();
+                        break;
+                    default:
+                        String value = Keyboard.getKeyName(Keyboard.getEventKey());
+                        if (value.length() == 1){
+                            IGConsole.buffer += value;
+                        }
+                        break;
                 }
             }
         }
