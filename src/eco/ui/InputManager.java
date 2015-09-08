@@ -53,8 +53,8 @@ public class InputManager {
                                 * Render.tilesize);
                         Log.info("Reset camera to default location");
                         break;
-                    case Keyboard.KEY_H:
                     case Keyboard.KEY_GRAVE:
+                    case Keyboard.KEY_TAB:
                         IGConsole.consoleLoop();
                         break;
                     case Keyboard.KEY_ESCAPE:
@@ -87,6 +87,7 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                     case Keyboard.KEY_GRAVE:
+                    case Keyboard.KEY_TAB:
                         IGConsole.consoleLoop();
                         break;
                     case Keyboard.KEY_F10:
@@ -153,6 +154,7 @@ public class InputManager {
             if (Keyboard.getEventKeyState()) {
                 switch (Keyboard.getEventKey()) {
                     case Keyboard.KEY_GRAVE:
+                    case Keyboard.KEY_TAB:
                         IGConsole.running = false;
                         break;
                     case Keyboard.KEY_BACK:
