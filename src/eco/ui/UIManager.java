@@ -1,5 +1,6 @@
 package eco.ui;
 
+import eco.game.Game;
 import eco.game.Main;
 import eco.game.PlayerCountry;
 import eco.game.SaveUtil;
@@ -177,7 +178,7 @@ public class UIManager {
             }
             Main.currentSave = 1;
             Main.shouldQuit = false;
-            PlayerCountry.gameLoop(new PlayerCountry());
+            Game.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame2.checkForClick()) {
@@ -215,7 +216,7 @@ public class UIManager {
             }
             Main.currentSave = 2;
             Main.shouldQuit = false;
-            PlayerCountry.gameLoop(new PlayerCountry());
+            Game.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame3.checkForClick()) {
@@ -252,7 +253,7 @@ public class UIManager {
             }
             Main.currentSave = 3;
             Main.shouldQuit = false;
-            PlayerCountry.gameLoop(new PlayerCountry());
+            Game.gameLoop(new PlayerCountry());
 
         }
 
@@ -290,7 +291,7 @@ public class UIManager {
             }
             Main.currentSave = 4;
             Main.shouldQuit = false;
-            PlayerCountry.gameLoop(new PlayerCountry());
+            Game.gameLoop(new PlayerCountry());
         }
 
         if (startSaveGame5.checkForClick()) {
@@ -327,7 +328,7 @@ public class UIManager {
             }
             Main.currentSave = 5;
             Main.shouldQuit = false;
-            PlayerCountry.gameLoop(new PlayerCountry());
+            Game.gameLoop(new PlayerCountry());
 
         }
 

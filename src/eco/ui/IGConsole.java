@@ -40,9 +40,9 @@ public class IGConsole {
             }
             Command.update();
 
-            InputManager.updateConsole();
-            buffer = buffer.toLowerCase();
-
+            InputManager.consoleInput.update();
+            buffer = Typer.type(buffer, InputManager.consoleInput);
+           
             Render.drawConsole();
             FPSCounter.tick();
             Display.update();

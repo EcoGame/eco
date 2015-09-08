@@ -23,7 +23,8 @@ public class Menu {
                 Util.quit(0);
             }
             Render.drawMainMenu();
-            InputManager.updateMenu();
+            InputManager.menuInput.update();
+            Typer.type("", InputManager.menuInput);
             UIManager.updateMenu();
             FPSCounter.tick();
             Display.update();

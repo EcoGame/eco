@@ -1,6 +1,9 @@
 package eco.ui;
 
-import eco.game.*;
+import eco.game.Main;
+import eco.game.SaveTask;
+import eco.game.ThreadManager;
+import eco.game.World;
 import eco.render.Camera;
 import eco.render.Render;
 import eco.render.RenderUtil;
@@ -9,188 +12,186 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 /**
- * This class handles keyboard and mouse input, passing it along to where ever
- * it needs to go
+ * A collection of various implementations of IInputManager
  *
- * @author phil, connor
+ * @author phil
  */
+public final class InputManager {
 
-public class InputManager {
+    public static final IInputManager gameInput = new IInputManager() {
+        @Override
+        public void run(int keycode) {
+            switch (keycode){
+                case Keyboard.KEY_Q:
+                    Render.camera = new Camera(-World.mapsize / 2f
+                            * Render.tilesize, -4f, World.mapsize / 2f
+                            * Render.tilesize);
+                    Log.info("Reset camera to default location");
+                    break;
+                case Keyboard.KEY_GRAVE:
+                case Keyboard.KEY_TAB:
+                    IGConsole.consoleLoop();
+                    break;
+                case Keyboard.KEY_ESCAPE:
+                    Main.paused ^= true;
+                    if (Main.paused) {
+                        ThreadManager.addJob(new SaveTask());
+                    }
+                    break;
+                case Keyboard.KEY_F10:
+                    RenderUtil.takeScreenshot();
+                    break;
+                case Keyboard.KEY_O:
+                    Render.overhead ^= true;
+                    break;
+            }
+        }
 
-    private static final float moveSpeed = 0.1f;
+        @Override
+        public void update(){
+            final float moveSpeed = 0.1f;
 
-    public static void update() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
-            Render.camera.yaw -= 0.5f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-            Render.camera.yaw += 0.5f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            Render.camera.moveForward(moveSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            Render.camera.moveRight(moveSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            Render.camera.moveBack(moveSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            Render.camera.moveLeft(moveSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            Render.camera.moveDown(moveSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            Render.camera.moveUp(moveSpeed);
-        }
-        while (Keyboard.next()) {
-            if (Keyboard.getEventKeyState()) {
-                switch (Keyboard.getEventKey()) {
-                    case Keyboard.KEY_Q:
-                        Render.camera = new Camera(-World.mapsize / 2f
-                                * Render.tilesize, -4f, World.mapsize / 2f
-                                * Render.tilesize);
-                        Log.info("Reset camera to default location");
-                        break;
-                    case Keyboard.KEY_GRAVE:
-                    case Keyboard.KEY_TAB:
-                        IGConsole.consoleLoop();
-                        break;
-                    case Keyboard.KEY_ESCAPE:
-                        Main.paused ^= true;
-                        if (Main.paused) {
-                            ThreadManager.addJob(new SaveTask());
-                        }
-                        break;
-                    case Keyboard.KEY_F10:
-                        RenderUtil.takeScreenshot();
-                        break;
-                    case Keyboard.KEY_O:
-                        Render.overhead ^= true;
-                        break;
-                }
+            if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
+                Render.camera.yaw -= 0.5f;
             }
-        }
-        while (Mouse.next()) {
-            if (Mouse.getEventButton() > -1) {
-                if (Mouse.getEventButtonState()) {
-                    UIManager.click(Mouse.getX(),
-                            Display.getHeight() - Mouse.getY());
-                }
+            if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
+                Render.camera.yaw += 0.5f;
             }
-        }
-    }
+            if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+                Render.camera.moveForward(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+                Render.camera.moveRight(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+                Render.camera.moveBack(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+                Render.camera.moveLeft(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+                Render.camera.moveDown(moveSpeed);
+            }
+            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+                Render.camera.moveUp(moveSpeed);
+            }
 
-    public static void updateMenu() {
-        while (Keyboard.next()) {
-            if (Keyboard.getEventKeyState()) {
-                switch (Keyboard.getEventKey()) {
-                    case Keyboard.KEY_GRAVE:
-                    case Keyboard.KEY_TAB:
-                        IGConsole.consoleLoop();
-                        break;
-                    case Keyboard.KEY_F10:
-                        RenderUtil.takeScreenshot();
-                        break;
+            while (Mouse.next()) {
+                if (Mouse.getEventButton() > -1) {
+                    if (Mouse.getEventButtonState()) {
+                        UIManager.click(Mouse.getX(),
+                                Display.getHeight() - Mouse.getY());
+                    }
                 }
             }
         }
-        while (Mouse.next()) {
-            if (Mouse.getEventButton() > -1) {
-                if (Mouse.getEventButtonState()) {
-                    UIManager.clickMenu(Mouse.getX(), Display.getHeight()
-                            - Mouse.getY());
-                }
-            }
-        }
-    }
+    };
 
-    public static void updatePause() {
-        while (Keyboard.next()) {
-            if (Keyboard.getEventKeyState()) {
-                switch (Keyboard.getEventKey()) {
-                    case Keyboard.KEY_F10:
-                        RenderUtil.takeScreenshot();
-                        break;
-                    case Keyboard.KEY_ESCAPE:
-                        Main.paused ^= true;
-                        break;
-                }
-            }
+    public static final IInputManager consoleInput = new IInputManager() {
+        @Override
+        public void update() {
+            IGConsole.adjustOffset(Mouse.getDWheel() / 100);
         }
-        while (Mouse.next()) {
-            if (Mouse.getEventButton() > -1) {
-                if (Mouse.getEventButtonState()) {
-                    UIManager.clickPause(Mouse.getX(), Display.getHeight()
-                            - Mouse.getY());
-                }
-            }
-        }
-    }
 
-    public static void updateGameOver() {
-        while (Keyboard.next()) {
-            if (Keyboard.getEventKeyState()) {
-                switch (Keyboard.getEventKey()) {
-                    case Keyboard.KEY_F10:
-                        RenderUtil.takeScreenshot();
-                        break;
-                }
+        @Override
+        public void run(int keycode) {
+            switch (keycode) {
+                case Keyboard.KEY_GRAVE:
+                case Keyboard.KEY_TAB:
+                    IGConsole.running = false;
+                    break;
+                case Keyboard.KEY_RETURN:
+                    IGConsole.logCommand(IGConsole.buffer);
+                    Command.onCommand(IGConsole.buffer);
+                    IGConsole.buffer = "";
+                    break;
+                case Keyboard.KEY_F10:
+                    RenderUtil.takeScreenshot();
+                    break;
+                case Keyboard.KEY_UP:
+                    IGConsole.adjustCommandOffset(1);
+                    break;
+                case Keyboard.KEY_DOWN:
+                    IGConsole.adjustCommandOffset(-1);
+                    break;
             }
         }
-        while (Mouse.next()) {
-            if (Mouse.getEventButton() > -1) {
-                if (Mouse.getEventButtonState()) {
-                    UIManager.clickGameOver(Mouse.getX(), Display.getHeight()
-                            - Mouse.getY());
-                }
-            }
-        }
-    }
+    };
 
-    public static void updateConsole(){
-        while (Keyboard.next()) {
-            if (Keyboard.getEventKeyState()) {
-                switch (Keyboard.getEventKey()) {
-                    case Keyboard.KEY_GRAVE:
-                    case Keyboard.KEY_TAB:
-                        IGConsole.running = false;
-                        break;
-                    case Keyboard.KEY_BACK:
-                    case Keyboard.KEY_DELETE:
-                        if (IGConsole.buffer.length() != 0){
-                            IGConsole.buffer = IGConsole.buffer.substring(0, IGConsole.buffer.length() - 1);
-                        }
-                        break;
-                    case Keyboard.KEY_RETURN:
-                        IGConsole.logCommand(IGConsole.buffer);
-                        Command.onCommand(IGConsole.buffer);
-                        IGConsole.buffer = "";
-                        break;
-                    case Keyboard.KEY_SPACE:
-                        IGConsole.buffer += " ";
-                        break;
-                    case Keyboard.KEY_F10:
-                        RenderUtil.takeScreenshot();
-                        break;
-                    case Keyboard.KEY_UP:
-                        IGConsole.adjustCommandOffset(1);
-                        break;
-                    case Keyboard.KEY_DOWN:
-                        IGConsole.adjustCommandOffset(-1);
-                        break;
-                    default:
-                        String value = Keyboard.getKeyName(Keyboard.getEventKey());
-                        if (value.length() == 1){
-                            IGConsole.buffer += value;
-                        }
-                        break;
+    public static final IInputManager menuInput = new IInputManager() {
+        @Override
+        public void update() {
+            while (Mouse.next()) {
+                if (Mouse.getEventButton() > -1) {
+                    if (Mouse.getEventButtonState()) {
+                        UIManager.clickMenu(Mouse.getX(), Display.getHeight()
+                                - Mouse.getY());
+                    }
                 }
             }
         }
 
-        IGConsole.adjustOffset(Mouse.getDWheel() / 100);
-    }
+        @Override
+        public void run(int keycode) {
+            switch (keycode) {
+                case Keyboard.KEY_GRAVE:
+                case Keyboard.KEY_TAB:
+                    IGConsole.consoleLoop();
+                    break;
+                case Keyboard.KEY_F10:
+                    RenderUtil.takeScreenshot();
+                    break;
+            }
+        }
+    };
+
+    public static final IInputManager pausedInput = new IInputManager() {
+        @Override
+        public void update() {
+            while (Mouse.next()) {
+                if (Mouse.getEventButton() > -1) {
+                    if (Mouse.getEventButtonState()) {
+                        UIManager.clickPause(Mouse.getX(), Display.getHeight()
+                                - Mouse.getY());
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void run(int keycode) {
+            switch (keycode) {
+                case Keyboard.KEY_F10:
+                    RenderUtil.takeScreenshot();
+                    break;
+                case Keyboard.KEY_ESCAPE:
+                    Main.paused ^= true;
+                    break;
+            }
+        }
+    };
+
+    public static final IInputManager gameOverInput = new IInputManager() {
+        @Override
+        public void update() {
+            while (Mouse.next()) {
+                if (Mouse.getEventButton() > -1) {
+                    if (Mouse.getEventButtonState()) {
+                        UIManager.clickGameOver(Mouse.getX(), Display.getHeight()
+                                - Mouse.getY());
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void run(int keycode) {
+            switch (keycode) {
+                case Keyboard.KEY_F10:
+                    RenderUtil.takeScreenshot();
+                    break;
+            }
+        }
+    };
 
 }

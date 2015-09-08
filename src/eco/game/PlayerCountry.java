@@ -1,11 +1,8 @@
 package eco.game;
 
-import eco.render.FPSCounter;
 import eco.render.MeshTask;
-import eco.render.Render;
 import eco.render.RenderUtil;
-import eco.ui.*;
-import org.lwjgl.opengl.Display;
+import eco.ui.MenuBar;
 
 /**
  * Simulates the player country
@@ -58,77 +55,10 @@ public class PlayerCountry extends Country {
     }
 
 
-    /* Normal game loop */
-    public static void gameLoop(PlayerCountry playerCountry) {
-        PlayerCountry.playerCountry = playerCountry;
-        Country.init();
-        Main.shouldBeInMenu = false;
-        while (!Main.shouldQuit) {
-            Command.update();
-            if (Display.isCloseRequested()) {
-                if (!Main.gameOver) {
-                    SaveUtil.createSave(playerCountry);
-                }
-                Util.quit(0);
-            }
-            if (Main.gameOver) {
-                Render.drawGameOver();
-                FPSCounter.tick();
-
-                InputManager.updateGameOver();
-                UIManager.updateGameOver();
-                UIManager.renderGameOver();
-                UIManager.renderGameOver2();
-
-                Display.update();
-                Display.sync(60);
-            } else if (!Main.paused) {
-                Main.frame++;
-                if (Main.frame >= Main.framesPerTick && !Main.paused
-                        && PlayerCountry.year < PlayerCountry.ticks) {
-                    PlayerCountry.year++;
-                    Country.globalTick();
-                    if (playerCountry.farmer.getPop() <= 0
-                            && playerCountry.warrior.getPop() <= 0) {
-                        Main.gameOver = true;
-                    }
-                    Main.frame = 0;
-                }
-                UIManager.update();
-                InputManager.update();
-                if (!Main.skipFrame) {
-                    Render.draw();
-                } else {
-                    Main.skipFrame = false;
-                }
-                FPSCounter.tick();
-                Display.update();
-                Display.sync(60);
-            } else {
-                Render.drawPaused();
-                InputManager.updatePause();
-
-                UIManager.renderPause();
-                UIManager.renderPause2();
-                UIManager.updatePaused();
-                FPSCounter.tick();
-                Display.update();
-                Display.sync(60);
-            }
-        }
-        //GeneticMaster.geneMaster();
-        if (!Main.gameOver) {
-            SaveUtil.createSave(playerCountry);
-
-        }
-        PlayerCountry.playerCountry = null;
-        Menu.mainMenu();
-    }
-
     public static void testGame() {
         Main.currentSave = -1;
         Main.shouldQuit = false;
-        gameLoop(new PlayerCountry());
+        Game.gameLoop(new PlayerCountry());
     }
 
 }
