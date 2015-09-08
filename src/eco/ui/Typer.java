@@ -9,7 +9,15 @@ import org.lwjgl.input.Keyboard;
  */
 public class Typer {
 
+    private static final int blinkInterval = 32;
+    private static int blinkCount = 0;
+    private static boolean blink = false;
+    public static final String blinkCharacter = "|";
+
     public static String type(String buffer, IInputManager inputManager){
+        if (buffer.endsWith(blinkCharacter)){
+            buffer = buffer.replace(blinkCharacter, "");
+        }
         while(Keyboard.next()){
             if (Keyboard.getEventKeyState()){
                 switch(Keyboard.getEventKey()){
@@ -36,7 +44,20 @@ public class Typer {
                 inputManager.run(Keyboard.getEventKey());
             }
         }
+
+        updateBlink();
+        if (blink){
+            buffer = buffer + blinkCharacter;
+        }
         return buffer;
+    }
+
+    private static void updateBlink(){
+        blinkCount++;
+        if (blinkCount > blinkInterval){
+            blinkCount = 0;
+            blink ^= true;
+        }
     }
 
 }

@@ -18,13 +18,14 @@ public class IGConsole {
     private static ArrayList<String> history = new ArrayList<>();
     private static ArrayList<String> commandHistory = new ArrayList<>();
     private static int offset = 0;
-    private static int commandOffset = 0;
+    private static int commandOffset = -1;
 
     public static final boolean enabled = true;
     public static String buffer;
 
     public static boolean running;
     public static String ps1 = "game@eco $ ";
+    public static String clear = "";
 
     public static void consoleLoop(){
         if (!enabled){
@@ -40,6 +41,13 @@ public class IGConsole {
             }
             Command.update();
 
+            if (!clear.isEmpty()){
+                buffer = clear;
+                if (clear.equals("|")){
+                    buffer = "";
+                }
+                clear = "";
+            }
             InputManager.consoleInput.update();
             buffer = Typer.type(buffer, InputManager.consoleInput);
            
@@ -78,10 +86,17 @@ public class IGConsole {
         commandOffset += amount;
         commandOffset = Math.max(0, commandOffset);
         commandOffset = Math.min(commandHistory.size() - 1, commandOffset);
-        if (commandOffset < 0){
-            commandOffset = 0;
+        if (commandOffset < -1){
+            commandOffset = -1;
         }
-        buffer = commandHistory.get(commandHistory.size() - 1 - commandOffset);
+        if (commandOffset == -1){
+            return;
+        }
+        try {
+            clear = commandHistory.get(commandHistory.size() - commandOffset - 1);
+        } catch (Exception e){
+            clear = "";
+        }
     }
 
     public static void adjustOffset(int amount) {

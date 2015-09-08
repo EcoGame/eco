@@ -101,9 +101,10 @@ public final class InputManager {
                     IGConsole.running = false;
                     break;
                 case Keyboard.KEY_RETURN:
+                    IGConsole.buffer = IGConsole.buffer.replace(Typer.blinkCharacter, " ");
                     IGConsole.logCommand(IGConsole.buffer);
                     Command.onCommand(IGConsole.buffer);
-                    IGConsole.buffer = "";
+                    IGConsole.clear = "|";
                     break;
                 case Keyboard.KEY_F10:
                     RenderUtil.takeScreenshot();

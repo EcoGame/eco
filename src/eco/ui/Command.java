@@ -40,6 +40,9 @@ public class Command {
             return;
         }
         String[] parts = command.split(" ");
+        if (parts.length == 0){
+            return;
+        }
         commandBuffer.add(parts[0]);
         if (parts.length >= 2) {
             String[] newParts = new String[parts.length - 1];
