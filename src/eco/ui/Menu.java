@@ -14,6 +14,7 @@ public class Menu {
     /* Main menu loop */
     /* returns if the display was closed */
     public static void mainMenu() {
+        Main.shouldBeInMenu = true;
         initMenu();
         while (Main.shouldBeInMenu) {
             Command.update();

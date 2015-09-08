@@ -1,6 +1,7 @@
 package eco.game;
 
 import eco.ui.Console;
+import eco.ui.Log;
 import eco.ui.Message;
 
 /**

@@ -1,6 +1,9 @@
 package eco.ui;
 
-import eco.game.*;
+import eco.game.Main;
+import eco.game.PlayerCountry;
+import eco.game.Util;
+import eco.game.World;
 import eco.render.RenderUtil;
 
 import java.util.ArrayList;
@@ -21,7 +24,9 @@ public class Command {
         helpCommands.add("debug -> toggles debug mode");
         helpCommands.add("foo -> a test command");
         helpCommands.add("splash -> changes the menu splashtext");
-        helpCommands.add("exit -> exits the program");
+        helpCommands.add("colortest -> displays all colors");
+        helpCommands.add("reset -> resets the console");
+        helpCommands.add("stop -> exits the program");
         helpCommands.add("exitgame -> returns to the menu");
         helpCommands.add("testgame -> starts a test game that will not be saved");
         helpCommands.add("skycolor -> changes the sky color");
@@ -53,6 +58,9 @@ public class Command {
                 case "foo":
                     Log.println("bar!");
                     break;
+                case "colortest":
+                    colorTest();
+                    break;
                 case "debug":
                     Main.fullDebug ^= true;
                     World.invalidateChunkCache();
@@ -60,7 +68,7 @@ public class Command {
                 case "splash":
                     SplashText.newSplash();
                     break;
-                case "exit":
+                case "stop":
                     Util.quit(0);
                     break;
                 case "exitgame":
@@ -70,6 +78,9 @@ public class Command {
                 case "testgame":
                     clearBuffers();
                     PlayerCountry.testGame();
+                    break;
+                case "reset":
+                    IGConsole.reset();
                     break;
                 case "skycolor":
                     skyColor(args);
@@ -122,6 +133,18 @@ public class Command {
     private static void clearBuffers() {
         commandBuffer.clear();
         argumentBuffer.clear();
+    }
+
+    private static void colorTest(){
+        final String str = " ::";
+        Log.println(Colors.white.toString() + str);
+        Log.println(Log.ANSI_BLACK + Colors.black.toString() +  str);
+        Log.println(Log.ANSI_RED + Colors.red.toString() +  str);
+        Log.println(Log.ANSI_GREEN + Colors.green.toString() +  str);
+        Log.println(Log.ANSI_YELLOW + Colors.yellow.toString() +  str);
+        Log.println(Log.ANSI_BLUE + Colors.blue.toString() +  str);
+        Log.println(Log.ANSI_PURPLE + Colors.purple.toString() +  str);
+        Log.println(Log.ANSI_CYAN + Colors.cyan.toString() +  str);
     }
 
 }

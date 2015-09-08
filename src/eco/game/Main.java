@@ -2,6 +2,7 @@ package eco.game;
 
 import eco.render.RenderUtil;
 import eco.ui.Console;
+import eco.ui.Log;
 import eco.ui.Menu;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;

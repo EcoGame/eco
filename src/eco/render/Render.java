@@ -1,16 +1,14 @@
 package eco.render;
 
 import eco.game.*;
-import eco.ui.IGConsole;
-import eco.ui.Message;
-import eco.ui.SplashText;
-import eco.ui.UIManager;
+import eco.ui.*;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -510,7 +508,14 @@ public class Render {
 
     /* draw the console */
     public static void drawConsole(){
+        RenderUtil.prepDraw();
         RenderUtil.initOrtho();
+
+        if (Main.shouldBeInMenu){
+            drawMainMenu();
+        } else{
+            draw();
+        }
 
         if (consoleAnim < 0){
             consoleAnim += 30;
@@ -518,7 +523,7 @@ public class Render {
         }
 
         final float width = 500;
-        final float height = 100;
+        final float height = 220;
 
         glDisable(GL_TEXTURE_2D);
 
@@ -538,7 +543,56 @@ public class Render {
 
         glEnable(GL_TEXTURE_2D);
 
-        RenderUtil.drawString(IGConsole.ps1+IGConsole.buffer, Main.width - width + 10, 10);
+        final int numLines = 8;
+        int offset = IGConsole.getOffset();
+        float ypos = 5;
+
+
+        ArrayList<String> history = IGConsole.getHistory();
+        String line;
+        Color color;
+        if (history.size() > numLines) {
+            offset = history.size() - offset - numLines;
+        }
+        if (offset < 0){
+            offset = 0;
+        }
+        for (int i = 0; i < numLines; i++){
+            if (i + offset < history.size()){
+                line = history.get(i + offset);
+            } else{
+                break;
+            }
+
+            color = Colors.white;
+            if (line.contains(Log.ANSI_BLACK)){
+                line = line.replace(Log.ANSI_BLACK, "");
+                color = Colors.black;
+            } else if (line.contains(Log.ANSI_RED)){
+                line = line.replace(Log.ANSI_RED, "");
+                color = Colors.red;
+            } else if (line.contains(Log.ANSI_GREEN)){
+                line = line.replace(Log.ANSI_GREEN, "");
+                color = Colors.green;
+            } else if (line.contains(Log.ANSI_YELLOW)){
+                line = line.replace(Log.ANSI_YELLOW, "");
+                color = Colors.yellow;
+            } else if (line.contains(Log.ANSI_BLUE)){
+                line = line.replace(Log.ANSI_BLUE, "");
+                color = Colors.blue;
+            } else if (line.contains(Log.ANSI_PURPLE)){
+                line = line.replace(Log.ANSI_PURPLE, "");
+                color = Colors.purple;
+            } else if (line.contains(Log.ANSI_CYAN)){
+                line = line.replace(Log.ANSI_CYAN, "");
+                color = Colors.cyan;
+            }
+
+            RenderUtil.font.drawString(Main.width - width + 10, ypos, line, color);
+            ypos += RenderUtil.font.getHeight(line);
+        }
+
+        RenderUtil.drawString(IGConsole.ps1+IGConsole.buffer, Main.width - width + 10, ypos);
     }
 
 }

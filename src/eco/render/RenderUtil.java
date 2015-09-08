@@ -1,6 +1,7 @@
 package eco.render;
 
 import eco.game.*;
+import eco.ui.Log;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;

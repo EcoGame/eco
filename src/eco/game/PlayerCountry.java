@@ -62,7 +62,7 @@ public class PlayerCountry extends Country {
     public static void gameLoop(PlayerCountry playerCountry) {
         PlayerCountry.playerCountry = playerCountry;
         Country.init();
-        Main.shouldBeInMenu = true;
+        Main.shouldBeInMenu = false;
         while (!Main.shouldQuit) {
             Command.update();
             if (Display.isCloseRequested()) {

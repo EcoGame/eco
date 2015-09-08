@@ -162,6 +162,7 @@ public class InputManager {
                         }
                         break;
                     case Keyboard.KEY_RETURN:
+                        IGConsole.logCommand(IGConsole.buffer);
                         Command.onCommand(IGConsole.buffer);
                         IGConsole.buffer = "";
                         break;
@@ -170,6 +171,12 @@ public class InputManager {
                         break;
                     case Keyboard.KEY_F10:
                         RenderUtil.takeScreenshot();
+                        break;
+                    case Keyboard.KEY_UP:
+                        IGConsole.adjustCommandOffset(1);
+                        break;
+                    case Keyboard.KEY_DOWN:
+                        IGConsole.adjustCommandOffset(-1);
                         break;
                     default:
                         String value = Keyboard.getKeyName(Keyboard.getEventKey());
@@ -180,6 +187,8 @@ public class InputManager {
                 }
             }
         }
+
+        IGConsole.adjustOffset(Mouse.getDWheel() / 100);
     }
 
 }

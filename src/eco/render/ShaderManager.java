@@ -1,6 +1,6 @@
 package eco.render;
 
-import eco.game.Log;
+import eco.ui.Log;
 import org.lwjgl.opengl.*;
 
 import java.io.BufferedReader;

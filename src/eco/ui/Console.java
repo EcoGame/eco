@@ -1,6 +1,5 @@
 package eco.ui;
 
-import eco.game.Log;
 import eco.game.ThreadManager;
 
 import java.util.Scanner;
