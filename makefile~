@@ -8,7 +8,7 @@ run:
 	@echo "Running..."
 	java -Djava.library.path=native -jar build/libs/eco.jar
 
-compile:
+build:
 	make clean
 	@echo "Starting build..."	
 	gradle build

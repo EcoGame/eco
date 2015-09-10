@@ -15,8 +15,8 @@ public class TextButton extends eco.ui.Button {
     private String text;
 
     public TextButton(float x, float y, float width, float height, int tex,
-                      int tey, int texselected, int teyselected, String text) {
-        super(x, y, width, tex, tey, texselected, teyselected);
+                      int tey, int texselected, int teyselected, IClickEvent action, String text) {
+        super(x, y, width, tex, tey, texselected, teyselected, action);
         this.width = width;
         this.height = height;
         this.text = text;
@@ -27,6 +27,7 @@ public class TextButton extends eco.ui.Button {
                 (int) height);
         if (rect.contains(mousex, mousey)) {
             setClickFlag(true);
+            action.onClick(this);
         }
     }
 

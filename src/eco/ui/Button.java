@@ -35,8 +35,10 @@ public class Button {
 
     private int oversize;
 
+    protected IClickEvent action;
+
     public Button(float x, float y, float size, int tex, int tey,
-                  int texselected, int teyselected) {
+                  int texselected, int teyselected, IClickEvent action) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -44,12 +46,14 @@ public class Button {
         this.tey = tey;
         this.texselected = texselected;
         this.teyselected = teyselected;
+        this.action = action;
     }
 
     public void click(float mousex, float mousey) {
         Rectangle rect = new Rectangle((int) x, (int) y, (int) size, (int) size);
         if (rect.contains(mousex, mousey)) {
             clickFlag = true;
+            action.onClick(this);
         }
     }
 

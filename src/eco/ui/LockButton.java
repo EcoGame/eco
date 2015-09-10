@@ -7,8 +7,8 @@ public class LockButton extends ToggleButton {
     public boolean lock = true;
 
     public LockButton(float x, float y, float size, int tex, int tey,
-                      int texselected, int teyselected, boolean on) {
-        super(x, y, size, tex, tey, texselected, teyselected, on);
+                      int texselected, int teyselected, IClickEvent action, boolean on) {
+        super(x, y, size, tex, tey, texselected, teyselected, action, on);
     }
 
     public void click(float mousex, float mousey) {
@@ -20,6 +20,7 @@ public class LockButton extends ToggleButton {
                 lock = false;
             } else {
                 setClickFlag(true);
+                action.onClick(this);
             }
         }
     }

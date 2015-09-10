@@ -25,17 +25,17 @@ public class MenuBar {
     private static int pane = 0;
 
     private static ToggleButton statsPane = new ToggleButton(0,
-            10 + (6f * Main.height / 8f), 32, 6, 2, 7, 2, true);
+            10 + (6f * Main.height / 8f), 32, 6, 2, 7, 2, ClickEvents.dummy, true);
     private static ToggleButton econPane = new ToggleButton(0,
-            10 + (6f * Main.height / 8f) + 32, 32, 6, 2, 7, 2, false);
+            10 + (6f * Main.height / 8f) + 32, 32, 6, 2, 7, 2,ClickEvents.dummy, false);
     private static ToggleButton warPane = new ToggleButton(0,
-            10 + (6f * Main.height / 8f) + 64, 32, 6, 2, 7, 2, false);
+            10 + (6f * Main.height / 8f) + 64, 32, 6, 2, 7, 2,ClickEvents.dummy, false);
     private static ToggleButton logPane = new ToggleButton(0,
-            10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, false);
+            10 + (6f * Main.height / 8f) + 96, 32, 6, 2, 7, 2, ClickEvents.dummy,false);
     private static ToggleButton graphsPane = new ToggleButton(0,
-            10 + (6f * Main.height / 8f) + 128, 32, 6, 2, 7, 2, false);
+            10 + (6f * Main.height / 8f) + 128, 32, 6, 2, 7, 2,ClickEvents.dummy, false);
 
-    private static ArrayList<Button> buttons = new ArrayList<Button>();
+    private static ArrayList<Button> buttons = new ArrayList<>();
     private static TextureAtlas atlas = Render.atlas;
 
     // =============//
@@ -43,36 +43,36 @@ public class MenuBar {
     // =============//
 
 
-    private static ArrayList<Button> pane0Buttons = new ArrayList<Button>();
+    private static ArrayList<Button> pane0Buttons = new ArrayList<>();
 
     // =========//
     // War Pane //
     // =========//
-    private static Button warUp = new Button(40, 575, 48, 0, 2, 1, 2);
-    private static Button warDown = new Button(40, 645, 48, 2, 2, 3, 2);
+    private static Button warUp = new Button(40, 575, 48, 0, 2, 1, 2, ClickEvents.dummy);
+    private static Button warDown = new Button(40, 645, 48, 2, 2, 3, 2, ClickEvents.dummy);
 
     private static TextButton warOne = new TextButton(100,
-            (Main.height / 8f * 6f) + 16, 176, 20, 6, 2, 7, 2, "Declare War");
+            (Main.height / 8f * 6f) + 16, 176, 20, 6, 2, 7, 2,ClickEvents.dummy, "Declare War");
     private static TextButton warTwo = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 1), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 1), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warThree = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 2), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 2), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warFour = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 3), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 3), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warFive = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 4), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 4), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warSix = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 5), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 5), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warSeven = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 6), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 6), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
     private static TextButton warEight = new TextButton(100,
-            (Main.height / 8f * 6f) + 16 + (20 * 7), 176, 20, 6, 2, 7, 2,
+            (Main.height / 8f * 6f) + 16 + (20 * 7), 176, 20, 6, 2, 7, 2,ClickEvents.dummy,
             "Declare War");
 
     private static ArrayList<Button> pane1Buttons = new ArrayList<Button>();
@@ -89,10 +89,10 @@ public class MenuBar {
     // =============//
     // Logging Pane //
     // =============//
-    private static Button logUp = new Button(40, 575, 48, 0, 2, 1, 2);
-    private static Button logDown = new Button(40, 645, 48, 2, 2, 3, 2);
+    private static Button logUp = new Button(40, 575, 48, 0, 2, 1, 2,ClickEvents.dummy);
+    private static Button logDown = new Button(40, 645, 48, 2, 2, 3, 2,ClickEvents.dummy);
 
-    private static ArrayList<Button> pane2Buttons = new ArrayList<Button>();
+    private static ArrayList<Button> pane2Buttons = new ArrayList<>();
 
     private static int logOff = 0;
     private static int logPos;
@@ -113,39 +113,39 @@ public class MenuBar {
             710, "Score (Other)",
             new Treble<>(129 / 255f, 87 / 255f, 87 / 255f));
 
-    private static ArrayList<Graph> graphs = new ArrayList<Graph>();
+    private static ArrayList<Graph> graphs = new ArrayList<>();
 
     // =============//
     // Economy Pane //
     // =============//
     private static ToggleButton toggleFeedDisplaced = new ToggleButton(900,
-            657, 25, 4, 2, 5, 2, true);
+            657, 25, 4, 2, 5, 2,ClickEvents.dummy, true);
     private static ToggleButton toggleFavorWarrior = new ToggleButton(900, 627,
-            25, 4, 2, 5, 2, false);
+            25, 4, 2, 5, 2,ClickEvents.dummy, false);
 
     private static Button increaseWarriorRatio = new Button(525, 642, 20, 0, 2,
-            1, 2);
+            1, 2, ClickEvents.dummy);
     private static Button decreaseWarriorRatio = new Button(525, 672, 20, 2, 2,
-            3, 2);
+            3, 2, ClickEvents.dummy);
 
     private static ToggleButton toggleCutTrees = new ToggleButton(900, 597, 25,
-            4, 2, 5, 2, true);
+            4, 2, 5, 2, ClickEvents.dummy,true);
 
     private static ToggleButton toggleForceConscription = new ToggleButton(900,
-            567, 25, 4, 2, 5, 2, true);
+            567, 25, 4, 2, 5, 2, ClickEvents.dummy,true);
 
     private static ToggleButton toggleVeryFast = new ToggleButton(35, 595, 25, 8, 5, 9, 5,
-            false);
+            ClickEvents.dummy, false);
     private static ToggleButton toggleFast = new ToggleButton(70, 595, 25, 8, 5, 9, 5,
-            false);
+            ClickEvents.dummy,false);
     private static ToggleButton toggleNormal = new ToggleButton(105, 595, 25, 8, 6, 9, 6,
-            true);
+            ClickEvents.dummy,true);
     private static ToggleButton toggleSlow = new ToggleButton(140, 595, 25, 8, 6, 9, 6,
-            false);
+            ClickEvents.dummy, false);
     private static ToggleButton togglePaused = new ToggleButton(175, 595, 25, 8, 4, 9, 4,
-            false);
+            ClickEvents.dummy,false);
 
-    private static ArrayList<Button> pane4Buttons = new ArrayList<Button>();
+    private static ArrayList<Button> pane4Buttons = new ArrayList<>();
 
     static {
         buttons.add(statsPane);

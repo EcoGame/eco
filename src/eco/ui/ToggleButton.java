@@ -18,8 +18,8 @@ public class ToggleButton extends eco.ui.Button {
     private boolean toggle = false;
 
     public ToggleButton(float x, float y, float size, int tex, int tey,
-                        int texselected, int teyselected, boolean on) {
-        super(x, y, size, tex, tey, texselected, teyselected);
+                        int texselected, int teyselected, IClickEvent action, boolean on) {
+        super(x, y, size, tex, tey, texselected, teyselected, action);
         toggle = on;
     }
 
@@ -29,6 +29,7 @@ public class ToggleButton extends eco.ui.Button {
         if (rect.contains(mousex, mousey)) {
             setClickFlag(true);
             toggle ^= true;
+            action.onClick(this);
         }
     }
 

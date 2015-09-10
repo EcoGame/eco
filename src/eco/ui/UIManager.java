@@ -26,51 +26,51 @@ public class UIManager {
     public static int cursorTick = 1;
 
     public static TextButton startSaveGame1 = new TextButton(
-            (Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, Main.saveName1);
+            (Main.width / 2) - 128, 256, 256, 32, 6, 2, 7, 2, ClickEvents.startGameOne, Main.saveName1);
     public static TextButton startSaveGame2 = new TextButton(
-            (Main.width / 2) - 128, 286, 256, 32, 6, 2, 7, 2, Main.saveName2);
+            (Main.width / 2) - 128, 286, 256, 32, 6, 2, 7, 2, ClickEvents.startGameTwo, Main.saveName2);
     public static TextButton startSaveGame3 = new TextButton(
-            (Main.width / 2) - 128, 316, 256, 32, 6, 2, 7, 2, Main.saveName3);
+            (Main.width / 2) - 128, 316, 256, 32, 6, 2, 7, 2, ClickEvents.startGameThree, Main.saveName3);
     public static TextButton startSaveGame4 = new TextButton(
-            (Main.width / 2) - 128, 346, 256, 32, 6, 2, 7, 2, Main.saveName4);
+            (Main.width / 2) - 128, 346, 256, 32, 6, 2, 7, 2, ClickEvents.startGameFour,  Main.saveName4);
     public static TextButton startSaveGame5 = new TextButton(
-            (Main.width / 2) - 128, 376, 256, 32, 6, 2, 7, 2, Main.saveName5);
+            (Main.width / 2) - 128, 376, 256, 32, 6, 2, 7, 2, ClickEvents.startGameFive, Main.saveName5);
 
     private static LockButton delete1 = new LockButton(
-            (Main.width / 2) + 128 + 8, 256, 24, 6, 3, 7, 3, false);
+            (Main.width / 2) + 128 + 8, 256, 24, 6, 3, 7, 3, ClickEvents.deleteSave1, false);
     private static LockButton delete2 = new LockButton(
-            (Main.width / 2) + 128 + 8, 286 + 2, 24, 6, 3, 7, 3, false);
+            (Main.width / 2) + 128 + 8, 286 + 2, 24, 6, 3, 7, 3, ClickEvents.deleteSave2, false);
     private static LockButton delete3 = new LockButton(
-            (Main.width / 2) + 128 + 8, 316 + 4, 24, 6, 3, 7, 3, false);
+            (Main.width / 2) + 128 + 8, 316 + 4, 24, 6, 3, 7, 3, ClickEvents.deleteSave3,  false);
     private static LockButton delete4 = new LockButton(
-            (Main.width / 2) + 128 + 8, 346 + 6, 24, 6, 3, 7, 3, false);
+            (Main.width / 2) + 128 + 8, 346 + 6, 24, 6, 3, 7, 3, ClickEvents.deleteSave4, false);
     private static LockButton delete5 = new LockButton(
-            (Main.width / 2) + 128 + 8, 376 + 8, 24, 6, 3, 7, 3, false);
+            (Main.width / 2) + 128 + 8, 376 + 8, 24, 6, 3, 7, 3, ClickEvents.deleteSave5, false);
 
-    private static ToggleTextButton generatorIsland = new ToggleTextButton(
-            (Main.width / 2) + 256, 256, 256, 32, 6, 2, 7, 2, "Island", true);
-    private static ToggleTextButton generatorArchipelago = new ToggleTextButton(
-            (Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, "Archipelago",
+    protected static ToggleTextButton generatorIsland = new ToggleTextButton(
+            (Main.width / 2) + 256, 256, 256, 32, 6, 2, 7, 2, ClickEvents.genIslands, "Island", true);
+    protected static ToggleTextButton generatorArchipelago = new ToggleTextButton(
+            (Main.width / 2) + 256, 320, 256, 32, 6, 2, 7, 2, ClickEvents.genArchipelago, "Archipelago",
             false);
-    private static ToggleTextButton generatorMountains = new ToggleTextButton(
-            (Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, "Mountains",
+    protected static ToggleTextButton generatorMountains = new ToggleTextButton(
+            (Main.width / 2) + 256, 384, 256, 32, 6, 2, 7, 2, ClickEvents.genMountains, "Mountains",
             false);
 
-    private static TextButton exitToMenu = new TextButton(
+    protected static TextButton exitToMenu = new TextButton(
             (Main.width / 2) - 128, Main.height / 2f, 256, 32, 6, 2, 7, 2,
-            "Exit Game");
+            ClickEvents.exitToMenu, "Exit Game");
 
-    private static TextButton exitToMenuGameOver = new TextButton(
+    protected static TextButton exitToMenuGameOver = new TextButton(
             (Main.width / 2) - 128, (Main.height / 2f) + 42, 256, 32, 6, 2, 7,
-            2, "Exit Game");
-    private static TextButton loadLastSave = new TextButton(
+            2, ClickEvents.exitToMenu, "Exit Game");
+    protected static TextButton loadLastSave = new TextButton(
             (Main.width / 2) - 128, (Main.height / 2f) + 82, 256, 32, 6, 2, 7,
-            2, "Load Last Save");
+            2, ClickEvents.loadLastSave, "Load Last Save");
 
-    private static ArrayList<Button> buttons = new ArrayList<Button>();
-    private static ArrayList<Button> menuButtons = new ArrayList<Button>();
-    private static ArrayList<Button> pauseButtons = new ArrayList<Button>();
-    private static ArrayList<Button> gameOverButtons = new ArrayList<Button>();
+    private static ArrayList<Button> buttons = new ArrayList<>();
+    private static ArrayList<Button> menuButtons = new ArrayList<>();
+    private static ArrayList<Button> pauseButtons = new ArrayList<>();
+    private static ArrayList<Button> gameOverButtons = new ArrayList<>();
 
     private static final String emptyWorldName = "Untitled";
 
@@ -111,244 +111,16 @@ public class UIManager {
 
     public static void updatePaused() {
         if (exitToMenu.checkForClick()) {
-            Main.shouldBeInMenu = true;
-            Main.shouldQuit = true;
+
         }
     }
 
     public static void updateGameOver() {
-        if (exitToMenuGameOver.checkForClick()) {
-            Main.shouldBeInMenu = true;
-            Main.shouldQuit = true;
-        }
-        if (loadLastSave.checkForClick()) {
-            Main.gameOver = false;
-            SaveUtil.readSave();
-        }
+
     }
 
     public static void updateMenu() {
-        if (delete1.checkForClick()) {
-            SaveUtil.deleteSave(1);
-        }
-        if (delete2.checkForClick()) {
-            SaveUtil.deleteSave(2);
-        }
-        if (delete3.checkForClick()) {
-            SaveUtil.deleteSave(3);
-        }
-        if (delete4.checkForClick()) {
-            SaveUtil.deleteSave(4);
-        }
-        if (delete5.checkForClick()) {
-            SaveUtil.deleteSave(5);
-        }
-        word = "";
-        if (startSaveGame1.checkForClick()) {
-            if (!SaveUtil.doesSaveExist(1)) {
-                Main.saveName1 = "";
-                while (!word.equals("@")) {
-                    cursorTick++;
-                    word = Typing.currentMenuName(word, cursorTick);
-                    if (word.equals("@")) {
-                        break;
-                    }
-                    if (word.equals("^")) {
-                        Main.saveName1 = "Create a save";
-                        startSaveGame1.setText("Create a save");
-                        return;
-                    }
-                    Main.saveName1 = word;
-                    startSaveGame1.setText(word);
-                    RenderUtil.initOrtho();
-                    renderMenu();
-                    renderMenu2();
-                    Render.drawMainMenu();
-                    Display.update();
-                    Display.sync(20);
-                }
-            }
-            if (Main.saveName1.contains("|")) {
-                Main.saveName1 = Main.saveName1.replace("|", "");
-                startSaveGame1.setText(Main.saveName1);
-            }
-            if (Main.saveName1.length() == 0) {
-                Main.saveName1 = emptyWorldName;
-                startSaveGame1.setText(Main.saveName1);
-            }
-            Main.currentSave = 1;
-            Main.shouldQuit = false;
-            Game.gameLoop(new PlayerCountry());
-        }
 
-        if (startSaveGame2.checkForClick()) {
-            if (!SaveUtil.doesSaveExist(2)) {
-                Main.saveName2 = "";
-                while (!word.equals("@")) {
-                    cursorTick++;
-                    word = Typing.currentMenuName(word, cursorTick);
-                    if (word.equals("@")) {
-                        break;
-                    }
-                    if (word.equals("^")) {
-                        Main.saveName2 = "Create a save";
-                        startSaveGame2.setText("Create a save");
-                        return;
-                    }
-                    Main.saveName2 = word;
-                    startSaveGame2.setText(word);
-                    RenderUtil.initOrtho();
-                    renderMenu();
-                    renderMenu2();
-                    Render.drawMainMenu();
-                    Display.update();
-                    Display.sync(20);
-                }
-            }
-            if (Main.saveName2.contains("|")) {
-                Main.saveName2 = Main.saveName2.replace("|", "");
-                startSaveGame2.setText(Main.saveName2);
-                startSaveGame2.setText(word);
-            }
-            if (Main.saveName2.length() == 0) {
-                Main.saveName2 = emptyWorldName;
-                startSaveGame2.setText(Main.saveName1);
-            }
-            Main.currentSave = 2;
-            Main.shouldQuit = false;
-            Game.gameLoop(new PlayerCountry());
-        }
-
-        if (startSaveGame3.checkForClick()) {
-            if (!SaveUtil.doesSaveExist(3)) {
-                Main.saveName3 = "";
-                while (!word.equals("@")) {
-                    cursorTick++;
-                    word = Typing.currentMenuName(word, cursorTick);
-                    if (word.equals("@")) {
-                        break;
-                    }
-                    if (word.equals("^")) {
-                        Main.saveName3 = "Create a save";
-                        startSaveGame2.setText("Create a save");
-                        return;
-                    }
-                    Main.saveName3 = word;
-                    startSaveGame3.setText(word);
-                    RenderUtil.initOrtho();
-                    renderMenu();
-                    renderMenu2();
-                    Render.drawMainMenu();
-                    Display.update();
-                    Display.sync(20);
-                }
-            }
-            if (Main.saveName3.contains("|")) {
-                Main.saveName3 = Main.saveName3.replace("|", "");
-                startSaveGame3.setText(Main.saveName3);
-            }
-            if (Main.saveName3.length() == 0) {
-                Main.saveName3 = emptyWorldName;
-                startSaveGame3.setText(Main.saveName1);
-            }
-            Main.currentSave = 3;
-            Main.shouldQuit = false;
-            Game.gameLoop(new PlayerCountry());
-
-        }
-
-        if (startSaveGame4.checkForClick()) {
-            if (!SaveUtil.doesSaveExist(4)) {
-                Main.saveName4 = "";
-                while (!word.equals("@")) {
-                    cursorTick++;
-                    word = Typing.currentMenuName(word, cursorTick);
-                    if (word.equals("@")) {
-                        break;
-                    }
-                    if (word.equals("^")) {
-                        Main.saveName4 = "Create a save";
-                        startSaveGame4.setText("Create a save");
-                        return;
-                    }
-                    Main.saveName4 = word;
-                    startSaveGame4.setText(word);
-                    RenderUtil.initOrtho();
-                    renderMenu();
-                    renderMenu2();
-                    Render.drawMainMenu();
-                    Display.update();
-                    Display.sync(20);
-                }
-            }
-            if (Main.saveName4.contains("|")) {
-                Main.saveName4 = Main.saveName4.replace("|", "");
-                startSaveGame4.setText(Main.saveName4);
-            }
-            if (Main.saveName4.length() == 0) {
-                Main.saveName4 = emptyWorldName;
-                startSaveGame4.setText(Main.saveName1);
-            }
-            Main.currentSave = 4;
-            Main.shouldQuit = false;
-            Game.gameLoop(new PlayerCountry());
-        }
-
-        if (startSaveGame5.checkForClick()) {
-            if (!SaveUtil.doesSaveExist(5)) {
-                Main.saveName5 = "";
-                while (!word.equals("@")) {
-                    cursorTick++;
-                    word = Typing.currentMenuName(word, cursorTick);
-                    if (word.equals("@")) {
-                        break;
-                    }
-                    if (word.equals("^")) {
-                        Main.saveName5 = "Create a save";
-                        startSaveGame5.setText("Create a save");
-                        return;
-                    }
-                    Main.saveName5 = word;
-                    startSaveGame5.setText(word);
-                    RenderUtil.initOrtho();
-                    renderMenu();
-                    renderMenu2();
-                    Render.drawMainMenu();
-                    Display.update();
-                    Display.sync(20);
-                }
-            }
-            if (Main.saveName5.contains("|")) {
-                Main.saveName5 = Main.saveName5.replace("|", "");
-                startSaveGame5.setText(Main.saveName5);
-            }
-            if (Main.saveName5.length() == 0) {
-                Main.saveName5 = emptyWorldName;
-                startSaveGame5.setText(Main.saveName1);
-            }
-            Main.currentSave = 5;
-            Main.shouldQuit = false;
-            Game.gameLoop(new PlayerCountry());
-
-        }
-
-        if (generatorIsland.checkForClick()) {
-            PlayerCountry.generatorToUse = 0;
-            generatorArchipelago.setToggle(false);
-            generatorMountains.setToggle(false);
-        }
-
-        if (generatorArchipelago.checkForClick()) {
-            PlayerCountry.generatorToUse = 1;
-            generatorIsland.setToggle(false);
-            generatorMountains.setToggle(false);
-        }
-
-        if (generatorMountains.checkForClick()) {
-            PlayerCountry.generatorToUse = 2;
-            generatorIsland.setToggle(false);
-            generatorArchipelago.setToggle(false);
-        }
     }
 
     public static void click(float x, float y) {
@@ -446,6 +218,84 @@ public class UIManager {
         MenuBar.render2(Mouse.getX(), Main.height - Mouse.getY());
         for (Button b : buttons) {
             b.render2();
+        }
+    }
+
+    protected static void startGame(int save, TextButton button){
+        String word = "";
+        if (!SaveUtil.doesSaveExist(save)) {
+            setSaveName("", save);
+            while (!word.equals("@")) {
+                cursorTick++;
+                word = Typing.currentMenuName(word, cursorTick);
+                if (word.equals("@")) {
+                    break;
+                }
+                if (word.equals("^")) {
+                    setSaveName("Create a save", save);
+                    button.setText("Create a save");
+                    return;
+                }
+                setSaveName(word, save);
+                button.setText(word);
+                RenderUtil.initOrtho();
+                renderMenu();
+                renderMenu2();
+                Render.drawMainMenu();
+                Display.update();
+                Display.sync(20);
+            }
+        }
+        if (getSaveName(save).contains("|")) {
+            setSaveName(getSaveName(save).replace("|", ""), save);
+            button.setText(button.getText());
+        }
+        if (getSaveName(save).length() == 0) {
+            setSaveName(emptyWorldName, save);
+            button.setText(getSaveName(save));
+        }
+        Main.currentSave = save;
+        Main.shouldQuit = false;
+        Game.gameLoop(new PlayerCountry());
+    }
+
+    private static String getSaveName(int save){
+        switch(save){
+            case 1:
+                return Main.saveName1;
+            case 2:
+                return Main.saveName2;
+            case 3:
+                return Main.saveName3;
+            case 4:
+                return Main.saveName4;
+            case 5:
+                return Main.saveName5;
+            default:
+                Log.severe("Trying to get name of invalid save '"+save+"'!");
+                return "";
+        }
+    }
+
+    private static void setSaveName(String name, int save){
+        switch(save){
+            case 1:
+                Main.saveName1 = name;
+                break;
+            case 2:
+                Main.saveName2 = name;
+                break;
+            case 3:
+                Main.saveName3 = name;
+                break;
+            case 4:
+                Main.saveName4 = name;
+                break;
+            case 5:
+                Main.saveName5 = name;
+                break;
+            default:
+                Log.severe("Trying to set name of invalid save '"+save+"'!");
         }
     }
 

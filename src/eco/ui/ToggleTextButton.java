@@ -24,9 +24,9 @@ public class ToggleTextButton extends eco.ui.Button {
     private boolean toggle;
 
     public ToggleTextButton(float x, float y, float width, float height,
-                            int tex, int tey, int texselected, int teyselected, String text,
+                            int tex, int tey, int texselected, int teyselected, IClickEvent action, String text,
                             boolean on) {
-        super(x, y, width, tex, tey, texselected, teyselected);
+        super(x, y, width, tex, tey, texselected, teyselected, action);
         this.width = width;
         this.height = height;
         this.text = text;
@@ -39,6 +39,7 @@ public class ToggleTextButton extends eco.ui.Button {
         if (rect.contains(mousex, mousey)) {
             setClickFlag(true);
             toggle ^= true;
+            action.onClick(this);
         }
     }
 
