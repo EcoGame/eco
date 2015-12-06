@@ -1,4 +1,5 @@
-language: java
+language: bash
+script: bash compi.sh build
 
 notifications:
   slack: ecogame:mw3q3Eg210fnAPNVn546eMra
