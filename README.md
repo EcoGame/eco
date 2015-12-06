@@ -9,7 +9,7 @@ should install cygwin and another operating system ;)
 
 compi.sh usage:
 
-`compi.sh [operation]
+`compi.sh [operation]`
 
 * No operation (default) - build, run, then clean
 
