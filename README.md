@@ -7,7 +7,7 @@ Building is done through `compi.sh`, so you need a way to run a shell
 script. Any terminal should work on \*nix systems, on Windows you
 should install cygwin and another operating system ;)
 
-`compi.sh` usage:
+compi.sh usage:
 
 `compi.sh [operation]
 
