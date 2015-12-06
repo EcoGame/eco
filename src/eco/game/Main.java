@@ -66,7 +66,7 @@ public class Main {
 
     /* Main method */
     public static void main(String[] args) {
-        Log.title("Welcome to EcoLand!");
+        Log.title("Welcome to EcoLand!")
         Log.title("Version " + vn);
         initDisplay();
         Menu.initMenu();
