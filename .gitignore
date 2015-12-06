@@ -16,3 +16,8 @@ hs_err_pid*
 
 # Trash files
 .DS_Store
+
+# VIM files
+*~
+*.swp
+*.swo
